@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patrice Kenmoé — Répertoire</title>
+<style>
+  :root{
+    --bg:#0A0D18;
+    --bg-raised:#0F1322;
+    --line:#1D2338;
+    --line-soft:#161B2C;
+    --text:#EEF0F6;
+    --text-soft:#8890AC;
+    --text-faint:#585F7A;
+    --nav-accent:#8A93D9;
+    --live-bg:#0F2E1E;
+    --live-fg:#67E3A0;
+    --draft-bg:#332512;
+    --draft-fg:#E8B75E;
+    --unknown-bg:#1B2036;
+    --unknown-fg:#8890AC;
+    --link:#AEB6E8;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Inter", -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{
+    font-family:"IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+  }
+
+  .page{
+    max-width:720px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 6rem;
+  }
+
+  /* ---- top bar ---- */
+  .topbar{
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:0.5rem;
+    font-size:0.8rem;
+    padding-bottom:1.1rem;
+    margin-bottom:2.75rem;
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .name{
+    color:var(--nav-accent);
+    font-weight:500;
+  }
+  .topbar .sep{
+    color:var(--text-faint);
+  }
+  .topbar .meta{
+    color:var(--text-faint);
+  }
+
+  /* ---- identity ---- */
+  h1{
+    font-size:2.1rem;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0 0 0.6rem;
+  }
+  .tagline{
+    font-size:1.02rem;
+    color:var(--text-soft);
+    max-width:52ch;
+    line-height:1.55;
+    margin:0;
+  }
+  .tagline em{
+    color:var(--text-faint);
+    font-style:italic;
+  }
+
+  /* ---- sections ---- */
+  .section{
+    margin-top:3rem;
+  }
+  .section-title{
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    margin:0 0 1.25rem;
+    font-weight:500;
+  }
+
+  .list{
+    border-left:1px solid var(--line);
+    padding-left:1.25rem;
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+  }
+
+  .entry-head{
+    display:flex;
+    align-items:baseline;
+    gap:0.6rem;
+    flex-wrap:wrap;
+  }
+  .entry-head a{
+    color:var(--text);
+    text-decoration:none;
+    font-weight:600;
+    font-size:1rem;
+  }
+  .entry-head a:hover{
+    color:var(--link);
+  }
+  .entry-domain{
+    font-size:0.78rem;
+    color:var(--text-faint);
+  }
+
+  .pill{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:0.65rem;
+    text-transform:lowercase;
+    letter-spacing:0.03em;
+    padding:0.1rem 0.45rem;
+    border-radius:3px;
+    line-height:1.5;
+  }
+  .pill.live{background:var(--live-bg); color:var(--live-fg);}
+  .pill.draft{background:var(--draft-bg); color:var(--draft-fg);}
+  .pill.unknown{background:var(--unknown-bg); color:var(--unknown-fg);}
+
+  .entry-desc{
+    font-size:0.9rem;
+    color:var(--text-soft);
+    line-height:1.55;
+    margin-top:0.35rem;
+    max-width:50ch;
+  }
+
+  /* nested group */
+  .group .sublist{
+    margin-top:1.1rem;
+    margin-left:0.1rem;
+    padding-left:1.1rem;
+    border-left:1px solid var(--line-soft);
+    display:flex;
+    flex-direction:column;
+    gap:1.1rem;
+  }
+  .sublist .entry-head a{
+    font-size:0.92rem;
+    font-weight:500;
+  }
+
+  footer{
+    margin-top:4rem;
+    padding-top:1.5rem;
+    border-top:1px solid var(--line);
+    font-family:"IBM Plex Mono", monospace;
+    font-size:0.7rem;
+    color:var(--text-faint);
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar mono">
+    <span class="name">patricek.info</span>
+    <span class="sep">·</span>
+    <span class="meta">Version 0.1.0 — draft</span>
+    <span class="sep">·</span>
+    <span class="meta">Mis à jour le 31 août 2026</span>
+  </div>
+
+  <h1>Patrice Kenmoé</h1>
+  <p class="tagline"><em>présentation à venir — une phrase ou deux, à me donner</em></p>
+
+  <div class="section">
+    <p class="section-title">Répertoire</p>
+    <div class="list">
+
+      <div class="entry">
+        <div class="entry-head">
+          <a href="https://patricek.info">patricek.info</a>
+          <span class="pill draft">draft</span>
+        </div>
+        <div class="entry-desc">Répertoire personnel : état des lieux de mes chantiers en ligne.</div>
+      </div>
+
+      <div class="entry group">
+        <div class="entry-head">
+          <a href="https://narrativeconstructs.com">Narrative Constructs</a>
+          <span class="pill draft">draft</span>
+        </div>
+        <div class="entry-desc">Legal innovation holding — développe la théorie, construit les ventures.</div>
+
+        <div class="sublist">
+          <div class="entry">
+            <div class="entry-head">
+              <a href="https://auditum-memoria.com">Auditum Memoria</a>
+              <span class="pill live">live</span>
+            </div>
+            <div class="entry-desc">Clinique de renseignement pré-contentieux pour litiges en entreprise.</div>
+          </div>
+          <div class="entry">
+            <div class="entry-head">
+              <a href="https://mottrum.com">Möttrum</a>
+              <span class="pill draft">draft</span>
+            </div>
+            <div class="entry-desc">Marketplace d'actifs pré-contentieux.</div>
+          </div>
+          <div class="entry">
+            <div class="entry-head">
+              <a href="https://cohort.reviews">Cohort</a>
+              <span class="pill draft">draft</span>
+            </div>
+            <div class="entry-desc">Avis consommateurs approfondis et financement de litiges en aval.</div>
+          </div>
+          <div class="entry">
+            <div class="entry-head">
+              <a href="https://vetnups.com">Vetnups</a>
+              <span class="pill draft">draft</span>
+            </div>
+            <div class="entry-desc">App de rencontre engagée, profils vérifiés.</div>
+          </div>
+          <div class="entry">
+            <div class="entry-head">
+              <a href="https://clusters.homes">Cluster</a>
+              <span class="pill draft">draft</span>
+            </div>
+            <div class="entry-desc">Marketplace de séjours longue durée, fragmentés et distribués.</div>
+          </div>
+          <div class="entry">
+            <div class="entry-head">
+              <a href="https://curb.exchange">Curb</a>
+              <span class="pill draft">draft</span>
+            </div>
+            <div class="entry-desc">Marketplace de seconde main hybride, avec points d'échange.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <a href="https://aletheiaframe.works">Aletheia Frameworks</a>
+          <span class="pill draft">draft</span>
+        </div>
+        <div class="entry-desc">Travail intellectuel : un seul fil conducteur, la vérité.</div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <a href="https://offcityhike.blog">Off-City Hike</a>
+          <span class="pill draft">draft</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>patricek.info · v0.1.0 · révision du 31.08.2026</footer>
+
+</div>
+</body>
+</html>
