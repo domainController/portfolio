@@ -1,276 +1,452 @@
-<!doctype html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Patrice Kenmoé — Répertoire</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patrice Kenmoé</title>
 <style>
-  :root{
-    --bg:#0A0D18;
-    --bg-raised:#0F1322;
-    --line:#1D2338;
-    --line-soft:#161B2C;
-    --text:#EEF0F6;
-    --text-soft:#8890AC;
-    --text-faint:#585F7A;
-    --nav-accent:#8A93D9;
-    --live-bg:#0F2E1E;
-    --live-fg:#67E3A0;
-    --draft-bg:#332512;
-    --draft-fg:#E8B75E;
-    --unknown-bg:#1B2036;
-    --unknown-fg:#8890AC;
-    --link:#AEB6E8;
-  }
+/* ============================================================
+   AUDITUM MEMORIA — SHARED STYLESHEET
+   Version: 2.1.0 — canonical dark theme, restored from auditum-memoria.com
+   Updated: 2026-08-18 — reverted from the light/warm repaint back to the
+   canonical dark navy palette; kept .brand-h1/.brand-icon (narrative-
+   constructs-only addition for the emoji lockup on index.html).
+   Usage: <link rel="stylesheet" href="css/style.css"> (adjust ../ per depth)
+   ============================================================ */
 
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:"Inter", -apple-system, "Segoe UI", sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .mono{
-    font-family:"IBM Plex Mono", ui-monospace, "SF Mono", monospace;
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  .page{
-    max-width:720px;
-    margin:0 auto;
-    padding:2.5rem 1.5rem 6rem;
-  }
+body {
+  background: #0a0e27;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.7;
+}
 
-  /* ---- top bar ---- */
-  .topbar{
-    display:flex;
-    align-items:baseline;
-    flex-wrap:wrap;
-    gap:0.5rem;
-    font-size:0.8rem;
-    padding-bottom:1.1rem;
-    margin-bottom:2.75rem;
-    border-bottom:1px solid var(--line);
-  }
-  .topbar .name{
-    color:var(--nav-accent);
-    font-weight:500;
-  }
-  .topbar .sep{
-    color:var(--text-faint);
-  }
-  .topbar .meta{
-    color:var(--text-faint);
-  }
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
 
-  /* ---- identity ---- */
-  h1{
-    font-size:2.1rem;
-    font-weight:700;
-    letter-spacing:-0.01em;
-    margin:0 0 0.6rem;
-  }
-  .tagline{
-    font-size:1.02rem;
-    color:var(--text-soft);
-    max-width:52ch;
-    line-height:1.55;
-    margin:0;
-  }
-  .tagline em{
-    color:var(--text-faint);
-    font-style:italic;
-  }
+/* ---- Meta bar / front-matter (visible en haut de chaque page) ----
+   Contient désormais deux zones : .meta-left (catégorie/version/date)
+   et .lang-switch (FR/EN/DE), sur la même ligne, alignées aux deux
+   extrémités. Sur petit écran, .lang-switch passe à la ligne suivante
+   grâce à flex-wrap. */
 
-  /* ---- sections ---- */
-  .section{
-    margin-top:3rem;
-  }
-  .section-title{
-    font-size:0.78rem;
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    color:var(--text-faint);
-    margin:0 0 1.25rem;
-    font-weight:500;
-  }
+.meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  font-size: 0.82em;
+  color: #7a8296;
+  border-bottom: 1px solid #1e2340;
+  padding-bottom: 18px;
+  margin-bottom: 40px;
+  font-family: 'SF Mono', Consolas, monospace;
+}
+.meta-bar .meta-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+}
+.meta-bar span.category { color: #4a90e2; font-weight: 600; }
+.meta-bar span.sep { color: #33395c; }
 
-  .list{
-    border-left:1px solid var(--line);
-    padding-left:1.25rem;
-    display:flex;
-    flex-direction:column;
-    gap:1.5rem;
-  }
+/* ---- Titres et sous-titres ---- */
 
-  .entry-head{
-    display:flex;
-    align-items:baseline;
-    gap:0.6rem;
-    flex-wrap:wrap;
-  }
-  .entry-head a{
-    color:var(--text);
-    text-decoration:none;
-    font-weight:600;
-    font-size:1rem;
-  }
-  .entry-head a:hover{
-    color:var(--link);
-  }
-  .entry-domain{
-    font-size:0.78rem;
-    color:var(--text-faint);
-  }
+h1 {
+  font-size: 1.7em;
+  color: #fff;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
 
-  .pill{
-    font-family:"IBM Plex Mono", monospace;
-    font-size:0.65rem;
-    text-transform:lowercase;
-    letter-spacing:0.03em;
-    padding:0.1rem 0.45rem;
-    border-radius:3px;
-    line-height:1.5;
-  }
-  .pill.live{background:var(--live-bg); color:var(--live-fg);}
-  .pill.draft{background:var(--draft-bg); color:var(--draft-fg);}
-  .pill.unknown{background:var(--unknown-bg); color:var(--unknown-fg);}
+.brand-h1 { display: flex; align-items: center; gap: 12px; }
+.brand-icon { font-size: 1em; line-height: 1; }
+.brand-icon svg { width: 1.3em; height: 1.3em; display: block; }
 
-  .entry-desc{
-    font-size:0.9rem;
-    color:var(--text-soft);
-    line-height:1.55;
-    margin-top:0.35rem;
-    max-width:50ch;
-  }
+h2 {
+  color: #fff;
+  font-size: 1.15em;
+  margin: 36px 0 14px;
+}
 
-  /* nested group */
-  .group .sublist{
-    margin-top:1.1rem;
-    margin-left:0.1rem;
-    padding-left:1.1rem;
-    border-left:1px solid var(--line-soft);
-    display:flex;
-    flex-direction:column;
-    gap:1.1rem;
-  }
-  .sublist .entry-head a{
-    font-size:0.92rem;
-    font-weight:500;
-  }
+.subtitle {
+  color: #7a8296;
+  margin-bottom: 44px;
+  font-size: 0.95em;
+}
 
-  footer{
-    margin-top:4rem;
-    padding-top:1.5rem;
-    border-top:1px solid var(--line);
-    font-family:"IBM Plex Mono", monospace;
-    font-size:0.7rem;
-    color:var(--text-faint);
-  }
+/* ---- Exec Definition (bloc d'ouverture citable) ---- */
+
+.exec-def {
+  font-size: 1.1em;
+  color: #f0f0f5;
+  border-left: 3px solid #4a90e2;
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+
+/* ---- Paragraphes de corps ---- */
+
+p { margin-bottom: 20px; color: #c8cce0; }
+
+/* ---- Concept blocks (utilisés dans Grounds/Genealogy/Stance/Mechanics) ---- */
+
+.concept {
+  background: #10142e;
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  font-size: 0.92em;
+}
+.concept .term {
+  color: #4a90e2;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* ---- Summary box (résumé en trois phrases, fond vert) ---- */
+
+.summary-box {
+  background: #16311f;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 32px 0;
+  border-left: 3px solid #6bcf7f;
+}
+.summary-box p { color: #c8f0d0; margin-bottom: 10px; }
+.summary-box p:last-child { margin-bottom: 0; }
+
+/* ---- Structure arborescente (utilisée par index.html) ---- */
+
+.branch {
+  margin-bottom: 8px;
+  padding: 14px 0;
+  border-bottom: 1px solid #161a33;
+}
+.branch:last-child { border-bottom: none; }
+
+.branch-title {
+  color: #fff;
+  font-size: 0.92em;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.branch-title a { color: #fff; text-decoration: none; }
+.branch-title a:visited { color: #fff; }
+.branch-title a:hover { color: #4a90e2; }
+a.branch-title { text-decoration: none; }
+a.branch-title:visited { color: #fff; }
+a.branch-title:hover { color: #4a90e2; }
+
+/* ---- Accordéon natif (<details>/<summary>), zéro JS ----
+   .branch-title est réutilisé comme <summary> : on masque le marqueur
+   natif et on le remplace par ▸, qui tourne à 90° quand le <details>
+   parent est ouvert. Imbrication possible : un <details> peut vivre
+   dans .children, avec son propre <summary class="branch-title">. */
+
+summary.branch-title {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+summary.branch-title::-webkit-details-marker { display: none; }
+summary.branch-title::before {
+  content: "▸";
+  display: inline-block;
+  color: #7a8296;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+details[open] > summary.branch-title::before {
+  transform: rotate(90deg);
+}
+
+.branch-desc {
+  color: #8a90a8;
+  font-size: 0.88em;
+  margin-bottom: 10px;
+}
+
+.children {
+  margin-left: 20px;
+  padding-left: 16px;
+  border-left: 1px solid #232849;
+}
+
+.child {
+  padding: 6px 0;
+  font-size: 0.92em;
+}
+.child a { color: #b8bcd8; text-decoration: none; }
+.child a:visited { color: #b8bcd8; }
+.child a:hover { color: #4a90e2; text-decoration: underline; }
+.child .note { color: #5a6080; font-size: 0.85em; margin-left: 8px; }
+.child-desc { color: #5a6080; font-size: 0.85em; margin-top: 3px; }
+
+/* ---- Tags de statut (live / draft / planned) ---- */
+
+.status-tag {
+  display: inline-block;
+  font-size: 0.72em;
+  padding: 1px 7px;
+  border-radius: 3px;
+  margin-left: 8px;
+  font-family: 'SF Mono', Consolas, monospace;
+}
+.status-live { background: #16311f; color: #6bcf7f; }
+.status-draft { background: #332412; color: #e0a94a; }
+.status-planned { background: #241832; color: #a888d0; }
+.status-ready { background: #0d2b33; color: #4ac8e0; }
+.status-concept { background: #2a1a2e; color: #d47fc9; }
+.status-research { background: #16233d; color: #6bb3f0; }
+
+/* ---- Pôles (accordéon niveau 1 : ClausTheory / ClausLabs / ClausWorks) ----
+   Regroupe les .branch existantes sous 3 sections repliables. Le titre du
+   pôle reprend exactement le registre de .child a (0.92em, poids 400,
+   #b8bcd8) plutôt que .branch-title : un pôle est une entrée cliquable au
+   même titre que "Thesis"/"Method"/"Clinic" sur une page produit, pas un
+   titre de page — rien ne justifie qu'il soit plus gras ou plus blanc. Pas
+   de paragraphe de value prop à l'ouverture : ça fait du bruit dans une
+   liste censée rester une liste ; la value prop de chaque pôle a vocation
+   à vivre sur sa propre page plus tard, pas ici. */
+
+details.pole {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #161a33;
+}
+details.pole:last-of-type { border-bottom: none; }
+
+summary.pole-title {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 14px 0;
+  color: #b8bcd8;
+  font-size: 0.92em;
+  font-weight: 400;
+}
+summary.pole-title:hover { color: #4a90e2; }
+summary.pole-title::-webkit-details-marker { display: none; }
+summary.pole-title::before {
+  content: "▸";
+  display: inline-block;
+  color: #7a8296;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+details.pole[open] > summary.pole-title::before { transform: rotate(90deg); }
+
+.pole-sub {
+  color: #7a8296;
+  font-size: 1em;
+  font-weight: 400;
+}
+.pole-count {
+  margin-left: auto;
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 0.68em;
+  font-weight: 400;
+  color: #7a8296;
+}
+
+.pole-body {
+  margin-left: 26px;
+  padding-bottom: 4px;
+}
+.pole-body .branch:last-child { border-bottom: none; }
+
+/* ---- Liens internes — vers un concept du glossaire, même corpus ---- */
+
+a.link-internal {
+  color: #a888d0;
+  text-decoration: none;
+  border-bottom: 1px dotted #a888d0;
+}
+a.link-internal:visited { color: #a888d0; }
+a.link-internal:hover { color: #c4aee8; border-bottom-style: solid; }
+
+/* ---- Liens externes — vers une source ou figure d'autorité extérieure ---- */
+
+a.link-external {
+  color: #6bcf7f;
+  text-decoration: none;
+  border-bottom: 1px solid #6bcf7f;
+}
+a.link-external:visited { color: #6bcf7f; }
+a.link-external:hover { color: #8fe89f; }
+a.link-external::after {
+  content: " ↗";
+  font-size: 0.85em;
+}
+
+/* ---- Sélecteur de langue — vit désormais À L'INTÉRIEUR du .meta-bar,
+   pas comme bloc séparé au-dessus. Pas de margin-bottom propre : c'est
+   le gap du flex parent (.meta-bar) qui gère l'espacement. ---- */
+
+.lang-switch {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.lang-switch a {
+  font-size: 0.78em;
+  font-family: 'SF Mono', Consolas, monospace;
+  color: #7a8296;
+  text-decoration: none;
+  padding: 3px 9px;
+  border: 1px solid #232849;
+  border-radius: 4px;
+}
+.lang-switch a:hover { color: #4a90e2; border-color: #4a90e2; }
+.lang-switch a.active { color: #fff; background: #1e2340; border-color: #1e2340; }
+
+/* ---- Liens de navigation générique ---- */
+
+.back-link {
+  display: inline-block;
+  margin-top: 40px;
+  color: #4a90e2;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+.back-link:visited { color: #4a90e2; }
+.back-link:hover { text-decoration: underline; }
+
+/* ---- Front-matter block (pages Asset) — clé/valeur alignées ---- */
+
+.frontmatter {
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 0.85em;
+  margin-bottom: 40px;
+}
+.fm-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid #161a33;
+}
+.fm-key-col {
+  flex: 0 0 140px;
+  text-align: right;
+}
+.fm-key {
+  display: inline-block;
+  background: #16233d;
+  color: #6bb3f0;
+  padding: 2px 9px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.fm-value {
+  flex: 1;
+  color: #c8cce0;
+  text-align: left;
+}
+.fm-value a.link-internal { font-family: 'SF Mono', Consolas, monospace; }
+
+/* ---- Message des pages d'attente (destinations draft/planned/ready pas encore construites) ---- */
+
+.placeholder-message {
+  color: #8a90a8;
+  font-size: 0.92em;
+  margin-top: 24px;
+}
+
+html { font-size: 15px; }
 </style>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 </head>
 <body>
-<div class="page">
 
-  <div class="topbar mono">
-    <span class="name">patricek.info</span>
-    <span class="sep">·</span>
-    <span class="meta">Version 0.1.0 — draft</span>
-    <span class="sep">·</span>
-    <span class="meta">Mis à jour le 31 août 2026</span>
-  </div>
+<div class="container">
 
-  <h1>Patrice Kenmoé</h1>
-  <p class="tagline"><em>présentation à venir — une phrase ou deux, à me donner</em></p>
-
-  <div class="section">
-    <p class="section-title">Répertoire</p>
-    <div class="list">
-
-      <div class="entry">
-        <div class="entry-head">
-          <a href="https://patricek.info">patricek.info</a>
-          <span class="pill draft">draft</span>
-        </div>
-        <div class="entry-desc">Répertoire personnel : état des lieux de mes chantiers en ligne.</div>
-      </div>
-
-      <div class="entry group">
-        <div class="entry-head">
-          <a href="https://narrativeconstructs.com">Narrative Constructs</a>
-          <span class="pill draft">draft</span>
-        </div>
-        <div class="entry-desc">Legal innovation holding — développe la théorie, construit les ventures.</div>
-
-        <div class="sublist">
-          <div class="entry">
-            <div class="entry-head">
-              <a href="https://auditum-memoria.com">Auditum Memoria</a>
-              <span class="pill live">live</span>
-            </div>
-            <div class="entry-desc">Clinique de renseignement pré-contentieux pour litiges en entreprise.</div>
-          </div>
-          <div class="entry">
-            <div class="entry-head">
-              <a href="https://mottrum.com">Möttrum</a>
-              <span class="pill draft">draft</span>
-            </div>
-            <div class="entry-desc">Marketplace d'actifs pré-contentieux.</div>
-          </div>
-          <div class="entry">
-            <div class="entry-head">
-              <a href="https://cohort.reviews">Cohort</a>
-              <span class="pill draft">draft</span>
-            </div>
-            <div class="entry-desc">Avis consommateurs approfondis et financement de litiges en aval.</div>
-          </div>
-          <div class="entry">
-            <div class="entry-head">
-              <a href="https://vetnups.com">Vetnups</a>
-              <span class="pill draft">draft</span>
-            </div>
-            <div class="entry-desc">App de rencontre engagée, profils vérifiés.</div>
-          </div>
-          <div class="entry">
-            <div class="entry-head">
-              <a href="https://clusters.homes">Cluster</a>
-              <span class="pill draft">draft</span>
-            </div>
-            <div class="entry-desc">Marketplace de séjours longue durée, fragmentés et distribués.</div>
-          </div>
-          <div class="entry">
-            <div class="entry-head">
-              <a href="https://curb.exchange">Curb</a>
-              <span class="pill draft">draft</span>
-            </div>
-            <div class="entry-desc">Marketplace de seconde main hybride, avec points d'échange.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-head">
-          <a href="https://aletheiaframe.works">Aletheia Frameworks</a>
-          <span class="pill draft">draft</span>
-        </div>
-        <div class="entry-desc">Travail intellectuel : un seul fil conducteur, la vérité.</div>
-      </div>
-
-      <div class="entry">
-        <div class="entry-head">
-          <a href="https://offcityhike.blog">Off-City Hike</a>
-          <span class="pill draft">draft</span>
-        </div>
-      </div>
-
+  <div class="meta-bar">
+    <div class="meta-left">
+      <span class="category">portfolio</span>
+      <span class="sep">·</span>
+      <span>Version 0.1.0 — draft</span>
+      <span class="sep">·</span>
+      <span>Updated August 31, 2026, 17:18</span>
     </div>
   </div>
 
-  <footer>patricek.info · v0.1.0 · révision du 31.08.2026</footer>
+  <h1>Patrice Kenmoé</h1>
+  <div class="subtitle">This site indexes the online productions of Patrice Kenmoé — no other Patrice Kenmoé than this one.<br>Born 1977 in Lyon, currently based in the Netherlands — highly mobile. Publishes work online.</div>
+
+  <div class="branch">
+    <div class="branch-title">patricek.info <span class="status-tag status-live">live</span></div>
+    <div class="branch-desc">Portfolio — status of ongoing work online.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Offcityhike.blog <span class="status-tag status-ready">project</span></div>
+    <div class="branch-desc">Reflections on interaction theory and on the world.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Aletheia Frameworks <span class="status-tag status-draft">draft</span></div>
+    <div class="branch-desc">Work around the concept of the symbolic word.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Narrative Constructs <span class="status-tag status-live">live</span></div>
+    <div class="branch-desc">Legal innovation holding — develops the theory, builds the ventures.</div>
+    <div class="child-desc" style="margin-top:6px;">→ influences / feeds into: Auditum Memoria, Möttrum, Halo, Morse</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Auditum Memoria <span class="status-tag status-live">live</span></div>
+    <div class="branch-desc">Pre-litigation intelligence clinic for workplace disputes.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Möttrum <span class="status-tag status-live">live</span></div>
+    <div class="branch-desc">Marketplace for pre-litigation assets.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Hâlo <span class="status-tag status-concept">concept</span></div>
+    <div class="branch-desc">Distributed personal protection with legal interposition.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Morse <span class="status-tag status-draft">draft</span></div>
+    <div class="branch-desc">Civic relay for pre-litigation conflict mapping between individuals.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Cohort <span class="status-tag status-draft">draft</span></div>
+    <div class="branch-desc">In-depth, long-term consumer review platform and downstream litigation funding.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Vetnups <span class="status-tag status-live">live</span></div>
+    <div class="branch-desc">Commitment-oriented dating app with vetted profile attributes.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Clusters <span class="status-tag status-draft">draft</span></div>
+    <div class="branch-desc">Curated marketplace for distributed fragmented-functional extended stay.</div>
+  </div>
+
+  <div class="branch">
+    <div class="branch-title">Curb <span class="status-tag status-draft">draft</span></div>
+    <div class="branch-desc">Hybrid secondhand marketplace with exchange hubs.</div>
+  </div>
 
 </div>
+
 </body>
 </html>
