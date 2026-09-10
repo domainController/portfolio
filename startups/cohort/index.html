@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cohort — Traction</title>
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <div class="meta-bar">
+      <div class="meta-left">
+        <span class="category">Traction</span>
+        <span class="sep">·</span>
+        <span>Version 0.1.0</span>
+      </div>
+    </div>
+
+    <h1>Cohort</h1>
+    <div class="branch-desc">Updated as progress happens.</div>
+
+    <div class="frontmatter">
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value"><a href="landing/index.html" style="color:#8a90a8;text-decoration:none;font-style:normal;">Landing page</a> <span class="status-tag status-live">live</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/cohort-website">domainController/cohort-website</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value">September 7, 2026, 10:36 UTC</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">uptime</span></div><div class="fm-value"><span id="uptime">—</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">commit activity</span></div><div class="fm-value" style="display:flex;justify-content:flex-start;"><svg viewBox="0 0 180 40" width="180" height="40" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+<polyline points="6.0,6.0 62.0,15.3 118.0,34.0 174.0,34.0" fill="none" stroke="#6bb3f0" stroke-width="1.5"/>
+<circle cx="6.0" cy="6.0" r="2" fill="#6bb3f0"/><circle cx="62.0" cy="15.3" r="2" fill="#6bb3f0"/><circle cx="118.0" cy="34.0" r="2" fill="#6bb3f0"/><circle cx="174.0" cy="34.0" r="2" fill="#6bb3f0"/>
+<text x="6.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">7</text><text x="62.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">8</text><text x="118.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">9</text><text x="174.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">10</text>
+</svg></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">analytics</span></div><div class="fm-value">Not installed yet — will link to public GoatCounter stats once live</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">contact</span></div><div class="fm-value">No email provided yet</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Ship a working CTA / waitlist</div></div>
+    </div>
+
+    <a class="back-link" href="../index.html">← Back</a>
+
+  </div>
+<script>
+(function () {
+  var el = document.getElementById('last-updated');
+  if (!el) return;
+  var path = 'startups/cohort/index.html';
+  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data[0]) return;
+      var d = new Date(data[0].commit.committer.date);
+      var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      el.textContent = 'Updated ' + d.toLocaleString('en-US', opts);
+    })
+    .catch(function () { });
+})();
+
+(function () {
+  var el = document.getElementById('uptime');
+  if (!el) return;
+  var launch = new Date('2026-09-07T10:36:50Z');
+  function tick() {
+    var now = new Date();
+    var ms = now - launch;
+    var days = Math.floor(ms / 86400000);
+    var hours = Math.floor((ms % 86400000) / 3600000);
+    el.textContent = days + 'd ' + hours + 'h';
+  }
+  tick();
+  setInterval(tick, 60000);
+})();
+</script>
+</body>
+</html>

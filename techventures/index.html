@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio — Patrice Kenmoé</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Tech Ventures — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <div class="container">
 
     <div class="meta-bar">
       <div class="meta-left">
-        <span class="category">work index</span>
+        <span class="category">Portfolio</span>
         <span class="sep">·</span>
         <span>Version 0.1.0</span>
         <span class="sep">·</span>
@@ -19,13 +19,12 @@
       </div>
     </div>
 
-    <h1>Portfolio</h1>
-    <div class="subtitle">A comprehensive directory of all <a href="https://offcityhike.blog/bio/index.html" style="color:#fff;text-decoration:underline;">my</a> work online.</div>
+    <h1>Tech Ventures</h1>
+    <div class="subtitle">Mobile &amp; web platforms — different scaling models, same tech core.</div>
 
     <div class="children">
-      <div class="child"><a href="legal-lab/index.html">Legal Engineering</a> <span class="status-tag status-live">live</span><div class="child-desc">Innovation labs, reflexive law &amp; pre-litigation intelligence.</div></div>
-      <div class="child"><a href="techventures/index.html">Tech Ventures</a> <span class="status-tag status-live">live</span><div class="child-desc">Mobile &amp; web platforms — different scaling models, same tech core.</div></div>
-      <div class="child"><a href="personal/index.html">Personal Productions</a> <span class="status-tag status-live">live</span><div class="child-desc">Blog, web development &amp; intellectual work.</div></div>
+      <div class="child"><a href="../startups/index.html">Community Startups</a> <span class="status-tag status-live">live</span><div class="child-desc">Dating app &amp; review platform.</div></div>
+      <div class="child"><a href="../marketplace/index.html">Managed Marketplaces</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Marketplaces that manage the transaction, not just the listing.</div></div>
     </div>
 
   </div>
@@ -33,7 +32,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'index.html';
+  var path = 'techventures/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

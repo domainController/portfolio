@@ -165,6 +165,10 @@ details[open] > summary.branch-title::before {
 .status-ready { background: #0d2b33; color: #4ac8e0; }
 .status-concept { background: #2a1a2e; color: #d47fc9; }
 .status-research { background: #16233d; color: #6bb3f0; }
+.status-tentative { background: #241832; color: #a888d0; }
+.status-waiting { background: #16233d; color: #5a6080; }
+.status-shaping { background: #241832; color: #a888d0; }
+.status-polishing { background: #0d2b33; color: #4ac8e0; }
 
 a.link-internal {
   color: #a888d0;

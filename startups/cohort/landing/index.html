@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cohort — Landing</title>
+<link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <div class="meta-bar">
+      <div class="meta-left">
+        <span class="category">Landing</span>
+        <span class="sep">·</span>
+        <span>Version 0.1.0</span>
+        <span class="sep">·</span>
+        <span id="last-updated">Updated —</span>
+      </div>
+    </div>
+
+    <h1>Cohort</h1>
+    <div class="branch-desc">Section-by-section breakdown of the live landing page.</div>
+
+    <div class="group-label" style="font-size:0.72em;color:#5a6080;font-family:'SF Mono',Consolas,monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Trust</div>
+    <div class="children">
+      <div class="child"><a href="https://cohort.reviews" style="color:#b8bcd8;">Nav</a> <span class="status-tag status-shaping">shaping</span><div class="child-desc">Wordmark, section anchors, unwired CTA.</div></div>
+      <div class="child"><a href="https://cohort.reviews" style="color:#b8bcd8;">Hero</a> <span class="status-tag status-shaping">shaping</span><div class="child-desc">Headline + subhead + trust badge.</div></div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid #232849;margin:32px 0;">
+
+    <div class="group-label" style="font-size:0.72em;color:#5a6080;font-family:'SF Mono',Consolas,monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Belief</div>
+    <div class="children">
+      <div class="child"><a href="https://cohort.reviews/#writing" style="color:#b8bcd8;">Features #1</a> <span class="status-tag status-shaping">shaping</span><div class="child-desc">3 review-writing modes: journaling, retrospective, versioning.</div></div>
+      <div class="child"><a href="https://cohort.reviews/#granularity" style="color:#b8bcd8;">Features #2</a> <span class="status-tag status-shaping">shaping</span><div class="child-desc">Business or person — mixes a review type into a core feature, still confused.</div></div>
+      <div class="child"><a href="https://cohort.reviews/#ask" style="color:#b8bcd8;">Benefits #1</a> <span class="status-tag status-polishing">polishing</span><div class="child-desc">Lets readers comment and question the reviewer — first step toward community.</div></div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid #232849;margin:32px 0;">
+
+    <div class="group-label" style="font-size:0.72em;color:#5a6080;font-family:'SF Mono',Consolas,monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Decision</div>
+    <div class="children">
+      <div class="child"><a href="https://cohort.reviews" style="color:#b8bcd8;">Offer</a> <span class="status-tag status-shaping">shaping</span><div class="child-desc">Single membership to write, read, and comment.</div></div>
+      <div class="child"><a href="https://cohort.reviews" style="color:#b8bcd8;">Call to Action</a> <span class="status-tag status-waiting">waiting</span><div class="child-desc">Collects expectations and pain points — a simulated signup, not just an email.</div></div>
+    </div>
+
+    <a class="back-link" href="../index.html">← Back</a>
+
+  </div>
+<script>
+(function () {
+  var el = document.getElementById('last-updated');
+  if (!el) return;
+  var path = 'startups/cohort/landing/index.html';
+  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data[0]) return;
+      var d = new Date(data[0].commit.committer.date);
+      var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      el.textContent = 'Updated ' + d.toLocaleString('en-US', opts);
+    })
+    .catch(function () { });
+})();
+</script>
+</body>
+</html>
