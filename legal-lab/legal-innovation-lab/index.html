@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legal Engineering — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../css/style.css">
+<title>Legal Innovation Lab — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
   <div class="container">
@@ -17,22 +17,22 @@
         <span id="last-updated">Updated —</span>
       </div>
     </div>
-    <h1>Legal Engineering</h1>
-    <div class="branch-desc">Three real industry categories.</div>
+    <h1>Legal Innovation Lab</h1>
+    <div class="branch-desc">Currently used as real labs — no domain names committed yet, pending what each becomes (clinic or company).</div>
     <div class="children">
-      <div class="child"><a href="legal-innovation-lab/index.html">Legal Lab</a> <span class="status-tag status-live">live</span><div class="child-desc">Legal Innovation Lab.</div></div>
-      <div class="child"><a href="legal-service-providers/index.html">Legal Service Providers</a> <span class="status-tag status-live">live</span><div class="child-desc">ALSP.</div></div>
-      <div class="child"><a href="legal-tech/index.html">Legal Tech</a> <span class="status-tag status-live">live</span><div class="child-desc">Software/platforms for the legal industry.</div></div>
+      <div class="child"><a href="https://narrativeconstructs.com">Narrative Constructs</a> <span class="status-tag status-live">live</span><div class="child-desc">Board Whisperer Framework.</div></div>
+      <div class="child"><a href="https://narrativeconstructs.com/orbitum.html">Morse</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Civic relay for pre-litigation conflict mapping between individuals.</div></div>
+      <div class="child">Claim <span class="status-tag status-concept">concept</span><div class="child-desc">Merchant-user pre-litigation doctrine, feeding into collective escalation.</div></div>
     </div>
 
-    <a class="back-link" href="../index.html">← Back to Patrice Kenmoé</a>
+    <a class="back-link" href="../index.html">← Back to Legal Engineering</a>
 
   </div>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'legal-lab/index.html';
+  var path = 'legal-lab/legal-innovation-lab/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

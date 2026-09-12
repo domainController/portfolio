@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legal Engineering — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../css/style.css">
+<title>Legal Service Providers — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
   <div class="container">
@@ -17,22 +17,20 @@
         <span id="last-updated">Updated —</span>
       </div>
     </div>
-    <h1>Legal Engineering</h1>
-    <div class="branch-desc">Three real industry categories.</div>
+    <h1>Legal Service Providers</h1>
+    <div class="branch-desc">ALSP.</div>
     <div class="children">
-      <div class="child"><a href="legal-innovation-lab/index.html">Legal Lab</a> <span class="status-tag status-live">live</span><div class="child-desc">Legal Innovation Lab.</div></div>
-      <div class="child"><a href="legal-service-providers/index.html">Legal Service Providers</a> <span class="status-tag status-live">live</span><div class="child-desc">ALSP.</div></div>
-      <div class="child"><a href="legal-tech/index.html">Legal Tech</a> <span class="status-tag status-live">live</span><div class="child-desc">Software/platforms for the legal industry.</div></div>
+      <div class="child"><a href="https://auditum-memoria.com">Auditum Memoria</a> <span class="status-tag status-live">live</span><div class="child-desc">Pre-litigation intelligence clinic for workplace disputes.</div></div>
     </div>
 
-    <a class="back-link" href="../index.html">← Back to Patrice Kenmoé</a>
+    <a class="back-link" href="../index.html">← Back to Legal Engineering</a>
 
   </div>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'legal-lab/index.html';
+  var path = 'legal-lab/legal-service-providers/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

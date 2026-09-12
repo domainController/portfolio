@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legal Engineering — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../css/style.css">
+<title>Legal Tech — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
   <div class="container">
@@ -17,22 +17,22 @@
         <span id="last-updated">Updated —</span>
       </div>
     </div>
-    <h1>Legal Engineering</h1>
-    <div class="branch-desc">Three real industry categories.</div>
+    <h1>Legal Tech</h1>
+    <div class="branch-desc">Software/platforms for the legal industry.</div>
     <div class="children">
-      <div class="child"><a href="legal-innovation-lab/index.html">Legal Lab</a> <span class="status-tag status-live">live</span><div class="child-desc">Legal Innovation Lab.</div></div>
-      <div class="child"><a href="legal-service-providers/index.html">Legal Service Providers</a> <span class="status-tag status-live">live</span><div class="child-desc">ALSP.</div></div>
-      <div class="child"><a href="legal-tech/index.html">Legal Tech</a> <span class="status-tag status-live">live</span><div class="child-desc">Software/platforms for the legal industry.</div></div>
+      <div class="child"><a href="https://mottrum.com">Möttrum</a> <span class="status-tag status-live">live</span><div class="child-desc">Marketplace for pre-litigation assets.</div></div>
+      <div class="child"><a href="https://narrativeconstructs.com/halo.html">Hālo</a> <span class="status-tag status-concept">concept</span><div class="child-desc">Legal-first personal protection — automates the case file and legal follow-up after an incident.</div></div>
+      <div class="child">[unnamed] <span class="status-tag status-concept">concept</span><div class="child-desc">Rapid-turnaround exposé total: tools, methodology and support to build a case file fast, for a fee.</div></div>
     </div>
 
-    <a class="back-link" href="../index.html">← Back to Patrice Kenmoé</a>
+    <a class="back-link" href="../index.html">← Back to Legal Engineering</a>
 
   </div>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'legal-lab/index.html';
+  var path = 'legal-lab/legal-tech/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
