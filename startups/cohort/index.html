@@ -13,7 +13,7 @@
       <div class="meta-left">
         <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <span class="category">Traction</span>
+        <a class="nav-back" href="../index.html">Community Startups</a>
         <span class="sep">·</span>
         <span>Version 0.1.0</span>
         <span class="sep">·</span>
@@ -22,23 +22,20 @@
     </div>
 
     <h1>Cohort</h1>
-    <div class="branch-desc">Updated as progress happens.</div>
+    <div class="branch-desc">Traction development, updated as progress happens.</div>
 
     <div class="frontmatter">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value"><a href="landing/index.html" style="color:#8a90a8;text-decoration:none;font-style:normal;">Landing page</a> <span class="status-tag status-live">live</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/cohort-website">domainController/cohort-website</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value">September 7, 2026, 10:36 UTC</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value"><span id="launch">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">uptime</span></div><div class="fm-value"><span id="uptime">—</span></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">commit activity</span></div><div class="fm-value" style="display:flex;justify-content:flex-start;"><svg viewBox="0 0 180 40" width="180" height="40" xmlns="http://www.w3.org/2000/svg" style="display:block;">
-<polyline points="6.0,6.0 62.0,15.3 118.0,34.0 174.0,34.0" fill="none" stroke="#6bb3f0" stroke-width="1.5"/>
-<circle cx="6.0" cy="6.0" r="2" fill="#6bb3f0"/><circle cx="62.0" cy="15.3" r="2" fill="#6bb3f0"/><circle cx="118.0" cy="34.0" r="2" fill="#6bb3f0"/><circle cx="174.0" cy="34.0" r="2" fill="#6bb3f0"/>
-<text x="6.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">7</text><text x="62.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">8</text><text x="118.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">9</text><text x="174.0" y="39" text-anchor="middle" font-family="SF Mono, Consolas, monospace" font-size="7" fill="#5a6080">10</text>
-</svg></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">commit activity</span></div><div class="fm-value" id="commit-chart" style="display:flex;justify-content:flex-start;"></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">analytics</span></div><div class="fm-value">Not installed yet — will link to public GoatCounter stats once live</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">contact</span></div><div class="fm-value">No email provided yet</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Ship a working CTA / waitlist</div></div>
     </div>
-</div>
+
+  </div>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
@@ -54,20 +51,94 @@
     })
     .catch(function () { });
 })();
-
+</script>
+<script>
 (function () {
-  var el = document.getElementById('uptime');
-  if (!el) return;
-  var launch = new Date('2026-09-07T10:36:50Z');
-  function tick() {
-    var now = new Date();
-    var ms = now - launch;
-    var days = Math.floor(ms / 86400000);
-    var hours = Math.floor((ms % 86400000) / 3600000);
-    el.textContent = days + 'd ' + hours + 'h';
-  }
-  tick();
-  setInterval(tick, 60000);
+  var repo = 'domainController/cohort-website';
+  fetch('https://api.github.com/repos/' + repo + '/commits?per_page=100')
+    .then(function (r) { return r.json(); })
+    .then(function (commits) {
+      if (!commits || !commits.length || commits.message) return;
+      commits.reverse();
+
+      var first = new Date(commits[0].commit.committer.date);
+      var launchEl = document.getElementById('launch');
+      if (launchEl) {
+        var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' };
+        launchEl.textContent = first.toLocaleString('en-US', opts) + ' UTC';
+      }
+
+      var uptimeEl = document.getElementById('uptime');
+      function tickUptime() {
+        if (!uptimeEl) return;
+        var now = new Date();
+        var ms = now - first;
+        var days = Math.floor(ms / 86400000);
+        var hours = Math.floor((ms % 86400000) / 3600000);
+        uptimeEl.textContent = days + 'd ' + hours + 'h';
+      }
+      tickUptime();
+      setInterval(tickUptime, 60000);
+
+      var counts = {};
+      commits.forEach(function (c) {
+        var d = new Date(c.commit.committer.date);
+        var key = d.toISOString().slice(0, 10);
+        counts[key] = (counts[key] || 0) + 1;
+      });
+      var dayKeys = Object.keys(counts).sort();
+      var maxVal = Math.max.apply(null, dayKeys.map(function (k) { return counts[k]; }));
+      var w = 190, h = 44, pad = 8, leftPad = 14;
+      var step = dayKeys.length > 1 ? (w - leftPad - pad) / (dayKeys.length - 1) : 0;
+      var pts = dayKeys.map(function (k, i) {
+        var x = leftPad + i * step;
+        var y = h - pad - (counts[k] / maxVal) * (h - 2 * pad);
+        return [x, y, counts[k], k];
+      });
+
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svg.setAttribute('width', w);
+      svg.setAttribute('height', h);
+
+      // y-axis max label
+      var maxLabel = document.createElementNS(svgNS, 'text');
+      maxLabel.setAttribute('x', 0);
+      maxLabel.setAttribute('y', pad + 2);
+      maxLabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
+      maxLabel.setAttribute('font-size', '6');
+      maxLabel.setAttribute('fill', '#5a6080');
+      maxLabel.textContent = maxVal;
+      svg.appendChild(maxLabel);
+
+      var poly = document.createElementNS(svgNS, 'polyline');
+      poly.setAttribute('points', pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '));
+      poly.setAttribute('fill', 'none');
+      poly.setAttribute('stroke', '#6bb3f0');
+      poly.setAttribute('stroke-width', '1.5');
+      svg.appendChild(poly);
+      pts.forEach(function (p) {
+        var dot = document.createElementNS(svgNS, 'circle');
+        dot.setAttribute('cx', p[0]);
+        dot.setAttribute('cy', p[1]);
+        dot.setAttribute('r', '2');
+        dot.setAttribute('fill', '#6bb3f0');
+        svg.appendChild(dot);
+        var t = document.createElementNS(svgNS, 'text');
+        t.setAttribute('x', p[0]);
+        t.setAttribute('y', h - 1);
+        t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('font-family', "'SF Mono', Consolas, monospace");
+        t.setAttribute('font-size', '6');
+        t.setAttribute('fill', '#5a6080');
+        t.textContent = p[3].slice(8, 10);
+        svg.appendChild(t);
+      });
+      var container = document.getElementById('commit-chart');
+      if (container) container.appendChild(svg);
+    })
+    .catch(function () { });
 })();
 </script>
 </body>

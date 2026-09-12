@@ -260,3 +260,4 @@ a.link-external::after {
 .home-icon { color: #7a8296; text-decoration: none; font-size: 1.05em; line-height: 1; }
 .home-icon:hover { color: #4a90e2; }
 .home-icon-active { color: #4a90e2; font-size: 1.05em; line-height: 1; }
+.nav-back { color: #4a90e2; text-decoration: none; }
