@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vetnups — Commit Activity</title>
+<link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <div class="meta-bar">
+      <div class="meta-left">
+        <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
+        <span class="sep">·</span>
+        <a class="nav-back" href="../index.html">Vetnups</a>
+        <span class="sep">·</span>
+        <span>Version 0.1.0</span>
+        <span class="sep">·</span>
+        <span id="last-updated">Updated —</span>
+      </div>
+    </div>
+
+    <h1>Commit Activity</h1>
+    <div class="branch-desc">Full history, computed live from the repo's commit log — <span id="duration-days">—</span> since the first commit.</div>
+
+    <div class="frontmatter">
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value"><span id="launch-date">—</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">uptime</span></div><div class="fm-value"><span id="uptime-detail">—</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">total</span></div><div class="fm-value"><span id="total-commits">—</span> commits</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">active</span></div><div class="fm-value"><span id="active-days">—</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">silent</span></div><div class="fm-value"><span id="silent-days">—</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">peak day</span></div><div class="fm-value"><span id="peak-day">—</span></div></div>
+    </div>
+
+    <div id="full-chart" style="margin-top:20px;"></div>
+
+  </div>
+<script>
+(function () {
+  var el = document.getElementById('last-updated');
+  if (!el) return;
+  var path = 'startups/vetnups/commits/index.html';
+  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data[0]) return;
+      var d = new Date(data[0].commit.committer.date);
+      var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      el.textContent = 'Updated ' + d.toLocaleString('en-US', opts);
+    })
+    .catch(function () { });
+})();
+</script>
+<script>
+(function () {
+  var repo = 'domainController/vetnups-website';
+  fetch('https://api.github.com/repos/' + repo + '/commits?per_page=100')
+    .then(function (r) { return r.json(); })
+    .then(function (commits) {
+      if (!commits || !commits.length || commits.message) return;
+      commits.reverse();
+
+      var counts = {};
+      commits.forEach(function (c) {
+        var d = new Date(c.commit.committer.date);
+        var key = d.toISOString().slice(0, 10);
+        counts[key] = (counts[key] || 0) + 1;
+      });
+
+      var first = new Date(commits[0].commit.committer.date);
+      var firstDay = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth(), first.getUTCDate()));
+      var now = new Date();
+      var today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+      var spanDays = Math.round((today - firstDay) / 86400000) + 1;
+
+      var allDays = [];
+      for (var i = 0; i < spanDays; i++) {
+        var d = new Date(firstDay.getTime() + i * 86400000);
+        var key = d.toISOString().slice(0, 10);
+        allDays.push([key, counts[key] || 0]);
+      }
+
+      var total = commits.length;
+      var maxVal = Math.max.apply(null, allDays.map(function (p) { return p[1]; }));
+      var peakEntry = allDays.filter(function (p) { return p[1] === maxVal; })[0];
+      var activeDays = allDays.filter(function (p) { return p[1] > 0; }).length;
+      var silentDays = spanDays - activeDays;
+
+      function fmtDay(key) {
+        var d = new Date(key + 'T00:00:00Z');
+        return d.toLocaleString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+      }
+
+      var launchDateEl = document.getElementById('launch-date');
+      if (launchDateEl) {
+        var lopts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' };
+        launchDateEl.textContent = first.toLocaleString('en-US', lopts) + ' UTC';
+      }
+      var uptimeDetailEl = document.getElementById('uptime-detail');
+      if (uptimeDetailEl) {
+        var upMs = now - first;
+        var upDays = Math.floor(upMs / 86400000);
+        var upHours = Math.floor((upMs % 86400000) / 3600000);
+        uptimeDetailEl.textContent = upDays + 'd ' + upHours + 'h';
+      }
+      document.getElementById('total-commits').textContent = total;
+      document.getElementById('active-days').textContent = activeDays + ' / ' + spanDays + ' days';
+      document.getElementById('silent-days').textContent = silentDays + ' days with zero commits';
+      document.getElementById('peak-day').textContent = fmtDay(peakEntry[0]) + ' (' + maxVal + ' commits, ' + Math.round(maxVal / total * 100) + '% of all commits)';
+      document.getElementById('duration-days').textContent = spanDays + ' days';
+
+      var w = 720, h = 240, padL = 34, padR = 12, padT = 16, padB = 30;
+      var innerW = w - padL - padR, innerH = h - padT - padB;
+      var n = allDays.length;
+      var step = n > 1 ? innerW / (n - 1) : 0;
+      var pts = allDays.map(function (p, i) {
+        var x = padL + i * step;
+        var y = padT + innerH - (maxVal > 0 ? (p[1] / maxVal) * innerH : 0);
+        return [x, y, p[1], p[0]];
+      });
+
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', h);
+
+      [0, 0.5, 1].forEach(function (frac) {
+        var y = padT + innerH - frac * innerH;
+        var line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', padL); line.setAttribute('x2', w - padR);
+        line.setAttribute('y1', y); line.setAttribute('y2', y);
+        line.setAttribute('stroke', '#161a33'); line.setAttribute('stroke-width', '1');
+        svg.appendChild(line);
+        var label = document.createElementNS(svgNS, 'text');
+        label.setAttribute('x', padL - 6); label.setAttribute('y', y + 3);
+        label.setAttribute('text-anchor', 'end');
+        label.setAttribute('font-family', "'SF Mono', Consolas, monospace");
+        label.setAttribute('font-size', '10'); label.setAttribute('fill', '#5a6080');
+        label.textContent = Math.round(frac * maxVal);
+        svg.appendChild(label);
+      });
+
+      var d = '';
+      if (pts.length === 1) {
+        d = 'M ' + pts[0][0] + ' ' + pts[0][1];
+      } else {
+        d = 'M ' + pts[0][0] + ' ' + pts[0][1];
+        for (var i = 0; i < pts.length - 1; i++) {
+          var p0 = pts[i], p1 = pts[i + 1];
+          var mx = (p0[0] + p1[0]) / 2, my = (p0[1] + p1[1]) / 2;
+          d += ' Q ' + p0[0] + ' ' + p0[1] + ' ' + mx + ' ' + my;
+        }
+        d += ' T ' + pts[pts.length - 1][0] + ' ' + pts[pts.length - 1][1];
+      }
+      var path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#6bb3f0');
+      path.setAttribute('stroke-width', '2');
+      svg.appendChild(path);
+
+      var zeroY = padT + innerH;
+      var zline = document.createElementNS(svgNS, 'line');
+      zline.setAttribute('x1', padL); zline.setAttribute('x2', w - padR);
+      zline.setAttribute('y1', zeroY); zline.setAttribute('y2', zeroY);
+      zline.setAttribute('stroke', '#232849'); zline.setAttribute('stroke-width', '1');
+      svg.appendChild(zline);
+
+      var labelEvery = Math.max(1, Math.ceil(n / 8));
+      pts.forEach(function (p, i) {
+        var dot = document.createElementNS(svgNS, 'circle');
+        dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]);
+        dot.setAttribute('r', p[2] > 0 ? 2.5 : 1.5);
+        dot.setAttribute('fill', p[2] > 0 ? '#6bb3f0' : '#3a4060');
+        svg.appendChild(dot);
+
+        if (i % labelEvery === 0 || i === pts.length - 1) {
+          var dlabel = document.createElementNS(svgNS, 'text');
+          dlabel.setAttribute('x', p[0]); dlabel.setAttribute('y', h - 8);
+          dlabel.setAttribute('text-anchor', 'middle');
+          dlabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
+          dlabel.setAttribute('font-size', '9'); dlabel.setAttribute('fill', '#5a6080');
+          dlabel.textContent = fmtDay(p[3]);
+          svg.appendChild(dlabel);
+        }
+      });
+
+      var durLabel = document.createElementNS(svgNS, 'text');
+      durLabel.setAttribute('x', w - padR); durLabel.setAttribute('y', padT);
+      durLabel.setAttribute('text-anchor', 'end');
+      durLabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
+      durLabel.setAttribute('font-size', '11'); durLabel.setAttribute('fill', '#8a90a8');
+      durLabel.textContent = spanDays + ' days total';
+      svg.appendChild(durLabel);
+
+      var container = document.getElementById('full-chart');
+      if (container) container.appendChild(svg);
+    })
+    .catch(function () { });
+})();
+</script>
+</body>
+</html>
