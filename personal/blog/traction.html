@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curb — Traction</title>
+<title>Blog — Traction</title>
 <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
@@ -13,24 +13,23 @@
       <div class="meta-left">
         <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../index.html">Managed Marketplaces</a>
+        <a class="nav-back" href="index.html">Blog</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
 
-    <h1>Curb</h1>
+    <h1>Blog</h1>
     <div class="branch-desc">Traction development, updated as progress happens.</div>
 
     <div class="frontmatter">
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value">Landing page <span class="status-tag status-live">live</span></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/curb-site">domainController/curb-site</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value">Live site <span class="status-tag status-live">live</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/offcityhike-blog">domainController/offcityhike-blog</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value"><span id="launch">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">uptime</span></div><div class="fm-value"><span id="uptime">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">commit activity</span></div><div class="fm-value"><a href="commits/index.html" id="commit-chart" style="display:flex;justify-content:flex-start;text-decoration:none;"></a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">analytics</span></div><div class="fm-value">Not installed yet — will link to public GoatCounter stats once live</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">contact</span></div><div class="fm-value">No email provided yet</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Flesh out the landing page beyond a single commit</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Write and publish the first real post</div></div>
     </div>
 
   </div>
@@ -38,7 +37,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'marketplace/curb/traction.html';
+  var path = 'personal/blog/traction.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
@@ -52,7 +51,7 @@
 </script>
 <script>
 (function () {
-  var repo = 'domainController/curb-site';
+  var repo = 'domainController/offcityhike-blog';
   fetch('https://api.github.com/repos/' + repo + '/commits?per_page=100')
     .then(function (r) { return r.json(); })
     .then(function (commits) {

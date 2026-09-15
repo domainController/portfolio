@@ -65,13 +65,30 @@
       }
 
       var uptimeEl = document.getElementById('uptime');
+      function fmtUptime(ms) {
+        var totalDays = Math.floor(ms / 86400000);
+        var hours = Math.floor((ms % 86400000) / 3600000);
+        if (totalDays < 14) {
+          return totalDays + 'd ' + hours + 'h';
+        }
+        var years = Math.floor(totalDays / 365);
+        var remAfterYears = totalDays % 365;
+        var months = Math.floor(remAfterYears / 30);
+        var remAfterMonths = remAfterYears % 30;
+        var weeks = Math.floor(remAfterMonths / 7);
+        var days = remAfterMonths % 7;
+        var parts = [];
+        if (years > 0) parts.push(years + 'y');
+        if (months > 0) parts.push(months + 'm');
+        if (weeks > 0) parts.push(weeks + 'w');
+        if (years === 0 && months === 0) parts.push(days + 'd');
+        return parts.join(' ') + ' (' + totalDays + 'd total)';
+      }
       function tickUptime() {
         if (!uptimeEl) return;
         var now = new Date();
         var ms = now - first;
-        var days = Math.floor(ms / 86400000);
-        var hours = Math.floor((ms % 86400000) / 3600000);
-        uptimeEl.textContent = days + 'd ' + hours + 'h';
+        uptimeEl.textContent = fmtUptime(ms);
       }
       tickUptime();
       setInterval(tickUptime, 60000);

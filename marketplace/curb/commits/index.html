@@ -85,6 +85,25 @@
       var activeDays = allDays.filter(function (p) { return p[1] > 0; }).length;
       var silentDays = spanDays - activeDays;
 
+      function fmtUptime(ms) {
+        var totalDays = Math.floor(ms / 86400000);
+        var hours = Math.floor((ms % 86400000) / 3600000);
+        if (totalDays < 14) {
+          return totalDays + 'd ' + hours + 'h';
+        }
+        var years = Math.floor(totalDays / 365);
+        var remAfterYears = totalDays % 365;
+        var months = Math.floor(remAfterYears / 30);
+        var remAfterMonths = remAfterYears % 30;
+        var weeks = Math.floor(remAfterMonths / 7);
+        var days = remAfterMonths % 7;
+        var parts = [];
+        if (years > 0) parts.push(years + 'y');
+        if (months > 0) parts.push(months + 'm');
+        if (weeks > 0) parts.push(weeks + 'w');
+        if (years === 0 && months === 0) parts.push(days + 'd');
+        return parts.join(' ') + ' (' + totalDays + 'd total)';
+      }
       function fmtDay(key) {
         var d = new Date(key + 'T00:00:00Z');
         return d.toLocaleString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
@@ -98,9 +117,7 @@
       var uptimeDetailEl = document.getElementById('uptime-detail');
       if (uptimeDetailEl) {
         var upMs = now - first;
-        var upDays = Math.floor(upMs / 86400000);
-        var upHours = Math.floor((upMs % 86400000) / 3600000);
-        uptimeDetailEl.textContent = upDays + 'd ' + upHours + 'h';
+        uptimeDetailEl.textContent = fmtUptime(upMs);
       }
       document.getElementById('total-commits').textContent = total;
       document.getElementById('active-days').textContent = activeDays + ' / ' + spanDays + ' days';
