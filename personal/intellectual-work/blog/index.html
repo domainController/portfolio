@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../../css/style.css">
 </head>
 <body>
   <div class="container">
 
     <div class="meta-bar">
       <div class="meta-left">
-        <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
+        <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../../index.html">Patrice Kenmoé</a>
+        <a class="nav-back" href="../index.html">Essays &amp; Theory</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
@@ -24,7 +24,8 @@
 
     <div class="frontmatter">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://offcityhike.blog">offcityhike.blog</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a href="traction.html" style="color:#8a90a8;text-decoration:none;">Live site</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-internal" href="traction.html">Live site</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">artwork</span></div><div class="fm-value"><a class="link-internal" href="#">Photos — visual identity and everyday reference material</a></div></div>
     </div>
 
   </div>
@@ -32,7 +33,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'personal/blog/index.html';
+  var path = 'personal/intellectual-work/blog/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
