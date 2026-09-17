@@ -8,20 +8,17 @@
 </head>
 <body>
   <div class="container">
-
     <div class="meta-bar">
       <div class="meta-left">
         <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../index.html">Managed Marketplaces</a>
+        <a class="nav-back" href="index.html">Clusters</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
-
     <h1>Clusters</h1>
     <div class="branch-desc">Traction development, updated as progress happens.</div>
-
     <div class="frontmatter">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value">Landing page <span class="status-tag status-live">live</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/clusters-website">domainController/clusters-website</a></div></div>
@@ -29,10 +26,8 @@
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">uptime</span></div><div class="fm-value"><span id="uptime">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deployment activity</span></div><div class="fm-value"><a href="commits/index.html" id="commit-chart" style="display:flex;justify-content:flex-start;text-decoration:none;"></a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">analytics</span></div><div class="fm-value"><a class="link-external" href="https://cluster.goatcounter.com">cluster.goatcounter.com</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">contact</span></div><div class="fm-value">No email provided yet</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Align visual identity with auditum-memoria.com (pending its CSS)</div></div>
     </div>
-
   </div>
 <script>
 (function () {
@@ -66,17 +61,12 @@
         launchEl.textContent = first.toLocaleString('en-US', opts) + ' UTC';
       }
 
-      var uptimeEl = document.getElementById('uptime');
       function fmtUptime(ms) {
         var totalDays = Math.floor(ms / 86400000);
         var hours = Math.floor((ms % 86400000) / 3600000);
-        if (totalDays < 1) {
-          return hours + (hours === 1 ? ' hour' : ' hours');
-        }
+        if (totalDays < 1) return hours + (hours === 1 ? ' hour' : ' hours');
         if (totalDays < 7) {
-          var dPart = totalDays + (totalDays === 1 ? ' day' : ' days');
-          var hPart = hours + (hours === 1 ? ' hour' : ' hours');
-          return dPart + ', ' + hPart;
+          return totalDays + (totalDays === 1 ? ' day' : ' days') + ', ' + hours + (hours === 1 ? ' hour' : ' hours');
         }
         var years = Math.floor(totalDays / 365);
         var remAfterYears = totalDays % 365;
@@ -93,11 +83,12 @@
         }
         return parts.join(', ') + ' (' + totalDays + 'd total)';
       }
+
+      var uptimeEl = document.getElementById('uptime');
       function tickUptime() {
         if (!uptimeEl) return;
         var now = new Date();
-        var ms = now - first;
-        uptimeEl.textContent = fmtUptime(ms);
+        uptimeEl.textContent = fmtUptime(now - first);
       }
       tickUptime();
       setInterval(tickUptime, 60000);
@@ -129,59 +120,35 @@
       svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
       svg.setAttribute('width', w);
       svg.setAttribute('height', h);
-
-      // y-axis max label
       var maxLabel = document.createElementNS(svgNS, 'text');
-      maxLabel.setAttribute('x', 0);
-      maxLabel.setAttribute('y', pad + 2);
+      maxLabel.setAttribute('x', 0); maxLabel.setAttribute('y', pad + 2);
       maxLabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
-      maxLabel.setAttribute('font-size', '6');
-      maxLabel.setAttribute('fill', '#5a6080');
+      maxLabel.setAttribute('font-size', '6'); maxLabel.setAttribute('fill', '#5a6080');
       maxLabel.textContent = maxVal;
       svg.appendChild(maxLabel);
 
-      // "today" reference marker — x-axis is now time-scaled, so a gap
-      // between the last dot and this line shows real inactivity.
+      // "today" reference marker
       var todayLine = document.createElementNS(svgNS, 'line');
-      todayLine.setAttribute('x1', w - pad);
-      todayLine.setAttribute('x2', w - pad);
-      todayLine.setAttribute('y1', pad);
-      todayLine.setAttribute('y2', h - pad);
-      todayLine.setAttribute('stroke', '#3a3f52');
-      todayLine.setAttribute('stroke-width', '0.75');
-      todayLine.setAttribute('stroke-dasharray', '1.5,1.5');
+      todayLine.setAttribute('x1', w - pad); todayLine.setAttribute('x2', w - pad);
+      todayLine.setAttribute('y1', pad); todayLine.setAttribute('y2', h - pad);
+      todayLine.setAttribute('stroke', '#3a3f52'); todayLine.setAttribute('stroke-width', '0.75'); todayLine.setAttribute('stroke-dasharray', '1.5,1.5');
       svg.appendChild(todayLine);
-
       var todayLabel = document.createElementNS(svgNS, 'text');
-      todayLabel.setAttribute('x', w);
-      todayLabel.setAttribute('y', pad + 2);
-      todayLabel.setAttribute('text-anchor', 'end');
-      todayLabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
-      todayLabel.setAttribute('font-size', '6');
-      todayLabel.setAttribute('fill', '#5a6080');
+      todayLabel.setAttribute('x', w); todayLabel.setAttribute('y', pad + 2); todayLabel.setAttribute('text-anchor', 'end');
+      todayLabel.setAttribute('font-family', "'SF Mono', Consolas, monospace"); todayLabel.setAttribute('font-size', '6'); todayLabel.setAttribute('fill', '#5a6080');
       todayLabel.textContent = 'today';
       svg.appendChild(todayLabel);
-
       var poly = document.createElementNS(svgNS, 'polyline');
       poly.setAttribute('points', pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '));
-      poly.setAttribute('fill', 'none');
-      poly.setAttribute('stroke', '#6bb3f0');
-      poly.setAttribute('stroke-width', '1.5');
+      poly.setAttribute('fill', 'none'); poly.setAttribute('stroke', '#6bb3f0'); poly.setAttribute('stroke-width', '1.5');
       svg.appendChild(poly);
       pts.forEach(function (p) {
         var dot = document.createElementNS(svgNS, 'circle');
-        dot.setAttribute('cx', p[0]);
-        dot.setAttribute('cy', p[1]);
-        dot.setAttribute('r', '2');
-        dot.setAttribute('fill', '#6bb3f0');
+        dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]); dot.setAttribute('r', '2'); dot.setAttribute('fill', '#6bb3f0');
         svg.appendChild(dot);
         var t = document.createElementNS(svgNS, 'text');
-        t.setAttribute('x', p[0]);
-        t.setAttribute('y', h - 1);
-        t.setAttribute('text-anchor', 'middle');
-        t.setAttribute('font-family', "'SF Mono', Consolas, monospace");
-        t.setAttribute('font-size', '6');
-        t.setAttribute('fill', '#5a6080');
+        t.setAttribute('x', p[0]); t.setAttribute('y', h - 1); t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('font-family', "'SF Mono', Consolas, monospace"); t.setAttribute('font-size', '6'); t.setAttribute('fill', '#5a6080');
         t.textContent = p[3].slice(8, 10);
         svg.appendChild(t);
       });
