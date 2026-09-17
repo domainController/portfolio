@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Working Papers — Patrice Kenmoé</title>
+<title>Narrative Constructs — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../../../css/style.css">
 </head>
 <body>
@@ -13,18 +13,21 @@
       <div class="meta-left">
         <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../index.html">Essays &amp; Theory</a>
+        <a class="nav-back" href="../index.html">Legal Innovation Labs</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
 
-    <h1>Working Papers</h1>
+    <h1>Narrative Constructs</h1>
     <div class="branch-desc">Attributes.</div>
 
     <div class="frontmatter">
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://aletheiaframe.works">aletheiaframe.works</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a href="traction.html" style="color:#8a90a8;text-decoration:none;">Live site</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sector</span></div><div class="fm-value"><a class="link-internal" href="#">Legal Lab</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sub-sector</span></div><div class="fm-value"><a class="link-internal" href="#">Cognitive Lab</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value prop</span></div><div class="fm-value">Reflexive law theory — the anthropology and economics of law.</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://narrativeconstructs.com">narrativeconstructs.com</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-internal" href="traction.html">Live site</a></div></div>
     </div>
 
   </div>
@@ -32,7 +35,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'personal/intellectual-work/working-papers/index.html';
+  var path = 'legal-lab/legal-innovation-lab/narrative-constructs/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

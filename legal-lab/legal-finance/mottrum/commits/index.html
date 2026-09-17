@@ -85,23 +85,6 @@
       var activeDays = allDays.filter(function (p) { return p[1] > 0; }).length;
       var silentDays = spanDays - activeDays;
 
-      function fmtDayCount(totalDays) {
-        if (totalDays < 7) {
-          return totalDays + (totalDays === 1 ? ' day' : ' days');
-        }
-        var years = Math.floor(totalDays / 365);
-        var remAfterYears = totalDays % 365;
-        var months = Math.floor(remAfterYears / 30);
-        var remAfterMonths = remAfterYears % 30;
-        var weeks = Math.floor(remAfterMonths / 7);
-        var days = remAfterMonths % 7;
-        var parts = [];
-        if (years > 0) parts.push(years + (years === 1 ? ' year' : ' years'));
-        if (months > 0) parts.push(months + (months === 1 ? ' month' : ' months'));
-        if (weeks > 0) parts.push(weeks + (weeks === 1 ? ' week' : ' weeks'));
-        if (years === 0 && months === 0 && (days > 0 || parts.length === 0)) parts.push(days + (days === 1 ? ' day' : ' days'));
-        return parts.join(', ');
-      }
       function fmtDay(key) {
         var d = new Date(key + 'T00:00:00Z');
         return d.toLocaleString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
@@ -132,6 +115,23 @@
           if (days > 0 || parts.length === 0) parts.push(days + (days === 1 ? ' day' : ' days'));
         }
         return parts.join(', ') + ' (' + totalDays + 'd total)';
+      }
+      function fmtDayCount(totalDays) {
+        if (totalDays < 7) {
+          return totalDays + (totalDays === 1 ? ' day' : ' days');
+        }
+        var years = Math.floor(totalDays / 365);
+        var remAfterYears = totalDays % 365;
+        var months = Math.floor(remAfterYears / 30);
+        var remAfterMonths = remAfterYears % 30;
+        var weeks = Math.floor(remAfterMonths / 7);
+        var days = remAfterMonths % 7;
+        var parts = [];
+        if (years > 0) parts.push(years + (years === 1 ? ' year' : ' years'));
+        if (months > 0) parts.push(months + (months === 1 ? ' month' : ' months'));
+        if (weeks > 0) parts.push(weeks + (weeks === 1 ? ' week' : ' weeks'));
+        if (years === 0 && months === 0 && (days > 0 || parts.length === 0)) parts.push(days + (days === 1 ? ' day' : ' days'));
+        return parts.join(', ');
       }
       var launchDateEl = document.getElementById('launch-date');
       if (launchDateEl) {

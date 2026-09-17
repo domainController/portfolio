@@ -3,41 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Möttrum — Traction</title>
+<title>Narrative Constructs — Traction</title>
 <link rel="stylesheet" href="../../../css/style.css">
 </head>
 <body>
   <div class="container">
-
     <div class="meta-bar">
       <div class="meta-left">
         <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="index.html">Möttrum</a>
+        <a class="nav-back" href="index.html">Narrative Constructs</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
-
-    <h1>Möttrum</h1>
+    <h1>Narrative Constructs</h1>
     <div class="branch-desc">Traction development, updated as progress happens.</div>
-
     <div class="frontmatter">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value">Live site <span class="status-tag status-live">live</span></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/mottrum-site">domainController/mottrum-site</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/narrative-constructs-website">domainController/narrative-constructs-website</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value"><span id="launch">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">uptime</span></div><div class="fm-value"><span id="uptime">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deployment</span></div><div class="fm-value"><a href="commits/index.html" id="commit-chart" style="display:flex;justify-content:flex-start;text-decoration:none;"></a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">audience</span></div><div class="fm-value"><a class="link-external" href="https://mottrum.goatcounter.com">mottrum.goatcounter.com</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Grow the pre-litigation asset marketplace</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">audience</span></div><div class="fm-value"><a class="link-external" href="https://narrative-constructs.goatcounter.com">narrative-constructs.goatcounter.com</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Build out Vertical Labs section</div></div>
     </div>
-
   </div>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'legal-lab/legal-finance/mottrum/index.html';
+  var path = 'legal-lab/legal-innovation-lab/narrative-constructs/traction.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
@@ -51,7 +47,7 @@
 </script>
 <script>
 (function () {
-  var repo = 'domainController/mottrum-site';
+  var repo = 'domainController/narrative-constructs-website';
   fetch('https://api.github.com/repos/' + repo + '/commits?per_page=100')
     .then(function (r) { return r.json(); })
     .then(function (commits) {
@@ -65,18 +61,11 @@
         launchEl.textContent = first.toLocaleString('en-US', opts) + ' UTC';
       }
 
-      var uptimeEl = document.getElementById('uptime');
       function fmtUptime(ms) {
         var totalDays = Math.floor(ms / 86400000);
         var hours = Math.floor((ms % 86400000) / 3600000);
-        if (totalDays < 1) {
-          return hours + (hours === 1 ? ' hour' : ' hours');
-        }
-        if (totalDays < 7) {
-          var dPart = totalDays + (totalDays === 1 ? ' day' : ' days');
-          var hPart = hours + (hours === 1 ? ' hour' : ' hours');
-          return dPart + ', ' + hPart;
-        }
+        if (totalDays < 1) return hours + (hours === 1 ? ' hour' : ' hours');
+        if (totalDays < 7) return totalDays + (totalDays === 1 ? ' day' : ' days') + ', ' + hours + (hours === 1 ? ' hour' : ' hours');
         var years = Math.floor(totalDays / 365);
         var remAfterYears = totalDays % 365;
         var months = Math.floor(remAfterYears / 30);
@@ -92,11 +81,12 @@
         }
         return parts.join(', ') + ' (' + totalDays + 'd total)';
       }
+
+      var uptimeEl = document.getElementById('uptime');
       function tickUptime() {
         if (!uptimeEl) return;
         var now = new Date();
-        var ms = now - first;
-        uptimeEl.textContent = fmtUptime(ms);
+        uptimeEl.textContent = fmtUptime(now - first);
       }
       tickUptime();
       setInterval(tickUptime, 60000);
@@ -116,42 +106,27 @@
         var y = h - pad - (counts[k] / maxVal) * (h - 2 * pad);
         return [x, y, counts[k], k];
       });
-
       var svgNS = 'http://www.w3.org/2000/svg';
       var svg = document.createElementNS(svgNS, 'svg');
       svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-      svg.setAttribute('width', w);
-      svg.setAttribute('height', h);
-
+      svg.setAttribute('width', w); svg.setAttribute('height', h);
       var maxLabel = document.createElementNS(svgNS, 'text');
-      maxLabel.setAttribute('x', 0);
-      maxLabel.setAttribute('y', pad + 2);
+      maxLabel.setAttribute('x', 0); maxLabel.setAttribute('y', pad + 2);
       maxLabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
-      maxLabel.setAttribute('font-size', '6');
-      maxLabel.setAttribute('fill', '#5a6080');
+      maxLabel.setAttribute('font-size', '6'); maxLabel.setAttribute('fill', '#5a6080');
       maxLabel.textContent = maxVal;
       svg.appendChild(maxLabel);
-
       var poly = document.createElementNS(svgNS, 'polyline');
       poly.setAttribute('points', pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '));
-      poly.setAttribute('fill', 'none');
-      poly.setAttribute('stroke', '#6bb3f0');
-      poly.setAttribute('stroke-width', '1.5');
+      poly.setAttribute('fill', 'none'); poly.setAttribute('stroke', '#6bb3f0'); poly.setAttribute('stroke-width', '1.5');
       svg.appendChild(poly);
       pts.forEach(function (p) {
         var dot = document.createElementNS(svgNS, 'circle');
-        dot.setAttribute('cx', p[0]);
-        dot.setAttribute('cy', p[1]);
-        dot.setAttribute('r', '2');
-        dot.setAttribute('fill', '#6bb3f0');
+        dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]); dot.setAttribute('r', '2'); dot.setAttribute('fill', '#6bb3f0');
         svg.appendChild(dot);
         var t = document.createElementNS(svgNS, 'text');
-        t.setAttribute('x', p[0]);
-        t.setAttribute('y', h - 1);
-        t.setAttribute('text-anchor', 'middle');
-        t.setAttribute('font-family', "'SF Mono', Consolas, monospace");
-        t.setAttribute('font-size', '6');
-        t.setAttribute('fill', '#5a6080');
+        t.setAttribute('x', p[0]); t.setAttribute('y', h - 1); t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('font-family', "'SF Mono', Consolas, monospace"); t.setAttribute('font-size', '6'); t.setAttribute('fill', '#5a6080');
         t.textContent = p[3].slice(8, 10);
         svg.appendChild(t);
       });

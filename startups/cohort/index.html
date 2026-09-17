@@ -8,7 +8,6 @@
 </head>
 <body>
   <div class="container">
-
     <div class="meta-bar">
       <div class="meta-left">
         <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
@@ -29,25 +28,9 @@
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">differentiator</span></div><div class="fm-value">with affinity-based discussion</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value multiplier</span></div><div class="fm-value">and downstream litigation funding.</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://cohort.reviews">cohort.reviews</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a href="traction.html" style="color:#8a90a8;text-decoration:none;">Landing page development</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a href="traction.html" style="color:#8a90a8;text-decoration:none;">Landing page</a></div></div>
     </div>
 
   </div>
-<script>
-(function () {
-  var el = document.getElementById('last-updated');
-  if (!el) return;
-  var path = 'startups/cohort/index.html';
-  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      if (!data || !data[0]) return;
-      var d = new Date(data[0].commit.committer.date);
-      var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-      el.textContent = 'Updated ' + d.toLocaleString('en-US', opts);
-    })
-    .catch(function () { });
-})();
-</script>
 </body>
 </html>
