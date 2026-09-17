@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Deployment Activity</title>
+<title>Essays & Theory — Deployment Activity</title>
 <link rel="stylesheet" href="../../../css/style.css">
 </head>
 <body>
@@ -13,14 +13,14 @@
       <div class="meta-left">
         <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../traction.html">Blog</a>
+        <a class="nav-back" href="../traction.html">Essays & Theory</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
 
     <h1>Deployment Activity</h1>
-    <div class="branch-desc">Full history, computed live from the repo's commit log — <span id="duration-days">—</span> since the first commit.</div>
+    <div class="branch-desc">Full history, computed live from the repo's commit log, <span id="duration-days">—</span> since the first commit.</div>
 
     <div class="frontmatter">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value"><span id="launch-date">—</span></div></div>
@@ -38,7 +38,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'personal/intellectual-work/blog/commits/index.html';
+  var path = 'personal/intellectual-work/theory-drafts/commits/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
@@ -52,12 +52,39 @@
 </script>
 <script>
 (function () {
-  var repo = 'domainController/offcityhike-blog';
+  var repo = 'domainController/aletheia-frameworks-site';
   fetch('https://api.github.com/repos/' + repo + '/commits?per_page=100')
     .then(function (r) { return r.json(); })
     .then(function (commits) {
       if (!commits || !commits.length || commits.message) return;
       commits.reverse();
+
+      function fmtUptime(ms) {
+        var totalDays = Math.floor(ms / 86400000);
+        var hours = Math.floor((ms % 86400000) / 3600000);
+        if (totalDays < 1) {
+          return hours + (hours === 1 ? ' hour' : ' hours');
+        }
+        if (totalDays < 7) {
+          var dPart = totalDays + (totalDays === 1 ? ' day' : ' days');
+          var hPart = hours + (hours === 1 ? ' hour' : ' hours');
+          return dPart + ', ' + hPart;
+        }
+        var years = Math.floor(totalDays / 365);
+        var remAfterYears = totalDays % 365;
+        var months = Math.floor(remAfterYears / 30);
+        var remAfterMonths = remAfterYears % 30;
+        var weeks = Math.floor(remAfterMonths / 7);
+        var days = remAfterMonths % 7;
+        var parts = [];
+        if (years > 0) parts.push(years + (years === 1 ? ' year' : ' years'));
+        if (months > 0) parts.push(months + (months === 1 ? ' month' : ' months'));
+        if (weeks > 0) parts.push(weeks + (weeks === 1 ? ' week' : ' weeks'));
+        if (years === 0 && months === 0) {
+          if (days > 0 || parts.length === 0) parts.push(days + (days === 1 ? ' day' : ' days'));
+        }
+        return parts.join(', ') + ' (' + totalDays + 'd total)';
+      }
 
       var counts = {};
       commits.forEach(function (c) {
@@ -90,32 +117,6 @@
         return d.toLocaleString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
       }
 
-      function fmtUptime(ms) {
-        var totalDays = Math.floor(ms / 86400000);
-        var hours = Math.floor((ms % 86400000) / 3600000);
-        if (totalDays < 1) {
-          return hours + (hours === 1 ? ' hour' : ' hours');
-        }
-        if (totalDays < 7) {
-          var dPart = totalDays + (totalDays === 1 ? ' day' : ' days');
-          var hPart = hours + (hours === 1 ? ' hour' : ' hours');
-          return dPart + ', ' + hPart;
-        }
-        var years = Math.floor(totalDays / 365);
-        var remAfterYears = totalDays % 365;
-        var months = Math.floor(remAfterYears / 30);
-        var remAfterMonths = remAfterYears % 30;
-        var weeks = Math.floor(remAfterMonths / 7);
-        var days = remAfterMonths % 7;
-        var parts = [];
-        if (years > 0) parts.push(years + (years === 1 ? ' year' : ' years'));
-        if (months > 0) parts.push(months + (months === 1 ? ' month' : ' months'));
-        if (weeks > 0) parts.push(weeks + (weeks === 1 ? ' week' : ' weeks'));
-        if (years === 0 && months === 0) {
-          if (days > 0 || parts.length === 0) parts.push(days + (days === 1 ? ' day' : ' days'));
-        }
-        return parts.join(', ') + ' (' + totalDays + 'd total)';
-      }
       function fmtDayCount(totalDays) {
         if (totalDays < 7) {
           return totalDays + (totalDays === 1 ? ' day' : ' days');
