@@ -152,7 +152,7 @@
       document.getElementById('active-days').textContent = activeDays + ' / ' + spanDays + ' days';
       document.getElementById('silent-days').textContent = fmtUptime(silentDays * 86400000) + ' with zero commits';
       document.getElementById('peak-day').textContent = fmtDay(peakEntry[0]) + ' (' + maxVal + ' commits, ' + Math.round(maxVal / total * 100) + '% of all commits)';
-      document.getElementById('duration-days').textContent = fmtUptime(spanDays * 86400000);
+      var durationDaysEl = document.getElementById('duration-days'); if (durationDaysEl) durationDaysEl.textContent = fmtUptime(spanDays * 86400000);
 
       var w = 720, h = 240, padL = 34, padR = 12, padT = 16, padB = 30;
       var innerW = w - padL - padR, innerH = h - padT - padB;
