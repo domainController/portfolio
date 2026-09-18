@@ -180,6 +180,15 @@ a.link-internal {
 a.link-internal:visited { color: #a888d0; }
 a.link-internal:hover { color: #c4aee8; border-bottom-style: solid; }
 
+/* link-live: for internal links to a page that's already my own production, up and running.
+   Plain text color with a "live" status pill alongside — distinct from link-internal (violet,
+   future essay/lab placeholders) and link-external (green underline, an outside site). */
+a.link-live {
+  color: inherit;
+  text-decoration: none;
+}
+a.link-live:hover { text-decoration: underline; }
+
 a.link-external {
   color: #6bcf7f;
   text-decoration: none;

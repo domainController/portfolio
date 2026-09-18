@@ -19,8 +19,8 @@
       </div>
     </div>
 
-    <h1>Auditum Memoria</h1>
-    <div class="branch-desc">Traction development, updated as progress happens.</div>
+    <h1>Traction Development</h1>
+    <div class="branch-desc">Updated as progress happens.</div>
 
     <div class="frontmatter">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value">Live site <span class="status-tag status-live">live</span></div></div>
@@ -33,6 +33,36 @@
     </div>
 
   </div>
+<script>
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        return r.json().then(function (data) {
+          if (data && !data.message) {
+            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          } else if (cached) {
+            data = cached.d;
+          }
+          return { json: function () { return Promise.resolve(data); } };
+        });
+      }).catch(function () {
+        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
+        return { json: function () { return Promise.resolve([]); } };
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
@@ -123,14 +153,20 @@
       svg.setAttribute('width', w);
       svg.setAttribute('height', h);
 
-      var maxLabel = document.createElementNS(svgNS, 'text');
-      maxLabel.setAttribute('x', 0);
-      maxLabel.setAttribute('y', pad + 2);
-      maxLabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
-      maxLabel.setAttribute('font-size', '6');
-      maxLabel.setAttribute('fill', '#5a6080');
-      maxLabel.textContent = maxVal;
-      svg.appendChild(maxLabel);
+      [0, 0.5, 1].forEach(function (frac) {
+        var y = pad + (h - 2 * pad) * (1 - frac);
+        var gline = document.createElementNS(svgNS, 'line');
+        gline.setAttribute('x1', leftPad); gline.setAttribute('x2', w);
+        gline.setAttribute('y1', y); gline.setAttribute('y2', y);
+        gline.setAttribute('stroke', '#1e2340'); gline.setAttribute('stroke-width', '1');
+        svg.appendChild(gline);
+        var glabel = document.createElementNS(svgNS, 'text');
+        glabel.setAttribute('x', 0); glabel.setAttribute('y', y + 2);
+        glabel.setAttribute('font-family', "'SF Mono', Consolas, monospace");
+        glabel.setAttribute('font-size', '6'); glabel.setAttribute('fill', '#5a6080');
+        glabel.textContent = Math.round(frac * maxVal);
+        svg.appendChild(glabel);
+      });
 
       var poly = document.createElementNS(svgNS, 'polyline');
       poly.setAttribute('points', pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' '));
@@ -139,12 +175,6 @@
       poly.setAttribute('stroke-width', '1.5');
       svg.appendChild(poly);
       pts.forEach(function (p) {
-        var dot = document.createElementNS(svgNS, 'circle');
-        dot.setAttribute('cx', p[0]);
-        dot.setAttribute('cy', p[1]);
-        dot.setAttribute('r', '2');
-        dot.setAttribute('fill', '#6bb3f0');
-        svg.appendChild(dot);
         var t = document.createElementNS(svgNS, 'text');
         t.setAttribute('x', p[0]);
         t.setAttribute('y', h - 1);
