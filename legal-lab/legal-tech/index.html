@@ -3,28 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Narrative Constructs — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../../../css/style.css">
+<title>Legal Tech — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
   <div class="container">
     <div class="meta-bar">
       <div class="meta-left">
-        <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
+        <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../index.html">Legal Innovation Labs</a>
+        <a class="nav-back" href="../index.html">Legal Engineering</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
-    <h1>Narrative Constructs</h1>
-    <div class="branch-desc">Attributes.</div>
-    <div class="frontmatter">
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">business model</span></div><div class="fm-value"><a class="link-internal" href="../index.html">Legal Lab</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">lab regime</span></div><div class="fm-value"><a class="link-internal" href="#">Cognitive Lab</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value prop</span></div><div class="fm-value">Reflexive law theory — the anthropology and economics of law.</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://narrativeconstructs.com">narrativeconstructs.com</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-live" href="traction.html">Live site</a> <span class="status-tag status-live">live</span></div></div>
+    <h1>Legal Tech</h1>
+    <div class="branch-desc">Products that leave the lab and deploy on their own.</div>
+    <div class="children">
+      <div class="child"><a href="halo/index.html">Hālo</a> <span class="status-tag status-concept">concept</span><div class="child-desc">Distributed personal protection with legal interposition.</div></div>
     </div>
 </div>
 <script>
@@ -61,7 +57,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'legal-lab/legal-innovation-lab/narrative-constructs/index.html';
+  var path = 'legal-lab/legal-tech/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
