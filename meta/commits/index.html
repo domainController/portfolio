@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Deployment Activity</title>
-<link rel="stylesheet" href="../../../../css/style.css">
+<title>Deployment Activity — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
   <div class="container">
 
     <div class="meta-bar">
       <div class="meta-left">
-        <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
+        <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../traction.html">Blog</a>
+        <a class="nav-back" href="../traction.html">This Portfolio Site</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
@@ -68,7 +68,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'personal/intellectual-work/blog/commits/index.html';
+  var path = 'meta/commits/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
@@ -82,12 +82,33 @@
 </script>
 <script>
 (function () {
-  var repo = 'domainController/offcityhike-blog';
+  var repo = 'domainController/portfolio';
   fetch('https://api.github.com/repos/' + repo + '/commits?per_page=100')
     .then(function (r) { return r.json(); })
     .then(function (commits) {
       if (!commits || !commits.length || commits.message) return;
       commits.reverse();
+
+      function fmtUptime(ms) {
+        var totalDays = Math.floor(ms / 86400000);
+        var hours = Math.floor((ms % 86400000) / 3600000);
+        if (totalDays < 1) return hours + (hours === 1 ? ' hour' : ' hours');
+        if (totalDays < 7) return totalDays + (totalDays === 1 ? ' day' : ' days') + ', ' + hours + (hours === 1 ? ' hour' : ' hours');
+        var years = Math.floor(totalDays / 365);
+        var remAfterYears = totalDays % 365;
+        var months = Math.floor(remAfterYears / 30);
+        var remAfterMonths = remAfterYears % 30;
+        var weeks = Math.floor(remAfterMonths / 7);
+        var days = remAfterMonths % 7;
+        var parts = [];
+        if (years > 0) parts.push(years + (years === 1 ? ' year' : ' years'));
+        if (months > 0) parts.push(months + (months === 1 ? ' month' : ' months'));
+        if (weeks > 0) parts.push(weeks + (weeks === 1 ? ' week' : ' weeks'));
+        if (years === 0 && months === 0) {
+          if (days > 0 || parts.length === 0) parts.push(days + (days === 1 ? ' day' : ' days'));
+        }
+        return parts.join(', ');
+      }
 
       var counts = {};
       commits.forEach(function (c) {
@@ -120,64 +141,18 @@
         return d.toLocaleString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
       }
 
-      function fmtUptime(ms) {
-        var totalDays = Math.floor(ms / 86400000);
-        var hours = Math.floor((ms % 86400000) / 3600000);
-        if (totalDays < 1) {
-          return hours + (hours === 1 ? ' hour' : ' hours');
-        }
-        if (totalDays < 7) {
-          var dPart = totalDays + (totalDays === 1 ? ' day' : ' days');
-          var hPart = hours + (hours === 1 ? ' hour' : ' hours');
-          return dPart + ', ' + hPart;
-        }
-        var years = Math.floor(totalDays / 365);
-        var remAfterYears = totalDays % 365;
-        var months = Math.floor(remAfterYears / 30);
-        var remAfterMonths = remAfterYears % 30;
-        var weeks = Math.floor(remAfterMonths / 7);
-        var days = remAfterMonths % 7;
-        var parts = [];
-        if (years > 0) parts.push(years + (years === 1 ? ' year' : ' years'));
-        if (months > 0) parts.push(months + (months === 1 ? ' month' : ' months'));
-        if (weeks > 0) parts.push(weeks + (weeks === 1 ? ' week' : ' weeks'));
-        if (years === 0 && months === 0) {
-          if (days > 0 || parts.length === 0) parts.push(days + (days === 1 ? ' day' : ' days'));
-        }
-        return parts.join(', ') + ' (' + totalDays + 'd total)';
-      }
-      function fmtDayCount(totalDays) {
-        if (totalDays < 7) {
-          return totalDays + (totalDays === 1 ? ' day' : ' days');
-        }
-        var years = Math.floor(totalDays / 365);
-        var remAfterYears = totalDays % 365;
-        var months = Math.floor(remAfterYears / 30);
-        var remAfterMonths = remAfterYears % 30;
-        var weeks = Math.floor(remAfterMonths / 7);
-        var days = remAfterMonths % 7;
-        var parts = [];
-        if (years > 0) parts.push(years + (years === 1 ? ' year' : ' years'));
-        if (months > 0) parts.push(months + (months === 1 ? ' month' : ' months'));
-        if (weeks > 0) parts.push(weeks + (weeks === 1 ? ' week' : ' weeks'));
-        if (years === 0 && months === 0 && (days > 0 || parts.length === 0)) parts.push(days + (days === 1 ? ' day' : ' days'));
-        return parts.join(', ');
-      }
       var launchDateEl = document.getElementById('launch-date');
       if (launchDateEl) {
         var lopts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' };
         launchDateEl.textContent = first.toLocaleString('en-US', lopts) + ' UTC';
       }
       var uptimeDetailEl = document.getElementById('uptime-detail');
-      if (uptimeDetailEl) {
-        var upMs = now - first;
-        uptimeDetailEl.textContent = fmtUptime(upMs);
-      }
+      if (uptimeDetailEl) uptimeDetailEl.textContent = fmtUptime(now - first);
       document.getElementById('total-commits').textContent = total;
       document.getElementById('active-days').textContent = activeDays + ' / ' + spanDays + ' days';
-      document.getElementById('silent-days').textContent = fmtDayCount(silentDays) + ' with zero commits';
+      document.getElementById('silent-days').textContent = fmtUptime(silentDays * 86400000) + ' with zero commits';
       document.getElementById('peak-day').textContent = fmtDay(peakEntry[0]) + ' (' + maxVal + ' commits, ' + Math.round(maxVal / total * 100) + '% of all commits)';
-      document.getElementById('duration-days').textContent = spanDays + ' days';
+      document.getElementById('duration-days').textContent = fmtUptime(spanDays * 86400000);
 
       var w = 720, h = 240, padL = 34, padR = 12, padT = 16, padB = 30;
       var innerW = w - padL - padR, innerH = h - padT - padB;
@@ -192,8 +167,7 @@
       var svgNS = 'http://www.w3.org/2000/svg';
       var svg = document.createElementNS(svgNS, 'svg');
       svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-      svg.setAttribute('width', '100%');
-      svg.setAttribute('height', h);
+      svg.setAttribute('width', '100%'); svg.setAttribute('height', h);
 
       [0, 0.5, 1].forEach(function (frac) {
         var y = padT + innerH - frac * innerH;
@@ -225,9 +199,7 @@
       }
       var path = document.createElementNS(svgNS, 'path');
       path.setAttribute('d', d);
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', '#6bb3f0');
-      path.setAttribute('stroke-width', '2');
+      path.setAttribute('fill', 'none'); path.setAttribute('stroke', '#6bb3f0'); path.setAttribute('stroke-width', '2');
       svg.appendChild(path);
 
       var zeroY = padT + innerH;
@@ -244,7 +216,6 @@
         dot.setAttribute('r', p[2] > 0 ? 2.5 : 1.5);
         dot.setAttribute('fill', p[2] > 0 ? '#6bb3f0' : '#3a4060');
         svg.appendChild(dot);
-
         if (i % labelEvery === 0 || i === pts.length - 1) {
           var dlabel = document.createElementNS(svgNS, 'text');
           dlabel.setAttribute('x', p[0]); dlabel.setAttribute('y', h - 8);
@@ -267,7 +238,7 @@
       var container = document.getElementById('full-chart');
       if (container) container.appendChild(svg);
     })
-    .catch(function () { });
+    .catch(function () {});
 })();
 </script>
 </body>

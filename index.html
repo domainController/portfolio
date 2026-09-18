@@ -20,7 +20,7 @@
     </div>
 
     <h1>Portfolio</h1>
-    <div class="subtitle">A comprehensive directory of <a href="https://offcityhike.blog/bio/index.html" style="color:inherit;text-decoration:underline;">my</a> work online.</div>
+    <div class="subtitle">A comprehensive <a class="link-live" href="meta/index.html" style="text-decoration:underline;">directory</a> of <a href="https://offcityhike.blog/bio/index.html" style="color:inherit;text-decoration:underline;">my</a> work online.</div>
 
     <div class="children">
       <div class="child"><a href="techventures/index.html">Tech Ventures</a> <span class="status-tag status-live">live</span><div class="child-desc">Mobile &amp; web platforms — different scaling models, same tech core.</div></div>
@@ -29,6 +29,36 @@
     </div>
 
   </div>
+<script>
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        return r.json().then(function (data) {
+          if (data && !data.message) {
+            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          } else if (cached) {
+            data = cached.d;
+          }
+          return { json: function () { return Promise.resolve(data); } };
+        });
+      }).catch(function () {
+        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
+        return { json: function () { return Promise.resolve([]); } };
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
