@@ -1,105 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sociosomatic</title>
-    <style>
-        body {
-            background-color: #0d1117;
-            color: #c9d1d9;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .breadcrumb {
-            font-size: 0.9rem;
-            color: #8b949e;
-            margin-bottom: 2rem;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        .subtitle {
-            font-size: 1.1rem;
-            color: #8b949e;
-            margin-bottom: 2rem;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 1rem;
-        }
-        .category-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        .category-desc {
-            color: #8b949e;
-            font-size: 0.95rem;
-        }
-        .status-tag {
-            display: inline-block;
-            background-color: #21262d;
-            color: #8b949e;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            padding: 0.1rem 0.4rem;
-            font-size: 0.75rem;
-            margin-left: 0.5rem;
-            vertical-align: middle;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sociosomatic — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+  <div class="container">
 
-    <div class="breadcrumb">
-        <a href="index.html">home</a> · Sociosomatic
+    <div class="meta-bar">
+      <div class="meta-left">
+        <a class="home-icon" href="../index.html" title="Home">&#8962;</a>
+        <span class="sep">·</span>
+        <span class="nav-current">Sociosomatic</span>
+        <span class="sep">·</span>
+        <span id="last-updated">Updated —</span>
+      </div>
     </div>
 
     <h1>Sociosomatic</h1>
-    <p class="subtitle">The body as substrate of social behavior.</p>
+    <div class="branch-desc">The body as substrate of social behavior.</div>
 
-    <ul>
-        <li>
-            <span class="category-title">Somatic Mediation</span>
-            <span class="status-tag">draft</span>
-            <div class="category-desc">Theory of the body as substrate.</div>
-        </li>
-        <li>
-            <span class="category-title">Aesthetic Variable</span>
-            <span class="status-tag">draft</span>
-            <div class="category-desc">Morphology, beauty, stigma, symbolic capital.</div>
-        </li>
-        <li>
-            <span class="category-title">Regulation Practices</span>
-            <span class="status-tag">draft</span>
-            <div class="category-desc">Sport, stack, fasting, sleep, light.</div>
-        </li>
-        <li>
-            <span class="category-title">Transition & Aging</span>
-            <span class="status-tag">draft</span>
-            <div class="category-desc">Midlife, menopause, andropause, mortality.</div>
-        </li>
-        <li>
-            <span class="category-title">Cultural Movements</span>
-            <span class="status-tag">draft</span>
-            <div class="category-desc">Keto, carnivore, CrossFit, fitness YouTube.</div>
-        </li>
-    </ul>
+    <div class="children">
+      <div class="child"><a href="somatic-mediation/index.html">Somatic Mediation</a> <span class="status-tag status-draft">draft</span><div class="child-desc">The body as the ground of social behavior.</div></div>
+      <div class="child"><a href="aesthetic-variable/index.html">Aesthetic Variable</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Morphology, beauty, stigma, symbolic capital.</div></div>
+      <div class="child"><a href="regulation-practices/index.html">Regulation Practices</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Sport, supplements, fasting, sleep, light.</div></div>
+      <div class="child"><a href="transition-aging/index.html">Transition &amp; Aging</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Hormones, midlife, menopause, andropause, longevity.</div></div>
+      <div class="child"><a href="cultural-movements/index.html">Cultural Movements</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Keto, carnivore, CrossFit, run clubs, fitness YouTube.</div></div>
+      <div class="child"><a href="substance-regimes/index.html">Substance Regimes</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Alcohol, caffeine, tobacco, cannabis, cocaine, and the management of reality.</div></div>
+    </div>
 
+  </div>
+
+<script>
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        return r.json().then(function (data) {
+          if (data && !data.message) {
+            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          } else if (cached) {
+            data = cached.d;
+          }
+          return { json: function () { return Promise.resolve(data); } };
+        });
+      }).catch(function () {
+        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
+        return { json: function () { return Promise.resolve([]); } };
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
+<script>
+(function () {
+  var el = document.getElementById('last-updated');
+  if (!el) return;
+  var path = 'sociosomatic/index.html';
+  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data[0]) return;
+      var d = new Date(data[0].commit.committer.date);
+      var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      el.textContent = 'Updated ' + d.toLocaleString('en-US', opts);
+    })
+    .catch(function () { });
+})();
+</script>
 </body>
 </html>
