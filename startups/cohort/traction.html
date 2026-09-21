@@ -39,13 +39,13 @@
 
     <div class="frontmatter">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">stage</span></div><div class="fm-value"><a class="link-live" href="landing/index.html">Landing page</a> <span class="status-tag status-live">live</span></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">site</span></div><div class="fm-value"><a class="link-external" href="https://cohort.reviews">cohort.reviews</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">site</span></div><div class="fm-value"><a class="link-external" href="https://cohort.reviews">cohort.reviews</a> <span class="status-tag status-live">live</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">blog</span></div><div class="fm-value"><a class="link-external" href="https://cohort.reviews/blog/">cohort.reviews/blog</a> <span class="status-tag status-project">project</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/cohort-website">domainController/cohort-website</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">launch</span></div><div class="fm-value"><span id="launch">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">uptime</span></div><div class="fm-value"><span id="uptime">—</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deployment</span></div><div class="fm-value"><a href="commits/index.html" id="commit-chart" style="display:flex;justify-content:flex-start;text-decoration:none;"></a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">audience</span></div><div class="fm-value"><a class="link-external" href="https://plausible.io/cohort.reviews">plausible.io/cohort.reviews</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">audience</span></div><div class="fm-value"><a class="link-external" href="https://plausible.io/cohort.reviews">plausible.io/cohort.reviews</a> <span class="status-tag status-live">live</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">contact</span></div><div class="fm-value">No email provided yet</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">next milestone</span></div><div class="fm-value">Ship a working CTA / waitlist</div></div>
     </div>
@@ -85,7 +85,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'startups/cohort/index.html';
+  var path = 'startups/cohort/traction.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
