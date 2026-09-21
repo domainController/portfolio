@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vetnups — Landing Page</title>
+<link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <div class="meta-bar">
+      <div class="meta-left">
+        <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
+        <span class="sep">·</span>
+        <a class="nav-back" href="../traction.html">Vetnups</a>
+        <span class="sep">·</span>
+        <span id="last-updated">Updated —</span>
+      </div>
+    </div>
+
+    <h1>Landing Page</h1>
+    <div class="branch-desc">Attributes.</div>
+
+    <div class="frontmatter">
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">site</span></div><div class="fm-value"><a class="link-external" href="https://vetnups.com">vetnups.com</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sections</span></div><div class="fm-value">Hero, benefits, definition, sample profile, video, how it works, verification manifest, closing CTA</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">primary CTA</span></div><div class="fm-value">Request early access (email capture, no waitlist/session CTA)</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">benefits shown</span></div><div class="fm-value">No swiping, no games · Verified attributes, not just photos · A real place to meet · No ads, no marketing emails</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">verification manifest</span></div><div class="fm-value">7 checks: identity, photos, locations, height, income &amp; assets, education, marital status</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sample profile</span></div><div class="fm-value">1 screenshot (full view)</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">video</span></div><div class="fm-value">Placeholder — not recorded yet</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">payment methods shown</span></div><div class="fm-value">Google Pay, PayPal, Stripe, iDEAL, SEPA</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">pricing shown</span></div><div class="fm-value">€2–3/month at launch, cancel anytime</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">design system</span></div><div class="fm-value">IBM Plex Serif/Sans/Mono, warm neutral palette, auto light/dark</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">tracking</span></div><div class="fm-value">Matomo (siteId 2)</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">repo</span></div><div class="fm-value"><a class="link-external" href="https://github.com/domainController/vetnups-website">domainController/vetnups-website</a></div></div>
+    </div>
+
+  </div>
+<script>
+(function () {
+  var el = document.getElementById('last-updated');
+  if (!el) return;
+  var path = 'startups/vetnups/landing/index.html';
+  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data[0]) return;
+      var d = new Date(data[0].commit.committer.date);
+      var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      el.textContent = 'Updated ' + d.toLocaleString('en-US', opts);
+    })
+    .catch(function () { });
+})();
+</script>
+</body>
+</html>
