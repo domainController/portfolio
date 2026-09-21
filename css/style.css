@@ -259,6 +259,12 @@ a.link-external::after {
 }
 .fm-value a.link-internal { font-family: 'SF Mono', Consolas, monospace; }
 
+@media (max-width: 480px) {
+  .fm-row { flex-wrap: wrap; }
+  .fm-key-col { flex: 0 0 auto; text-align: left; }
+  .fm-value { flex: 1 1 100%; }
+}
+
 .placeholder-message {
   color: #8a90a8;
   font-size: 1.05em;
