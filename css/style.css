@@ -278,3 +278,7 @@ a.link-external::after {
 .home-icon:hover { color: #4a90e2; }
 .home-icon-active { color: #4a90e2; font-size: 1.05em; line-height: 1; }
 .nav-back { color: #4a90e2; text-decoration: none; }
+
+/* ---- Cross-site links (portfolio / blog / doctrine) ---- */
+.site-link { color: #4a90e2; text-decoration: none; }
+.site-link:hover { text-decoration: underline; }
