@@ -242,7 +242,7 @@ a.link-external::after {
   border-bottom: 1px solid #161a33;
 }
 .fm-key-col {
-  flex: 0 0 140px;
+  flex: 0 0 170px;
   text-align: right;
 }
 .fm-key {
@@ -264,7 +264,17 @@ a.link-external::after {
   .fm-row { flex-wrap: wrap; }
   .fm-key-col { flex: 0 0 auto; text-align: left; }
   .fm-value { flex: 1 1 100%; }
+  .container.attr-page h1 { margin-left: 0; }
 }
+
+/* ---- Entity attribute pages (Startups/Ventures/Labs "Attributes." leaves) ----
+   Opt-in via <div class="container attr-page">: tighter top spacing since
+   there's no body copy above the frontmatter, plus a rightward h1 nudge so
+   the title sits nearer the value column instead of flush against the
+   container edge. */
+.container.attr-page { padding-top: 32px; }
+.container.attr-page .meta-bar { margin-bottom: 24px; }
+.container.attr-page h1 { margin-left: 90px; }
 
 .placeholder-message {
   color: #8a90a8;
