@@ -33,7 +33,8 @@ body {
   margin-bottom: 40px;
   font-family: 'SF Mono', Consolas, monospace;
 }
-.meta-bar .meta-left {
+.meta-bar .meta-left,
+.meta-bar .meta-right {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
@@ -131,7 +132,7 @@ details[open] > summary.branch-title::before {
 
 .branch-desc {
   color: #8a90a8;
-  font-size: 0.88em;
+  font-size: 0.95em;
   margin-bottom: 10px;
 }
 
@@ -143,13 +144,13 @@ details[open] > summary.branch-title::before {
 
 .child {
   padding: 6px 0;
-  font-size: 0.92em;
+  font-size: 1em;
 }
 .child a { color: #b8bcd8; text-decoration: none; }
 .child a:visited { color: #b8bcd8; }
 .child a:hover { color: #4a90e2; text-decoration: underline; }
 .child .note { color: #5a6080; font-size: 0.85em; margin-left: 8px; }
-.child-desc { color: #5a6080; font-size: 0.85em; margin-top: 3px; }
+.child-desc { color: #5a6080; font-size: 0.92em; margin-top: 3px; }
 
 .status-tag {
   display: inline-block;
@@ -179,6 +180,15 @@ a.link-internal {
 }
 a.link-internal:visited { color: #a888d0; }
 a.link-internal:hover { color: #c4aee8; border-bottom-style: solid; }
+
+/* link-live: for internal links to a page that's already my own production, up and running.
+   Plain text color with a "live" status pill alongside — distinct from link-internal (violet,
+   future essay/lab placeholders) and link-external (green underline, an outside site). */
+a.link-live {
+  color: inherit;
+  text-decoration: none;
+}
+a.link-live:hover { text-decoration: underline; }
 
 a.link-external {
   color: #6bcf7f;
@@ -232,7 +242,7 @@ a.link-external::after {
   border-bottom: 1px solid #161a33;
 }
 .fm-key-col {
-  flex: 0 0 160px;
+  flex: 0 0 170px;
   text-align: right;
 }
 .fm-key {
@@ -250,6 +260,27 @@ a.link-external::after {
 }
 .fm-value a.link-internal { font-family: 'SF Mono', Consolas, monospace; }
 
+@media (max-width: 480px) {
+  .fm-row { flex-wrap: wrap; }
+  .fm-key-col { flex: 0 0 auto; text-align: left; }
+  .fm-value { flex: 1 1 100%; }
+  .container.attr-page h1 { width: auto; text-align: left; margin-left: 0; }
+}
+
+/* ---- Entity attribute pages (Startups/Ventures/Labs "Attributes." leaves) ----
+   Opt-in via <div class="container attr-page">: tighter top spacing since
+   there's no body copy above the frontmatter, plus a rightward h1 nudge so
+   the title sits nearer the value column instead of flush against the
+   container edge. */
+.container.attr-page { padding-top: 32px; }
+.container.attr-page .meta-bar { margin-bottom: 24px; }
+/* 184px = fm-key-col width (170px) + fm-row gap (14px) — the exact start
+   of the fm-value column. Right-aligning the h1 inside a box of that width
+   makes the END of the title (its last letter) land exactly on that line
+   regardless of word length (Cohort/Curb/Clusters/Vetnups all differ),
+   while the start of the title stays short of it — never touching. */
+.container.attr-page h1 { width: 184px; text-align: right; margin-left: 0; }
+
 .placeholder-message {
   color: #8a90a8;
   font-size: 1.05em;
@@ -263,3 +294,7 @@ a.link-external::after {
 .home-icon:hover { color: #4a90e2; }
 .home-icon-active { color: #4a90e2; font-size: 1.05em; line-height: 1; }
 .nav-back { color: #4a90e2; text-decoration: none; }
+
+/* ---- Cross-site links (portfolio / blog / doctrine) ---- */
+.site-link { color: #4a90e2; text-decoration: none; }
+.site-link:hover { text-decoration: underline; }
