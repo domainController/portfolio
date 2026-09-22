@@ -264,7 +264,7 @@ a.link-external::after {
   .fm-row { flex-wrap: wrap; }
   .fm-key-col { flex: 0 0 auto; text-align: left; }
   .fm-value { flex: 1 1 100%; }
-  .container.attr-page h1 { margin-left: 0; }
+  .container.attr-page h1 { width: auto; text-align: left; margin-left: 0; }
 }
 
 /* ---- Entity attribute pages (Startups/Ventures/Labs "Attributes." leaves) ----
@@ -274,10 +274,12 @@ a.link-external::after {
    container edge. */
 .container.attr-page { padding-top: 32px; }
 .container.attr-page .meta-bar { margin-bottom: 24px; }
-/* 184px = fm-key-col width (170px) + fm-row gap (14px) — aligns the h1's
-   left edge exactly with the start of the fm-value column, not an
-   approximate nudge. */
-.container.attr-page h1 { margin-left: 184px; }
+/* 184px = fm-key-col width (170px) + fm-row gap (14px) — the exact start
+   of the fm-value column. Right-aligning the h1 inside a box of that width
+   makes the END of the title (its last letter) land exactly on that line
+   regardless of word length (Cohort/Curb/Clusters/Vetnups all differ),
+   while the start of the title stays short of it — never touching. */
+.container.attr-page h1 { width: 184px; text-align: right; margin-left: 0; }
 
 .placeholder-message {
   color: #8a90a8;
