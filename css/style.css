@@ -132,7 +132,7 @@ details[open] > summary.branch-title::before {
 
 .branch-desc {
   color: #8a90a8;
-  font-size: 0.88em;
+  font-size: 0.95em;
   margin-bottom: 10px;
 }
 
@@ -144,13 +144,13 @@ details[open] > summary.branch-title::before {
 
 .child {
   padding: 6px 0;
-  font-size: 0.92em;
+  font-size: 1em;
 }
 .child a { color: #b8bcd8; text-decoration: none; }
 .child a:visited { color: #b8bcd8; }
 .child a:hover { color: #4a90e2; text-decoration: underline; }
 .child .note { color: #5a6080; font-size: 0.85em; margin-left: 8px; }
-.child-desc { color: #5a6080; font-size: 0.85em; margin-top: 3px; }
+.child-desc { color: #5a6080; font-size: 0.92em; margin-top: 3px; }
 
 .status-tag {
   display: inline-block;
@@ -274,7 +274,10 @@ a.link-external::after {
    container edge. */
 .container.attr-page { padding-top: 32px; }
 .container.attr-page .meta-bar { margin-bottom: 24px; }
-.container.attr-page h1 { margin-left: 90px; }
+/* 184px = fm-key-col width (170px) + fm-row gap (14px) — aligns the h1's
+   left edge exactly with the start of the fm-value column, not an
+   approximate nudge. */
+.container.attr-page h1 { margin-left: 184px; }
 
 .placeholder-message {
   color: #8a90a8;
