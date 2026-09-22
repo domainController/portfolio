@@ -5,10 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cohort — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../../css/style.css">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
-  <div class="container">
-
+  <div class="container attr-page">
     <div class="meta-bar">
       <div class="meta-left">
         <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
@@ -16,23 +21,56 @@
         <a class="nav-back" href="../index.html">Community Startups</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
+        <span class="sep">·</span>
+        <a class="site-link" href="../vetnups/index.html">Vetnups</a>
       </div>
     </div>
 
     <h1>Cohort</h1>
-    <div class="branch-desc">Attributes.</div>
 
     <div class="frontmatter">
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sector</span></div><div class="fm-value"><a class="link-internal" href="#">Content &amp; Community Platforms</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sub-sector</span></div><div class="fm-value"><a class="link-internal" href="#">Review Platform</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">format</span></div><div class="fm-value"><a class="link-internal" href="#">Review</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">business model</span></div><div class="fm-value"><a class="link-internal" href="#">Content &amp; Community Platform</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value prop</span></div><div class="fm-value">In-depth, long-term review platform for consumer products and services,</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">differentiator</span></div><div class="fm-value">with affinity-based discussion</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value multiplier</span></div><div class="fm-value">and downstream litigation funding.</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">cold start</span></div><div class="fm-value">5/10 — needs a community before a product</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deploy priority</span></div><div class="fm-value">5/10 — slower to build, real potential</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://cohort.reviews">cohort.reviews</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a href="traction.html" style="color:#8a90a8;text-decoration:none;">Landing page development</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-live" href="traction.html">Landing page</a> <span class="status-tag status-live">live</span></div></div>
     </div>
 
   </div>
+<script>
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        return r.json().then(function (data) {
+          if (data && !data.message) {
+            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          } else if (cached) {
+            data = cached.d;
+          }
+          return { json: function () { return Promise.resolve(data); } };
+        });
+      }).catch(function () {
+        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
+        return { json: function () { return Promise.resolve([]); } };
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
 <script>
 (function () {
   var el = document.getElementById('last-updated');

@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Legal Innovation Labs — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../../css/style.css">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
   <div class="container">
@@ -20,11 +26,41 @@
     <h1>Legal Innovation Labs</h1>
     <div class="branch-desc">Labs that host <a class="link-internal" href="#">frameworks</a>, release them to a cohort, and grow them into a clinic if adopted.</div>
     <div class="children">
-      <div class="child"><a href="https://narrativeconstructs.com">Narrative Constructs</a> <span class="status-tag status-live">live</span><div class="child-desc">Cognitive legal lab hosting reflexive law theory behind every pre-litigation lab.</div></div>
-      <div class="child"><a href="https://narrativeconstructs.com/orbitum.html">Morse</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Framework in development for civic conflict mapping between individuals.</div></div>
-      <div class="child">Claim <span class="status-tag status-concept">concept</span><div class="child-desc">Framework in development for B2C pre-litigation escalation.</div></div>
+      <div class="child"><a href="narrative-constructs/index.html">Narrative Constructs</a> <span class="status-tag status-live">live</span><div class="child-desc">Cognitive legal lab hosting reflexive law theory behind every pre-litigation lab.</div></div>
+      <div class="child"><a href="#">Morse</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Framework in development for civic conflict mapping between individuals.</div></div>
+      <div class="child"><a href="#">Claim</a> <span class="status-tag status-concept">concept</span><div class="child-desc">Framework in development for B2C pre-litigation escalation.</div></div>
     </div>
 </div>
+<script>
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        return r.json().then(function (data) {
+          if (data && !data.message) {
+            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          } else if (cached) {
+            data = cached.d;
+          }
+          return { json: function () { return Promise.resolve(data); } };
+        });
+      }).catch(function () {
+        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
+        return { json: function () { return Promise.resolve([]); } };
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
 <script>
 (function () {
   var el = document.getElementById('last-updated');

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Möttrum — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../../css/style.css">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+</head>
+<body>
+  <div class="container attr-page">
+    <div class="meta-bar">
+      <div class="meta-left">
+        <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
+        <span class="sep">·</span>
+        <a class="nav-back" href="../index.html">Litigation Finance</a>
+        <span class="sep">·</span>
+        <span id="last-updated">Updated —</span>
+      </div>
+    </div>
+    <h1>Möttrum</h1>
+    <div class="frontmatter">
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">business model</span></div><div class="fm-value">Marketplace</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">vertical</span></div><div class="fm-value">Litigation Finance</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">market scope</span></div><div class="fm-value">Global</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">network scope</span></div><div class="fm-value">Global</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sides</span></div><div class="fm-value">Two-sided (claimant, investor)</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">model type</span></div><div class="fm-value">Lightly Managed</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">lab regime</span></div><div class="fm-value">Spin-off Lab</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value prop</span></div><div class="fm-value">Marketplace for pre-litigation assets.</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">audience</span></div><div class="fm-value"><a class="link-external" href="https://plausible.io/mottrum.com">plausible.io/mottrum.com</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://mottrum.com">mottrum.com</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-live" href="traction.html">Live site</a> <span class="status-tag status-live">live</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">parent lab</span></div><div class="fm-value"><a class="link-internal" href="../../legal-lab/legal-innovation-lab/narrative-constructs/index.html">Narrative Constructs</a></div></div>
+    </div>
+</div>
+<script>
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        return r.json().then(function (data) {
+          if (data && !data.message) {
+            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          } else if (cached) {
+            data = cached.d;
+          }
+          return { json: function () { return Promise.resolve(data); } };
+        });
+      }).catch(function () {
+        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
+        return { json: function () { return Promise.resolve([]); } };
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
+<script>
+(function () {
+  var el = document.getElementById('last-updated');
+  if (!el) return;
+  var path = 'litigation-finance/mottrum/index.html';
+  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data || !data[0]) return;
+      var d = new Date(data[0].commit.committer.date);
+      var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      el.textContent = 'Updated ' + d.toLocaleString('en-US', opts);
+    })
+    .catch(function () { });
+})();
+</script>
+</body>
+</html>

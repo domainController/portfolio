@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Essays &amp; Theory — Patrice Kenmoé</title>
+<title>Essays & Theory — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../../css/style.css">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
   <div class="container">
@@ -13,21 +19,51 @@
       <div class="meta-left">
         <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../../index.html">Patrice Kenmoé</a>
+        <a class="nav-back" href="../../index.html">Portfolio</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
 
-    <h1>Essays &amp; Theory</h1>
+    <h1>Essays & Theory</h1>
     <div class="branch-desc">Theoretical work on the symbolic self, interactionism, and social theory.</div>
 
     <div class="children">
       <div class="child"><a href="blog/index.html">Blog</a> <span class="status-tag status-live">live</span><div class="child-desc">Reflections on interaction theory and on the world. Includes artwork.</div></div>
-      <div class="child"><a href="working-papers/index.html">Working Papers</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Substantial theoretical work, not yet published.</div></div>
+      <div class="child"><a href="theory-drafts/index.html">Doctrine</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Substantial theoretical work, not yet published.</div></div>
     </div>
 
   </div>
+<script>
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        return r.json().then(function (data) {
+          if (data && !data.message) {
+            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          } else if (cached) {
+            data = cached.d;
+          }
+          return { json: function () { return Promise.resolve(data); } };
+        });
+      }).catch(function () {
+        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
+        return { json: function () { return Promise.resolve([]); } };
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
