@@ -7,6 +7,12 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Root base: every size below is em, so without this the browser falls back
+   to its own 16px default. 15px matches the root patricek.info page (fixed
+   2026-08-31 after an 18px "too big" pass) — never had one here, hence
+   everything under startups/ rendering visibly larger than the homepage. */
+html { font-size: 15px; }
+
 body {
   background: #0a0e27;
   color: #e0e0e0;
