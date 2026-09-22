@@ -265,6 +265,8 @@ a.link-external::after {
   .fm-key-col { flex: 0 0 auto; text-align: left; }
   .fm-value { flex: 1 1 100%; }
   .container.attr-page h1 { margin-left: 0; }
+  .container.attr-page .branch-desc { width: auto; text-align: left; margin-left: 0; }
+  .attr-header-row { justify-content: flex-start; }
 }
 
 /* ---- Entity attribute pages (Startups/Ventures/Labs "Attributes." leaves) ----
@@ -277,7 +279,29 @@ a.link-external::after {
 /* 184px = fm-key-col width (170px) + fm-row gap (14px) — aligns the h1's
    left edge exactly with the start of the fm-value column, not an
    approximate nudge. */
-.container.attr-page h1 { margin-left: 184px; }
+.container.attr-page h1 { margin-left: 184px; margin-bottom: 4px; }
+.container.attr-page .branch-desc { width: 184px; text-align: right; margin-left: 0; }
+
+/* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
+   Was: h1 alone, then a separate meta-right lang-switch crammed into the
+   meta-bar next to the breadcrumbs (too many items for that row). Now the
+   tab switcher sits beside "Attributes" instead — tighter reading unit with
+   the h1 above it (h1 margin-bottom reduced 12px -> 4px), and the meta-bar
+   goes back to breadcrumbs only. First pass — placement/spacing to be
+   judged visually and iterated. */
+.attr-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 24px;
+}
+.attr-header-row .branch-desc {
+  width: auto;
+  text-align: left;
+  margin-bottom: 0;
+}
 
 .placeholder-message {
   color: #8a90a8;
