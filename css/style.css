@@ -315,12 +315,19 @@ a.link-external::after {
 .container.attr-page h1 { width: 170px; text-align: right; margin-left: 0; margin-bottom: 2px; }
 .container.attr-page .branch-desc { width: 170px; margin-left: 0; text-align: right; }
 /* Two-word titles too wide for the 170px box (Narrative Constructs,
-   Auditum Memoria) tried wrapping one word per line, both still
-   right-anchored at 170px — technically correct but read as an oddly
-   tall, stacked title. Flush left instead: at this font/weight the
-   first word happens to end close to the 170px line on its own, so the
-   line still lands roughly between the two words, just on one row. */
+   Auditum Memoria): wrapping one word per line, both right-anchored at
+   170px, read as an oddly tall, stacked title. Guessing the line would
+   fall between the words on one flush-left line depended on font
+   metrics — not deterministic, kept drifting off with any font/size
+   change. Exact fix instead: only the first word (.h1-lead) sits in a
+   170px, right-aligned, inline-block box — the same box every fm-key
+   and "Attributes" sit in — so its right edge is ON the line by
+   construction, not by coincidence. The second word is plain text right
+   after it, flowing normally past the line. h1 itself goes back to
+   plain block flow (h1-wide: no width constraint, left-aligned) since
+   .h1-lead now does the alignment work. */
 .container.attr-page h1.h1-wide { width: auto; text-align: left; }
+.container.attr-page h1 .h1-lead { display: inline-block; width: 170px; text-align: right; }
 
 /* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
    Was: h1 alone, then a separate meta-right lang-switch crammed into the
