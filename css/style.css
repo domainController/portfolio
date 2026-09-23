@@ -304,21 +304,23 @@ a.link-external::after {
 /* 170px = fm-key-col width — the same right edge every fm-key and the
    "Attributes" label (.attr-header-row .branch-desc, also 170px) align to.
    Plain width + text-align:right, no flex: a one-word title that fits
-   sits flush on the line like "Attributes" does; a two-word title too
-   wide for 170px (Narrative Constructs, Auditum Memoria) wraps the way
-   any right-aligned text wraps, one word per line, both lines still
-   flush-right on the same 170px line — the line lands between the two
-   words instead of past either edge. Flex + white-space:nowrap (tried
-   first) forced single-line overflow past the container's own left edge
-   for these titles instead of wrapping, and flex's default
-   align-items:stretch also stretched a sibling status-tag span to the
-   full line height, squaring off its pill shape — both side effects
-   disappear with plain inline layout. Also tried direction:rtl for the
-   overflow case specifically — worked, but leaked into sibling
-   status-tag ordering and subtly mis-shaped short titles via bidi run
-   boundaries. */
+   sits flush on the line like "Attributes" does. Flex + white-space:nowrap
+   (tried first) forced single-line overflow past the container's own left
+   edge for wide titles; flex's default align-items:stretch also stretched
+   a sibling status-tag span to the full line height, squaring off its
+   pill shape — both side effects disappear with plain inline layout. Also
+   tried direction:rtl for the overflow case specifically — worked, but
+   leaked into sibling status-tag ordering and subtly mis-shaped short
+   titles via bidi run boundaries. */
 .container.attr-page h1 { width: 170px; text-align: right; margin-left: 0; margin-bottom: 2px; }
 .container.attr-page .branch-desc { width: 170px; margin-left: 0; text-align: right; }
+/* Two-word titles too wide for the 170px box (Narrative Constructs,
+   Auditum Memoria) tried wrapping one word per line, both still
+   right-anchored at 170px — technically correct but read as an oddly
+   tall, stacked title. Flush left instead: at this font/weight the
+   first word happens to end close to the 170px line on its own, so the
+   line still lands roughly between the two words, just on one row. */
+.container.attr-page h1.h1-wide { width: auto; text-align: left; }
 
 /* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
    Was: h1 alone, then a separate meta-right lang-switch crammed into the
