@@ -406,7 +406,6 @@ a.link-external::after {
    class needed on the row itself. */
 h1.h1-wide + .attr-header-row {
   margin-left: 0;
-  justify-content: center;
 }
 
 .placeholder-message {
