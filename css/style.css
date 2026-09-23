@@ -256,7 +256,7 @@ a.link-external::after {
   border-radius: 4px;
 }
 .lang-switch a:hover { color: #4a90e2; border-color: #4a90e2; }
-.lang-switch a.active { color: #fff; background: #1e2340; border-color: #1e2340; }
+.lang-switch a.active { color: #7a8296; background: #1e2340; border-color: #1e2340; }
 
 .back-link {
   display: inline-block;
@@ -375,9 +375,11 @@ a.link-external::after {
   width: 170px;
   text-align: right;
   margin-bottom: 0;
+  order: 2;
 }
 .attr-header-row .lang-switch {
   flex: 1;
+  order: 1;
 }
 
 .placeholder-message {
