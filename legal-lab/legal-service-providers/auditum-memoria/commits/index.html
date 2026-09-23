@@ -171,7 +171,7 @@
       }
       var launchDateEl = document.getElementById('launch-date');
       if (launchDateEl) {
-        var lopts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' };
+        var lopts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' };
         launchDateEl.textContent = first.toLocaleString('en-US', lopts) + ' UTC';
       }
       var uptimeDetailEl = document.getElementById('uptime-detail');

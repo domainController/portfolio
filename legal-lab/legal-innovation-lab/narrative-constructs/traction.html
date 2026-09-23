@@ -93,7 +93,7 @@
       var first = new Date(commits[0].commit.committer.date);
       var launchEl = document.getElementById('launch');
       if (launchEl) {
-        var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' };
+        var opts = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' };
         launchEl.textContent = first.toLocaleString('en-US', opts) + ' UTC';
       }
 
