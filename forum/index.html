@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cohort — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../../css/style.css">
+<title>Managed Forum — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../css/style.css">
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
 <script>
@@ -13,31 +13,23 @@
 </script>
 </head>
 <body>
-  <div class="container attr-page">
+  <div class="container">
+
     <div class="meta-bar">
       <div class="meta-left">
-        <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
+        <a class="home-icon" href="../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../index.html">Community Startups</a>
+        <a class="nav-back" href="../techventures/index.html">Tech Ventures</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
-        <span class="sep">·</span>
-        <a class="site-link" href="../vetnups/index.html">Vetnups</a>
       </div>
     </div>
 
-    <h1>Cohort</h1>
+    <h1>Managed Forum</h1>
+    <div class="branch-desc">Long-term, affinity-based discussion around consumer reviews — community first, product second.</div>
 
-    <div class="frontmatter">
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">format</span></div><div class="fm-value"><a class="link-internal" href="#">Review</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">business model</span></div><div class="fm-value"><a class="link-internal" href="#">Content &amp; Community Platform</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value prop</span></div><div class="fm-value">In-depth, long-term review platform for consumer products and services,</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">differentiator</span></div><div class="fm-value">with affinity-based discussion</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">value multiplier</span></div><div class="fm-value">and downstream litigation funding.</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">cold start</span></div><div class="fm-value">5/10 — needs a community before a product</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deploy priority</span></div><div class="fm-value">5/10 — slower to build, real potential</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://cohort.reviews">cohort.reviews</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-live" href="traction.html">Landing page</a> <span class="status-tag status-live">live</span></div></div>
+    <div class="children">
+      <div class="child"><a href="cohort/index.html">Cohort</a> <span class="status-tag status-draft">draft</span><div class="child-desc">In-depth, long-term consumer reviews.</div></div>
     </div>
 
   </div>
@@ -75,7 +67,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'startups/cohort/index.html';
+  var path = 'forum/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

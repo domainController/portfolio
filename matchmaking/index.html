@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Community Startups — Patrice Kenmoé</title>
+<title>Managed Matchmaking — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../css/style.css">
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
@@ -25,14 +25,14 @@
       </div>
     </div>
 
-    <h1>Community Startups</h1>
-    <div class="branch-desc">Platforms built on justice and integrity.</div>
+    <h1>Managed Matchmaking</h1>
+    <div class="branch-desc">A managed introduction, not a listing to browse — access-fee matching, one relationship at a time.</div>
 
     <div class="children">
       <div class="child"><a href="vetnups/index.html">Vetnups</a> <span class="status-tag status-live">live</span><div class="child-desc">Commitment-oriented dating app with vetted profile attributes.</div></div>
-      <div class="child"><a href="cohort/index.html">Cohort</a> <span class="status-tag status-draft">draft</span><div class="child-desc">In-depth, long-term consumer reviews.</div></div>
     </div>
-</div>
+
+  </div>
 <script>
 (function () {
   var origFetch = window.fetch;
@@ -67,7 +67,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'startups/index.html';
+  var path = 'matchmaking/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

@@ -27,8 +27,17 @@
     </div>
 
     <h1>Clusters</h1>
+    <div class="attr-header-row">
+      <div class="branch-desc">Attributes.</div>
+      <div class="lang-switch" role="tablist">
+        <a href="#market" data-tab="market" class="active" role="tab" aria-selected="true">Market</a>
+        <a href="#product" data-tab="product" role="tab" aria-selected="false">Product</a>
+        <a href="#finance" data-tab="finance" role="tab" aria-selected="false">Finance</a>
+        <a href="#legal" data-tab="legal" role="tab" aria-selected="false">Legal</a>
+      </div>
+    </div>
 
-    <div class="frontmatter">
+    <div class="frontmatter" id="panel-market" role="tabpanel">
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">sides</span></div><div class="fm-value">Two-sided (resident, operator)</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">model type</span></div><div class="fm-value"><a class="link-internal" href="#">Fully Managed</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">business model</span></div><div class="fm-value"><a class="link-internal" href="#">Marketplace</a></div></div>
@@ -41,14 +50,54 @@
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">main sectors</span></div><div class="fm-value"><a class="link-internal" href="#">Global Mobility</a>, <a class="link-internal" href="#">Coworking</a>, <a class="link-internal" href="#">Self-storage</a>, <a class="link-internal" href="#">Dark Kitchen</a>, <a class="link-internal" href="#">Accommodation</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">other sectors</span></div><div class="fm-value"><a class="link-internal" href="#">Laundromat</a>, <a class="link-internal" href="#">Fitness</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">parent lab</span></div><div class="fm-value"><a class="link-internal" href="#">Market Notes</a></div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">cold start</span></div><div class="fm-value">8/10 — a year to first nodes, regulation heavy</div></div>
-      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deploy priority</span></div><div class="fm-value">4/10 — long-term, personal conviction high</div></div>
+    </div>
+
+    <div class="frontmatter" id="panel-product" role="tabpanel" hidden>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">audience</span></div><div class="fm-value"><a class="link-external" href="https://plausible.io/clusters.homes">plausible.io/clusters.homes</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">website</span></div><div class="fm-value"><a class="link-external" href="https://clusters.homes">clusters.homes</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-live" href="traction.html">Landing page</a> <span class="status-tag status-live">live</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">cold start</span></div><div class="fm-value">8/10 — a year to first nodes, regulation heavy</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deploy priority</span></div><div class="fm-value">4/10 — long-term, personal conviction high</div></div>
+    </div>
+
+    <div class="frontmatter" id="panel-finance" role="tabpanel" hidden>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">pricing model</span></div><div class="fm-value">— <span class="status-tag status-waiting">à préciser</span></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">monetization type</span></div><div class="fm-value">— <span class="status-tag status-waiting">à préciser</span></div></div>
+    </div>
+
+    <div class="frontmatter" id="panel-legal" role="tabpanel" hidden>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">legal lab</span></div><div class="fm-value">— <span class="status-tag status-waiting">à préciser</span></div></div>
     </div>
 
   </div>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.lang-switch [data-tab]');
+  var panels = { market: document.getElementById('panel-market'), product: document.getElementById('panel-product'), finance: document.getElementById('panel-finance'), legal: document.getElementById('panel-legal') };
+
+  function activate(name, pushHash) {
+    for (var i = 0; i < tabs.length; i++) {
+      var isActive = tabs[i].getAttribute('data-tab') === name;
+      tabs[i].classList.toggle('active', isActive);
+      tabs[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
+    }
+    for (var key in panels) { panels[key].hidden = key !== name; }
+    if (pushHash) { history.replaceState(null, '', '#' + name); }
+  }
+
+  for (var i = 0; i < tabs.length; i++) {
+    (function (tab) {
+      tab.addEventListener('click', function (e) {
+        e.preventDefault();
+        activate(tab.getAttribute('data-tab'), true);
+      });
+    })(tabs[i]);
+  }
+
+  var initial = location.hash.replace('#', '');
+  if (panels[initial]) activate(initial, false);
+})();
+</script>
 <script>
 (function () {
   var origFetch = window.fetch;
