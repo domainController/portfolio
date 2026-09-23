@@ -158,6 +158,14 @@ details[open] > summary.branch-title::before {
   margin-top: 12px;
   margin-bottom: 4px;
 }
+/* A .children with a single .child (Legal Labs > Narrative Constructs)
+   doesn't need a guide line — there's no sibling for it to distinguish,
+   and it just ran the full height of the block for no reason, competing
+   with the real nested line below it (Morse/Claim, which does have two
+   siblings to mark). Indent kept, line dropped. */
+.children.no-line {
+  border-left: none;
+}
 
 .child {
   padding: 6px 0;
