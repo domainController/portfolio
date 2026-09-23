@@ -355,8 +355,11 @@ a.link-external::after {
 /* Nudged right so it roughly lands where a short title's own right-aligned
    170px box tends to start (word-length dependent, so this is an
    approximation, not an exact match) — flush against the raw container
-   edge read as noticeably further left than every other h1 on the site. */
-.container.attr-page h1.h1-wide { width: auto; text-align: left; margin-left: 40px; }
+   edge read as noticeably further left than every other h1 on the site.
+   50px (not 40, matching .attr-header-row below) accounts for the
+   tab's own 1px border + 9px padding, so the h1 text lines up with
+   "Market"'s text, not just the row's outer box. */
+.container.attr-page h1.h1-wide { width: auto; text-align: left; margin-left: 50px; }
 .container.attr-page h1 .h1-lead { display: inline-block; width: 170px; text-align: right; }
 
 /* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
