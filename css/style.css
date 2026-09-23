@@ -256,7 +256,12 @@ a.link-external::after {
   border-radius: 4px;
 }
 .lang-switch a:hover { color: #4a90e2; border-color: #4a90e2; }
-.lang-switch a.active { color: #fff; background: #1e2340; border-color: #1e2340; }
+/* Active tab borrows the fm-key/status-tag "audience"-style blue-on-navy
+   pair (#4a90e2 text on #16233d background) instead of its own white-on-
+   navy — same family as .link-live and the hover state right above,
+   so the selected tab reads as part of the same attribute-card language
+   instead of a one-off. */
+.lang-switch a.active { color: #4a90e2; background: #16233d; border-color: #16233d; }
 
 .back-link {
   display: inline-block;
