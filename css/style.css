@@ -377,7 +377,15 @@ a.link-external::after {
   margin-bottom: 24px;
   margin-left: 184px;
 }
-.attr-header-row .branch-desc {
+/* .container.attr-page .branch-desc (above) sets width:170px/text-align:right
+   at specificity (0,3,0) — higher than a bare .attr-header-row .branch-desc
+   at (0,2,0) would be, so it kept winning here regardless of source order,
+   which is why this box stayed pinned at 170px wide with its text still
+   flush right instead of hugging ".Attributes" — the real cause of the
+   leftover gap after "Legal" that persisted through a hard refresh. Matched
+   specificity by prefixing .container.attr-page so this version actually
+   applies. */
+.container.attr-page .attr-header-row .branch-desc {
   flex: 0 0 auto;
   width: auto;
   text-align: left;
