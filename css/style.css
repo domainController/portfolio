@@ -314,6 +314,11 @@ a.link-external::after {
    titles via bidi run boundaries. */
 .container.attr-page h1 { width: 170px; text-align: right; margin-left: 0; margin-bottom: 2px; }
 .container.attr-page .branch-desc { width: 170px; margin-left: 0; text-align: right; }
+/* A status-tag next to a h1 title (Claim, Morse, Justisse, Halo) default
+   baseline-aligns, which — against a much taller title — reads as low/
+   centered. vertical-align:top pins it to the top of the line instead,
+   like a "new" feature badge sitting above a product name. */
+.container.attr-page h1 .status-tag { vertical-align: top; }
 /* Two-word titles too wide for the 170px box (Narrative Constructs,
    Auditum Memoria): wrapping one word per line, both right-anchored at
    170px, read as an oddly tall, stacked title. Guessing the line would
