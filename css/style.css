@@ -206,14 +206,27 @@ a.link-internal {
 a.link-internal:visited { color: #a888d0; }
 a.link-internal:hover { color: #c4aee8; border-bottom-style: solid; }
 
-/* link-live: for internal links to a page that's already my own production, up and running.
-   Plain text color with a "live" status pill alongside — distinct from link-internal (violet,
-   future essay/lab placeholders) and link-external (green underline, an outside site). */
+/* link-live: internal link to a page I built and maintain (traction page, deployment log,
+   internal tooling) — distinct from link-internal (violet, dotted, future essay/lab
+   placeholder) and link-external (green underline, an outside site). Plain/underline-on-hover
+   by default so it stays inert inside body prose (e.g. the homepage subtitle, where it sits
+   mid-sentence with its own inline style already). Inside an attr-page it gets the same
+   underline + arrow treatment as link-external, just in the body text color since it doesn't
+   leave the site — this is the only context where every current usage lives, so scoping to
+   .container.attr-page instead of the bare class also keeps it out of that homepage sentence. */
 a.link-live {
   color: inherit;
   text-decoration: none;
 }
 a.link-live:hover { text-decoration: underline; }
+.container.attr-page a.link-live {
+  border-bottom: 1px solid currentColor;
+}
+.container.attr-page a.link-live:hover { color: #c9cee0; text-decoration: none; }
+.container.attr-page a.link-live::after {
+  content: " ↗";
+  font-size: 0.85em;
+}
 
 a.link-external {
   color: #6bcf7f;
