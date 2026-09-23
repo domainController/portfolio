@@ -333,7 +333,14 @@ a.link-external::after {
    tried direction:rtl for the overflow case specifically — worked, but
    leaked into sibling status-tag ordering and subtly mis-shaped short
    titles via bidi run boundaries. */
-.container.attr-page h1 { width: 170px; text-align: right; margin-left: 0; margin-bottom: 2px; }
+/* white-space:nowrap keeps a title + its status pill (Justisse "concept",
+   the longest name/status pairing on the site) on one line inside this
+   170px box — without it, normal inline wrap drops the pill to its own
+   line once title+pill together exceed 170px, exactly the bug this box
+   was built to avoid. Lost when this rule was simplified from flex to
+   plain block for the .attr-header-row specificity fix; only Justisse's
+   name+status combination was long enough to expose it. */
+.container.attr-page h1 { width: 170px; text-align: right; margin-left: 0; margin-bottom: 2px; white-space: nowrap; }
 .container.attr-page .branch-desc { width: 170px; margin-left: 0; text-align: right; }
 /* A status-tag next to a h1 title (Claim, Morse, Justisse, Halo) default
    baseline-aligns, which — against a much taller title — reads as low/
