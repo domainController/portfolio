@@ -274,7 +274,7 @@ a.link-external::after {
   .fm-value { flex: 1 1 100%; }
   .container.attr-page h1 { width: auto; text-align: left; margin-left: 0; }
   .container.attr-page .branch-desc { width: auto; text-align: left; margin-left: 0; }
-  .attr-header-row { justify-content: flex-start; }
+  .attr-header-row .branch-desc { flex: 0 0 auto; width: auto; text-align: left; }
 }
 
 /* ---- Entity attribute pages (Startups/Ventures/Labs "Attributes." leaves) ----
@@ -295,21 +295,26 @@ a.link-external::after {
 /* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
    Was: h1 alone, then a separate meta-right lang-switch crammed into the
    meta-bar next to the breadcrumbs (too many items for that row). Now the
-   tab switcher sits beside "Attributes" instead — tighter reading unit with
-   the h1 above it (h1 margin-bottom reduced 12px -> 4px), and the meta-bar
-   goes back to breadcrumbs only. */
+   tab switcher sits beside "Attributes" instead, on the same 170px key /
+   14px gap / value-column grid as every .fm-row below it — "Attributes"
+   right-aligned like an fm-key, tabs starting exactly where fm-value does,
+   so the toggle reads as part of the same vertical column as the attribute
+   values rather than drifting off toward the container's right edge. */
 .attr-header-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 14px;
   flex-wrap: wrap;
-  gap: 8px 16px;
   margin-bottom: 24px;
 }
 .attr-header-row .branch-desc {
-  width: auto;
-  text-align: left;
+  flex: 0 0 170px;
+  width: 170px;
+  text-align: right;
   margin-bottom: 0;
+}
+.attr-header-row .lang-switch {
+  flex: 1;
 }
 
 .placeholder-message {
