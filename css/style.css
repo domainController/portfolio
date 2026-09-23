@@ -396,6 +396,17 @@ a.link-external::after {
   flex: 0 0 auto;
   order: 1;
 }
+/* Narrative Constructs / Auditum Memoria: h1.h1-wide sits flush left
+   (no indent) because its title doesn't fit the 184px column. The
+   184px indent on .attr-header-row right below it was still tied to
+   that column, so the tab row started well to the right of where the
+   title itself starts. Confirmed wanted: this row should start at the
+   same left edge as the title. Targets the row via the adjacent-sibling
+   h1.h1-wide, so it's automatic for any future h1-wide page — no extra
+   class needed on the row itself. */
+h1.h1-wide + .attr-header-row {
+  margin-left: 0;
+}
 
 .placeholder-message {
   color: #8a90a8;
