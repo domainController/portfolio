@@ -289,8 +289,8 @@ a.link-external::after {
    makes the END of the title (its last letter) land exactly on that line
    regardless of word length (Cohort/Curb/Clusters/Vetnups all differ),
    while the start of the title stays short of it — never touching. */
-.container.attr-page h1 { width: 184px; text-align: right; margin-left: 0; margin-bottom: 4px; white-space: nowrap; }
-.container.attr-page .branch-desc { width: 184px; text-align: right; margin-left: 0; }
+.container.attr-page h1 { width: 184px; text-align: right; margin-left: 0; margin-bottom: 4px; white-space: nowrap; direction: rtl; }
+.container.attr-page .branch-desc { width: 184px; text-align: right; margin-left: 0; direction: rtl; }
 
 /* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
    Was: h1 alone, then a separate meta-right lang-switch crammed into the
