@@ -10,8 +10,10 @@
 /* Root base: every size below is em, so without this the browser falls back
    to its own 16px default. 15px matches the root patricek.info page (fixed
    2026-08-31 after an 18px "too big" pass) — never had one here, hence
-   everything under startups/ rendering visibly larger than the homepage. */
-html { font-size: 15px; }
+   everything under startups/ rendering visibly larger than the homepage.
+   Bumped to 15.5px (2026-09-23) — a smaller step than a full 16px, to test
+   whether it eases reading on attribute pages without the bigger jump. */
+html { font-size: 15.5px; }
 
 body {
   background: #0a0e27;
@@ -272,6 +274,7 @@ a.link-external::after {
   .fm-value { flex: 1 1 100%; }
   .container.attr-page h1 { width: auto; text-align: left; margin-left: 0; }
   .container.attr-page .branch-desc { width: auto; text-align: left; margin-left: 0; }
+  .attr-header-row { justify-content: flex-start; }
 }
 
 /* ---- Entity attribute pages (Startups/Ventures/Labs "Attributes." leaves) ----
@@ -286,8 +289,28 @@ a.link-external::after {
    makes the END of the title (its last letter) land exactly on that line
    regardless of word length (Cohort/Curb/Clusters/Vetnups all differ),
    while the start of the title stays short of it — never touching. */
-.container.attr-page h1 { width: 184px; text-align: right; margin-left: 0; }
+.container.attr-page h1 { width: 184px; text-align: right; margin-left: 0; margin-bottom: 4px; }
 .container.attr-page .branch-desc { width: 184px; text-align: right; margin-left: 0; }
+
+/* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
+   Was: h1 alone, then a separate meta-right lang-switch crammed into the
+   meta-bar next to the breadcrumbs (too many items for that row). Now the
+   tab switcher sits beside "Attributes" instead — tighter reading unit with
+   the h1 above it (h1 margin-bottom reduced 12px -> 4px), and the meta-bar
+   goes back to breadcrumbs only. */
+.attr-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 24px;
+}
+.attr-header-row .branch-desc {
+  width: auto;
+  text-align: left;
+  margin-bottom: 0;
+}
 
 .placeholder-message {
   color: #8a90a8;
