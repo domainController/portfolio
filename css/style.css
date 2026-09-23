@@ -149,6 +149,15 @@ details[open] > summary.branch-title::before {
   padding-left: 16px;
   border-left: 1px solid #232849;
 }
+/* A .children nested inside a .child (a parent-with-sub-children listing,
+   e.g. Narrative Constructs > Morse/Claim) sits right under that child's
+   own link/description with no breathing room otherwise — this is the one
+   case on the site where .children is doubly nested, so it gets its own
+   spacing rather than changing the top-level rule everywhere else. */
+.child > .children {
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
 
 .child {
   padding: 6px 0;
@@ -284,21 +293,28 @@ a.link-external::after {
    container edge. */
 .container.attr-page { padding-top: 32px; }
 .container.attr-page .meta-bar { margin-bottom: 24px; }
-/* 184px = fm-key-col width (170px) + fm-row gap (14px) — the exact start
-   of the fm-value column. h1/.branch-desc are flex containers with
-   justify-content:flex-end inside a 184px box, so their content's right
-   edge lands exactly on that line regardless of word length (Cohort/Curb/
-   Clusters/Vetnups all differ) and overflows past the left edge instead of
-   wrapping when it's wider than 184px (Narrative Constructs, Auditum
-   Memoria). Flexbox overflow direction is well-defined and doesn't need
-   direction:rtl (tried first — it worked for the overflow case but leaked
-   into sibling status-tag ordering and subtly mis-shaped short titles via
-   bidi run boundaries). The h1 text is wrapped in a <span> because flex
-   alignment applies to element children, not to the element's own text. */
-.container.attr-page h1 { display: flex; justify-content: flex-end; width: 184px; margin-left: 0; margin-bottom: 2px; }
+/* 170px = fm-key-col width — the same right edge every fm-key and the
+   "Attributes" label (.attr-header-row .branch-desc, also 170px) align to.
+   h1 used to right-anchor at 184px (170 + the 14px fm-row gap, matching
+   where fm-value/the tab row start) instead — a real line, but a
+   different one than "Attributes" and the key column sit on, so the h1
+   and the vanishing line the rest of the page reads by never actually
+   touched (reported repeatedly: Morse, Auditum Memoria, Justisse). h1 now
+   shares the 170px line instead. Flexbox overflow direction is well-defined
+   and doesn't need direction:rtl (tried first — it worked for the overflow
+   case but leaked into sibling status-tag ordering and subtly mis-shaped
+   short titles via bidi run boundaries). The h1 text is wrapped in a <span>
+   because flex alignment applies to element children, not to the element's
+   own text. */
+.container.attr-page h1 { display: flex; justify-content: flex-end; width: 170px; margin-left: 0; margin-bottom: 2px; }
 .container.attr-page h1 span { white-space: nowrap; flex-shrink: 0; }
-.container.attr-page .branch-desc { display: flex; justify-content: flex-end; width: 184px; margin-left: 0; white-space: nowrap; }
+.container.attr-page .branch-desc { display: flex; justify-content: flex-end; width: 170px; margin-left: 0; white-space: nowrap; }
 .container.attr-page .branch-desc > * { flex-shrink: 0; }
+/* Titles too wide to right-anchor at 184px without their left overflow
+   running past the container's own edge (Narrative Constructs, Auditum
+   Memoria — both got clipped at the viewport edge) fall back to plain
+   left alignment instead of forcing the precise vanishing-line touch. */
+.container.attr-page h1.h1-wide { justify-content: flex-start; }
 
 /* ---- Attr-page header row: "Attributes" subtitle + tab switcher on one line ----
    Was: h1 alone, then a separate meta-right lang-switch crammed into the
