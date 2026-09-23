@@ -314,6 +314,13 @@ a.link-external::after {
    container edge. */
 .container.attr-page { padding-top: 32px; }
 .container.attr-page .meta-bar { margin-bottom: 24px; }
+/* Attr-page meta-bars can carry a cross-link (Morse/Claim, Narrative
+   Constructs/Auditum Memoria) on top of the usual home icon + breadcrumb +
+   date — one more item than the default 16px gap was sized for, so it
+   wraps to a second line at moderate widths. Tighter, scoped to attr-page
+   only, rather than shortening any label (Narrative Constructs to "NC",
+   Service Providers to initials) or changing the date format. */
+.container.attr-page .meta-bar .meta-left { gap: 6px 10px; }
 /* 170px = fm-key-col width — the same right edge every fm-key and the
    "Attributes" label (.attr-header-row .branch-desc, also 170px) align to.
    Plain width + text-align:right, no flex: a one-word title that fits
