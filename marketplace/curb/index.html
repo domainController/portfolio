@@ -34,6 +34,7 @@
         <a href="#product" data-tab="product" role="tab" aria-selected="false">Product</a>
         <a href="#finance" data-tab="finance" role="tab" aria-selected="false">Finance</a>
         <a href="#legal" data-tab="legal" role="tab" aria-selected="false">Legal</a>
+        <a href="#acquisition" data-tab="acquisition" role="tab" aria-selected="false">Acquisition</a>
       </div>
     </div>
 
@@ -48,6 +49,7 @@
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">market scope</span></div><div class="fm-value">Expanding</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">pilot cities</span></div><div class="fm-value"><a class="link-internal" href="#">Zurich</a>, <a class="link-internal" href="#">Berlin</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">main sectors</span></div><div class="fm-value"><a class="link-internal" href="#">Secondhand Retail</a>, <a class="link-internal" href="#">Last-mile Delivery</a>, <a class="link-internal" href="#">Global Mobility</a></div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">customer concentration</span></div><div class="fm-value">Low — marketplace, diversified</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">incubation lab</span></div><div class="fm-value"><a class="link-internal" href="#">Market Notes</a></div></div>
     </div>
 
@@ -58,22 +60,45 @@
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">traction</span></div><div class="fm-value"><a class="link-live" href="traction.html">Landing page</a> <span class="status-tag status-live">live</span></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">cold start</span></div><div class="fm-value">6/10 — needs a well-defined product first</div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">deploy priority</span></div><div class="fm-value">5/10 — mid-tier, pending product definition</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">growth rate</span></div><div class="fm-value">Target 40% – 60% YoY — pre-scale</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">operating leverage</span></div><div class="fm-value">High — tech-enabled, fragmented market</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">scalability</span></div><div class="fm-value">High — software-driven, asset-light</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">exit horizon</span></div><div class="fm-value">24 – 36 months from inception</div></div>
     </div>
 
     <div class="frontmatter" id="panel-finance" role="tabpanel" hidden>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">pricing model</span></div><div class="fm-value"><a class="link-internal" href="#">Flat fee, tiered by €100 bracket</a></div></div>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">monetization type</span></div><div class="fm-value">Transaction fee — scales with exchange value, not flat</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">EBITDA margin</span></div><div class="fm-value">Target 15% – 25% — proven model, scalable</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">recurring revenue</span></div><div class="fm-value">Target 30% – 40% — transaction fees, repeat usage</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">cash flow generation</span></div><div class="fm-value">High — asset-light, no inventory</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">capital efficiency</span></div><div class="fm-value">High — software-driven coordination</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">ROCE</span></div><div class="fm-value">Target > 25% — high capital efficiency</div></div>
     </div>
 
     <div class="frontmatter" id="panel-legal" role="tabpanel" hidden>
       <div class="fm-row"><div class="fm-key-col"><span class="fm-key">legal lab</span></div><div class="fm-value"><a class="link-internal" href="https://narrativeconstructs.com/vertical-labs/index.html">ClausWorks</a></div></div>
     </div>
 
+    <div class="frontmatter" id="panel-acquisition" role="tabpanel" hidden>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">entry multiple</span></div><div class="fm-value">Target 3.5x – 5x EBITDA</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">use of debt</span></div><div class="fm-value">40% – 50% — LBO-compatible</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">target purchase price</span></div><div class="fm-value">€2M – €5M — self-funded search territory</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">buyer profile</span></div><div class="fm-value">Search fund, micro-PE, holdco</div></div>
+      <div class="fm-row"><div class="fm-key-col"><span class="fm-key">founder exit</span></div><div class="fm-value">Full — no continued operator role</div></div>
+    </div>
+
   </div>
 <script>
 (function () {
   var tabs = document.querySelectorAll('.lang-switch [data-tab]');
-  var panels = { market: document.getElementById('panel-market'), product: document.getElementById('panel-product'), finance: document.getElementById('panel-finance'), legal: document.getElementById('panel-legal') };
+  var panels = {
+    market: document.getElementById('panel-market'),
+    product: document.getElementById('panel-product'),
+    finance: document.getElementById('panel-finance'),
+    legal: document.getElementById('panel-legal'),
+    acquisition: document.getElementById('panel-acquisition')
+  };
 
   function activate(name, pushHash) {
     for (var i = 0; i < tabs.length; i++) {
