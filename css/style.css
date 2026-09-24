@@ -458,12 +458,36 @@ h1.h1-wide + .attr-header-row {
 .site-link { color: #4a90e2; text-decoration: none; }
 .site-link:hover { text-decoration: underline; }
 
-/* Flèche et soulignement pour le lien "Landing page" (link-live dans attr-page) */
-.container.attr-page a.link-live {
-  text-decoration: underline !important;
-}
-.container.attr-page a.link-live::after {
-  content: " ↗" !important;
-  font-size: 0.85em;
-  color: inherit !important; /* La flèche prend la couleur du lien */
-}
+/* ============================================================
+   MISE À JOUR DU 24 SEPTEMBRE 2026 — REFONTE DES LIENS EXTERNES
+   ============================================================
+   Contexte : Les liens de la page Traction Cluster (et futures pages similaires)
+   avaient des couleurs incohérentes (vert pour tout, bleu attendu pour
+   les projets). De plus, les règles existantes manquaient de force pour
+   écraser les styles hérités des pages "attr-page".
+
+   Modifications apportées :
+   1. a.link-external (Liens externes "live" / sites officiels) :
+      - Reste VERT (#6bcf7f).
+      - Ajout de "!important" sur la couleur et le soulignement pour
+        garantir la priorité sur les styles hérités.
+      - Suppression de la bordure inférieure (border-bottom) au profit
+        d'un soulignement propre (text-decoration: underline).
+
+   2. a.link-external-blue (Liens externes "projet" : Forum, Blog, etc.) :
+      - Nouvelle classe dédiée, couleur BLEUE (#6bb3f0).
+      - Utilise "!important" pour forcer l'affichage, car ces liens
+        héritent souvent du vert par défaut via d'autres sélecteurs.
+      - Même traitement visuel que link-external (soulignement + flèche ↗).
+
+   3. a.link-live (Liens internes / Landing pages) :
+      - Reste BLANC (#ffffff) avec soulignement et flèche (↗).
+      - Le sélecteur a été renforcé (.container.attr-page a.link-live)
+        pour ne pas être écrasé par les règles génériques des pages
+        d'attributs.
+
+   Note : Ces règles sont conçues pour être appliquées globalement.
+   Les pages utilisant encore l'ancienne classe "link-external" pour
+   des projets devront être migrées vers "link-external-blue" au fur
+   et à mesure.
+   ============================================================ */
