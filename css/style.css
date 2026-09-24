@@ -229,14 +229,33 @@ a.link-live:hover { text-decoration: underline; }
   font-size: 0.85em;
 }
 
+/* ============================================================
+   LIENS EXTERNES - VERSION 2 (FORCÉE)
+   ============================================================ */
+
+/* Lien externe "live" (site officiel) : VERT */
 a.link-external {
-  color: #6bcf7f;
-  text-decoration: none;
-  border-bottom: 1px solid #6bcf7f;
+  color: #6bcf7f !important;
+  text-decoration: underline !important;
+  border-bottom: none !important;
 }
-a.link-external:visited { color: #6bcf7f; }
-a.link-external:hover { color: #8fe89f; }
+a.link-external:hover { color: #8fe89f !important; }
 a.link-external::after {
+  content: " ↗";
+  font-size: 0.85em;
+}
+
+/* Lien externe "projet" (Forum, Blog, etc.) : BLEU */
+/* On utilise un sélecteur très fort pour être sûr d'écraser le vert */
+a.link-external-blue,
+a.link-external-blue:visited,
+a.link-external-blue:hover {
+  color: #6bb3f0 !important;
+  text-decoration: underline !important;
+  border-bottom: none !important;
+}
+a.link-external-blue:hover { color: #8ac4f5 !important; }
+a.link-external-blue::after {
   content: " ↗";
   font-size: 0.85em;
 }
@@ -438,3 +457,13 @@ h1.h1-wide + .attr-header-row {
 /* ---- Cross-site links (portfolio / blog / doctrine) ---- */
 .site-link { color: #4a90e2; text-decoration: none; }
 .site-link:hover { text-decoration: underline; }
+
+/* Flèche et soulignement pour le lien "Landing page" (link-live dans attr-page) */
+.container.attr-page a.link-live {
+  text-decoration: underline !important;
+}
+.container.attr-page a.link-live::after {
+  content: " ↗" !important;
+  font-size: 0.85em;
+  color: inherit !important; /* La flèche prend la couleur du lien */
+}
