@@ -3,36 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Managed Matchmaking — Patrice Kenmoé</title>
+<title>Managed Platforms — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../css/style.css?v=25">
 <!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
+<script async src="https://plausible.io/js/pa-SqmFk6-AegWtDOEGVfJ_s.js"></script>
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
 </script>
 </head>
 <body>
-  <div class="container">
+<div class="container">
 
-    <div class="meta-bar">
-      <div class="meta-left">
-        <a class="home-icon" href="../index.html" title="Home">&#8962;</a>
-        <span class="sep">·</span>
-        <a class="nav-back" href="../techventures/index.html">Tech Ventures</a>
-        <span class="sep">·</span>
-        <span id="last-updated">Updated —</span>
-      </div>
-    </div>
+<div class="meta-bar">
+<div class="meta-left">
+<a class="home-icon" href="../index.html" title="Home">&#8962;</a>
+<span class="sep">·</span>
+<a class="nav-back" href="../techventures/index.html">Tech Ventures</a>
+<span class="sep">·</span>
+<span id="last-updated">Updated —</span>
+</div>
+</div>
 
-    <h1>Matchmaking App</h1>
-    <div class="branch-desc">A managed introduction, not a listing to browse</div>
+<h1>Managed Platforms</h1>
+<div class="branch-desc">Platforms whose core asset is produced by the platform itself.</div>
 
-    <div class="children">
-      <div class="child"><a href="vetnups/index.html">Vetnups</a> <span class="status-tag status-live">live</span><div class="child-desc">Commitment-oriented dating app with vetted profile attributes.</div></div>
-    </div>
+<div class="children">
+<div class="child"><a href="../matchmaking/index.html">Managed Matchmaking</a> <span class="status-tag status-live">live</span><div class="child-desc">Managed introductions.</div></div>
+<div class="child"><a href="../forum/index.html">Managed Reviews   </a> <span class="status-tag status-live">live</span><div class="child-desc">Consumer reviews that spark asynchronous discussions.</div></div>
+</div>
 
-  </div>
+</div>
 <script>
 (function () {
   var origFetch = window.fetch;
@@ -67,7 +68,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'matchmaking/index.html';
+  var path = 'platform/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

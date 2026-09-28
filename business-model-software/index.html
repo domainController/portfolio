@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Managed Matchmaking — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../css/style.css?v=25">
+<title>Business Modeling Software — Patrice Kenmoé</title>
+<link rel="stylesheet" href="../../css/style.css?v=25">
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
 <script>
@@ -17,19 +17,25 @@
 
     <div class="meta-bar">
       <div class="meta-left">
-        <a class="home-icon" href="../index.html" title="Home">&#8962;</a>
+        <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../techventures/index.html">Tech Ventures</a>
+        <a class="nav-back" href="../../index.html">Portfolio</a>
+        <span class="sep">·</span>
+        <a class="nav-back" href="../index.html">Tech Ventures</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
 
-    <h1>Matchmaking App</h1>
-    <div class="branch-desc">A managed introduction, not a listing to browse</div>
+    <h1>Business Modeling Software</h1>
+    <div class="branch-desc">A software lab for building, structuring, and documenting business models.</div>
 
     <div class="children">
-      <div class="child"><a href="vetnups/index.html">Vetnups</a> <span class="status-tag status-live">live</span><div class="child-desc">Commitment-oriented dating app with vetted profile attributes.</div></div>
+      <div class="child">
+        <a href="portfolio/index.html">Portfolio</a>
+        <span class="status-tag status-concept">concept</span>
+        <div class="child-desc">A venture management system for building, structuring, and documenting business models.</div>
+      </div>
     </div>
 
   </div>
@@ -67,7 +73,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'matchmaking/index.html';
+  var path = 'techventures/business-modeling-software/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {

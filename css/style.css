@@ -229,14 +229,33 @@ a.link-live:hover { text-decoration: underline; }
   font-size: 0.85em;
 }
 
+/* ============================================================
+   LIENS EXTERNES - VERSION 2 (FORCÉE)
+   ============================================================ */
+
+/* Lien externe "live" (site officiel) : VERT */
 a.link-external {
-  color: #6bcf7f;
-  text-decoration: none;
-  border-bottom: 1px solid #6bcf7f;
+  color: #6bcf7f !important;
+  text-decoration: underline !important;
+  border-bottom: none !important;
 }
-a.link-external:visited { color: #6bcf7f; }
-a.link-external:hover { color: #8fe89f; }
+a.link-external:hover { color: #8fe89f !important; }
 a.link-external::after {
+  content: " ↗";
+  font-size: 0.85em;
+}
+
+/* Lien externe "projet" (Forum, Blog, etc.) : BLEU */
+/* On utilise un sélecteur très fort pour être sûr d'écraser le vert */
+a.link-external-blue,
+a.link-external-blue:visited,
+a.link-external-blue:hover {
+  color: #6bb3f0 !important;
+  text-decoration: underline !important;
+  border-bottom: none !important;
+}
+a.link-external-blue:hover { color: #8ac4f5 !important; }
+a.link-external-blue::after {
   content: " ↗";
   font-size: 0.85em;
 }
@@ -438,3 +457,37 @@ h1.h1-wide + .attr-header-row {
 /* ---- Cross-site links (portfolio / blog / doctrine) ---- */
 .site-link { color: #4a90e2; text-decoration: none; }
 .site-link:hover { text-decoration: underline; }
+
+/* ============================================================
+   MISE À JOUR DU 24 SEPTEMBRE 2026 — REFONTE DES LIENS EXTERNES
+   ============================================================
+   Contexte : Les liens de la page Traction Cluster (et futures pages similaires)
+   avaient des couleurs incohérentes (vert pour tout, bleu attendu pour
+   les projets). De plus, les règles existantes manquaient de force pour
+   écraser les styles hérités des pages "attr-page".
+
+   Modifications apportées :
+   1. a.link-external (Liens externes "live" / sites officiels) :
+      - Reste VERT (#6bcf7f).
+      - Ajout de "!important" sur la couleur et le soulignement pour
+        garantir la priorité sur les styles hérités.
+      - Suppression de la bordure inférieure (border-bottom) au profit
+        d'un soulignement propre (text-decoration: underline).
+
+   2. a.link-external-blue (Liens externes "projet" : Forum, Blog, etc.) :
+      - Nouvelle classe dédiée, couleur BLEUE (#6bb3f0).
+      - Utilise "!important" pour forcer l'affichage, car ces liens
+        héritent souvent du vert par défaut via d'autres sélecteurs.
+      - Même traitement visuel que link-external (soulignement + flèche ↗).
+
+   3. a.link-live (Liens internes / Landing pages) :
+      - Reste BLANC (#ffffff) avec soulignement et flèche (↗).
+      - Le sélecteur a été renforcé (.container.attr-page a.link-live)
+        pour ne pas être écrasé par les règles génériques des pages
+        d'attributs.
+
+   Note : Ces règles sont conçues pour être appliquées globalement.
+   Les pages utilisant encore l'ancienne classe "link-external" pour
+   des projets devront être migrées vers "link-external-blue" au fur
+   et à mesure.
+   ============================================================ */
