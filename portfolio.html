@@ -151,7 +151,7 @@ const FIELD_META = {
   fldqOFlTJ7Pf9hMgL: {name:"founder exit", tab:"Acquisition", order:7},
   fldu1iQBrGZuKUKuf: {name:"landing", tab:"Product", order:6},
   fldOLfNxsvfpFS37T: {name:"traction", tab:"Product", order:7},
-  fld7d4gZlGVKxqyLO: {name:"deployment activity", tab:"Product", order:8},
+  fld7d4gZlGVKxqyLO: {name:"deployment", tab:"Product", order:8},
 };
 const TAB_ORDER = ["Market","Product","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
@@ -189,9 +189,9 @@ function statusClass(v) {
 // Pour les champs dont la valeur est une URL interne longue (landing/traction/deployment),
 // LINK_LABELS donne un texte de lien court plutôt que d'afficher l'URL complète.
 const LINK_LABELS = {
-  fldu1iQBrGZuKUKuf: "Landing",
-  fldOLfNxsvfpFS37T: "Status",
-  fld7d4gZlGVKxqyLO: "Metrics",
+  fldu1iQBrGZuKUKuf: "landing",
+  fldOLfNxsvfpFS37T: "status",
+  fld7d4gZlGVKxqyLO: "metrics",
 };
 function linkify(v, fid) {
   if (!v) return "—";
