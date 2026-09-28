@@ -40,7 +40,22 @@
   .compare-pickers { display: flex; gap: 16px; margin-bottom: 18px; }
   .compare-pickers select, .single-picker select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); flex: 1; }
   .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  @media (max-width: 720px) { .compare-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) {
+    .compare-grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 86vw;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      gap: 16px;
+      padding-bottom: 6px;
+      margin: 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .venture-col { scroll-snap-align: start; }
+  }
   .venture-col h2 { font-size: 19px; margin: 0 0 2px; }
   .venture-col .sub { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
   .tab-block { margin-bottom: 14px; }
@@ -73,66 +88,74 @@
 </div>
 
 <script>
+// Chaque champ porte un "order" : le rang d'affichage DANS SON ONGLET.
+// C'est ce qui fixe l'ordre — identique en Fiche individuelle et en Comparer —
+// plutôt que l'ordre accidentel de création des champs dans Airtable.
+// Onglet Market : reclassé par pertinence (value prop, differentiator en tête).
 const FIELD_META = {
   fld3JIuIA5FgdJv4F: {name:"Name", tab:"core"},
   fldyxQMf0DeLLvZaz: {name:"status", tab:"meta"},
-  fldWhQvMTLgGLrW0D: {name:"momentum", tab:"Product"},
-  fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Market"},
-  fldMevUbOYlZX1pFA: {name:"asset type", tab:"Market"},
-  fldnTcpnT6lpnsNAm: {name:"execution weight", tab:"Operations"},
-  fldiRhn1z31IndfsM: {name:"time to first revenue", tab:"Operations"},
-  fldTrutNI5wLYPJPl: {name:"execution priority", tab:"Operations"},
-  fldXHkm2E0Avupzr4: {name:"model type", tab:"Market"},
-  fldrSSBC602SbpO8U: {name:"business model", tab:"Market"},
-  fldytaVG4hsegzhJz: {name:"vertical", tab:"Market"},
-  fld7XckHXlRHrSdqt: {name:"pricing model", tab:"Finance"},
-  fldtJi9grVPtJsauW: {name:"monetization type", tab:"Finance"},
-  fldpXYYybRes1OIdO: {name:"recurring revenue", tab:"Finance"},
-  fldeSHt4Q7m4HgWVW: {name:"market scope", tab:"Market"},
-  fld9pz7EAgWtPceCw: {name:"target incumbents", tab:"Market"},
-  fldRzG7uU52I3GRT7: {name:"target markets", tab:"Market"},
-  fld7IaOplNIDrK7SN: {name:"network scope", tab:"Market"},
-  fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market"},
-  fldA1FIU5MBBJchSf: {name:"stage", tab:"Product"},
-  fld1ayzhTagZyUvPt: {name:"market lab", tab:"Labs"},
-  fld7VqAP1Vhhw2zqf: {name:"engineering lab", tab:"Labs"},
-  fldUbu3d0yxjwGdws: {name:"finance lab", tab:"Labs"},
-  fldnE63YQPidZ6cVJ: {name:"legal lab", tab:"Labs"},
-  fld9CqdUeEbjZFq7L: {name:"cold start", tab:"Product"},
-  fldccPHbiWw8T8xg6: {name:"website", tab:"Product"},
-  fldWXML0BEnhz5teq: {name:"investment stage", tab:"Acquisition"},
-  fldZE0grsvxfyzSQ1: {name:"investment model", tab:"Acquisition"},
+  fldWhQvMTLgGLrW0D: {name:"momentum", tab:"Product", order:1},
+  fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Market", order:8},
+  fldMevUbOYlZX1pFA: {name:"asset type", tab:"Market", order:7},
+  fldnTcpnT6lpnsNAm: {name:"execution weight", tab:"Operations", order:1},
+  fldiRhn1z31IndfsM: {name:"time to first revenue", tab:"Operations", order:2},
+  fldTrutNI5wLYPJPl: {name:"execution priority", tab:"Operations", order:3},
+  fldXHkm2E0Avupzr4: {name:"model type", tab:"Market", order:6},
+  fldrSSBC602SbpO8U: {name:"business model", tab:"Market", order:5},
+  fldytaVG4hsegzhJz: {name:"vertical", tab:"Market", order:4},
+  fld7XckHXlRHrSdqt: {name:"pricing model", tab:"Finance", order:1},
+  fldtJi9grVPtJsauW: {name:"monetization type", tab:"Finance", order:2},
+  fldpXYYybRes1OIdO: {name:"recurring revenue", tab:"Finance", order:3},
+  fldeSHt4Q7m4HgWVW: {name:"market scope", tab:"Market", order:10},
+  fld9pz7EAgWtPceCw: {name:"target incumbents", tab:"Market", order:12},
+  fldRzG7uU52I3GRT7: {name:"target markets", tab:"Market", order:9},
+  fld7IaOplNIDrK7SN: {name:"network scope", tab:"Market", order:11},
+  fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market", order:13},
+  fldA1FIU5MBBJchSf: {name:"stage", tab:"Product", order:2},
+  fld1ayzhTagZyUvPt: {name:"market lab", tab:"Labs", order:1},
+  fld7VqAP1Vhhw2zqf: {name:"engineering lab", tab:"Labs", order:2},
+  fldUbu3d0yxjwGdws: {name:"finance lab", tab:"Labs", order:3},
+  fldnE63YQPidZ6cVJ: {name:"legal lab", tab:"Labs", order:4},
+  fld9CqdUeEbjZFq7L: {name:"cold start", tab:"Product", order:3},
+  fldccPHbiWw8T8xg6: {name:"website", tab:"Product", order:4},
+  fldWXML0BEnhz5teq: {name:"investment stage", tab:"Acquisition", order:1},
+  fldZE0grsvxfyzSQ1: {name:"investment model", tab:"Acquisition", order:2},
   fldqooX9qDIYuzc7H: {name:"portfolio role", tab:"meta"},
   fldIb77IM8PEwsfDO: {name:"benchmark for", tab:"meta"},
   fldxHyIWkHMzHrqvA: {name:"parent company", tab:"meta"},
-  fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market"},
+  fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market", order:3},
   fldpKjCqmfWTsEZYq: {name:"site section", tab:"meta"},
-  fldEp2lIIJ2UG42Wf: {name:"value prop", tab:"Market"},
-  fldraV615NFkhiRZs: {name:"differentiator", tab:"Market"},
-  fldWD7ch1mN9uPAhg: {name:"impact", tab:"Product"},
-  fldKwmWB30lqhjVib: {name:"channel", tab:"Operations"},
-  fldHsh3cvS7yiAyiV: {name:"value origin", tab:"Operations"},
-  fldzBaPn1BMoyLf5B: {name:"distribution model", tab:"Operations"},
-  fldniRjRLMVzIS2Ud: {name:"operating model", tab:"Operations"},
-  fldSXrj7eo5fnNLYn: {name:"physical footprint", tab:"Operations"},
-  fldV0qcKnHb2VP3on: {name:"growth rate", tab:"Finance"},
-  fldq08Sv5UuSmf0aB: {name:"operating leverage", tab:"Finance"},
-  fldfhHBuUPXbxnqhH: {name:"scalability", tab:"Finance"},
-  fldQuStBTUZUjsvCT: {name:"exit horizon", tab:"Finance"},
-  fldh8Jj5eW15LKvsY: {name:"EBITDA margin", tab:"Finance"},
-  fldt9I72oXRTgC0rC: {name:"cash flow generation", tab:"Finance"},
-  flde8vVXhhTBp5okJ: {name:"capital efficiency", tab:"Finance"},
-  fldx8dd2MbQXDx63J: {name:"ROCE", tab:"Finance"},
-  fldn8CuiuElm6EjBs: {name:"entry multiple", tab:"Acquisition"},
-  fldDs3PVNeH923OHB: {name:"use of debt", tab:"Acquisition"},
-  fldZQwr9cDboInjay: {name:"target purchase price", tab:"Acquisition"},
-  fld0Qo68lr0WiQEOY: {name:"buyer profile", tab:"Acquisition"},
-  fldqOFlTJ7Pf9hMgL: {name:"founder exit", tab:"Acquisition"},
+  fldbfrnARURZBDqk4: {name:"portfolio group", tab:"meta"},
+  fldEp2lIIJ2UG42Wf: {name:"value prop", tab:"Market", order:1},
+  fldraV615NFkhiRZs: {name:"differentiator", tab:"Market", order:2},
+  fldWD7ch1mN9uPAhg: {name:"impact", tab:"Product", order:5},
+  fldKwmWB30lqhjVib: {name:"channel", tab:"Operations", order:4},
+  fldHsh3cvS7yiAyiV: {name:"value origin", tab:"Operations", order:5},
+  fldzBaPn1BMoyLf5B: {name:"distribution model", tab:"Operations", order:6},
+  fldniRjRLMVzIS2Ud: {name:"operating model", tab:"Operations", order:7},
+  fldSXrj7eo5fnNLYn: {name:"physical footprint", tab:"Operations", order:8},
+  fldV0qcKnHb2VP3on: {name:"growth rate", tab:"Finance", order:4},
+  fldq08Sv5UuSmf0aB: {name:"operating leverage", tab:"Finance", order:5},
+  fldfhHBuUPXbxnqhH: {name:"scalability", tab:"Finance", order:6},
+  fldQuStBTUZUjsvCT: {name:"exit horizon", tab:"Finance", order:7},
+  fldh8Jj5eW15LKvsY: {name:"EBITDA margin", tab:"Finance", order:8},
+  fldt9I72oXRTgC0rC: {name:"cash flow generation", tab:"Finance", order:9},
+  flde8vVXhhTBp5okJ: {name:"capital efficiency", tab:"Finance", order:10},
+  fldx8dd2MbQXDx63J: {name:"ROCE", tab:"Finance", order:11},
+  fldn8CuiuElm6EjBs: {name:"entry multiple", tab:"Acquisition", order:3},
+  fldDs3PVNeH923OHB: {name:"use of debt", tab:"Acquisition", order:4},
+  fldZQwr9cDboInjay: {name:"target purchase price", tab:"Acquisition", order:5},
+  fld0Qo68lr0WiQEOY: {name:"buyer profile", tab:"Acquisition", order:6},
+  fldqOFlTJ7Pf9hMgL: {name:"founder exit", tab:"Acquisition", order:7},
+  fldu1iQBrGZuKUKuf: {name:"landing", tab:"Product", order:6},
+  fldOLfNxsvfpFS37T: {name:"traction", tab:"Product", order:7},
+  fld7d4gZlGVKxqyLO: {name:"deployment activity", tab:"Product", order:8},
 };
 const TAB_ORDER = ["Market","Product","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
-      MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm";
+      MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4";
 
 let RECORDS = [];
 let currentMode = "table";
@@ -140,7 +163,7 @@ let sortField = NAME_F, sortDir = 1;
 let filterSection = "*", filterRole = "*", searchText = "";
 let compareLeft = null, compareRight = null;
 let singleSelected = null, singleTab = null;
-let filterSectionList = null, filterLabel = null;
+let filterSectionList = null, filterGroupList = null, filterLabel = null;
 
 function resolve(rec, fieldId) {
   const v = rec.fields ? rec.fields[fieldId] : rec.cellValuesByFieldId[fieldId];
@@ -150,6 +173,20 @@ function resolve(rec, fieldId) {
   return v;
 }
 function cellsOf(rec) { return rec.fields || rec.cellValuesByFieldId; }
+
+// Une valeur de champ qui EST un lien (URL complète http(s)://... ou domaine nu du type
+// "labs.vetnups.com", "clauslabs.ai") se rend comme un vrai <a href> cliquable plutôt que
+// comme du texte plat — "le hub renvoie, il ne discute pas". Domaine nu -> on préfixe https://.
+function linkify(v) {
+  if (!v) return "—";
+  const isUrl = /^https?:\/\//i.test(v);
+  const isBareDomain = /^([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v);
+  if (isUrl || isBareDomain) {
+    const href = isUrl ? v : `https://${v}`;
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${v}</a>`;
+  }
+  return v;
+}
 
 function switchMode(mode) {
   currentMode = mode;
@@ -164,7 +201,9 @@ document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListen
 function renderTable() {
   const sections = [...new Set(RECORDS.map(r => resolve(r, SECTION_F)).filter(Boolean))].sort();
   let rows = RECORDS.filter(r => {
-    if (filterSectionList) {
+    if (filterGroupList) {
+      if (!filterGroupList.includes(resolve(r, GROUP_F))) return false;
+    } else if (filterSectionList) {
       if (!filterSectionList.includes(resolve(r, SECTION_F))) return false;
     } else if (filterSection !== "*" && resolve(r, SECTION_F) !== filterSection) return false;
     if (filterRole !== "*" && resolve(r, ROLE_F) !== filterRole) return false;
@@ -211,7 +250,7 @@ function renderTable() {
     </table>
   `;
   document.getElementById("searchBox").addEventListener("input", e => { searchText = e.target.value; renderTable(); });
-  document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterLabel = null; filterSection = e.target.value; renderTable(); });
+  document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterGroupList = null; filterLabel = null; filterSection = e.target.value; renderTable(); });
   document.getElementById("roleFilter").addEventListener("change", e => { filterRole = e.target.value; renderTable(); });
   document.querySelectorAll("table.consolidated th").forEach(th => {
     th.addEventListener("click", () => {
@@ -224,19 +263,43 @@ function renderTable() {
   if (clearLink) clearLink.addEventListener("click", e => { e.preventDefault(); clearDeepLink(); });
 }
 
-function renderTabsFor(rec) {
-  const cells = cellsOf(rec);
+// fieldIds optionnel : si fourni, on rend EXACTEMENT cette liste de champs, dans cet ordre,
+// même absents pour ce record (case "—" grisée) — c'est ce qui garantit l'alignement
+// ligne à ligne entre les deux colonnes de la vue Comparer. Sans fieldIds (Fiche individuelle),
+// on ne montre que les champs renseignés pour ce record, triés par leur "order" d'onglet.
+function renderTabsFor(rec, fieldIds) {
+  const ids = fieldIds || Object.keys(cellsOf(rec));
   const byTab = {};
   TAB_ORDER.forEach(t => byTab[t] = []);
-  Object.keys(cells).forEach(fid => {
+  ids.forEach(fid => {
     const meta = FIELD_META[fid];
     if (!meta || !TAB_ORDER.includes(meta.tab)) return;
     const v = resolve(rec, fid);
-    if (v) byTab[meta.tab].push([meta.name, v]);
+    if (fieldIds || v) byTab[meta.tab].push([meta.name, v, meta.order || 999]);
   });
+  TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[2]-b[2]));
   return TAB_ORDER.filter(t => byTab[t].length).map(t =>
-    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${v}</div></div>`).join("")}</div>`
+    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div class="${v?"":"empty-cell"}">${linkify(v)}</div></div>`).join("")}</div>`
   ).join("");
+}
+
+// Union des champs renseignés (à gauche OU à droite), triée par onglet puis par "order" —
+// c'est cette liste commune, appliquée identiquement aux deux colonnes, qui fait que
+// "value prop" tombe toujours sur la même ligne à gauche et à droite, même quand
+// l'une des deux entités a des champs que l'autre n'a pas (ex : network scope).
+function buildUnionFieldIds(left, right) {
+  return Object.keys(FIELD_META)
+    .filter(fid => {
+      const meta = FIELD_META[fid];
+      if (!meta || !TAB_ORDER.includes(meta.tab)) return false;
+      return resolve(left, fid) || resolve(right, fid);
+    })
+    .sort((a, b) => {
+      const ma = FIELD_META[a], mb = FIELD_META[b];
+      const ta = TAB_ORDER.indexOf(ma.tab), tb = TAB_ORDER.indexOf(mb.tab);
+      if (ta !== tb) return ta - tb;
+      return (ma.order || 999) - (mb.order || 999);
+    });
 }
 
 function renderCompare() {
@@ -245,6 +308,7 @@ function renderCompare() {
   const options = RECORDS.slice().sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)} ${resolve(r,ROLE_F)==="benchmark"?"(benchmark)":""}</option>`).join("");
   const left = RECORDS.find(r => r.id === compareLeft), right = RECORDS.find(r => r.id === compareRight);
+  const unionIds = buildUnionFieldIds(left, right);
   document.getElementById("panelCompare").innerHTML = `
     ${filterLabel ? `<div class="deep-link-banner">Vue filtrée depuis le site : <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">voir tout le portfolio</a></div>` : ""}
     <div class="compare-pickers">
@@ -252,8 +316,8 @@ function renderCompare() {
       <select id="cmpRight">${options}</select>
     </div>
     <div class="compare-grid">
-      <div class="venture-col"><h2>${resolve(left,NAME_F)}</h2><div class="sub">${resolve(left,SECTION_F)||"—"} · ${resolve(left,STATUS_F)||"—"}</div>${renderTabsFor(left)}</div>
-      <div class="venture-col"><h2>${resolve(right,NAME_F)}</h2><div class="sub">${resolve(right,SECTION_F)||"—"} · ${resolve(right,STATUS_F)||"—"}</div>${renderTabsFor(right)}</div>
+      <div class="venture-col"><h2>${resolve(left,NAME_F)}</h2><div class="sub">${resolve(left,SECTION_F)||"—"} · ${resolve(left,STATUS_F)||"—"}</div>${renderTabsFor(left, unionIds)}</div>
+      <div class="venture-col"><h2>${resolve(right,NAME_F)}</h2><div class="sub">${resolve(right,SECTION_F)||"—"} · ${resolve(right,STATUS_F)||"—"}</div>${renderTabsFor(right, unionIds)}</div>
     </div>
   `;
   document.getElementById("cmpLeft").value = compareLeft;
@@ -274,8 +338,9 @@ function renderSingle() {
     const meta = FIELD_META[fid];
     if (!meta || !TAB_ORDER.includes(meta.tab)) return;
     const v = resolve(rec, fid);
-    if (v) byTab[meta.tab].push([meta.name, v]);
+    if (v) byTab[meta.tab].push([meta.name, v, meta.order || 999]);
   });
+  TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[2]-b[2]));
   const availableTabs = TAB_ORDER.filter(t => byTab[t].length);
   if (!singleTab || !availableTabs.includes(singleTab)) singleTab = availableTabs[0];
 
@@ -287,7 +352,7 @@ function renderSingle() {
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag">${resolve(rec,STATUS_F) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
-    <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${v}</div></div>`).join("")}</div>
+    <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v)}</div></div>`).join("")}</div>
   `;
   document.getElementById("singlePick").value = singleSelected;
   document.getElementById("singlePick").addEventListener("change", e => { singleSelected = e.target.value; singleTab = null; renderSingle(); });
@@ -307,13 +372,13 @@ function setActiveModeButtons() {
   document.getElementById("panelSingle").style.display = currentMode === "single" ? "" : "none";
 }
 
-// Permet aux pages de catégorie du site de renvoyer ici une vue déjà filtrée,
-// ex. portfolio.html?section=Managed%20Marketplaces
-// ou   portfolio.html?section=Managed%20Matchmaking,Review%20Agora&label=Tech-Native%20Networks
+// Permet aux pages de catégorie du site de renvoyer ici une vue déjà filtrée.
+// ?venture=Curb                           — ouvre directement la Fiche individuelle de cette entité
+//   (utilisé par les pages hub pour un lien "nom d'entreprise" -> sa propre fiche)
+// ?group=Tech-Native%20Networks           — filtre sur le champ "portfolio group"
+//   (un seul groupe par lien, c'est ce niveau qui correspond 1:1 aux pages du site)
+// ?section=Managed%20Marketplaces         — filtre sur "site section" (ancien mécanisme, gardé pour compat)
 // Si le filtre isole exactement 2 entités, on ouvre directement la vue Comparer.
-// portfolio.html?venture=Curb ouvre directement la fiche individuelle de cette
-// entité - le lien qu'un nom d'entreprise doit porter, par opposition au sous-titre
-// d'une catégorie qui porte le lien ?section= vers la vue consolidée du groupe.
 function applyDeepLink() {
   const params = new URLSearchParams(location.search);
   const ventureParam = params.get("venture");
@@ -327,12 +392,22 @@ function applyDeepLink() {
       return;
     }
   }
+  const groupParam = params.get("group");
   const sectionParam = params.get("section");
-  if (!sectionParam) return;
-  const wanted = sectionParam.split(",").map(s => s.trim()).filter(Boolean);
-  const matches = RECORDS.filter(r => wanted.includes(resolve(r, SECTION_F)));
-  if (!matches.length) return;
-  filterSectionList = wanted;
+  let wanted, matches;
+  if (groupParam) {
+    wanted = groupParam.split(",").map(s => s.trim()).filter(Boolean);
+    matches = RECORDS.filter(r => wanted.includes(resolve(r, GROUP_F)));
+    if (!matches.length) return;
+    filterGroupList = wanted;
+  } else if (sectionParam) {
+    wanted = sectionParam.split(",").map(s => s.trim()).filter(Boolean);
+    matches = RECORDS.filter(r => wanted.includes(resolve(r, SECTION_F)));
+    if (!matches.length) return;
+    filterSectionList = wanted;
+  } else {
+    return;
+  }
   filterLabel = params.get("label") || wanted.join(" + ");
   if (matches.length === 2) {
     compareLeft = matches[0].id;
@@ -346,6 +421,7 @@ function applyDeepLink() {
 
 function clearDeepLink() {
   filterSectionList = null;
+  filterGroupList = null;
   filterLabel = null;
   filterSection = "*";
   renderAll();
