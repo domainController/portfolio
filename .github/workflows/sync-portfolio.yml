@@ -1,0 +1,29 @@
+name: Sync portfolio.json from Airtable
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # toutes les 15 minutes ; ajuste ou passe en repository_dispatch si tu préfères déclencher depuis Airtable
+  workflow_dispatch: {}       # bouton "Run workflow" manuel dans l'onglet Actions
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Exporter Airtable vers portfolio.json
+        env:
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+        run: node scripts/export-airtable.mjs
+
+      - name: Committer si portfolio.json a changé
+        run: |
+          git config user.name "portfolio-sync-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add portfolio.json
+          git diff --staged --quiet || git commit -m "sync: portfolio.json depuis Airtable"
+          git push

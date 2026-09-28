@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Ventures</title>
+<style>
+  :root {
+    --bg: #fafaf9; --panel: #ffffff; --border: #e4e2dd; --text: #1c1b1a;
+    --muted: #6b6863; --key: #8a8680; --accent: #2f6f5e; --accent-soft: #e7f1ee;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); padding: 28px 16px 80px; }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+
+  .mode-switcher { display: flex; gap: 8px; margin-bottom: 18px; }
+  .mode-switcher button { font-family: var(--sans); font-size: 14px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel); color: var(--muted); cursor: pointer; }
+  .mode-switcher button.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 22px 26px; }
+
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filters select, .filters input[type=search] { font-family: var(--sans); font-size: 13px; padding: 6px 10px; border-radius: 7px; border: 1px solid var(--border); background: #fdfcfb; }
+  table.consolidated { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.consolidated th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; }
+  table.consolidated th:hover { color: var(--text); }
+  table.consolidated th.sorted::after { content: " ▾"; }
+  table.consolidated td { padding: 8px 10px; border-bottom: 1px solid #f0efec; vertical-align: top; }
+  table.consolidated tr:hover td { background: #fbfaf8; }
+  .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #eeece7; color: var(--muted); }
+  .pill.project { background: var(--accent-soft); color: var(--accent); }
+  .empty-cell { color: #c2beb6; font-style: italic; }
+  .row-count { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+
+  .compare-pickers { display: flex; gap: 16px; margin-bottom: 18px; }
+  .compare-pickers select, .single-picker select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); flex: 1; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 720px) { .compare-grid { grid-template-columns: 1fr; } }
+  .venture-col h2 { font-size: 19px; margin: 0 0 2px; }
+  .venture-col .sub { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+  .tab-block { margin-bottom: 14px; }
+  .tab-block h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin: 0 0 6px; padding-top: 10px; border-top: 1px solid #f0efec; }
+  .fm-row { display: grid; grid-template-columns: 140px 1fr; gap: 10px; padding: 5px 0; font-size: 13px; line-height: 1.45; }
+  .fm-key { font-family: var(--mono); font-size: 11.5px; color: var(--key); padding-top: 1px; }
+
+  .single-picker { margin-bottom: 18px; }
+  h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
+  .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: #eeece7; color: var(--muted); }
+  .meta-line { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .single-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 4px; overflow-x: auto; }
+  .single-tabs button { font-family: var(--sans); font-size: 13.5px; padding: 8px 13px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
+  .single-tabs button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+  .state-msg { font-size: 14px; color: var(--muted); padding: 40px 0; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mode-switcher">
+    <button data-mode="table" class="active">Vue consolidée</button>
+    <button data-mode="compare">Comparer</button>
+    <button data-mode="single">Fiche individuelle</button>
+  </div>
+
+  <div class="panel" id="panelTable"><div class="state-msg">Chargement…</div></div>
+  <div class="panel" id="panelCompare" style="display:none;"></div>
+  <div class="panel" id="panelSingle" style="display:none;"></div>
+</div>
+
+<script>
+const FIELD_META = {
+  fld3JIuIA5FgdJv4F: {name:"Name", tab:"core"},
+  fldyxQMf0DeLLvZaz: {name:"status", tab:"meta"},
+  fldWhQvMTLgGLrW0D: {name:"momentum", tab:"Product"},
+  fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Market"},
+  fldMevUbOYlZX1pFA: {name:"asset type", tab:"Market"},
+  fldnTcpnT6lpnsNAm: {name:"execution weight", tab:"Operations"},
+  fldiRhn1z31IndfsM: {name:"time to first revenue", tab:"Operations"},
+  fldTrutNI5wLYPJPl: {name:"execution priority", tab:"Operations"},
+  fldXHkm2E0Avupzr4: {name:"model type", tab:"Market"},
+  fldrSSBC602SbpO8U: {name:"business model", tab:"Market"},
+  fldytaVG4hsegzhJz: {name:"vertical", tab:"Market"},
+  fld7XckHXlRHrSdqt: {name:"pricing model", tab:"Finance"},
+  fldtJi9grVPtJsauW: {name:"monetization type", tab:"Finance"},
+  fldpXYYybRes1OIdO: {name:"recurring revenue", tab:"Finance"},
+  fldeSHt4Q7m4HgWVW: {name:"market scope", tab:"Market"},
+  fld9pz7EAgWtPceCw: {name:"target incumbents", tab:"Market"},
+  fldRzG7uU52I3GRT7: {name:"target markets", tab:"Market"},
+  fld7IaOplNIDrK7SN: {name:"network scope", tab:"Market"},
+  fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market"},
+  fldA1FIU5MBBJchSf: {name:"stage", tab:"Product"},
+  fld1ayzhTagZyUvPt: {name:"market lab", tab:"Labs"},
+  fld7VqAP1Vhhw2zqf: {name:"engineering lab", tab:"Labs"},
+  fldUbu3d0yxjwGdws: {name:"finance lab", tab:"Labs"},
+  fldnE63YQPidZ6cVJ: {name:"legal lab", tab:"Labs"},
+  fld9CqdUeEbjZFq7L: {name:"cold start", tab:"Product"},
+  fldccPHbiWw8T8xg6: {name:"website", tab:"Product"},
+  fldWXML0BEnhz5teq: {name:"investment stage", tab:"Acquisition"},
+  fldZE0grsvxfyzSQ1: {name:"investment model", tab:"Acquisition"},
+  fldqooX9qDIYuzc7H: {name:"portfolio role", tab:"meta"},
+  fldIb77IM8PEwsfDO: {name:"benchmark for", tab:"meta"},
+  fldxHyIWkHMzHrqvA: {name:"parent company", tab:"meta"},
+  fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market"},
+  fldpKjCqmfWTsEZYq: {name:"site section", tab:"meta"},
+  fldEp2lIIJ2UG42Wf: {name:"value prop", tab:"Market"},
+  fldraV615NFkhiRZs: {name:"differentiator", tab:"Market"},
+  fldWD7ch1mN9uPAhg: {name:"impact", tab:"Product"},
+  fldKwmWB30lqhjVib: {name:"channel", tab:"Operations"},
+  fldHsh3cvS7yiAyiV: {name:"value origin", tab:"Operations"},
+  fldzBaPn1BMoyLf5B: {name:"distribution model", tab:"Operations"},
+  fldniRjRLMVzIS2Ud: {name:"operating model", tab:"Operations"},
+  fldSXrj7eo5fnNLYn: {name:"physical footprint", tab:"Operations"},
+  fldV0qcKnHb2VP3on: {name:"growth rate", tab:"Finance"},
+  fldq08Sv5UuSmf0aB: {name:"operating leverage", tab:"Finance"},
+  fldfhHBuUPXbxnqhH: {name:"scalability", tab:"Finance"},
+  fldQuStBTUZUjsvCT: {name:"exit horizon", tab:"Finance"},
+  fldh8Jj5eW15LKvsY: {name:"EBITDA margin", tab:"Finance"},
+  fldt9I72oXRTgC0rC: {name:"cash flow generation", tab:"Finance"},
+  flde8vVXhhTBp5okJ: {name:"capital efficiency", tab:"Finance"},
+  fldx8dd2MbQXDx63J: {name:"ROCE", tab:"Finance"},
+  fldn8CuiuElm6EjBs: {name:"entry multiple", tab:"Acquisition"},
+  fldDs3PVNeH923OHB: {name:"use of debt", tab:"Acquisition"},
+  fldZQwr9cDboInjay: {name:"target purchase price", tab:"Acquisition"},
+  fld0Qo68lr0WiQEOY: {name:"buyer profile", tab:"Acquisition"},
+  fldqOFlTJ7Pf9hMgL: {name:"founder exit", tab:"Acquisition"},
+};
+const TAB_ORDER = ["Market","Product","Operations","Finance","Acquisition","Labs"];
+const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
+      SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
+      MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm";
+
+let RECORDS = [];
+let currentMode = "table";
+let sortField = NAME_F, sortDir = 1;
+let filterSection = "*", filterRole = "*", searchText = "";
+let compareLeft = null, compareRight = null;
+let singleSelected = null, singleTab = null;
+
+function resolve(rec, fieldId) {
+  const v = rec.fields ? rec.fields[fieldId] : rec.cellValuesByFieldId[fieldId];
+  if (v === undefined || v === null) return null;
+  if (Array.isArray(v)) return v.map(x => (x && typeof x === "object") ? x.name : x).join(", ");
+  if (typeof v === "object") return v.name;
+  return v;
+}
+function cellsOf(rec) { return rec.fields || rec.cellValuesByFieldId; }
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll(".mode-switcher button").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
+  document.getElementById("panelTable").style.display = mode === "table" ? "" : "none";
+  document.getElementById("panelCompare").style.display = mode === "compare" ? "" : "none";
+  document.getElementById("panelSingle").style.display = mode === "single" ? "" : "none";
+  renderAll();
+}
+document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListener("click", () => switchMode(b.dataset.mode)));
+
+function renderTable() {
+  const sections = [...new Set(RECORDS.map(r => resolve(r, SECTION_F)).filter(Boolean))].sort();
+  let rows = RECORDS.filter(r => {
+    if (filterSection !== "*" && resolve(r, SECTION_F) !== filterSection) return false;
+    if (filterRole !== "*" && resolve(r, ROLE_F) !== filterRole) return false;
+    if (searchText) {
+      const hay = (resolve(r, NAME_F) + " " + (resolve(r, VERTICAL_F) || "")).toLowerCase();
+      if (!hay.includes(searchText.toLowerCase())) return false;
+    }
+    return true;
+  });
+  rows.sort((a, b) => {
+    const av = resolve(a, sortField) || "", bv = resolve(b, sortField) || "";
+    return av.localeCompare(bv) * sortDir;
+  });
+
+  const cols = [
+    [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [VERTICAL_F, "Vertical"],
+    [ROLE_F, "Rôle"], [PRIORITY_F, "Exec. priority"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
+  ];
+
+  document.getElementById("panelTable").innerHTML = `
+    <div class="filters">
+      <input type="search" placeholder="Rechercher…" id="searchBox" value="${searchText}">
+      <select id="sectionFilter">
+        <option value="*">Toutes sections</option>
+        ${sections.map(s => `<option value="${s}" ${s===filterSection?"selected":""}>${s}</option>`).join("")}
+      </select>
+      <select id="roleFilter">
+        <option value="*">Tous rôles</option>
+        <option value="project" ${filterRole==="project"?"selected":""}>project</option>
+        <option value="benchmark" ${filterRole==="benchmark"?"selected":""}>benchmark</option>
+      </select>
+    </div>
+    <div class="row-count">${rows.length} entité${rows.length>1?"s":""} affichée${rows.length>1?"s":""} sur ${RECORDS.length}</div>
+    <table class="consolidated">
+      <thead><tr>${cols.map(([f,l]) => `<th data-f="${f}" class="${f===sortField?"sorted":""}">${l}</th>`).join("")}</tr></thead>
+      <tbody>
+        ${rows.map(r => `<tr>${cols.map(([f]) => {
+          const v = resolve(r, f);
+          if (f === ROLE_F) return `<td><span class="pill ${v==="project"?"project":""}">${v||"—"}</span></td>`;
+          return `<td>${v ? v : '<span class="empty-cell">—</span>'}</td>`;
+        }).join("")}</tr>`).join("")}
+      </tbody>
+    </table>
+  `;
+  document.getElementById("searchBox").addEventListener("input", e => { searchText = e.target.value; renderTable(); });
+  document.getElementById("sectionFilter").addEventListener("change", e => { filterSection = e.target.value; renderTable(); });
+  document.getElementById("roleFilter").addEventListener("change", e => { filterRole = e.target.value; renderTable(); });
+  document.querySelectorAll("table.consolidated th").forEach(th => {
+    th.addEventListener("click", () => {
+      const f = th.dataset.f;
+      if (sortField === f) sortDir *= -1; else { sortField = f; sortDir = 1; }
+      renderTable();
+    });
+  });
+}
+
+function renderTabsFor(rec) {
+  const cells = cellsOf(rec);
+  const byTab = {};
+  TAB_ORDER.forEach(t => byTab[t] = []);
+  Object.keys(cells).forEach(fid => {
+    const meta = FIELD_META[fid];
+    if (!meta || !TAB_ORDER.includes(meta.tab)) return;
+    const v = resolve(rec, fid);
+    if (v) byTab[meta.tab].push([meta.name, v]);
+  });
+  return TAB_ORDER.filter(t => byTab[t].length).map(t =>
+    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${v}</div></div>`).join("")}</div>`
+  ).join("");
+}
+
+function renderCompare() {
+  if (!compareLeft) compareLeft = (RECORDS.find(r => resolve(r, NAME_F).trim() === "Vetnups") || RECORDS[0]).id;
+  if (!compareRight) compareRight = (RECORDS.find(r => resolve(r, NAME_F).trim() === "Curb") || RECORDS[1] || RECORDS[0]).id;
+  const options = RECORDS.slice().sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
+    .map(r => `<option value="${r.id}">${resolve(r,NAME_F)} ${resolve(r,ROLE_F)==="benchmark"?"(benchmark)":""}</option>`).join("");
+  const left = RECORDS.find(r => r.id === compareLeft), right = RECORDS.find(r => r.id === compareRight);
+  document.getElementById("panelCompare").innerHTML = `
+    <div class="compare-pickers">
+      <select id="cmpLeft">${options}</select>
+      <select id="cmpRight">${options}</select>
+    </div>
+    <div class="compare-grid">
+      <div class="venture-col"><h2>${resolve(left,NAME_F)}</h2><div class="sub">${resolve(left,SECTION_F)||"—"} · ${resolve(left,STATUS_F)||"—"}</div>${renderTabsFor(left)}</div>
+      <div class="venture-col"><h2>${resolve(right,NAME_F)}</h2><div class="sub">${resolve(right,SECTION_F)||"—"} · ${resolve(right,STATUS_F)||"—"}</div>${renderTabsFor(right)}</div>
+    </div>
+  `;
+  document.getElementById("cmpLeft").value = compareLeft;
+  document.getElementById("cmpRight").value = compareRight;
+  document.getElementById("cmpLeft").addEventListener("change", e => { compareLeft = e.target.value; renderCompare(); });
+  document.getElementById("cmpRight").addEventListener("change", e => { compareRight = e.target.value; renderCompare(); });
+}
+
+function renderSingle() {
+  if (!singleSelected) singleSelected = (RECORDS.find(r => resolve(r, NAME_F).trim() === "Vetnups") || RECORDS[0]).id;
+  const rec = RECORDS.find(r => r.id === singleSelected);
+  const cells = cellsOf(rec);
+  const byTab = {};
+  TAB_ORDER.forEach(t => byTab[t] = []);
+  Object.keys(cells).forEach(fid => {
+    const meta = FIELD_META[fid];
+    if (!meta || !TAB_ORDER.includes(meta.tab)) return;
+    const v = resolve(rec, fid);
+    if (v) byTab[meta.tab].push([meta.name, v]);
+  });
+  const availableTabs = TAB_ORDER.filter(t => byTab[t].length);
+  if (!singleTab || !availableTabs.includes(singleTab)) singleTab = availableTabs[0];
+
+  const options = RECORDS.slice().sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
+    .map(r => `<option value="${r.id}">${resolve(r,NAME_F)} ${resolve(r,ROLE_F)==="benchmark"?"(benchmark)":""}</option>`).join("");
+
+  document.getElementById("panelSingle").innerHTML = `
+    <div class="single-picker"><select id="singlePick">${options}</select></div>
+    <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
+    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag">${resolve(rec,STATUS_F) || "—"}</span></h1>
+    <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
+    <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${v}</div></div>`).join("")}</div>
+  `;
+  document.getElementById("singlePick").value = singleSelected;
+  document.getElementById("singlePick").addEventListener("change", e => { singleSelected = e.target.value; singleTab = null; renderSingle(); });
+  document.querySelectorAll(".single-tabs button").forEach(b => b.addEventListener("click", () => { singleTab = b.dataset.t; renderSingle(); }));
+}
+
+function renderAll() {
+  if (currentMode === "table") renderTable();
+  if (currentMode === "compare") renderCompare();
+  if (currentMode === "single") renderSingle();
+}
+
+async function boot() {
+  try {
+    const res = await fetch("./portfolio.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    RECORDS = data.records;
+    renderAll();
+  } catch (err) {
+    document.getElementById("panelTable").innerHTML = `<div class="state-msg">Impossible de charger portfolio.json (${err.message}). Vérifie que le fichier existe à côté de cette page et que l'export Airtable a bien tourné.</div>`;
+  }
+}
+boot();
+</script>
+</body>
+</html>
