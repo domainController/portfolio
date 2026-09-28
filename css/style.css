@@ -495,3 +495,86 @@ h1.h1-wide + .attr-header-row {
    des projets devront être migrées vers "link-external-blue" au fur
    et à mesure.
    ============================================================ */
+
+/* ============================================================
+   DEPLOYMENT ACTIVITY REPORT (.viz-root)
+   Used by [venture]/deployment.html — static report generated from
+   real git history (launch/uptime stats, timeline, commit volume).
+   Originally built as a self-contained light/dark page with its own
+   CSS custom properties; re-themed here to the site's dark palette
+   so it can share css/style.css like every other page instead of
+   carrying ~100 lines of inline CSS per venture. The HTML in each
+   deployment.html still sets these CSS vars on .viz-root and reads
+   them via var(--seq-500) etc. in a few static inline styles (the
+   commit-frequency timeline ticks), so the custom properties stay
+   defined here rather than being inlined everywhere they're used.
+   ============================================================ */
+
+.viz-root {
+  --surface-1:      #10142e;
+  --page:           #0a0e27;
+  --text-primary:   #e0e0e0;
+  --text-secondary: #7a8296;
+  --text-muted:     #5a6080;
+  --grid:           #1e2340;
+  --baseline:       #33395c;
+  --border:         #1e2340;
+  --series-blue:    #4a90e2;
+  --series-red:     #e0645a;
+  --seq-100: #16233d; --seq-200: #1c3a66; --seq-300: #24548f; --seq-400: #2f6fb8; --seq-500: #4a90e2;
+}
+.viz-root.container { padding-top: 44px; }
+.viz-root .panel { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px; padding: 20px 22px; margin-bottom: 16px; }
+
+.viz-root h1 { font-size: 1.4em; color: #fff; margin: 0 0 4px; }
+.viz-root .lede { font-size: 0.85em; color: var(--text-secondary); line-height: 1.6; margin: 0; max-width: 62ch; }
+.viz-root .lede code { font-family: 'SF Mono', Consolas, monospace; font-size: 0.92em; background: var(--grid); padding: 1px 5px; border-radius: 4px; color: var(--text-primary); }
+
+.viz-root h2 { font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); margin: 0 0 14px; font-family: 'SF Mono', Consolas, monospace; font-weight: 600; }
+
+.viz-root .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: var(--grid); border: 1px solid var(--grid); border-radius: 6px; overflow: hidden; }
+.viz-root .stat { background: var(--surface-1); padding: 14px; }
+.viz-root .stat .k { font-size: 0.68em; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); margin-bottom: 5px; font-family: 'SF Mono', Consolas, monospace; }
+.viz-root .stat .v { font-size: 1.3em; font-weight: 600; color: #fff; font-variant-numeric: tabular-nums; }
+.viz-root .stat .v small { font-size: 0.75em; font-weight: 400; color: var(--text-secondary); }
+
+.viz-root .track-wrap { margin: 8px 0 4px; }
+.viz-root .track { position: relative; height: 40px; background: var(--grid); border-radius: 6px; overflow: visible; }
+.viz-root .gap-band { position: absolute; top: 0; bottom: 0; background: rgba(224,100,90,0.10); border-left: 1px dashed rgba(224,100,90,0.4); border-right: 1px dashed rgba(224,100,90,0.4); }
+.viz-root .tick { position: absolute; top: 4px; bottom: 4px; width: 6px; margin-left: -3px; border-radius: 3px; cursor: default; }
+.viz-root .tick:hover::after { content: attr(data-tip); position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); background: #fff; color: #0a0e27; font-size: 0.68em; padding: 5px 8px; border-radius: 6px; white-space: nowrap; z-index: 5; font-family: 'SF Mono', Consolas, monospace; }
+.viz-root .track-labels { display: flex; justify-content: space-between; font-size: 0.68em; color: var(--text-muted); margin-top: 6px; font-variant-numeric: tabular-nums; font-family: 'SF Mono', Consolas, monospace; }
+.viz-root .gap-note { font-size: 0.78em; color: var(--text-secondary); margin: 10px 0 0; padding: 8px 10px; background: rgba(224,100,90,0.08); border-radius: 6px; border: 1px solid rgba(224,100,90,0.18); }
+
+.viz-root .barlist { display: flex; flex-direction: column; gap: 10px; }
+.viz-root .barrow { display: grid; grid-template-columns: 190px 1fr 56px; align-items: center; gap: 10px; }
+.viz-root .barrow .lbl { font-size: 0.8em; color: var(--text-secondary); }
+.viz-root .barrow .track2 { height: 14px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+.viz-root .barrow .fill { height: 100%; border-radius: 4px 0 0 4px; background: var(--series-blue); }
+.viz-root .barrow .val { font-size: 0.82em; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; color: #fff; }
+.viz-root .barrow.dim .fill { background: var(--text-muted); opacity: .55; }
+.viz-root .barrow.dim .val { color: var(--text-muted); font-weight: 400; }
+
+.viz-root .commits { display: flex; flex-direction: column; gap: 3px; max-height: 480px; overflow-y: auto; }
+.viz-root .crow { display: grid; grid-template-columns: 84px 1fr 1fr 1fr; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--grid); }
+.viz-root .crow:last-child { border-bottom: none; }
+.viz-root .crow .d { font-size: 0.68em; color: var(--text-muted); font-variant-numeric: tabular-nums; font-family: 'SF Mono', Consolas, monospace; }
+.viz-root .crow .dside { display: flex; justify-content: flex-end; }
+.viz-root .crow .isside { display: flex; justify-content: flex-start; }
+.viz-root .crow .bar { height: 10px; border-radius: 3px; min-width: 1px; }
+.viz-root .crow .bar.ins { background: var(--series-blue); }
+.viz-root .crow .bar.del { background: var(--series-red); }
+.viz-root .crow .msg { font-size: 0.78em; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.viz-root .legend { display: flex; gap: 16px; font-size: 0.78em; color: var(--text-secondary); margin-bottom: 12px; font-family: 'SF Mono', Consolas, monospace; }
+.viz-root .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.viz-root .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+.viz-root table.datatable { width: 100%; border-collapse: collapse; font-size: 0.8em; }
+.viz-root table.datatable th { text-align: left; font-size: 0.68em; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 6px 8px; border-bottom: 1px solid var(--grid); position: sticky; top: 0; background: var(--surface-1); font-family: 'SF Mono', Consolas, monospace; }
+.viz-root table.datatable td { padding: 6px 8px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; color: var(--text-primary); }
+.viz-root table.datatable td.ins { color: var(--series-blue); }
+.viz-root table.datatable td.del { color: var(--series-red); }
+.viz-root .table-scroll { max-height: 420px; overflow-y: auto; }
+
+.viz-root .foot { font-size: 0.73em; color: var(--text-muted); text-align: center; margin-top: 4px; font-family: 'SF Mono', Consolas, monospace; }
+.viz-root .foot code { font-family: 'SF Mono', Consolas, monospace; }
