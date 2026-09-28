@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T12:13:44.038Z",
+  "generatedAt": "2026-09-28T19:40:38.094Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "records": [
@@ -37,10 +37,11 @@
       "createdTime": "2026-09-27T03:25:47.000Z",
       "fields": {
         "fld0Qo68lr0WiQEOY": "search fund, micro-PE, holdco",
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Clusters ",
         "fld7VqAP1Vhhw2zqf": "labs.clusters.homes",
         "fld7XckHXlRHrSdqt": "tiered by duration",
-        "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/clusters/commits/index.html",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/clusters/deploy.html",
         "fld9CqdUeEbjZFq7L": "5/5 — brutal",
         "fldA1FIU5MBBJchSf": "landing",
         "fldDs3PVNeH923OHB": "40% – 50% — LBO-compatible",
@@ -55,7 +56,7 @@
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
-        "fldXHkm2E0Avupzr4": "Freemium",
+        "fldXHkm2E0Avupzr4": "freemium",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldZQwr9cDboInjay": "€2M – €5M — self-funded search territory",
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
@@ -79,7 +80,7 @@
         "fldu1iQBrGZuKUKuf": "https://patricek.info/marketplace/clusters/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "housing",
-        "fldyxQMf0DeLLvZaz": "2/5 — landing",
+        "fldyxQMf0DeLLvZaz": "landing",
         "fldzBaPn1BMoyLf5B": "affiliation (operators)"
       }
     },
@@ -87,6 +88,7 @@
       "id": "rec8rSbFouHQLuh8Z",
       "createdTime": "2026-09-27T09:58:29.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Morse",
         "fldA1FIU5MBBJchSf": "project",
         "fldDx6P723cQsXAU3": "civic conflict mapping",
@@ -100,13 +102,14 @@
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "engineering lab",
         "fldytaVG4hsegzhJz": "legal engineering",
-        "fldyxQMf0DeLLvZaz": "1/5 — concept"
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
       "id": "rec93dXQuRE6JKlsl",
       "createdTime": "2026-09-27T09:58:39.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Portfolio ",
         "fldDx6P723cQsXAU3": "SaaS ",
         "fldMevUbOYlZX1pFA": "marketplace ",
@@ -119,7 +122,7 @@
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "software ",
-        "fldyxQMf0DeLLvZaz": "1/5 — concept"
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
@@ -146,6 +149,7 @@
       "id": "recHC1ykh67YIWBU1",
       "createdTime": "2026-09-27T08:18:34.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Hālo",
         "fldDx6P723cQsXAU3": "personal protection ",
         "fldEp2lIIJ2UG42Wf": "Distributed personal protection with legal interposition.",
@@ -159,7 +163,7 @@
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "insurance",
-        "fldyxQMf0DeLLvZaz": "1/5 — concept"
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
@@ -176,10 +180,11 @@
       "id": "recQ1vxpjzKZNkCQl",
       "createdTime": "2026-09-27T08:18:11.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Möttrum",
         "fld7VqAP1Vhhw2zqf": "labs.mottrum.com",
         "fld7XckHXlRHrSdqt": "Three engagement tiers (success fee option on the top tier); ~€5–15k per Pilot Memo",
-        "fld7d4gZlGVKxqyLO": "https://patricek.info/litigation-finance/mottrum/commits/index.html",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/litigation-finance/mottrum/deploy.html",
         "fldDx6P723cQsXAU3": "crowdfunding",
         "fldEp2lIIJ2UG42Wf": "Managed marketplace for pre-litigation intelligence.",
         "fldMevUbOYlZX1pFA": "three-sided marketplace",
@@ -200,7 +205,7 @@
         "fldtJi9grVPtJsauW": "Direct — access passes, licences and asset sales",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "litigation finance ",
-        "fldyxQMf0DeLLvZaz": "2/5 — online"
+        "fldyxQMf0DeLLvZaz": "online"
       }
     },
     {
@@ -268,11 +273,12 @@
       "createdTime": "2026-09-27T03:25:47.000Z",
       "fields": {
         "fld0Qo68lr0WiQEOY": "search fund, micro-PE, holdco, strategic (matchmaking agencies)",
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Vetnups",
         "fld7VqAP1Vhhw2zqf": "labs.vetnups.com",
         "fld7XckHXlRHrSdqt": "subscription tiers — Access €50 / Commitment €100 / Premium €200 / Infinity €400",
-        "fld7d4gZlGVKxqyLO": "https://patricek.info/matchmaking/vetnups/commits/index.html",
-        "fld9CqdUeEbjZFq7L": "easy — 2/5 (fastest to revenue, per earlier note)",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/matchmaking/vetnups/deploy.html",
+        "fld9CqdUeEbjZFq7L": "5/5 — brutal",
         "fldDs3PVNeH923OHB": "40% – 50% — LBO-compatible",
         "fldDx6P723cQsXAU3": "matchmaking ",
         "fldEp2lIIJ2UG42Wf": "commitment-oriented dating app with vetted profile attributes,",
@@ -291,7 +297,7 @@
         "fldTrutNI5wLYPJPl": "3/5 — soon",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
-        "fldXHkm2E0Avupzr4": "Subscription",
+        "fldXHkm2E0Avupzr4": "subscription",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldZQwr9cDboInjay": "€2M – €5M — self-funded search territory",
         "fldbfrnARURZBDqk4": "Tech-Native Networks",
@@ -307,7 +313,7 @@
         "fldpXYYybRes1OIdO": "high — subscription base",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
         "fldqooX9qDIYuzc7H": "project",
-        "fldraV615NFkhiRZs": "through granular reactions and behavioral visibility, and monetizable profile attributes.",
+        "fldraV615NFkhiRZs": "through granular reactions, behavioral visibility, and monetizable profile attributes.",
         "fldruOMLTjWTC62Jz": [
           "recV45iFAKsQ1Sm9e"
         ],
@@ -315,7 +321,7 @@
         "fldu1iQBrGZuKUKuf": "https://patricek.info/matchmaking/vetnups/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "dating ",
-        "fldyxQMf0DeLLvZaz": "2/5 — landing",
+        "fldyxQMf0DeLLvZaz": "landing",
         "fldz4JChQVgkic7BA": "Low",
         "fldzBaPn1BMoyLf5B": "franchise (primary) + affiliation (secondary)"
       }
@@ -333,10 +339,11 @@
       "id": "reci2gQchm9OSVkqI",
       "createdTime": "2026-09-27T03:25:47.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Cohort",
         "fld7VqAP1Vhhw2zqf": "labs.cohort.reviews",
         "fld7XckHXlRHrSdqt": "subscription",
-        "fld7d4gZlGVKxqyLO": "https://patricek.info/forum/cohort/commits/index.html",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/forum/cohort/deploy.html",
         "fld9CqdUeEbjZFq7L": "3/5 — moderate",
         "fldA1FIU5MBBJchSf": "landing",
         "fldDx6P723cQsXAU3": "consumer reviews ",
@@ -371,7 +378,7 @@
         "fldu1iQBrGZuKUKuf": "https://patricek.info/forum/cohort/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "review ",
-        "fldyxQMf0DeLLvZaz": "2/5 — landing",
+        "fldyxQMf0DeLLvZaz": "landing",
         "fldzBaPn1BMoyLf5B": "direct"
       }
     },
@@ -390,11 +397,12 @@
       "createdTime": "2026-09-27T03:41:11.000Z",
       "fields": {
         "fld0Qo68lr0WiQEOY": "search fund, micro-PE, holdco",
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Curb",
         "fld7IaOplNIDrK7SN": "Zürich commuter belt",
         "fld7VqAP1Vhhw2zqf": "labs.curb.exchange",
         "fld7XckHXlRHrSdqt": "flat fee, tiered by €100 bracket",
-        "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/curb/commits/index.html",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/curb/deploy.html",
         "fld9CqdUeEbjZFq7L": "4/5 — hard",
         "fld9pz7EAgWtPceCw": [
           "Ricardo ",
@@ -451,7 +459,7 @@
         "fldx8dd2MbQXDx63J": "target > 25% — high capital efficiency",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "resale",
-        "fldyxQMf0DeLLvZaz": "2/5 — landing",
+        "fldyxQMf0DeLLvZaz": "landing",
         "fldzBaPn1BMoyLf5B": "direct (platform) + affiliation (deposit-network merchants)"
       }
     },
@@ -469,9 +477,10 @@
       "id": "recndyhttH6lrud6s",
       "createdTime": "2026-09-27T08:17:57.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Auditum Memoria ",
         "fld7VqAP1Vhhw2zqf": "labs.auditum-memoria.com",
-        "fld7d4gZlGVKxqyLO": "https://patricek.info/legal-lab/legal-service-providers/auditum-memoria/commits/index.html",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/legal-lab/legal-service-providers/auditum-memoria/deploy.html",
         "fldDx6P723cQsXAU3": "legal assistance ",
         "fldEp2lIIJ2UG42Wf": "Pre-litigation intelligence clinic for workplace disputes.",
         "fldMevUbOYlZX1pFA": "services",
@@ -491,13 +500,14 @@
         ],
         "fldxwQDw6Rp2mUDWA": "clinic",
         "fldytaVG4hsegzhJz": "legal services",
-        "fldyxQMf0DeLLvZaz": "2/5 — online"
+        "fldyxQMf0DeLLvZaz": "online"
       }
     },
     {
       "id": "recod5IyToIGPcZXn",
       "createdTime": "2026-09-27T08:18:07.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Claim",
         "fldA1FIU5MBBJchSf": "project",
         "fldDx6P723cQsXAU3": "small.class action",
@@ -512,7 +522,7 @@
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "engineering lab",
         "fldytaVG4hsegzhJz": "litigation finance ",
-        "fldyxQMf0DeLLvZaz": "1/5 — concept"
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -529,7 +539,7 @@
       "id": "recu0aivcrnrdNqiI",
       "createdTime": "2026-09-27T11:09:53.000Z",
       "fields": {
-        "fld1ayzhTagZyUvPt": "market.notes",
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Frontier",
         "fld7IaOplNIDrK7SN": "Zürich commuter belt",
         "fld7VqAP1Vhhw2zqf": "labs.frontier.logistics",
@@ -565,7 +575,7 @@
         "fldtJi9grVPtJsauW": "Commission",
         "fldxwQDw6Rp2mUDWA": "engineering lab",
         "fldytaVG4hsegzhJz": "logistics ",
-        "fldyxQMf0DeLLvZaz": "1/5 — concept",
+        "fldyxQMf0DeLLvZaz": "project",
         "fldz4JChQVgkic7BA": "Low",
         "fldzBaPn1BMoyLf5B": "direct (platform) + partner network (pickup points, cafés, lockers)"
       }
@@ -574,9 +584,10 @@
       "id": "recu93NevEiwQ0tDs",
       "createdTime": "2026-09-27T08:18:25.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Narrative Constructs ",
         "fld7VqAP1Vhhw2zqf": "labs.narrativeconstructs.com",
-        "fld7d4gZlGVKxqyLO": "https://patricek.info/legal-lab/legal-innovation-lab/narrative-constructs/commits/index.html",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/legal-lab/legal-innovation-lab/narrative-constructs/deploy.html",
         "fldDx6P723cQsXAU3": "concept licensing ",
         "fldEp2lIIJ2UG42Wf": "Reflexive law theory.",
         "fldMevUbOYlZX1pFA": "framework ",
@@ -595,13 +606,14 @@
         ],
         "fldxwQDw6Rp2mUDWA": "cognitive lab",
         "fldytaVG4hsegzhJz": "legal engineering",
-        "fldyxQMf0DeLLvZaz": "2/5 — online"
+        "fldyxQMf0DeLLvZaz": "online"
       }
     },
     {
       "id": "recyKczweHeS173vZ",
       "createdTime": "2026-09-27T08:17:47.000Z",
       "fields": {
+        "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Justisse",
         "fld7XckHXlRHrSdqt": "Success-based",
         "fldA1FIU5MBBJchSf": "concept",
@@ -617,7 +629,7 @@
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "litigation finance ",
-        "fldyxQMf0DeLLvZaz": "1/5 — concept"
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     }
   ]
