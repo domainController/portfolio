@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T09:16:37.560Z",
+  "generatedAt": "2026-09-28T11:00:13.146Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "records": [
@@ -61,15 +61,20 @@
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
         "fldccPHbiWw8T8xg6": "clusters.homes",
         "fldeSHt4Q7m4HgWVW": "metropolitan commuter belts",
+        "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldiRhn1z31IndfsM": "long",
         "fldn8CuiuElm6EjBs": "target 3.5x – 5x EBITDA",
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-medium",
         "fldniRjRLMVzIS2Ud": "network",
+        "fldotsmqLDmkhWYt3": "contact@clusters.homes",
         "fldpKjCqmfWTsEZYq": "Managed Marketplaces",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
         "fldqooX9qDIYuzc7H": "project",
         "fldraV615NFkhiRZs": "in fragmented format.",
+        "fldruOMLTjWTC62Jz": [
+          "recj43SpXgwdbAtaW"
+        ],
         "fldtJi9grVPtJsauW": "transaction fee — scales with duration, not flat",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/marketplace/clusters/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
@@ -184,9 +189,14 @@
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldbfrnARURZBDqk4": "Litigation Finance",
         "fldccPHbiWw8T8xg6": "mottrum.com",
+        "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldnE63YQPidZ6cVJ": "clauslabs.ai",
+        "fldotsmqLDmkhWYt3": "contact@mottrum.com",
         "fldpKjCqmfWTsEZYq": "Litigation Finance",
         "fldqooX9qDIYuzc7H": "project",
+        "fldruOMLTjWTC62Jz": [
+          "reckM0ZXVlCQuKj8G"
+        ],
         "fldtJi9grVPtJsauW": "Direct — access passes, licences and asset sales",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "litigation finance ",
@@ -286,16 +296,21 @@
         "fldZQwr9cDboInjay": "€2M – €5M — self-funded search territory",
         "fldbfrnARURZBDqk4": "Tech-Native Networks",
         "fldccPHbiWw8T8xg6": "vetnups.com",
+        "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldiRhn1z31IndfsM": "medium",
         "fldn8CuiuElm6EjBs": "target 3.5x – 5x EBITDA",
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-light",
         "fldniRjRLMVzIS2Ud": "network (office studios)",
+        "fldotsmqLDmkhWYt3": "contact@vetnups.com",
         "fldpKjCqmfWTsEZYq": "Managed Matchmaking",
         "fldpXYYybRes1OIdO": "high — subscription base",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
         "fldqooX9qDIYuzc7H": "project",
         "fldraV615NFkhiRZs": "through granular reactions and behavioral visibility, and monetizable profile attributes.",
+        "fldruOMLTjWTC62Jz": [
+          "recV45iFAKsQ1Sm9e"
+        ],
         "fldtJi9grVPtJsauW": "subscription + 20% commission on user monetization + à la carte legal & photo",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/matchmaking/vetnups/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
@@ -338,15 +353,20 @@
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldbfrnARURZBDqk4": "Tech-Native Networks",
         "fldccPHbiWw8T8xg6": "cohort.reviews",
+        "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldiRhn1z31IndfsM": "medium",
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-light",
         "fldniRjRLMVzIS2Ud": "asset-light",
+        "fldotsmqLDmkhWYt3": "contact@cohort.reviews",
         "fldpKjCqmfWTsEZYq": "Review Agora",
         "fldpXYYybRes1OIdO": "subscription",
         "fldqOFlTJ7Pf9hMgL": "full",
         "fldqooX9qDIYuzc7H": "project",
         "fldraV615NFkhiRZs": "affinity-based discussion",
+        "fldruOMLTjWTC62Jz": [
+          "recFYVpAnUkUdJp2W"
+        ],
         "fldtJi9grVPtJsauW": "direct",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/forum/cohort/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
@@ -408,6 +428,7 @@
         "fldccPHbiWw8T8xg6": "curb.exchange",
         "flde8vVXhhTBp5okJ": "high — software-driven coordination",
         "fldeSHt4Q7m4HgWVW": "cross-border corridors (CH-DE)",
+        "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldfhHBuUPXbxnqhH": "high — software-driven, asset-light",
         "fldh8Jj5eW15LKvsY": "target 15% – 25% — proven model, scalable",
         "fldiRhn1z31IndfsM": "long",
@@ -415,11 +436,15 @@
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-medium",
         "fldniRjRLMVzIS2Ud": "intermediation infrastructure",
+        "fldotsmqLDmkhWYt3": "contact@curb.exchange",
         "fldpKjCqmfWTsEZYq": "Managed Marketplaces",
         "fldq08Sv5UuSmf0aB": "high — tech-enabled, fragmented market",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
         "fldqooX9qDIYuzc7H": "project",
         "fldraV615NFkhiRZs": "deposit network, algorithmic dispatch, third places",
+        "fldruOMLTjWTC62Jz": [
+          "recylOuAanE25rN2r"
+        ],
         "fldt9I72oXRTgC0rC": "high — asset-light, no inventory",
         "fldtJi9grVPtJsauW": "transaction fee — scales with exchange value, not flat",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/marketplace/curb/landing/index.html",
@@ -456,9 +481,14 @@
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldbfrnARURZBDqk4": "Service Providers",
         "fldccPHbiWw8T8xg6": "auditum-memoria.com",
+        "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldnE63YQPidZ6cVJ": "clauslabs.ai",
+        "fldotsmqLDmkhWYt3": "contact@auditum-memoria.com",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
         "fldqooX9qDIYuzc7H": "project",
+        "fldruOMLTjWTC62Jz": [
+          "rec0s0Ut0dia6KBFe"
+        ],
         "fldxwQDw6Rp2mUDWA": "clinic",
         "fldytaVG4hsegzhJz": "legal services",
         "fldyxQMf0DeLLvZaz": "2/5 — online"
@@ -556,8 +586,13 @@
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldbfrnARURZBDqk4": "Labs",
         "fldccPHbiWw8T8xg6": "narrativeconstructs.com",
+        "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
+        "fldotsmqLDmkhWYt3": "contact@narrativeconstructs.com",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
         "fldqooX9qDIYuzc7H": "project",
+        "fldruOMLTjWTC62Jz": [
+          "recS58AC0InZFRYea"
+        ],
         "fldxwQDw6Rp2mUDWA": "cognitive lab",
         "fldytaVG4hsegzhJz": "legal engineering",
         "fldyxQMf0DeLLvZaz": "2/5 — online"
