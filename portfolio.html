@@ -33,6 +33,9 @@
   .pill.project { background: var(--accent-soft); color: var(--accent); }
   .empty-cell { color: #c2beb6; font-style: italic; }
   .row-count { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+  .deep-link-banner { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; padding: 8px 12px; background: var(--accent-soft); border-radius: 8px; }
+  .deep-link-banner strong { color: var(--accent); }
+  .deep-link-banner a { color: var(--accent); }
 
   .compare-pickers { display: flex; gap: 16px; margin-bottom: 18px; }
   .compare-pickers select, .single-picker select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); flex: 1; }
@@ -137,6 +140,7 @@ let sortField = NAME_F, sortDir = 1;
 let filterSection = "*", filterRole = "*", searchText = "";
 let compareLeft = null, compareRight = null;
 let singleSelected = null, singleTab = null;
+let filterSectionList = null, filterLabel = null;
 
 function resolve(rec, fieldId) {
   const v = rec.fields ? rec.fields[fieldId] : rec.cellValuesByFieldId[fieldId];
@@ -160,7 +164,9 @@ document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListen
 function renderTable() {
   const sections = [...new Set(RECORDS.map(r => resolve(r, SECTION_F)).filter(Boolean))].sort();
   let rows = RECORDS.filter(r => {
-    if (filterSection !== "*" && resolve(r, SECTION_F) !== filterSection) return false;
+    if (filterSectionList) {
+      if (!filterSectionList.includes(resolve(r, SECTION_F))) return false;
+    } else if (filterSection !== "*" && resolve(r, SECTION_F) !== filterSection) return false;
     if (filterRole !== "*" && resolve(r, ROLE_F) !== filterRole) return false;
     if (searchText) {
       const hay = (resolve(r, NAME_F) + " " + (resolve(r, VERTICAL_F) || "")).toLowerCase();
@@ -179,11 +185,12 @@ function renderTable() {
   ];
 
   document.getElementById("panelTable").innerHTML = `
+    ${filterLabel ? `<div class="deep-link-banner">Vue filtrée depuis le site : <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">voir tout le portfolio</a></div>` : ""}
     <div class="filters">
       <input type="search" placeholder="Rechercher…" id="searchBox" value="${searchText}">
       <select id="sectionFilter">
         <option value="*">Toutes sections</option>
-        ${sections.map(s => `<option value="${s}" ${s===filterSection?"selected":""}>${s}</option>`).join("")}
+        ${sections.map(s => `<option value="${s}" ${!filterSectionList && s===filterSection?"selected":""}>${s}</option>`).join("")}
       </select>
       <select id="roleFilter">
         <option value="*">Tous rôles</option>
@@ -204,7 +211,7 @@ function renderTable() {
     </table>
   `;
   document.getElementById("searchBox").addEventListener("input", e => { searchText = e.target.value; renderTable(); });
-  document.getElementById("sectionFilter").addEventListener("change", e => { filterSection = e.target.value; renderTable(); });
+  document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterLabel = null; filterSection = e.target.value; renderTable(); });
   document.getElementById("roleFilter").addEventListener("change", e => { filterRole = e.target.value; renderTable(); });
   document.querySelectorAll("table.consolidated th").forEach(th => {
     th.addEventListener("click", () => {
@@ -213,6 +220,8 @@ function renderTable() {
       renderTable();
     });
   });
+  const clearLink = document.getElementById("clearFilterLink");
+  if (clearLink) clearLink.addEventListener("click", e => { e.preventDefault(); clearDeepLink(); });
 }
 
 function renderTabsFor(rec) {
@@ -237,6 +246,7 @@ function renderCompare() {
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)} ${resolve(r,ROLE_F)==="benchmark"?"(benchmark)":""}</option>`).join("");
   const left = RECORDS.find(r => r.id === compareLeft), right = RECORDS.find(r => r.id === compareRight);
   document.getElementById("panelCompare").innerHTML = `
+    ${filterLabel ? `<div class="deep-link-banner">Vue filtrée depuis le site : <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">voir tout le portfolio</a></div>` : ""}
     <div class="compare-pickers">
       <select id="cmpLeft">${options}</select>
       <select id="cmpRight">${options}</select>
@@ -250,6 +260,8 @@ function renderCompare() {
   document.getElementById("cmpRight").value = compareRight;
   document.getElementById("cmpLeft").addEventListener("change", e => { compareLeft = e.target.value; renderCompare(); });
   document.getElementById("cmpRight").addEventListener("change", e => { compareRight = e.target.value; renderCompare(); });
+  const clearLink = document.getElementById("clearFilterLink");
+  if (clearLink) clearLink.addEventListener("click", e => { e.preventDefault(); clearDeepLink(); });
 }
 
 function renderSingle() {
@@ -288,12 +300,50 @@ function renderAll() {
   if (currentMode === "single") renderSingle();
 }
 
+function setActiveModeButtons() {
+  document.querySelectorAll(".mode-switcher button").forEach(b => b.classList.toggle("active", b.dataset.mode === currentMode));
+  document.getElementById("panelTable").style.display = currentMode === "table" ? "" : "none";
+  document.getElementById("panelCompare").style.display = currentMode === "compare" ? "" : "none";
+  document.getElementById("panelSingle").style.display = currentMode === "single" ? "" : "none";
+}
+
+// Permet aux pages de catégorie du site de renvoyer ici une vue déjà filtrée,
+// ex. portfolio.html?section=Managed%20Marketplaces
+// ou   portfolio.html?section=Managed%20Matchmaking,Review%20Agora&label=Tech-Native%20Networks
+// Si le filtre isole exactement 2 entités, on ouvre directement la vue Comparer.
+function applyDeepLink() {
+  const params = new URLSearchParams(location.search);
+  const sectionParam = params.get("section");
+  if (!sectionParam) return;
+  const wanted = sectionParam.split(",").map(s => s.trim()).filter(Boolean);
+  const matches = RECORDS.filter(r => wanted.includes(resolve(r, SECTION_F)));
+  if (!matches.length) return;
+  filterSectionList = wanted;
+  filterLabel = params.get("label") || wanted.join(" + ");
+  if (matches.length === 2) {
+    compareLeft = matches[0].id;
+    compareRight = matches[1].id;
+    currentMode = "compare";
+  } else {
+    currentMode = "table";
+  }
+  setActiveModeButtons();
+}
+
+function clearDeepLink() {
+  filterSectionList = null;
+  filterLabel = null;
+  filterSection = "*";
+  renderAll();
+}
+
 async function boot() {
   try {
     const res = await fetch("./portfolio.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     RECORDS = data.records;
+    applyDeepLink();
     renderAll();
   } catch (err) {
     document.getElementById("panelTable").innerHTML = `<div class="state-msg">Impossible de charger portfolio.json (${err.message}). Vérifie que le fichier existe à côté de cette page et que l'export Airtable a bien tourné.</div>`;
