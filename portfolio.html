@@ -15,9 +15,11 @@
   body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); padding: 28px 16px 80px; }
   .wrap { max-width: 1040px; margin: 0 auto; }
 
-  .mode-switcher { display: flex; gap: 8px; margin-bottom: 18px; }
+  .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  .mode-switcher { display: flex; gap: 8px; }
   .mode-switcher button { font-family: var(--sans); font-size: 14px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel); color: var(--muted); cursor: pointer; }
   .mode-switcher button.active { background: var(--text); color: #fff; border-color: var(--text); }
+  .single-picker-top select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); }
 
   .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 22px 26px; }
 
@@ -38,7 +40,7 @@
   .deep-link-banner a { color: var(--accent); }
 
   .compare-pickers { display: flex; gap: 16px; margin-bottom: 18px; }
-  .compare-pickers select, .single-picker select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); flex: 1; }
+  .compare-pickers select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); flex: 1; }
   .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 720px) {
     .compare-grid {
@@ -63,7 +65,6 @@
   .fm-row { display: grid; grid-template-columns: 140px 1fr; gap: 10px; padding: 5px 0; font-size: 13px; line-height: 1.45; }
   .fm-key { font-family: var(--mono); font-size: 11.5px; color: var(--key); padding-top: 1px; }
 
-  .single-picker { margin-bottom: 18px; }
   h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
   .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: #eeece7; color: var(--muted); }
   .status-tag.status-green { background: var(--accent-soft); color: var(--accent); }
@@ -77,10 +78,15 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="mode-switcher">
-    <button data-mode="table" class="active">Vue consolidée</button>
-    <button data-mode="compare">Comparer</button>
-    <button data-mode="single">Fiche individuelle</button>
+  <div class="top-bar">
+    <div class="mode-switcher">
+      <button data-mode="table" class="active">Vue consolidée</button>
+      <button data-mode="compare">Comparer</button>
+      <button data-mode="single">Fiche individuelle</button>
+    </div>
+    <div class="single-picker-top" id="singlePickerTop" style="display:none;">
+      <select id="singlePick"></select>
+    </div>
   </div>
 
   <div class="panel" id="panelTable"><div class="state-msg">Chargement…</div></div>
@@ -149,7 +155,7 @@ const FIELD_META = {
   fldZQwr9cDboInjay: {name:"target purchase price", tab:"Acquisition", order:5},
   fld0Qo68lr0WiQEOY: {name:"buyer profile", tab:"Acquisition", order:6},
   fldqOFlTJ7Pf9hMgL: {name:"founder exit", tab:"Acquisition", order:7},
-  fldu1iQBrGZuKUKuf: {name:"structure", tab:"Product", order:3},
+  fldu1iQBrGZuKUKuf: {name:"landing", tab:"Product", order:3},
   fldOLfNxsvfpFS37T: {name:"traction", tab:"Product", order:7},
   fld7d4gZlGVKxqyLO: {name:"deployment", tab:"Product", order:8},
 };
@@ -197,7 +203,7 @@ function statusClass(v) {
 // Pour les champs dont la valeur est une URL interne longue (landing/traction/deployment),
 // LINK_LABELS donne un texte de lien court plutôt que d'afficher l'URL complète.
 const LINK_LABELS = {
-  fldu1iQBrGZuKUKuf: "landing",
+  fldu1iQBrGZuKUKuf: "structure",
   fldOLfNxsvfpFS37T: "status",
   fld7d4gZlGVKxqyLO: "metrics",
 };
@@ -219,6 +225,7 @@ function switchMode(mode) {
   document.getElementById("panelTable").style.display = mode === "table" ? "" : "none";
   document.getElementById("panelCompare").style.display = mode === "compare" ? "" : "none";
   document.getElementById("panelSingle").style.display = mode === "single" ? "" : "none";
+  document.getElementById("singlePickerTop").style.display = mode === "single" ? "" : "none";
   renderAll();
 }
 document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListener("click", () => switchMode(b.dataset.mode)));
@@ -374,14 +381,15 @@ function renderSingle() {
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)} ${resolve(r,ROLE_F)==="benchmark"?"(benchmark)":""}</option>`).join("");
 
   document.getElementById("panelSingle").innerHTML = `
-    <div class="single-picker"><select id="singlePick">${options}</select></div>
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
     <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v,fid)}</div></div>`).join("")}</div>
   `;
-  document.getElementById("singlePick").value = singleSelected;
-  document.getElementById("singlePick").addEventListener("change", e => { singleSelected = e.target.value; singleTab = null; renderSingle(); });
+  const singlePick = document.getElementById("singlePick");
+  singlePick.innerHTML = options;
+  singlePick.value = singleSelected;
+  singlePick.onchange = e => { singleSelected = e.target.value; singleTab = null; renderSingle(); };
   document.querySelectorAll(".single-tabs button").forEach(b => b.addEventListener("click", () => { singleTab = b.dataset.t; renderSingle(); }));
 }
 
@@ -396,6 +404,7 @@ function setActiveModeButtons() {
   document.getElementById("panelTable").style.display = currentMode === "table" ? "" : "none";
   document.getElementById("panelCompare").style.display = currentMode === "compare" ? "" : "none";
   document.getElementById("panelSingle").style.display = currentMode === "single" ? "" : "none";
+  document.getElementById("singlePickerTop").style.display = currentMode === "single" ? "" : "none";
 }
 
 // Permet aux pages de catégorie du site de renvoyer ici une vue déjà filtrée.
