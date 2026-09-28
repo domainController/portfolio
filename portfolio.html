@@ -175,6 +175,14 @@ function resolve(rec, fieldId) {
 }
 function cellsOf(rec) { return rec.fields || rec.cellValuesByFieldId; }
 
+// Le statut Airtable est stocké "N/5 — mot" (ex. "2/5 — landing") pour le
+// tri/la momentum interne, mais le préfixe numérique n'apporte rien à
+// l'affichage — on ne garde que le mot.
+function statusText(v) {
+  if (!v) return v;
+  return v.replace(/^\d\/5\s*—\s*/, "");
+}
+
 // "landing" et "online" doivent toujours ressortir en vert, quelle que soit
 // la couleur assignée à l'option côté Airtable (ex. "online" y est en teal).
 function statusClass(v) {
@@ -261,6 +269,7 @@ function renderTable() {
         ${rows.map(r => `<tr>${cols.map(([f]) => {
           const v = resolve(r, f);
           if (f === ROLE_F) return `<td><span class="pill ${v==="project"?"project":""}">${v||"—"}</span></td>`;
+          if (f === STATUS_F) return `<td>${v ? statusText(v) : '<span class="empty-cell">—</span>'}</td>`;
           return `<td>${v ? v : '<span class="empty-cell">—</span>'}</td>`;
         }).join("")}</tr>`).join("")}
       </tbody>
@@ -333,8 +342,8 @@ function renderCompare() {
       <select id="cmpRight">${options}</select>
     </div>
     <div class="compare-grid">
-      <div class="venture-col"><h2>${resolve(left,NAME_F)}</h2><div class="sub">${resolve(left,SECTION_F)||"—"} · ${resolve(left,STATUS_F)||"—"}</div>${renderTabsFor(left, unionIds)}</div>
-      <div class="venture-col"><h2>${resolve(right,NAME_F)}</h2><div class="sub">${resolve(right,SECTION_F)||"—"} · ${resolve(right,STATUS_F)||"—"}</div>${renderTabsFor(right, unionIds)}</div>
+      <div class="venture-col"><h2>${resolve(left,NAME_F)}</h2><div class="sub">${resolve(left,SECTION_F)||"—"} · ${statusText(resolve(left,STATUS_F))||"—"}</div>${renderTabsFor(left, unionIds)}</div>
+      <div class="venture-col"><h2>${resolve(right,NAME_F)}</h2><div class="sub">${resolve(right,SECTION_F)||"—"} · ${statusText(resolve(right,STATUS_F))||"—"}</div>${renderTabsFor(right, unionIds)}</div>
     </div>
   `;
   document.getElementById("cmpLeft").value = compareLeft;
@@ -367,7 +376,7 @@ function renderSingle() {
   document.getElementById("panelSingle").innerHTML = `
     <div class="single-picker"><select id="singlePick">${options}</select></div>
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
-    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${resolve(rec,STATUS_F) || "—"}</span></h1>
+    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
     <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v,fid)}</div></div>`).join("")}</div>
   `;
