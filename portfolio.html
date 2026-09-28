@@ -163,6 +163,8 @@ const FIELD_META = {
   fldu1iQBrGZuKUKuf: {name:"landing", tab:"Product", order:3},
   fldOLfNxsvfpFS37T: {name:"traction", tab:"Product", order:7},
   fld7d4gZlGVKxqyLO: {name:"deployment", tab:"Product", order:8},
+  fldotsmqLDmkhWYt3: {name:"email", tab:"Operations", order:9},
+  fldfYvXdHT9U0RgOx: {name:"contact", tab:"Operations", order:10},
 };
 const TAB_ORDER = ["Market","Product","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
@@ -211,9 +213,12 @@ const LINK_LABELS = {
   fldu1iQBrGZuKUKuf: "structure",
   fldOLfNxsvfpFS37T: "status",
   fld7d4gZlGVKxqyLO: "metrics",
+  fldfYvXdHT9U0RgOx: "doc",
 };
 function linkify(v, fid) {
   if (!v) return "—";
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(v);
+  if (isEmail) return `<a href="mailto:${v}">${v}</a>`;
   const isUrl = /^https?:\/\//i.test(v);
   const isBareDomain = /^([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v);
   if (isUrl || isBareDomain) {
