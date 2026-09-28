@@ -8,7 +8,7 @@
   /* Palette recopiée depuis css/style.css (le thème du site) plutôt qu'importée,
      pour que cette page reste autonome (aucune dépendance externe, CSS inline). */
   :root {
-    --bg: #0a0e27; --panel: #161a33; --border: #232849; --text: #e0e0e0;
+    --bg: #0a0e27; --panel: #161a33; --border: #232849; --text: #fff;
     --muted: #8a90a8; --key: #7a8296; --accent: #4a90e2; --accent-soft: rgba(74,144,226,0.15);
     --green: #6bcf7f; --green-soft: rgba(107,207,127,0.15);
     --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -23,7 +23,7 @@
   .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .mode-switcher { display: flex; gap: 8px; }
   .mode-switcher button { font-family: var(--sans); font-size: 14px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel); color: var(--muted); cursor: pointer; }
-  .mode-switcher button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .mode-switcher button.active { background: var(--panel); color: var(--accent); border-color: #fff; }
   .single-picker-top select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); background: var(--panel); color: var(--text); }
 
   .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 22px 26px; }
@@ -85,16 +85,16 @@
 <div class="wrap">
   <div class="top-bar">
     <div class="mode-switcher">
-      <button data-mode="table" class="active">Vue consolidée</button>
-      <button data-mode="compare">Comparer</button>
-      <button data-mode="single">Fiche individuelle</button>
+      <button data-mode="table" class="active">Consolidated view</button>
+      <button data-mode="compare">Compare</button>
+      <button data-mode="single">Single record</button>
     </div>
     <div class="single-picker-top" id="singlePickerTop" style="display:none;">
       <select id="singlePick"></select>
     </div>
   </div>
 
-  <div class="panel" id="panelTable"><div class="state-msg">Chargement…</div></div>
+  <div class="panel" id="panelTable"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panelCompare" style="display:none;"></div>
   <div class="panel" id="panelSingle" style="display:none;"></div>
 </div>
@@ -257,24 +257,24 @@ function renderTable() {
 
   const cols = [
     [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [VERTICAL_F, "Vertical"],
-    [ROLE_F, "Rôle"], [PRIORITY_F, "Exec. priority"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
+    [ROLE_F, "Role"], [PRIORITY_F, "Exec. priority"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
   ];
 
   document.getElementById("panelTable").innerHTML = `
-    ${filterLabel ? `<div class="deep-link-banner">Vue filtrée depuis le site : <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">voir tout le portfolio</a></div>` : ""}
+    ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">view full portfolio</a></div>` : ""}
     <div class="filters">
-      <input type="search" placeholder="Rechercher…" id="searchBox" value="${searchText}">
+      <input type="search" placeholder="Search…" id="searchBox" value="${searchText}">
       <select id="sectionFilter">
-        <option value="*">Toutes sections</option>
+        <option value="*">All sections</option>
         ${sections.map(s => `<option value="${s}" ${!filterSectionList && s===filterSection?"selected":""}>${s}</option>`).join("")}
       </select>
       <select id="roleFilter">
-        <option value="*">Tous rôles</option>
+        <option value="*">All roles</option>
         <option value="project" ${filterRole==="project"?"selected":""}>project</option>
         <option value="benchmark" ${filterRole==="benchmark"?"selected":""}>benchmark</option>
       </select>
     </div>
-    <div class="row-count">${rows.length} entité${rows.length>1?"s":""} affichée${rows.length>1?"s":""} sur ${RECORDS.length}</div>
+    <div class="row-count">${rows.length} ${rows.length>1?"entities":"entity"} shown out of ${RECORDS.length}</div>
     <table class="consolidated">
       <thead><tr>${cols.map(([f,l]) => `<th data-f="${f}" class="${f===sortField?"sorted":""}">${l}</th>`).join("")}</tr></thead>
       <tbody>
@@ -348,7 +348,7 @@ function renderCompare() {
   const left = RECORDS.find(r => r.id === compareLeft), right = RECORDS.find(r => r.id === compareRight);
   const unionIds = buildUnionFieldIds(left, right);
   document.getElementById("panelCompare").innerHTML = `
-    ${filterLabel ? `<div class="deep-link-banner">Vue filtrée depuis le site : <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">voir tout le portfolio</a></div>` : ""}
+    ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">view full portfolio</a></div>` : ""}
     <div class="compare-pickers">
       <select id="cmpLeft">${options}</select>
       <select id="cmpRight">${options}</select>
@@ -476,7 +476,7 @@ async function boot() {
     applyDeepLink();
     renderAll();
   } catch (err) {
-    document.getElementById("panelTable").innerHTML = `<div class="state-msg">Impossible de charger portfolio.json (${err.message}). Vérifie que le fichier existe à côté de cette page et que l'export Airtable a bien tourné.</div>`;
+    document.getElementById("panelTable").innerHTML = `<div class="state-msg">Unable to load portfolio.json (${err.message}). Check that the file exists next to this page and that the Airtable export has run.</div>`;
   }
 }
 boot();
