@@ -66,6 +66,7 @@
   .single-picker { margin-bottom: 18px; }
   h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
   .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: #eeece7; color: var(--muted); }
+  .status-tag.status-green { background: var(--accent-soft); color: var(--accent); }
   .meta-line { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
   .single-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 4px; overflow-x: auto; }
   .single-tabs button { font-family: var(--sans); font-size: 13.5px; padding: 8px 13px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
@@ -174,16 +175,32 @@ function resolve(rec, fieldId) {
 }
 function cellsOf(rec) { return rec.fields || rec.cellValuesByFieldId; }
 
+// "landing" et "online" doivent toujours ressortir en vert, quelle que soit
+// la couleur assignée à l'option côté Airtable (ex. "online" y est en teal).
+function statusClass(v) {
+  if (!v) return "";
+  const low = v.toLowerCase();
+  return (low.includes("landing") || low.includes("online")) ? " status-green" : "";
+}
+
 // Une valeur de champ qui EST un lien (URL complète http(s)://... ou domaine nu du type
 // "labs.vetnups.com", "clauslabs.ai") se rend comme un vrai <a href> cliquable plutôt que
 // comme du texte plat — "le hub renvoie, il ne discute pas". Domaine nu -> on préfixe https://.
-function linkify(v) {
+// Pour les champs dont la valeur est une URL interne longue (landing/traction/deployment),
+// LINK_LABELS donne un texte de lien court plutôt que d'afficher l'URL complète.
+const LINK_LABELS = {
+  fldu1iQBrGZuKUKuf: "Landing",
+  fldOLfNxsvfpFS37T: "Status",
+  fld7d4gZlGVKxqyLO: "Metrics",
+};
+function linkify(v, fid) {
   if (!v) return "—";
   const isUrl = /^https?:\/\//i.test(v);
   const isBareDomain = /^([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v);
   if (isUrl || isBareDomain) {
     const href = isUrl ? v : `https://${v}`;
-    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${v}</a>`;
+    const label = (fid && LINK_LABELS[fid]) || v;
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
   }
   return v;
 }
@@ -275,11 +292,11 @@ function renderTabsFor(rec, fieldIds) {
     const meta = FIELD_META[fid];
     if (!meta || !TAB_ORDER.includes(meta.tab)) return;
     const v = resolve(rec, fid);
-    if (fieldIds || v) byTab[meta.tab].push([meta.name, v, meta.order || 999]);
+    if (fieldIds || v) byTab[meta.tab].push([meta.name, v, meta.order || 999, fid]);
   });
   TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[2]-b[2]));
   return TAB_ORDER.filter(t => byTab[t].length).map(t =>
-    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div class="${v?"":"empty-cell"}">${linkify(v)}</div></div>`).join("")}</div>`
+    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div class="${v?"":"empty-cell"}">${linkify(v,fid)}</div></div>`).join("")}</div>`
   ).join("");
 }
 
@@ -338,7 +355,7 @@ function renderSingle() {
     const meta = FIELD_META[fid];
     if (!meta || !TAB_ORDER.includes(meta.tab)) return;
     const v = resolve(rec, fid);
-    if (v) byTab[meta.tab].push([meta.name, v, meta.order || 999]);
+    if (v) byTab[meta.tab].push([meta.name, v, meta.order || 999, fid]);
   });
   TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[2]-b[2]));
   const availableTabs = TAB_ORDER.filter(t => byTab[t].length);
@@ -350,9 +367,9 @@ function renderSingle() {
   document.getElementById("panelSingle").innerHTML = `
     <div class="single-picker"><select id="singlePick">${options}</select></div>
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
-    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag">${resolve(rec,STATUS_F) || "—"}</span></h1>
+    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${resolve(rec,STATUS_F) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
-    <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v)}</div></div>`).join("")}</div>
+    <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v,fid)}</div></div>`).join("")}</div>
   `;
   document.getElementById("singlePick").value = singleSelected;
   document.getElementById("singlePick").addEventListener("change", e => { singleSelected = e.target.value; singleTab = null; renderSingle(); });
