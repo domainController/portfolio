@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narrative Constructs — Deployment Activity</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-blue:    #2a78d6;
+    --series-red:     #e34948;
+    --seq-100: #cde2fb; --seq-200: #9ec5f4; --seq-300: #6da7ec; --seq-400: #3987e5; --seq-500: #256abf;
+  }
+  @media (prefers-color-scheme: dark) {
+    .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-blue:    #3987e5;
+      --series-red:     #e66767;
+      --seq-100: #184f95; --seq-200: #1c5cab; --seq-300: #256abf; --seq-400: #2a78d6; --seq-500: #6da7ec;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 28px 16px 80px; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  .panel { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 24px 26px; margin-bottom: 18px; }
+  .topnav { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; }
+  .topnav a { color: var(--text-secondary); text-decoration: none; }
+  .topnav a:hover { color: var(--series-blue); }
+
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .lede { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin: 0; max-width: 62ch; }
+  .lede code { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: 12.5px; background: var(--grid); padding: 1px 5px; border-radius: 4px; }
+
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); margin: 0 0 14px; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: var(--grid); border: 1px solid var(--grid); border-radius: 10px; overflow: hidden; }
+  .stat { background: var(--surface-1); padding: 14px 14px; }
+  .stat .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); margin-bottom: 5px; }
+  .stat .v { font-size: 21px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat .v small { font-size: 12px; font-weight: 400; color: var(--text-secondary); }
+
+  .track-wrap { margin: 8px 0 4px; }
+  .track { position: relative; height: 40px; background: var(--grid); border-radius: 6px; overflow: visible; }
+  .gap-band { position: absolute; top: 0; bottom: 0; background: color-mix(in srgb, var(--series-red) 10%, transparent); border-left: 1px dashed color-mix(in srgb, var(--series-red) 40%, transparent); border-right: 1px dashed color-mix(in srgb, var(--series-red) 40%, transparent); }
+  .tick { position: absolute; top: 4px; bottom: 4px; width: 6px; margin-left: -3px; border-radius: 3px; cursor: default; }
+  .tick:hover::after { content: attr(data-tip); position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); background: var(--text-primary); color: var(--surface-1); font-size: 11px; padding: 5px 8px; border-radius: 6px; white-space: nowrap; z-index: 5; }
+  .track-labels { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--text-muted); margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .gap-note { font-size: 12px; color: var(--text-secondary); margin: 10px 0 0; padding: 8px 10px; background: color-mix(in srgb, var(--series-red) 8%, transparent); border-radius: 7px; border: 1px solid color-mix(in srgb, var(--series-red) 18%, transparent); }
+
+  .barlist { display: flex; flex-direction: column; gap: 10px; }
+  .barrow { display: grid; grid-template-columns: 190px 1fr 56px; align-items: center; gap: 10px; }
+  .barrow .lbl { font-size: 12.5px; color: var(--text-secondary); }
+  .barrow .track2 { height: 14px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+  .barrow .fill { height: 100%; border-radius: 4px 0 0 4px; background: var(--series-blue); }
+  .barrow .val { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+  .barrow.dim .fill { background: var(--text-muted); opacity: .55; }
+  .barrow.dim .val { color: var(--text-muted); font-weight: 400; }
+
+  .commits { display: flex; flex-direction: column; gap: 3px; max-height: 480px; overflow-y: auto; }
+  .crow { display: grid; grid-template-columns: 84px 1fr 1fr 1fr; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--grid); }
+  .crow:last-child { border-bottom: none; }
+  .crow .d { font-size: 10.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .crow .dside { display: flex; justify-content: flex-end; }
+  .crow .isside { display: flex; justify-content: flex-start; }
+  .crow .bar { height: 10px; border-radius: 3px; min-width: 1px; }
+  .crow .bar.ins { background: var(--series-blue); }
+  .crow .bar.del { background: var(--series-red); }
+  .crow .msg { font-size: 12px; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+  table.datatable { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.datatable th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); padding: 6px 8px; border-bottom: 1px solid var(--grid); position: sticky; top: 0; background: var(--surface-1); }
+  table.datatable td { padding: 6px 8px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  table.datatable td.ins { color: var(--series-blue); }
+  table.datatable td.del { color: var(--series-red); }
+  .table-scroll { max-height: 420px; overflow-y: auto; }
+
+  .foot { font-size: 11.5px; color: var(--text-muted); text-align: center; margin-top: 4px; }
+  .foot code { font-family: "SFMono-Regular", Consolas, Menlo, monospace; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <div class="panel">
+    <div class="topnav"><a href="../../../index.html">Home</a> · <a href="./index.html">Narrative Constructs</a> · deployment activity</div>
+    <h1>Narrative Constructs — Deployment Activity</h1>
+    <p class="lede">Computed from the real git history of <code>domainController/narrative-constructs-website</code> (public repo) — active days, silence, and volume per shipped increment on <code>main</code>, rather than a raw commit count that double-counts PR round-trips.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Overview</h2>
+    <div class="stats">
+      <div class="stat"><div class="k">launch</div><div class="v">Aug 17</div></div>
+      <div class="stat"><div class="k">uptime</div><div class="v">1mo 1wk <small>(39d)</small></div></div>
+      <div class="stat"><div class="k">active</div><div class="v">12 <small>/ 39d</small></div></div>
+      <div class="stat"><div class="k">silent</div><div class="v">2wk 4d <small>max</small></div></div>
+      <div class="stat"><div class="k">peak day</div><div class="v">Aug 18</div></div>
+      <div class="stat"><div class="k">total (main)</div><div class="v">46</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Timeline — Aug 17, 2026 → Sep 25, 2026</h2>
+    <div class="track-wrap">
+      <div class="track">
+        <div class="gap-band" style="left:20.5%;width:46.2%"></div>
+        <div class="tick" style="left:0.0%;background:var(--seq-200)" data-tip="Aug 17, 2026 — 2 commits"></div>
+        <div class="tick" style="left:2.6%;background:var(--seq-500)" data-tip="Aug 18, 2026 — 8 commits"></div>
+        <div class="tick" style="left:5.1%;background:var(--seq-400)" data-tip="Aug 19, 2026 — 7 commits"></div>
+        <div class="tick" style="left:7.7%;background:var(--seq-400)" data-tip="Aug 20, 2026 — 7 commits"></div>
+        <div class="tick" style="left:12.8%;background:var(--seq-100)" data-tip="Aug 22, 2026 — 1 commit"></div>
+        <div class="tick" style="left:17.9%;background:var(--seq-300)" data-tip="Aug 24, 2026 — 4 commits"></div>
+        <div class="tick" style="left:20.5%;background:var(--seq-200)" data-tip="Aug 25, 2026 — 3 commits"></div>
+        <div class="tick" style="left:66.7%;background:var(--seq-100)" data-tip="Sep 12, 2026 — 1 commit"></div>
+        <div class="tick" style="left:79.5%;background:var(--seq-100)" data-tip="Sep 17, 2026 — 1 commit"></div>
+        <div class="tick" style="left:89.7%;background:var(--seq-300)" data-tip="Sep 21, 2026 — 5 commits"></div>
+        <div class="tick" style="left:92.3%;background:var(--seq-200)" data-tip="Sep 22, 2026 — 3 commits"></div>
+        <div class="tick" style="left:100.0%;background:var(--seq-200)" data-tip="Sep 25, 2026 — 2 commits"></div>
+      </div>
+      <div class="track-labels"><span>Aug 17</span><span>Sep 25</span></div>
+    </div>
+    <div class="gap-note">2 weeks, 4 days between Aug 25 and Sep 12 — 46% of the repo's lifetime without a single content commit.</div>
+  </div>
+
+  <div class="panel">
+    <h2>What "commits" can mean — 4 readings of the same repo</h2>
+    <div class="barlist">
+      <div class="barrow"><div class="lbl">Raw commits (all branches)</div><div class="track2"><div class="fill" style="width:100%"></div></div><div class="val">58</div></div>
+      <div class="barrow"><div class="lbl">Commits on main</div><div class="track2"><div class="fill" style="width:79%"></div></div><div class="val">46</div></div>
+      <div class="barrow"><div class="lbl">Content commits (excluding merges)</div><div class="track2"><div class="fill" style="width:76%"></div></div><div class="val">44</div></div>
+      <div class="barrow dim"><div class="lbl">Active days</div><div class="track2"><div class="fill" style="width:21%"></div></div><div class="val">12</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>44 content commits — lines added / removed</h2>
+    <div class="legend"><span><i style="background:var(--series-blue)"></i>insertions (2574)</span><span><i style="background:var(--series-red)"></i>deletions (1000)</span></div>
+    <div class="commits" id="commitChart"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Data table</h2>
+    <div class="table-scroll">
+      <table class="datatable">
+        <thead><tr><th>Date</th><th>Commit</th><th>Insertions</th><th>Deletions</th></tr></thead>
+        <tbody id="dataTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="foot">Page generated from real git history — <code>domainController/narrative-constructs-website</code> — no simulated data.</p>
+</div>
+
+<script>
+const COMMITS = [{"date": "Aug 17, 17:38", "subject": "Initial commit", "ins": 2, "del": 0}, {"date": "Aug 17, 22:38", "subject": "Add landing page, welcome page, and site stylesheet", "ins": 362, "del": 0}, {"date": "Aug 18, 00:27", "subject": "Switch to light theme, restructure index by company (draft)", "ins": 101, "del": 62}, {"date": "Aug 18, 00:53", "subject": "Repaint to light/warm theme matching the canonical shared stylesheet, add per-company stub pages", "ins": 299, "del": 68}, {"date": "Aug 18, 19:29", "subject": "Revert to canonical dark theme, fix index styling, tighten copy", "ins": 78, "del": 74}, {"date": "Aug 18, 20:30", "subject": "Update Orbitum value proposition on homepage", "ins": 1, "del": 1}, {"date": "Aug 18, 22:23", "subject": "Updating the value prop of Môttrum for \"Marketplace for pre-contentious assets\"", "ins": 1, "del": 1}, {"date": "Aug 18, 22:25", "subject": "Deleting Narrative Constructs entry from the index", "ins": 0, "del": 5}, {"date": "Aug 18, 22:30", "subject": "adding consumers to reviews in cohort value prop.", "ins": 1, "del": 1}, {"date": "Aug 18, 22:31", "subject": "consumers without s", "ins": 1, "del": 1}, {"date": "Aug 19, 11:50", "subject": "Replace \"pre-contentious\" with \"pre-litigation\" before \"assets\" across   the value prop. \"Pre-contentious\" was an untranslated calque of FR   \"précontentieux\" with no organic EN legal/finance usage; \"pre-litigation\"   is the established term and already used elsewhere in the corpus   (Auditum Memoria — \"Pre-litigation intelligence clinic\").", "ins": 2, "del": 2}, {"date": "Aug 19, 12:57", "subject": "content: update Narrative Constructs subtitle to \"Theoretical LawTech Lab.\"", "ins": 1, "del": 1}, {"date": "Aug 19, 14:02", "subject": "Replace brand emoji with inline SVG flask icon, add concept status tag, refresh index timestamp", "ins": 5, "del": 3}, {"date": "Aug 19, 18:07", "subject": "Mark Auditum Memoria as live, recolor brand flask icon to white", "ins": 2, "del": 2}, {"date": "Aug 19, 22:40", "subject": "swintching from a to ā for halo and from o to ö for möttrum", "ins": 2, "del": 2}, {"date": "Aug 19, 22:43", "subject": "Revert \"swintching from a to ā for halo and from o to ö for möttrum\"", "ins": 2, "del": 2}, {"date": "Aug 19, 22:46", "subject": "correctiung mistakes and adding umlaut et trema finally on names rather than url", "ins": 2, "del": 2}, {"date": "Aug 20, 00:15", "subject": "Update value props: Cluster and Orbitum", "ins": 2, "del": 2}, {"date": "Aug 20, 11:12", "subject": "Sharpen Auditum Memoria value prop: \"workplace disputes\" instead of \"workplace\"", "ins": 1, "del": 1}, {"date": "Aug 20, 11:36", "subject": "Add \"fragmented\" to Cluster value prop (index.html)", "ins": 1, "del": 1}, {"date": "Aug 20, 12:04", "subject": "Expand Orbitum value prop from category tag to full sentence", "ins": 1, "del": 1}, {"date": "Aug 20, 17:15", "subject": "feat: add Curb value proposition to index.html", "ins": 5, "del": 0}, {"date": "Aug 20, 17:17", "subject": "removing Curb is", "ins": 1, "del": 1}, {"date": "Aug 20, 21:31", "subject": "rearranging the hierachical order of the projets presentation", "ins": 16, "del": 14}, {"date": "Aug 22, 16:02", "subject": "docs: canonical value propositions for HALO and Curb", "ins": 2, "del": 2}, {"date": "Aug 24, 18:58", "subject": "Restructure site index into a 3-pole accordion (ClausTheory / ClausLabs / ClausWorks)", "ins": 126, "del": 42}, {"date": "Aug 24, 19:19", "subject": "Fix pole-title/pole-valueprop font-weight to match the site's established hierarchy", "ins": 8, "del": 4}, {"date": "Aug 24, 19:28", "subject": "Match umbrella subtitle and pole titles exactly to Auditum Memoria's reference typography", "ins": 10, "del": 12}, {"date": "Aug 24, 23:04", "subject": "deleting repetition of branding namre in value prop", "ins": 12, "del": 1}, {"date": "Aug 25, 16:23", "subject": "Remove pole value-prop paragraphs from the accordion; normalize pole-sub size", "ins": 5, "del": 16}, {"date": "Aug 25, 16:25", "subject": "Rename Orbitum to Morse (working name) in the index", "ins": 1, "del": 1}, {"date": "Aug 25, 16:30", "subject": "Update Morse/Cohort/Cluster value props per user confirmation against Craft source docs", "ins": 3, "del": 3}, {"date": "Sep 12, 16:51", "subject": "Restructure to one-page-per-level navigation (index -> claustheory/clauslabs)", "ins": 242, "del": 120}, {"date": "Sep 17, 10:38", "subject": "Replace site navigation with the 6-category research taxonomy", "ins": 411, "del": 237}, {"date": "Sep 21, 09:21", "subject": "Ajoute le tracking Matomo (siteId 10) sur les 16 pages", "ins": 240, "del": 0}, {"date": "Sep 21, 19:46", "subject": "Fix root menu meta-bar: cross-links, single line, bordeaux accent (#2)", "ins": 16, "del": 1}, {"date": "Sep 21, 19:52", "subject": "Revert crumb accent to standard blue for site-wide consistency (#3)", "ins": 4, "del": 7}, {"date": "Sep 21, 20:21", "subject": "Sync taxonomy.css visual tokens with the AUDITUM MEMORIA reference (#4)", "ins": 27, "del": 28}, {"date": "Sep 21, 20:25", "subject": "Migrate all pages from taxonomy.css to the shared AUDITUM MEMORIA stylesheet (#5)", "ins": 179, "del": 163}, {"date": "Sep 22, 00:19", "subject": "Bump base font size, add portfolio link to every page's meta-bar (#6)", "ins": 17, "del": 0}, {"date": "Sep 22, 00:49", "subject": "Replace Matomo with Plausible analytics on all 8 live pages (#7)", "ins": 32, "del": 104}, {"date": "Sep 22, 17:44", "subject": "Fix missing root font-size — everything was falling back to browser default", "ins": 7, "del": 0}, {"date": "Sep 25, 16:33", "subject": "feat(labs): add Deterministic Ventures, remove Economic Anthropology", "ins": 158, "del": 7}, {"date": "Sep 25, 16:50", "subject": "refactor(labs): relocate Immersive Audit Lab under Lucid Asset Framework", "ins": 185, "del": 5}];
+const maxVal = Math.max(...COMMITS.map(c => Math.max(c.ins, c.del)), 1);
+
+const chartEl = document.getElementById("commitChart");
+COMMITS.forEach(c => {
+  const row = document.createElement("div");
+  row.className = "crow";
+  row.innerHTML = `
+    <div class="d">${c.date}</div>
+    <div class="dside"><div class="bar del" style="width:${(c.del/maxVal*100).toFixed(0)}%" title="${c.del} deletions"></div></div>
+    <div class="isside"><div class="bar ins" style="width:${(c.ins/maxVal*100).toFixed(0)}%" title="${c.ins} insertions"></div></div>
+    <div class="msg" title="${c.subject.replace(/"/g,'&quot;')}">${c.subject}</div>
+  `;
+  chartEl.appendChild(row);
+});
+
+const tableEl = document.getElementById("dataTable");
+COMMITS.forEach(c => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${c.date}</td><td>${c.subject}</td><td class="ins">+${c.ins}</td><td class="del">−${c.del}</td>`;
+  tableEl.appendChild(tr);
+});
+</script>
+</body>
+</html>
