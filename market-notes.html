@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio — Ventures</title>
+<title>Market Notes — Ventures &amp; Benchmarks</title>
 <style>
   /* Palette recopiée depuis css/style.css (le thème du site) plutôt qu'importée,
      pour que cette page reste autonome (aucune dépendance externe, CSS inline). */
@@ -174,7 +174,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
 let RECORDS = [];
 let currentMode = "table";
 let sortField = NAME_F, sortDir = 1;
-let filterSection = "*", searchText = "";
+let filterSection = "*", filterRole = "project", searchText = "";
 let compareLeft = null, compareRight = null;
 let singleSelected = null, singleTab = null;
 let filterSectionList = null, filterGroupList = null, filterLabel = null;
@@ -248,6 +248,7 @@ function renderTable() {
     } else if (filterSectionList) {
       if (!filterSectionList.includes(resolve(r, SECTION_F))) return false;
     } else if (filterSection !== "*" && resolve(r, SECTION_F) !== filterSection) return false;
+    if (filterRole !== "*" && resolve(r, ROLE_F) !== filterRole) return false;
     if (searchText) {
       const hay = (resolve(r, NAME_F) + " " + (resolve(r, VERTICAL_F) || "")).toLowerCase();
       if (!hay.includes(searchText.toLowerCase())) return false;
@@ -261,7 +262,7 @@ function renderTable() {
 
   const cols = [
     [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [VERTICAL_F, "Vertical"],
-    [PRIORITY_F, "Exec. priority"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
+    [ROLE_F, "Role"], [PRIORITY_F, "Exec. priority"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
   ];
 
   document.getElementById("panelTable").innerHTML = `
@@ -272,6 +273,11 @@ function renderTable() {
         <option value="*">All sections</option>
         ${sections.map(s => `<option value="${s}" ${!filterSectionList && s===filterSection?"selected":""}>${s}</option>`).join("")}
       </select>
+      <select id="roleFilter">
+        <option value="*">All roles</option>
+        <option value="project" ${filterRole==="project"?"selected":""}>project</option>
+        <option value="benchmark" ${filterRole==="benchmark"?"selected":""}>benchmark</option>
+      </select>
     </div>
     <div class="row-count">${rows.length} ${rows.length>1?"entities":"entity"} shown out of ${RECORDS.length}</div>
     <table class="consolidated">
@@ -279,6 +285,7 @@ function renderTable() {
       <tbody>
         ${rows.map(r => `<tr>${cols.map(([f]) => {
           const v = resolve(r, f);
+          if (f === ROLE_F) return `<td><span class="pill ${v==="project"?"project":""}">${v||"—"}</span></td>`;
           if (f === STATUS_F) return `<td>${v ? statusText(v) : '<span class="empty-cell">—</span>'}</td>`;
           return `<td>${v ? v : '<span class="empty-cell">—</span>'}</td>`;
         }).join("")}</tr>`).join("")}
@@ -287,6 +294,7 @@ function renderTable() {
   `;
   document.getElementById("searchBox").addEventListener("input", e => { searchText = e.target.value; renderTable(); });
   document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterGroupList = null; filterLabel = null; filterSection = e.target.value; renderTable(); });
+  document.getElementById("roleFilter").addEventListener("change", e => { filterRole = e.target.value; renderTable(); });
   document.querySelectorAll("table.consolidated th").forEach(th => {
     th.addEventListener("click", () => {
       const f = th.dataset.f;
@@ -341,7 +349,7 @@ function renderCompare() {
   if (!compareLeft) compareLeft = (RECORDS.find(r => resolve(r, NAME_F).trim() === "Vetnups") || RECORDS[0]).id;
   if (!compareRight) compareRight = (RECORDS.find(r => resolve(r, NAME_F).trim() === "Curb") || RECORDS[1] || RECORDS[0]).id;
   const options = RECORDS.slice().sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
-    .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
+    .map(r => `<option value="${r.id}">${resolve(r,NAME_F)} ${resolve(r,ROLE_F)==="benchmark"?"(benchmark)":""}</option>`).join("");
   const left = RECORDS.find(r => r.id === compareLeft), right = RECORDS.find(r => r.id === compareRight);
   const unionIds = buildUnionFieldIds(left, right);
   document.getElementById("panelCompare").innerHTML = `
@@ -380,7 +388,7 @@ function renderSingle() {
   if (!singleTab || !availableTabs.includes(singleTab)) singleTab = availableTabs[0];
 
   const options = RECORDS.slice().sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
-    .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
+    .map(r => `<option value="${r.id}">${resolve(r,NAME_F)} ${resolve(r,ROLE_F)==="benchmark"?"(benchmark)":""}</option>`).join("");
 
   document.getElementById("panelSingle").innerHTML = `
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
@@ -469,7 +477,7 @@ async function boot() {
     const res = await fetch("./portfolio.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    RECORDS = data.records.filter(r => (resolve(r, ROLE_F) || "").trim() !== "benchmark");
+    RECORDS = data.records;
     applyDeepLink();
     renderAll();
   } catch (err) {
