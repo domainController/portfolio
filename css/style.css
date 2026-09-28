@@ -143,6 +143,10 @@ details[open] > summary.branch-title::before {
   font-size: 0.95em;
   margin-bottom: 10px;
 }
+.branch-desc a { color: inherit; text-decoration: none; }
+.branch-desc a:visited { color: inherit; }
+.branch-desc a:hover { color: #4a90e2; text-decoration: underline;
+}
 
 .children {
   margin-left: 20px;

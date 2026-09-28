@@ -311,8 +311,22 @@ function setActiveModeButtons() {
 // ex. portfolio.html?section=Managed%20Marketplaces
 // ou   portfolio.html?section=Managed%20Matchmaking,Review%20Agora&label=Tech-Native%20Networks
 // Si le filtre isole exactement 2 entités, on ouvre directement la vue Comparer.
+// portfolio.html?venture=Curb ouvre directement la fiche individuelle de cette
+// entité - le lien qu'un nom d'entreprise doit porter, par opposition au sous-titre
+// d'une catégorie qui porte le lien ?section= vers la vue consolidée du groupe.
 function applyDeepLink() {
   const params = new URLSearchParams(location.search);
+  const ventureParam = params.get("venture");
+  if (ventureParam) {
+    const rec = RECORDS.find(r => resolve(r, NAME_F).trim() === ventureParam.trim());
+    if (rec) {
+      singleSelected = rec.id;
+      singleTab = null;
+      currentMode = "single";
+      setActiveModeButtons();
+      return;
+    }
+  }
   const sectionParam = params.get("section");
   if (!sectionParam) return;
   const wanted = sectionParam.split(",").map(s => s.trim()).filter(Boolean);
