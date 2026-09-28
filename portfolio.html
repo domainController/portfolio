@@ -5,42 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Ventures</title>
 <style>
+  /* Palette recopiée depuis css/style.css (le thème du site) plutôt qu'importée,
+     pour que cette page reste autonome (aucune dépendance externe, CSS inline). */
   :root {
-    --bg: #fafaf9; --panel: #ffffff; --border: #e4e2dd; --text: #1c1b1a;
-    --muted: #6b6863; --key: #8a8680; --accent: #2f6f5e; --accent-soft: #e7f1ee;
+    --bg: #0a0e27; --panel: #161a33; --border: #232849; --text: #e0e0e0;
+    --muted: #8a90a8; --key: #7a8296; --accent: #4a90e2; --accent-soft: rgba(74,144,226,0.15);
+    --green: #6bcf7f; --green-soft: rgba(107,207,127,0.15);
     --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   * { box-sizing: border-box; }
+  a { color: var(--accent); }
+  a:hover { color: #6bb3f0; }
   body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); padding: 28px 16px 80px; }
   .wrap { max-width: 1040px; margin: 0 auto; }
 
   .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
   .mode-switcher { display: flex; gap: 8px; }
   .mode-switcher button { font-family: var(--sans); font-size: 14px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel); color: var(--muted); cursor: pointer; }
-  .mode-switcher button.active { background: var(--text); color: #fff; border-color: var(--text); }
-  .single-picker-top select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); }
+  .mode-switcher button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .single-picker-top select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); background: var(--panel); color: var(--text); }
 
   .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 22px 26px; }
 
   .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
-  .filters select, .filters input[type=search] { font-family: var(--sans); font-size: 13px; padding: 6px 10px; border-radius: 7px; border: 1px solid var(--border); background: #fdfcfb; }
+  .filters select, .filters input[type=search] { font-family: var(--sans); font-size: 13px; padding: 6px 10px; border-radius: 7px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
   table.consolidated { width: 100%; border-collapse: collapse; font-size: 13px; }
   table.consolidated th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; }
   table.consolidated th:hover { color: var(--text); }
   table.consolidated th.sorted::after { content: " ▾"; }
-  table.consolidated td { padding: 8px 10px; border-bottom: 1px solid #f0efec; vertical-align: top; }
-  table.consolidated tr:hover td { background: #fbfaf8; }
-  .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #eeece7; color: var(--muted); }
+  table.consolidated td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.consolidated tr:hover td { background: rgba(255,255,255,0.03); }
+  .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--muted); }
   .pill.project { background: var(--accent-soft); color: var(--accent); }
-  .empty-cell { color: #c2beb6; font-style: italic; }
+  .empty-cell { color: #5a6080; font-style: italic; }
   .row-count { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
   .deep-link-banner { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; padding: 8px 12px; background: var(--accent-soft); border-radius: 8px; }
   .deep-link-banner strong { color: var(--accent); }
   .deep-link-banner a { color: var(--accent); }
 
   .compare-pickers { display: flex; gap: 16px; margin-bottom: 18px; }
-  .compare-pickers select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); flex: 1; }
+  .compare-pickers select { font-family: var(--sans); font-size: 14px; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border); background: var(--panel); color: var(--text); flex: 1; }
   .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 720px) {
     .compare-grid {
@@ -61,13 +66,13 @@
   .venture-col h2 { font-size: 19px; margin: 0 0 2px; }
   .venture-col .sub { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
   .tab-block { margin-bottom: 14px; }
-  .tab-block h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin: 0 0 6px; padding-top: 10px; border-top: 1px solid #f0efec; }
+  .tab-block h3 { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); margin: 0 0 6px; padding-top: 10px; border-top: 1px solid var(--border); }
   .fm-row { display: grid; grid-template-columns: 140px 1fr; gap: 10px; padding: 5px 0; font-size: 13px; line-height: 1.45; }
   .fm-key { font-family: var(--mono); font-size: 11.5px; color: var(--key); padding-top: 1px; }
 
   h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
-  .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: #eeece7; color: var(--muted); }
-  .status-tag.status-green { background: var(--accent-soft); color: var(--accent); }
+  .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); }
+  .status-tag.status-green { background: var(--green-soft); color: var(--green); }
   .meta-line { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
   .single-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 4px; overflow-x: auto; }
   .single-tabs button { font-family: var(--sans); font-size: 13.5px; padding: 8px 13px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
