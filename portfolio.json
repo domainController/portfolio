@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T19:06:16.908Z",
+  "generatedAt": "2026-09-29T20:55:31.486Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -80,9 +80,24 @@
     "fldRvoCEy7YakjAMq": "market lab status",
     "fldgInVmb6sP3oUgl": "nav branch",
     "fld09Waa8mfZCSoC4": "belongs to cluster",
-    "fldVtWIz4yrKcMvTg": "From field: belongs to cluster"
+    "fldVtWIz4yrKcMvTg": "From field: belongs to cluster",
+    "fldFIREVHXJ8Z7IFH": "uses framework/lab",
+    "fldk0tT9SXXsyzUPW": "From field: uses framework/lab"
   },
   "records": [
+    {
+      "id": "rec0p64yKJdpgQMQ5",
+      "createdTime": "2026-09-29T19:29:39.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "Board Whisperer",
+        "fldk0tT9SXXsyzUPW": [
+          "recndyhttH6lrud6s",
+          "recskci6XrPcXymJx"
+        ],
+        "fldxwQDw6Rp2mUDWA": "framework",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
     {
       "id": "rec26jHVA7YFM9tFd",
       "createdTime": "2026-09-27T08:22:48.000Z",
@@ -202,6 +217,10 @@
         "fldA1FIU5MBBJchSf": "project",
         "fldDx6P723cQsXAU3": "civic conflict mapping",
         "fldEp2lIIJ2UG42Wf": "Civic relay for pre-litigation conflict mapping between individuals.",
+        "fldFIREVHXJ8Z7IFH": [
+          "recMnW67j2Dm7xzdK",
+          "recu93NevEiwQ0tDs"
+        ],
         "fldMevUbOYlZX1pFA": "reflexive law framework",
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -338,8 +357,12 @@
           "reckS4dkZO0qcwOvP"
         ],
         "fld3JIuIA5FgdJv4F": "ClausWorks",
+        "fldDx6P723cQsXAU3": "Regulatory Entrepreneurship",
+        "fldccPHbiWw8T8xg6": "clausworks.ai",
+        "fldliVuEl43U42PGB": "project",
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "legal lab",
+        "fldytaVG4hsegzhJz": "legal services",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -357,6 +380,15 @@
       "createdTime": "2026-09-29T15:23:28.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "ClausLabs",
+        "fldccPHbiWw8T8xg6": "clauslabs.ai",
+        "fldk0tT9SXXsyzUPW": [
+          "recndyhttH6lrud6s",
+          "recskci6XrPcXymJx",
+          "recyKczweHeS173vZ",
+          "rec8rSbFouHQLuh8Z",
+          "recod5IyToIGPcZXn"
+        ],
+        "fldliVuEl43U42PGB": "project",
         "fldqooX9qDIYuzc7H": "project",
         "fldyxQMf0DeLLvZaz": "concept"
       }
@@ -426,6 +458,19 @@
       }
     },
     {
+      "id": "recSqJzviPu61gR1g",
+      "createdTime": "2026-09-29T19:11:12.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fld3JIuIA5FgdJv4F": "Vetnups Blog",
+        "fldqooX9qDIYuzc7H": "project",
+        "fldxwQDw6Rp2mUDWA": "blog",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "recXfMTE6srvIVvTG",
       "createdTime": "2026-09-27T08:22:57.000Z",
       "fields": {
@@ -491,7 +536,8 @@
         "fldTrutNI5wLYPJPl": "3/5 — soon",
         "fldVtWIz4yrKcMvTg": [
           "recHKIvcCZKLoOSj1",
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "recSqJzviPu61gR1g"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -694,6 +740,11 @@
         "fld7d4gZlGVKxqyLO": "https://patricek.info/legal-lab/legal-service-providers/auditum-memoria/deploy.html",
         "fldDx6P723cQsXAU3": "legal assistance ",
         "fldEp2lIIJ2UG42Wf": "Pre-litigation intelligence clinic for workplace disputes.",
+        "fldFIREVHXJ8Z7IFH": [
+          "recMnW67j2Dm7xzdK",
+          "recu93NevEiwQ0tDs",
+          "rec0p64yKJdpgQMQ5"
+        ],
         "fldMevUbOYlZX1pFA": "services",
         "fldOLfNxsvfpFS37T": "https://patricek.info/legal-lab/legal-service-providers/auditum-memoria/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
@@ -744,6 +795,10 @@
         "fldA1FIU5MBBJchSf": "project",
         "fldDx6P723cQsXAU3": "small.class action",
         "fldEp2lIIJ2UG42Wf": "escalation path for B2C small claims class action.",
+        "fldFIREVHXJ8Z7IFH": [
+          "recMnW67j2Dm7xzdK",
+          "recu93NevEiwQ0tDs"
+        ],
         "fldMevUbOYlZX1pFA": "reflexive law framework",
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -753,7 +808,7 @@
         "fldnE63YQPidZ6cVJ": "clauslabs.ai",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
         "fldqooX9qDIYuzc7H": "project",
-        "fldxwQDw6Rp2mUDWA": "engineering lab",
+        "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "litigation finance ",
         "fldyxQMf0DeLLvZaz": "project"
       }
@@ -781,6 +836,11 @@
           "recHC1ykh67YIWBU1"
         ],
         "fld3JIuIA5FgdJv4F": "Deterministic Venture",
+        "fldFIREVHXJ8Z7IFH": [
+          "recMnW67j2Dm7xzdK",
+          "recu93NevEiwQ0tDs",
+          "rec0p64yKJdpgQMQ5"
+        ],
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldqooX9qDIYuzc7H": "personal",
         "fldxwQDw6Rp2mUDWA": "finance lab",
@@ -860,6 +920,13 @@
         "fldccPHbiWw8T8xg6": "narrativeconstructs.com",
         "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldgInVmb6sP3oUgl": "Frameworks",
+        "fldk0tT9SXXsyzUPW": [
+          "recndyhttH6lrud6s",
+          "recskci6XrPcXymJx",
+          "recyKczweHeS173vZ",
+          "rec8rSbFouHQLuh8Z",
+          "recod5IyToIGPcZXn"
+        ],
         "fldotsmqLDmkhWYt3": "contact@narrativeconstructs.com",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/narrative-constructs-website",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
@@ -882,6 +949,10 @@
         "fldA1FIU5MBBJchSf": "concept",
         "fldDx6P723cQsXAU3": "crowdfunding",
         "fldEp2lIIJ2UG42Wf": "Crowdfunded claims financing.",
+        "fldFIREVHXJ8Z7IFH": [
+          "recMnW67j2Dm7xzdK",
+          "recu93NevEiwQ0tDs"
+        ],
         "fldMevUbOYlZX1pFA": "three-sided marketplace",
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
