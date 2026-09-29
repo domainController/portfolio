@@ -175,10 +175,6 @@ details[open] > summary.branch-title::before {
   padding: 6px 0;
   font-size: 1em;
 }
-/* Groups siblings under a shared heading within one .children list, without
-   making them children-of-a-child (no parent venture, just a category —
-   e.g. "Reflexive Law Frameworks" over Board Whisperer/Lucid Asset). */
-.group-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: #5a6080; margin: 18px 0 4px; }
 .child a { color: #b8bcd8; text-decoration: none; }
 .child a:visited { color: #b8bcd8; }
 .child a:hover { color: #4a90e2; text-decoration: underline; }
