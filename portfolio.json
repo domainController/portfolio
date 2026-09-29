@@ -1,8 +1,75 @@
 {
-  "generatedAt": "2026-09-29T04:25:05.941Z",
+  "generatedAt": "2026-09-29T04:47:09.920Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
-  "fieldNames": {},
+  "fieldNames": {
+    "fld3JIuIA5FgdJv4F": "Name",
+    "fldyxQMf0DeLLvZaz": "status",
+    "fldWhQvMTLgGLrW0D": "momentum",
+    "fldxwQDw6Rp2mUDWA": "entity type",
+    "fldMevUbOYlZX1pFA": "asset type",
+    "fldnTcpnT6lpnsNAm": "execution weight",
+    "fldiRhn1z31IndfsM": "time to first revenue",
+    "fldTrutNI5wLYPJPl": "execution priority",
+    "fldXHkm2E0Avupzr4": "model type",
+    "fldrSSBC602SbpO8U": "business model",
+    "fldytaVG4hsegzhJz": "vertical",
+    "fld7XckHXlRHrSdqt": "pricing model",
+    "fldtJi9grVPtJsauW": "monetization type",
+    "fldpXYYybRes1OIdO": "recurring revenue",
+    "fldeSHt4Q7m4HgWVW": "market scope",
+    "fld9pz7EAgWtPceCw": "target incumbents",
+    "fldRzG7uU52I3GRT7": "target markets",
+    "fld7IaOplNIDrK7SN": "network scope",
+    "fldz4JChQVgkic7BA": "customer concentration",
+    "fldA1FIU5MBBJchSf": "stage",
+    "fld1ayzhTagZyUvPt": "market lab",
+    "fld7VqAP1Vhhw2zqf": "engineering lab",
+    "fldUbu3d0yxjwGdws": "finance lab",
+    "fldnE63YQPidZ6cVJ": "legal lab",
+    "fld9CqdUeEbjZFq7L": "cold start",
+    "fldccPHbiWw8T8xg6": "website",
+    "fldWXML0BEnhz5teq": "investment stage",
+    "fldZE0grsvxfyzSQ1": "investment model",
+    "fldqooX9qDIYuzc7H": "portfolio role",
+    "fldIb77IM8PEwsfDO": " benchmark for",
+    "fldxHyIWkHMzHrqvA": "parent company ",
+    "fldDx6P723cQsXAU3": "sub-vertical",
+    "fldpKjCqmfWTsEZYq": "site section",
+    "fldEp2lIIJ2UG42Wf": "core value prop",
+    "fldraV615NFkhiRZs": "differentiator",
+    "fldWD7ch1mN9uPAhg": "impact",
+    "fldKwmWB30lqhjVib": "channel",
+    "fldHsh3cvS7yiAyiV": "value origin",
+    "fldzBaPn1BMoyLf5B": "distribution model",
+    "fldniRjRLMVzIS2Ud": "operating model",
+    "fldSXrj7eo5fnNLYn": "physical footprint",
+    "fldV0qcKnHb2VP3on": "growth rate",
+    "fldq08Sv5UuSmf0aB": "operating leverage",
+    "fldfhHBuUPXbxnqhH": "scalability",
+    "fldQuStBTUZUjsvCT": "exit horizon",
+    "fldh8Jj5eW15LKvsY": "EBITDA margin",
+    "fldt9I72oXRTgC0rC": "cash flow generation",
+    "flde8vVXhhTBp5okJ": "capital efficiency",
+    "fldx8dd2MbQXDx63J": "ROCE",
+    "fldn8CuiuElm6EjBs": "entry multiple",
+    "fldDs3PVNeH923OHB": "use of debt",
+    "fldZQwr9cDboInjay": "target purchase price",
+    "fld0Qo68lr0WiQEOY": "buyer profile",
+    "fldqOFlTJ7Pf9hMgL": "founder exit",
+    "fldbfrnARURZBDqk4": "portfolio group",
+    "fldu1iQBrGZuKUKuf": "landing",
+    "fldOLfNxsvfpFS37T": "traction",
+    "fld7d4gZlGVKxqyLO": "deployment",
+    "fldotsmqLDmkhWYt3": "contact email",
+    "fldruOMLTjWTC62Jz": "Contacts",
+    "fldfYvXdHT9U0RgOx": "contact",
+    "fldlL8kkZwNgw25Vy": "domain registrar",
+    "fldqYT5fpvzyqIaRT": "mail provider",
+    "fld554f8xSYqtx1Ye": "DNS management",
+    "fldd55eEXIFfqYPQj": "analytics provider",
+    "fldToUbONbYjGaAIk": "backup strategy"
+  },
   "records": [
     {
       "id": "rec26jHVA7YFM9tFd",
@@ -128,6 +195,14 @@
       }
     },
     {
+      "id": "rec98U1UCvW1nPQhS",
+      "createdTime": "2026-09-29T04:44:21.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "Off City Hike",
+        "fldlL8kkZwNgw25Vy": "Namecheap"
+      }
+    },
+    {
       "id": "rec9AderVdJ2KeSBN",
       "createdTime": "2026-09-27T04:48:28.000Z",
       "fields": {
@@ -138,6 +213,14 @@
       }
     },
     {
+      "id": "recA5NUPP10CjYymY",
+      "createdTime": "2026-09-29T04:44:21.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "Patricek",
+        "fldlL8kkZwNgw25Vy": "Namecheap"
+      }
+    },
+    {
       "id": "recG4AD53EbjkG9ir",
       "createdTime": "2026-09-27T08:22:00.000Z",
       "fields": {
@@ -145,6 +228,14 @@
         "fldIb77IM8PEwsfDO": "clusters ",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
+      }
+    },
+    {
+      "id": "recH0mB9xJocEhsLw",
+      "createdTime": "2026-09-29T04:44:21.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "Aletheia Frameworks",
+        "fldlL8kkZwNgw25Vy": "Namecheap"
       }
     },
     {
