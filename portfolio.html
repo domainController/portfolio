@@ -70,6 +70,12 @@
   .fm-key { font-family: var(--mono); font-size: 11.5px; color: var(--key); padding-top: 1px; }
 
   h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
+  .cluster-list { margin-top: 14px; border-top: 1px solid var(--border); }
+  .cluster-row { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .cluster-row:hover { background: rgba(255,255,255,0.03); }
+  .cluster-row-main { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+  .cluster-row-name { font-size: 14.5px; font-weight: 600; }
+  .cluster-row-type { font-size: 12.5px; color: var(--muted); flex: 1; }
   .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); }
   /* Palette de statut partagée avec css/style.css (pages de nav) — un mot, une couleur,
      partout sur le site, que la pastille soit un .status-tag (fiche) ou un .pill (mini-pastille
@@ -116,6 +122,7 @@
   <div class="panel" id="panelTable"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panelCompare" style="display:none;"></div>
   <div class="panel" id="panelSingle" style="display:none;"></div>
+  <div class="panel" id="panelCluster" style="display:none;"></div>
 </div>
 
 <script>
@@ -205,7 +212,8 @@ const FIELD_META = {
 const TAB_ORDER = ["Market","Product","Traction","Infra","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
-      MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4";
+      MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
+      ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4";
 
 let RECORDS = [];
 let FIELD_NAMES = {};
@@ -214,6 +222,7 @@ let sortField = NAME_F, sortDir = 1;
 let filterSection = "*", searchText = "";
 let compareLeft = null, compareRight = null;
 let singleSelected = null, singleTab = null;
+let clusterSelected = null;
 let filterSectionList = null, filterGroupList = null, filterLabel = null;
 
 function resolve(rec, fieldId) {
@@ -224,6 +233,15 @@ function resolve(rec, fieldId) {
   return v;
 }
 function cellsOf(rec) { return rec.fields || rec.cellValuesByFieldId; }
+
+// Pour un champ multipleRecordLinks (ex. CLUSTER_F) : la liste brute des record IDs liés,
+// contrairement à resolve() qui les joindrait en une chaîne de noms — ici on veut comparer
+// des IDs, pas les afficher.
+function linkedIds(rec, fieldId) {
+  const v = cellsOf(rec)[fieldId];
+  if (!v) return [];
+  return Array.isArray(v) ? v.map(x => (x && typeof x === "object") ? x.id : x) : [];
+}
 
 // Le nom affiché d'un champ vient, par défaut, du nom réel du champ dans Airtable
 // (fourni par portfolio.json au sync, via l'API Meta) — pas d'un libellé recopié
@@ -301,6 +319,7 @@ function switchMode(mode) {
   document.getElementById("panelTable").style.display = mode === "table" ? "" : "none";
   document.getElementById("panelCompare").style.display = mode === "compare" ? "" : "none";
   document.getElementById("panelSingle").style.display = mode === "single" ? "" : "none";
+  document.getElementById("panelCluster").style.display = mode === "cluster" ? "" : "none";
   document.getElementById("singlePickerTop").style.display = mode === "single" ? "" : "none";
   renderAll();
 }
@@ -468,6 +487,7 @@ function renderAll() {
   if (currentMode === "table") renderTable();
   if (currentMode === "compare") renderCompare();
   if (currentMode === "single") renderSingle();
+  if (currentMode === "cluster") renderCluster();
 }
 
 function setActiveModeButtons() {
@@ -475,12 +495,53 @@ function setActiveModeButtons() {
   document.getElementById("panelTable").style.display = currentMode === "table" ? "" : "none";
   document.getElementById("panelCompare").style.display = currentMode === "compare" ? "" : "none";
   document.getElementById("panelSingle").style.display = currentMode === "single" ? "" : "none";
+  document.getElementById("panelCluster").style.display = currentMode === "cluster" ? "" : "none";
   document.getElementById("singlePickerTop").style.display = currentMode === "single" ? "" : "none";
 }
 
+// Vue de la venture : la venture elle-même + tous les enregistrements dont CLUSTER_F
+// pointe vers elle ("composants constitutifs" — forum, blog, lab... doctrine posée en
+// session : une venture EST un cluster, pas un objet séparé). Chaque ligne cliquable ->
+// bascule directement en vue Fiche individuelle sur CE record précis, sans repasser par
+// applyDeepLink() (pas de vue cluster récursive, un seul niveau de profondeur).
+function renderCluster() {
+  const rec = RECORDS.find(r => r.id === clusterSelected);
+  if (!rec) return;
+  const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(clusterSelected));
+  const rows = [rec, ...children];
+  document.getElementById("panelCluster").innerHTML = `
+    <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
+    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
+    <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}</div>
+    <div class="cluster-list">
+      ${rows.map(r => `
+        <div class="cluster-row" data-id="${r.id}">
+          <div class="cluster-row-main">
+            <span class="cluster-row-name">${resolve(r,NAME_F)}</span>
+            ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
+          </div>
+          <div class="cluster-row-type">${resolve(r,ENTITY_TYPE_F) || "—"}</div>
+          <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+  document.querySelectorAll(".cluster-row").forEach(el => {
+    el.addEventListener("click", () => {
+      singleSelected = el.dataset.id;
+      singleTab = null;
+      currentMode = "single";
+      setActiveModeButtons();
+      renderAll();
+    });
+  });
+}
+
 // Permet aux pages de catégorie du site de renvoyer ici une vue déjà filtrée.
-// ?venture=Curb                           — ouvre directement la Fiche individuelle de cette entité
-//   (utilisé par les pages hub pour un lien "nom d'entreprise" -> sa propre fiche)
+// ?venture=Curb                           — ouvre la vue de la venture (elle + ses composants
+//   liés via CLUSTER_F, cf. renderCluster()) ; utilisé par les pages hub pour un lien
+//   "nom d'entreprise" -> son cluster. Un clic sur une ligne dans cette vue bascule ensuite
+//   en Fiche individuelle sur ce record précis (voir renderCluster()).
 // ?group=Tech-Native%20Networks           — filtre sur le champ "portfolio group"
 //   (un seul groupe par lien, c'est ce niveau qui correspond 1:1 aux pages du site)
 // ?section=Managed%20Marketplaces         — filtre sur "site section" (ancien mécanisme, gardé pour compat)
@@ -491,9 +552,8 @@ function applyDeepLink() {
   if (ventureParam) {
     const rec = RECORDS.find(r => resolve(r, NAME_F).trim() === ventureParam.trim());
     if (rec) {
-      singleSelected = rec.id;
-      singleTab = null;
-      currentMode = "single";
+      clusterSelected = rec.id;
+      currentMode = "cluster";
       setActiveModeButtons();
       return;
     }
