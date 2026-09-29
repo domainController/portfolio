@@ -139,7 +139,7 @@ const FIELD_META = {
   fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market", order:3},
   fldpKjCqmfWTsEZYq: {name:"site section", tab:"meta"},
   fldbfrnARURZBDqk4: {name:"portfolio group", tab:"meta"},
-  fldEp2lIIJ2UG42Wf: {name:"core value prop", tab:"Market", order:1},
+  fldEp2lIIJ2UG42Wf: {tab:"Market", order:1},
   fldraV615NFkhiRZs: {name:"differentiator", tab:"Market", order:2},
   fldWD7ch1mN9uPAhg: {name:"impact", tab:"Traction", order:6},
   fldKwmWB30lqhjVib: {name:"channel", tab:"Operations", order:4},
@@ -177,6 +177,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4";
 
 let RECORDS = [];
+let FIELD_NAMES = {};
 let currentMode = "table";
 let sortField = NAME_F, sortDir = 1;
 let filterSection = "*", searchText = "";
@@ -192,6 +193,15 @@ function resolve(rec, fieldId) {
   return v;
 }
 function cellsOf(rec) { return rec.fields || rec.cellValuesByFieldId; }
+
+// Le nom affiché d'un champ vient, par défaut, du nom réel du champ dans Airtable
+// (fourni par portfolio.json au sync, via l'API Meta) — pas d'un libellé recopié
+// à la main ici. FIELD_META[fid].name n'est une surcharge que quand le site veut
+// un mot plus court que le nom Airtable (ex. "contact email" -> "email").
+function fieldLabel(fid) {
+  const meta = FIELD_META[fid];
+  return (meta && meta.name) || FIELD_NAMES[fid] || fid;
+}
 
 // Le statut Airtable est stocké "N/5 — mot" (ex. "2/5 — landing") pour le
 // tri/la momentum interne, mais le préfixe numérique n'apporte rien à
@@ -315,11 +325,11 @@ function renderTabsFor(rec, fieldIds) {
     const meta = FIELD_META[fid];
     if (!meta || !TAB_ORDER.includes(meta.tab)) return;
     const v = resolve(rec, fid);
-    if (fieldIds || v) byTab[meta.tab].push([meta.name, v, meta.order || 999, fid]);
+    if (fieldIds || v) byTab[meta.tab].push([v, meta.order || 999, fid]);
   });
-  TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[2]-b[2]));
+  TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[1]-b[1]));
   return TAB_ORDER.filter(t => byTab[t].length).map(t =>
-    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div class="${v?"":"empty-cell"}">${linkify(v,fid)}</div></div>`).join("")}</div>`
+    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div class="${v?"":"empty-cell"}">${linkify(v,fid)}</div></div>`).join("")}</div>`
   ).join("");
 }
 
@@ -378,9 +388,9 @@ function renderSingle() {
     const meta = FIELD_META[fid];
     if (!meta || !TAB_ORDER.includes(meta.tab)) return;
     const v = resolve(rec, fid);
-    if (v) byTab[meta.tab].push([meta.name, v, meta.order || 999, fid]);
+    if (v) byTab[meta.tab].push([v, meta.order || 999, fid]);
   });
-  TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[2]-b[2]));
+  TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[1]-b[1]));
   // Tous les onglets de TAB_ORDER restent visibles, même sans champ renseigné pour cette venture
   // (ex. Product, encore vide, sert de rappel actif tant qu'aucun champ produit n'a été créé).
   const availableTabs = TAB_ORDER;
@@ -394,7 +404,7 @@ function renderSingle() {
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
-    <div class="tab-block">${singleRows.length ? singleRows.map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
+    <div class="tab-block">${singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
   `;
   const singlePick = document.getElementById("singlePick");
   singlePick.innerHTML = options;
@@ -477,6 +487,7 @@ async function boot() {
     const res = await fetch("./portfolio.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
+    FIELD_NAMES = data.fieldNames || {};
     RECORDS = data.records.filter(r => (resolve(r, ROLE_F) || "").trim() !== "benchmark");
     applyDeepLink();
     renderAll();

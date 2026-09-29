@@ -22,6 +22,30 @@ if (!token) {
   process.exit(1);
 }
 
+// Nom réel des champs (API Meta, distincte de l'API Records utilisée ci-dessous) —
+// c'est ce qui permet à portfolio.html d'afficher le nom Airtable actuel d'un champ
+// sans le recopier à la main dans son code : un renommage côté Airtable se reflète
+// au sync suivant, plutôt que de rester silencieusement figé sur l'ancien nom.
+// Dégrade en douceur (fieldNames vide) si le token n'a pas le scope schema.bases:read,
+// plutôt que de faire échouer tout l'export pour ça.
+async function fetchFieldNames() {
+  const url = `https://api.airtable.com/v0/meta/bases/${BASE_ID}/tables`;
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  if (!res.ok) {
+    console.warn(`Avertissement : API Meta ${res.status} ${res.statusText} — fieldNames omis (le token a-t-il le scope schema.bases:read ?)`);
+    return {};
+  }
+  const data = await res.json();
+  const table = data.tables.find((t) => t.id === TABLE_ID);
+  if (!table) {
+    console.warn(`Avertissement : table ${TABLE_ID} absente de la réponse Meta — fieldNames omis.`);
+    return {};
+  }
+  const names = {};
+  for (const f of table.fields) names[f.id] = f.name;
+  return names;
+}
+
 async function fetchAllRecords() {
   let records = [];
   let offset;
@@ -42,12 +66,13 @@ async function fetchAllRecords() {
   return records;
 }
 
-const records = await fetchAllRecords();
+const [records, fieldNames] = await Promise.all([fetchAllRecords(), fetchFieldNames()]);
 
 const payload = {
   generatedAt: new Date().toISOString(),
   baseId: BASE_ID,
   tableId: TABLE_ID,
+  fieldNames,
   records,
 };
 
