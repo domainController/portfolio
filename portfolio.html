@@ -89,24 +89,24 @@
 
   .state-msg { font-size: 14px; color: var(--muted); padding: 40px 0; text-align: center; }
 
-  .meta-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-  .meta-bar .home-icon, .meta-bar .nav-back { color: var(--muted); text-decoration: none; font-size: 1.05em; line-height: 1; }
-  .meta-bar .home-icon:hover, .meta-bar .nav-back:hover { color: var(--accent); }
-  .meta-bar .sep { color: var(--border); }
+  .top-bar-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .home-icon, .nav-back { color: var(--muted); text-decoration: none; font-size: 1.05em; line-height: 1; }
+  .home-icon:hover, .nav-back:hover { color: var(--accent); }
+  .top-bar-left .sep { color: var(--border); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="meta-bar">
-    <a class="home-icon" href="index.html" title="Home">&#8962;</a>
-    <span class="sep">·</span>
-    <a class="nav-back" href="#" onclick="history.back();return false;" title="Back">&#8592;</a>
-  </div>
   <div class="top-bar">
-    <div class="mode-switcher">
-      <button data-mode="table" class="active">Consolidated view</button>
-      <button data-mode="compare">Compare</button>
-      <button data-mode="single">Single record</button>
+    <div class="top-bar-left">
+      <a class="home-icon" href="index.html" title="Home">&#8962;</a>
+      <span class="sep">·</span>
+      <a class="nav-back" href="#" onclick="history.back();return false;" title="Back">&#8592;</a>
+      <div class="mode-switcher">
+        <button data-mode="table" class="active">Consolidated view</button>
+        <button data-mode="compare">Compare</button>
+        <button data-mode="single">Single record</button>
+      </div>
     </div>
     <div class="single-picker-top" id="singlePickerTop" style="display:none;">
       <select id="singlePick"></select>
