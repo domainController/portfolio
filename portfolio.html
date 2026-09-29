@@ -107,7 +107,7 @@
 const FIELD_META = {
   fld3JIuIA5FgdJv4F: {name:"Name", tab:"core"},
   fldyxQMf0DeLLvZaz: {name:"status", tab:"meta"},
-  fldWhQvMTLgGLrW0D: {name:"momentum", tab:"Product", order:1},
+  fldWhQvMTLgGLrW0D: {name:"momentum", tab:"Traction", order:1},
   fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Market", order:8},
   fldMevUbOYlZX1pFA: {name:"asset type", tab:"Market", order:7},
   fldnTcpnT6lpnsNAm: {name:"execution weight", tab:"Operations", order:1},
@@ -124,12 +124,12 @@ const FIELD_META = {
   fldRzG7uU52I3GRT7: {name:"target markets", tab:"Market", order:9},
   fld7IaOplNIDrK7SN: {name:"network scope", tab:"Market", order:11},
   fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market", order:13},
-  fldA1FIU5MBBJchSf: {name:"stage", tab:"Product", order:2},
+  fldA1FIU5MBBJchSf: {name:"stage", tab:"Traction", order:2},
   fld1ayzhTagZyUvPt: {name:"market lab", tab:"Labs", order:1},
   fld7VqAP1Vhhw2zqf: {name:"engineering lab", tab:"Labs", order:2},
   fldUbu3d0yxjwGdws: {name:"finance lab", tab:"Labs", order:3},
   fldnE63YQPidZ6cVJ: {name:"legal lab", tab:"Labs", order:4},
-  fld9CqdUeEbjZFq7L: {name:"cold start", tab:"Product", order:4},
+  fld9CqdUeEbjZFq7L: {name:"cold start", tab:"Traction", order:4},
   fldccPHbiWw8T8xg6: {name:"website", tab:"Infra", order:1},
   fldWXML0BEnhz5teq: {name:"investment stage", tab:"Acquisition", order:1},
   fldZE0grsvxfyzSQ1: {name:"investment model", tab:"Acquisition", order:2},
@@ -141,7 +141,7 @@ const FIELD_META = {
   fldbfrnARURZBDqk4: {name:"portfolio group", tab:"meta"},
   fldEp2lIIJ2UG42Wf: {name:"core value prop", tab:"Market", order:1},
   fldraV615NFkhiRZs: {name:"differentiator", tab:"Market", order:2},
-  fldWD7ch1mN9uPAhg: {name:"impact", tab:"Product", order:6},
+  fldWD7ch1mN9uPAhg: {name:"impact", tab:"Traction", order:6},
   fldKwmWB30lqhjVib: {name:"channel", tab:"Operations", order:4},
   fldHsh3cvS7yiAyiV: {name:"value origin", tab:"Operations", order:5},
   fldzBaPn1BMoyLf5B: {name:"distribution model", tab:"Operations", order:6},
@@ -160,8 +160,8 @@ const FIELD_META = {
   fldZQwr9cDboInjay: {name:"target purchase price", tab:"Acquisition", order:5},
   fld0Qo68lr0WiQEOY: {name:"buyer profile", tab:"Acquisition", order:6},
   fldqOFlTJ7Pf9hMgL: {name:"founder exit", tab:"Acquisition", order:7},
-  fldu1iQBrGZuKUKuf: {name:"landing", tab:"Product", order:3},
-  fldOLfNxsvfpFS37T: {name:"traction", tab:"Product", order:7},
+  fldu1iQBrGZuKUKuf: {name:"landing", tab:"Traction", order:3},
+  fldOLfNxsvfpFS37T: {name:"traction", tab:"Traction", order:7},
   fld7d4gZlGVKxqyLO: {name:"deployment", tab:"Infra", order:2},
   fldlL8kkZwNgw25Vy: {name:"domain registrar", tab:"Infra", order:3},
   fldqYT5fpvzyqIaRT: {name:"mail provider", tab:"Infra", order:4},
@@ -171,7 +171,7 @@ const FIELD_META = {
   fldotsmqLDmkhWYt3: {name:"email", tab:"Operations", order:9},
   fldfYvXdHT9U0RgOx: {name:"contact", tab:"Operations", order:10},
 };
-const TAB_ORDER = ["Market","Product","Infra","Operations","Finance","Acquisition","Labs"];
+const TAB_ORDER = ["Market","Product","Traction","Infra","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4";
@@ -381,17 +381,20 @@ function renderSingle() {
     if (v) byTab[meta.tab].push([meta.name, v, meta.order || 999, fid]);
   });
   TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[2]-b[2]));
-  const availableTabs = TAB_ORDER.filter(t => byTab[t].length);
+  // Tous les onglets de TAB_ORDER restent visibles, même sans champ renseigné pour cette venture
+  // (ex. Product, encore vide, sert de rappel actif tant qu'aucun champ produit n'a été créé).
+  const availableTabs = TAB_ORDER;
   if (!singleTab || !availableTabs.includes(singleTab)) singleTab = availableTabs[0];
 
   const options = RECORDS.slice().sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
 
+  const singleRows = byTab[singleTab] || [];
   document.getElementById("panelSingle").innerHTML = `
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
-    <div class="tab-block">${(byTab[singleTab]||[]).map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v,fid)}</div></div>`).join("")}</div>
+    <div class="tab-block">${singleRows.length ? singleRows.map(([k,v,,fid]) => `<div class="fm-row"><div class="fm-key">${k}</div><div>${linkify(v,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
   `;
   const singlePick = document.getElementById("singlePick");
   singlePick.innerHTML = options;
