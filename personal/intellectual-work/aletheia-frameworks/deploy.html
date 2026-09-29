@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aletheia Frameworks — Deployment Activity</title>
+<link rel="stylesheet" href="../../../css/style.css?v=27">
+</head>
+<body>
+<div class="viz-root container">
+
+  <div class="meta-bar">
+      <div class="meta-left">
+        <a class="home-icon" href="../../../index.html" title="Home">&#8962;</a>
+        <span class="sep">·</span>
+        <span style="color:#8a90a8;">Aletheia Frameworks</span>
+        <span class="sep">·</span>
+        <span style="color:#7a8296;">deployment activity</span>
+      </div>
+    </div>
+
+  <div class="panel">
+    <h1>Deployment Activity</h1>
+    <p class="lede">Computed from the real git history of <code>domainController/aletheia-frameworks-site</code> (public repo) — active days, silence, and volume per shipped increment, rather than a raw commit count that double-counts PR round-trips.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Overview</h2>
+    <div class="stats">
+      <div class="stat"><div class="k">launch</div><div class="v">Sep 15</div></div>
+      <div class="stat"><div class="k">uptime</div><div class="v">1wk 1d <small>(8d)</small></div></div>
+      <div class="stat"><div class="k">active</div><div class="v">5 <small>/ 8d</small></div></div>
+      <div class="stat"><div class="k">silent</div><div class="v">5 days <small>max</small></div></div>
+      <div class="stat"><div class="k">peak day</div><div class="v">Sep 21</div></div>
+      <div class="stat"><div class="k">total (main)</div><div class="v">65</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Timeline — Sep 15, 2026 → Sep 23, 2026</h2>
+    <div class="track-wrap">
+      <div class="track">
+        <div class="gap-band" style="left:0.0%;width:62.5%"></div>
+        <div class="tick" style="left:0.0%;background:var(--seq-100)" data-tip="Sep 15, 2026 — 1 commit"></div>
+        <div class="tick" style="left:62.5%;background:var(--seq-500)" data-tip="Sep 20, 2026 — 21 commits"></div>
+        <div class="tick" style="left:75.0%;background:var(--seq-500)" data-tip="Sep 21, 2026 — 24 commits"></div>
+        <div class="tick" style="left:87.5%;background:var(--seq-100)" data-tip="Sep 22, 2026 — 2 commits"></div>
+        <div class="tick" style="left:100.0%;background:var(--seq-100)" data-tip="Sep 23, 2026 — 3 commits"></div>
+      </div>
+      <div class="track-labels"><span>Sep 15</span><span>Sep 23</span></div>
+    </div>
+    <div class="gap-note">5 days between 2026-09-15 and 2026-09-20 — 62% of the repo's lifetime without a single content commit.</div>
+  </div>
+
+  <div class="panel">
+    <h2>What "commits" can mean — 4 readings of the same repo</h2>
+    <div class="barlist">
+      <div class="barrow"><div class="lbl">Raw commits (all branches)</div><div class="track2"><div class="fill" style="width:100%"></div></div><div class="val">65</div></div>
+      <div class="barrow"><div class="lbl">Commits on main</div><div class="track2"><div class="fill" style="width:100%"></div></div><div class="val">65</div></div>
+      <div class="barrow"><div class="lbl">Content commits (excluding merges)</div><div class="track2"><div class="fill" style="width:78%"></div></div><div class="val">51</div></div>
+      <div class="barrow dim"><div class="lbl">Active days</div><div class="track2"><div class="fill" style="width:8%"></div></div><div class="val">5</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>51 content commits — lines added / removed</h2>
+    <div class="legend"><span><i style="background:var(--series-blue)"></i>insertions (1988)</span><span><i style="background:var(--series-red)"></i>deletions (724)</span></div>
+    <div class="commits" id="commitChart"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Data table</h2>
+    <div class="table-scroll">
+      <table class="datatable">
+        <thead><tr><th>Date</th><th>Commit</th><th>Insertions</th><th>Deletions</th></tr></thead>
+        <tbody id="dataTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="foot">Page generated from real git history — <code>domainController/aletheia-frameworks-site</code> — no simulated data.</p>
+</div>
+
+<script>
+const COMMITS = [{"date": "Sep 15, 13:11", "subject": "Site initial : Soi / Plan Symbolique / Cercle de Survie Minimale", "ins": 464, "del": 0}, {"date": "Sep 20, 12:16", "subject": "Refonte du menu Frameworks en trois familles ; retrait de CSM (déplacé vers le blog).", "ins": 113, "del": 21}, {"date": "Sep 20, 12:17", "subject": "Suppression du bloc CSM de la refonte et bloc style en ligne", "ins": 0, "del": 31}, {"date": "Sep 20, 12:22", "subject": "Update index.html", "ins": 3, "del": 3}, {"date": "Sep 20, 13:45", "subject": "Create theatre-normatif/prison-scenographique.html", "ins": 57, "del": 0}, {"date": "Sep 20, 13:48", "subject": "Create liberte-desactivation-theatre.html", "ins": 42, "del": 0}, {"date": "Sep 20, 13:56", "subject": "Create index.html", "ins": 41, "del": 0}, {"date": "Sep 20, 14:02", "subject": "path du fichier css maj", "ins": 1, "del": 1}, {"date": "Sep 20, 14:06", "subject": "Renommage du Titre en Algebre", "ins": 2, "del": 2}, {"date": "Sep 20, 14:08", "subject": "Update liberte-desactivation-theatre.html", "ins": 1, "del": 1}, {"date": "Sep 20, 14:12", "subject": "update css style file path", "ins": 1, "del": 1}, {"date": "Sep 20, 14:12", "subject": "update css style file path", "ins": 1, "del": 1}, {"date": "Sep 20, 14:16", "subject": "problème de class css", "ins": 24, "del": 19}, {"date": "Sep 20, 14:16", "subject": "Update prison-scenographique.html", "ins": 26, "del": 21}, {"date": "Sep 20, 14:20", "subject": "Modification du titre. Retour à lalgebre", "ins": 1, "del": 1}, {"date": "Sep 20, 18:28", "subject": "Maj du titre suppression du determinant", "ins": 1, "del": 1}, {"date": "Sep 20, 18:30", "subject": "Maj du titre sur la liberte en axiome", "ins": 1, "del": 1}, {"date": "Sep 20, 19:30", "subject": "Update index.html", "ins": 2, "del": 2}, {"date": "Sep 20, 19:47", "subject": "Create orthonormation/index.html", "ins": 47, "del": 0}, {"date": "Sep 20, 19:52", "subject": "Create processus.html", "ins": 62, "del": 0}, {"date": "Sep 20, 19:53", "subject": "Create cadre-professionnel.html", "ins": 61, "del": 0}, {"date": "Sep 20, 19:54", "subject": "Create agent-orthonorme.html", "ins": 55, "del": 0}, {"date": "Sep 21, 07:55", "subject": "Corrige le gabarit meta-bar cassé (home cliquable, breadcrumb liée, changelog dynamique) sur les 7 pages orthonormation/théâtre normatif. Harmonise les couleurs sur offcityhike-blog (fond, sous-titres, texte, badge live) via variables CSS synchronisées. Met à jour les pastilles de statut (Théâtre normatif live, Gnose draft, Régime d'accomplissement en variante pointillée).", "ins": 144, "del": 28}, {"date": "Sep 21, 07:57", "subject": "Crée les 4 pages squelettes manquantes (police-interpersonnelle, moi-symbolique, regime-accomplissement, gnose), gabarit fonctionnel, élimine les 404 depuis la racine", "ins": 180, "del": 0}, {"date": "Sep 21, 08:10", "subject": "Ajoute un cache-buster (?v=2) sur le lien vers css/style.css partout : le navigateur gardait l'ancienne feuille de style en cache indépendamment du HTML, masquant l'harmonisation chromatique déjà déployée", "ins": 15, "del": 15}, {"date": "Sep 21, 09:21", "subject": "Ajoute le tracking Matomo (siteId 5) sur les 15 pages", "ins": 225, "del": 0}, {"date": "Sep 21, 12:49", "subject": "refactor: renommage du H1 en Doctrine et mise à jour de l'index", "ins": 3, "del": 3}, {"date": "Sep 21, 11:46", "subject": "Fix mis-tagged status pill, bump font sizes ~15% for readability", "ins": 19, "del": 20}, {"date": "Sep 21, 13:46", "subject": "Fix mis-tagged status pill, bump font sizes ~15% for readability (#4)", "ins": 18, "del": 19}, {"date": "Sep 21, 12:31", "subject": "Add cross-site links, switch to fluid clamp() typography", "ins": 26, "del": 18}, {"date": "Sep 21, 14:31", "subject": "Add cross-site links, switch to fluid clamp() typography (#5)", "ins": 26, "del": 18}, {"date": "Sep 21, 12:51", "subject": "Shorten homepage navbar: compact date, drop redundant label, shift right", "ins": 9, "del": 9}, {"date": "Sep 21, 14:52", "subject": "Shorten homepage navbar: compact date, drop redundant label, shift right (#6)", "ins": 9, "del": 9}, {"date": "Sep 21, 13:15", "subject": "Remove dots, revert date to full French format for consistency", "ins": 3, "del": 7}, {"date": "Sep 21, 15:16", "subject": "Remove dots, revert date to full French format for consistency (#7)", "ins": 3, "del": 7}, {"date": "Sep 21, 13:29", "subject": "Fix huge gap in homepage meta-bar, cache-bust stylesheet", "ins": 3, "del": 3}, {"date": "Sep 21, 15:29", "subject": "Fix huge gap in homepage meta-bar, cache-bust stylesheet (#8)", "ins": 3, "del": 3}, {"date": "Sep 21, 13:40", "subject": "Tone down font-size scaling, lighten h2 weight, rename a section", "ins": 21, "del": 20}, {"date": "Sep 21, 15:41", "subject": "Tone down font-size scaling, lighten h2 weight, rename a section (#9)", "ins": 21, "del": 20}, {"date": "Sep 21, 17:06", "subject": "Rename two family headings, lighten h2 weight further (600 -> 500)", "ins": 5, "del": 5}, {"date": "Sep 21, 19:07", "subject": "Rename two family headings, lighten h2 weight further (600 -> 500) (#10)", "ins": 5, "del": 5}, {"date": "Sep 21, 17:13", "subject": "Update homepage subtitle wording", "ins": 1, "del": 1}, {"date": "Sep 21, 19:13", "subject": "Update homepage subtitle wording (#11)", "ins": 1, "del": 1}, {"date": "Sep 21, 17:15", "subject": "Simplify homepage subtitle wording", "ins": 1, "del": 1}, {"date": "Sep 21, 19:16", "subject": "Simplify homepage subtitle wording (#12)", "ins": 1, "del": 1}, {"date": "Sep 21, 22:51", "subject": "Replace Matomo with Plausible analytics on all 15 pages", "ins": 60, "del": 195}, {"date": "Sep 22, 00:51", "subject": "Replace Matomo with Plausible analytics on all 15 pages (#13)", "ins": 60, "del": 195}, {"date": "Sep 22, 22:10", "subject": "Add portfolio home icon to meta-bar, right-aligned in violet", "ins": 7, "del": 0}, {"date": "Sep 23, 19:04", "subject": "Add La Façade cluster and finalize doctrine subtitle", "ins": 20, "del": 4}, {"date": "Sep 23, 19:07", "subject": "Link Sociosomatique to its own page under La Façade", "ins": 83, "del": 1}, {"date": "Sep 23, 19:15", "subject": "Move Soi into La Façade, reorder Le Vécu", "ins": 10, "del": 10}];
+const maxVal = Math.max(...COMMITS.map(c => Math.max(c.ins, c.del)), 1);
+
+const chartEl = document.getElementById("commitChart");
+COMMITS.forEach(c => {
+  const row = document.createElement("div");
+  row.className = "crow";
+  row.innerHTML = `
+    <div class="d">${c.date}</div>
+    <div class="dside"><div class="bar del" style="width:${(c.del/maxVal*100).toFixed(0)}%" title="${c.del} deletions"></div></div>
+    <div class="isside"><div class="bar ins" style="width:${(c.ins/maxVal*100).toFixed(0)}%" title="${c.ins} insertions"></div></div>
+    <div class="msg" title="${c.subject.replace(/"/g,'&quot;')}">${c.subject}</div>
+  `;
+  chartEl.appendChild(row);
+});
+
+const tableEl = document.getElementById("dataTable");
+COMMITS.forEach(c => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${c.date}</td><td>${c.subject}</td><td class="ins">+${c.ins}</td><td class="del">−${c.del}</td>`;
+  tableEl.appendChild(tr);
+});
+</script>
+</body>
+</html>

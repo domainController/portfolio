@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Off City Hike — Deployment Activity</title>
+<link rel="stylesheet" href="../../css/style.css?v=27">
+</head>
+<body>
+<div class="viz-root container">
+
+  <div class="meta-bar">
+      <div class="meta-left">
+        <a class="home-icon" href="../../index.html" title="Home">&#8962;</a>
+        <span class="sep">·</span>
+        <span style="color:#8a90a8;">Off City Hike</span>
+        <span class="sep">·</span>
+        <span style="color:#7a8296;">deployment activity</span>
+      </div>
+    </div>
+
+  <div class="panel">
+    <h1>Deployment Activity</h1>
+    <p class="lede">Computed from the real git history of <code>domainController/offcityhike-blog</code> (public repo) — active days, silence, and volume per shipped increment, rather than a raw commit count that double-counts PR round-trips.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Overview</h2>
+    <div class="stats">
+      <div class="stat"><div class="k">launch</div><div class="v">Sep 10</div></div>
+      <div class="stat"><div class="k">uptime</div><div class="v">2wk 1d <small>(15d)</small></div></div>
+      <div class="stat"><div class="k">active</div><div class="v">7 <small>/ 15d</small></div></div>
+      <div class="stat"><div class="k">silent</div><div class="v">5 days <small>max</small></div></div>
+      <div class="stat"><div class="k">peak day</div><div class="v">Sep 21</div></div>
+      <div class="stat"><div class="k">total (main)</div><div class="v">30</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Timeline — Sep 10, 2026 → Sep 25, 2026</h2>
+    <div class="track-wrap">
+      <div class="track">
+        <div class="gap-band" style="left:26.7%;width:33.3%"></div>
+        <div class="tick" style="left:0.0%;background:var(--seq-100)" data-tip="Sep 10, 2026 — 1 commit"></div>
+        <div class="tick" style="left:20.0%;background:var(--seq-100)" data-tip="Sep 13, 2026 — 2 commits"></div>
+        <div class="tick" style="left:26.7%;background:var(--seq-100)" data-tip="Sep 14, 2026 — 1 commit"></div>
+        <div class="tick" style="left:60.0%;background:var(--seq-100)" data-tip="Sep 19, 2026 — 2 commits"></div>
+        <div class="tick" style="left:73.3%;background:var(--seq-500)" data-tip="Sep 21, 2026 — 14 commits"></div>
+        <div class="tick" style="left:80.0%;background:var(--seq-100)" data-tip="Sep 22, 2026 — 2 commits"></div>
+        <div class="tick" style="left:100.0%;background:var(--seq-200)" data-tip="Sep 25, 2026 — 3 commits"></div>
+      </div>
+      <div class="track-labels"><span>Sep 10</span><span>Sep 25</span></div>
+    </div>
+    <div class="gap-note">5 days between 2026-09-14 and 2026-09-19 — 33% of the repo's lifetime without a single content commit.</div>
+  </div>
+
+  <div class="panel">
+    <h2>What "commits" can mean — 4 readings of the same repo</h2>
+    <div class="barlist">
+      <div class="barrow"><div class="lbl">Raw commits (all branches)</div><div class="track2"><div class="fill" style="width:100%"></div></div><div class="val">53</div></div>
+      <div class="barrow"><div class="lbl">Commits on main</div><div class="track2"><div class="fill" style="width:57%"></div></div><div class="val">30</div></div>
+      <div class="barrow"><div class="lbl">Content commits (excluding merges)</div><div class="track2"><div class="fill" style="width:47%"></div></div><div class="val">25</div></div>
+      <div class="barrow dim"><div class="lbl">Active days</div><div class="track2"><div class="fill" style="width:13%"></div></div><div class="val">7</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>25 content commits — lines added / removed</h2>
+    <div class="legend"><span><i style="background:var(--series-blue)"></i>insertions (1778)</span><span><i style="background:var(--series-red)"></i>deletions (652)</span></div>
+    <div class="commits" id="commitChart"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Data table</h2>
+    <div class="table-scroll">
+      <table class="datatable">
+        <thead><tr><th>Date</th><th>Commit</th><th>Insertions</th><th>Deletions</th></tr></thead>
+        <tbody id="dataTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="foot">Page generated from real git history — <code>domainController/offcityhike-blog</code> — no simulated data.</p>
+</div>
+
+<script>
+const COMMITS = [{"date": "Sep 10, 19:48", "subject": "Initial blog site v2", "ins": 310, "del": 0}, {"date": "Sep 13, 14:30", "subject": "Redesign site with new page structure and breadcrumb pattern", "ins": 248, "del": 245}, {"date": "Sep 13, 19:16", "subject": "Restructure site into Personal/Entrepreneurship tree, add first articles", "ins": 640, "del": 74}, {"date": "Sep 14, 11:54", "subject": "Add Market notes tree under Entrepreneurship (levels 3-4)", "ins": 83, "del": 1}, {"date": "Sep 19, 01:28", "subject": "Bio : h1 \"Short bio\" -> \"Biography and Reflection\". Personal : description Bio mise à jour, entrée Philosophy ajoutée sous Sociology (draft, philosophy.html à créer)", "ins": 10, "del": 2}, {"date": "Sep 19, 01:46", "subject": "Bio : \"Reflection\" -> \"Reflections\" au pluriel, premier paragraphe remplacé par l'explication du nom complet (Kenmoé Cameroun Patrice) et des homonymes", "ins": 2, "del": 2}, {"date": "Sep 21, 07:10", "subject": "Retire le h1 \"Off City Hike\" de la page d'accueil, retire le paragraphe d'attribution du nom sur la page Bio", "ins": 0, "del": 3}, {"date": "Sep 21, 07:12", "subject": "Accueil : remplace le h1 \"Off City Hike\" par \"Biography and Reflections\" (au lieu de le supprimer)", "ins": 2, "del": 0}, {"date": "Sep 21, 09:21", "subject": "Ajoute le tracking Matomo (siteId 9) sur les 19 pages", "ins": 285, "del": 0}, {"date": "Sep 21, 13:46", "subject": "Bump base font sizes ~15% for readability (#6)", "ins": 12, "del": 12}, {"date": "Sep 21, 14:03", "subject": "Fix h1-to-entries spacing on category listing pages (#7)", "ins": 2, "del": 1}, {"date": "Sep 21, 14:32", "subject": "Add cross-site links, switch to fluid clamp() typography (#8)", "ins": 16, "del": 13}, {"date": "Sep 21, 14:42", "subject": "Translate homepage h1 to French (#9)", "ins": 1, "del": 1}, {"date": "Sep 21, 14:52", "subject": "Shorten homepage crumb, compact the shared last-updated format (#10)", "ins": 5, "del": 5}, {"date": "Sep 21, 15:08", "subject": "Revert to full date, restore separators in homepage crumb (#11)", "ins": 5, "del": 5}, {"date": "Sep 21, 15:17", "subject": "Remove homepage dots, cache-bust meta.js (#12)", "ins": 9, "del": 2}, {"date": "Sep 21, 15:30", "subject": "Cache-bust stylesheet on homepage (#13)", "ins": 1, "del": 1}, {"date": "Sep 21, 15:41", "subject": "Tone down font-size scaling (#14)", "ins": 12, "del": 12}, {"date": "Sep 21, 17:25", "subject": "update index.html", "ins": 3, "del": 3}, {"date": "Sep 21, 17:28", "subject": "update index.html", "ins": 1, "del": 1}, {"date": "Sep 22, 00:50", "subject": "Replace Matomo with Plausible analytics on all 19 pages (#15)", "ins": 76, "del": 247}, {"date": "Sep 22, 00:56", "subject": "Align blog homepage with Doctrine/Portfolio presentation (#16)", "ins": 14, "del": 10}, {"date": "Sep 25, 14:29", "subject": "feat(blog): restructure navigation around the core question", "ins": 37, "del": 8}, {"date": "Sep 25, 14:34", "subject": "deadlink market.html replaced by entrepreneurship.html", "ins": 1, "del": 1}, {"date": "Sep 25, 22:21", "subject": "Nettoyage des sous-titres Deepseek trop long", "ins": 3, "del": 3}];
+const maxVal = Math.max(...COMMITS.map(c => Math.max(c.ins, c.del)), 1);
+
+const chartEl = document.getElementById("commitChart");
+COMMITS.forEach(c => {
+  const row = document.createElement("div");
+  row.className = "crow";
+  row.innerHTML = `
+    <div class="d">${c.date}</div>
+    <div class="dside"><div class="bar del" style="width:${(c.del/maxVal*100).toFixed(0)}%" title="${c.del} deletions"></div></div>
+    <div class="isside"><div class="bar ins" style="width:${(c.ins/maxVal*100).toFixed(0)}%" title="${c.ins} insertions"></div></div>
+    <div class="msg" title="${c.subject.replace(/"/g,'&quot;')}">${c.subject}</div>
+  `;
+  chartEl.appendChild(row);
+});
+
+const tableEl = document.getElementById("dataTable");
+COMMITS.forEach(c => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${c.date}</td><td>${c.subject}</td><td class="ins">+${c.ins}</td><td class="del">−${c.del}</td>`;
+  tableEl.appendChild(tr);
+});
+</script>
+</body>
+</html>

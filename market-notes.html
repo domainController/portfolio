@@ -168,6 +168,7 @@ const FIELD_META = {
   fld554f8xSYqtx1Ye: {name:"DNS management", tab:"Infra", order:5},
   fldd55eEXIFfqYPQj: {name:"analytics provider", tab:"Infra", order:6},
   fldToUbONbYjGaAIk: {name:"backup strategy", tab:"Infra", order:7},
+  fldp6axMCht0hWkDN: {name:"repo", tab:"Infra", order:8},
   fldotsmqLDmkhWYt3: {name:"email", tab:"Operations", order:9},
   fldfYvXdHT9U0RgOx: {name:"contact", tab:"Operations", order:10},
 };
@@ -238,7 +239,8 @@ function linkify(v, fid) {
   const isBareDomain = /^([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v);
   if (isUrl || isBareDomain) {
     const href = isUrl ? v : `https://${v}`;
-    const label = (fid && LINK_LABELS[fid]) || v;
+    const githubMatch = href.match(/^https?:\/\/github\.com\/([^\/\s]+\/[^\/\s]+?)(?:\.git)?\/?$/i);
+    const label = (fid && LINK_LABELS[fid]) || (githubMatch && githubMatch[1]) || v;
     return `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
   }
   return v;
