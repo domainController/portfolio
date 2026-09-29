@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T05:32:28.947Z",
+  "generatedAt": "2026-09-29T05:37:18.511Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -76,7 +76,8 @@
     "fldfKtytoANvqbE5t": "site",
     "fldliVuEl43U42PGB": "website status",
     "flds9dns82uqF4fZx": "audience",
-    "fld0GyBxun8zRhKyY": "audience status"
+    "fld0GyBxun8zRhKyY": "audience status",
+    "fldp6axMCht0hWkDN": "repo"
   },
   "records": [
     {
@@ -151,6 +152,7 @@
         "fldnTcpnT6lpnsNAm": "asset-medium",
         "fldniRjRLMVzIS2Ud": "network",
         "fldotsmqLDmkhWYt3": "contact@clusters.homes",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-website",
         "fldpKjCqmfWTsEZYq": "Managed Marketplace",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
         "fldqooX9qDIYuzc7H": "project",
@@ -206,6 +208,7 @@
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldiRhn1z31IndfsM": "short",
         "fldnTcpnT6lpnsNAm": "asset-light",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/portfolio",
         "fldpKjCqmfWTsEZYq": "Software ",
         "fldqooX9qDIYuzc7H": "project",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/meta/index.html",
@@ -219,7 +222,9 @@
       "createdTime": "2026-09-29T04:44:21.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Off City Hike",
-        "fldlL8kkZwNgw25Vy": "Namecheap"
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/personal/off-city-hike/deploy.html",
+        "fldlL8kkZwNgw25Vy": "Namecheap",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/offcityhike-blog"
       }
     },
     {
@@ -255,7 +260,9 @@
       "createdTime": "2026-09-29T04:44:21.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Aletheia Frameworks",
-        "fldlL8kkZwNgw25Vy": "Namecheap"
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/personal/intellectual-work/aletheia-frameworks/deploy.html",
+        "fldlL8kkZwNgw25Vy": "Namecheap",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/aletheia-frameworks-site"
       }
     },
     {
@@ -312,6 +319,7 @@
         "fldlL8kkZwNgw25Vy": "GoDaddy",
         "fldnE63YQPidZ6cVJ": "clauslabs.ai",
         "fldotsmqLDmkhWYt3": "contact@mottrum.com",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/mottrum-site",
         "fldpKjCqmfWTsEZYq": "Litigation Finance",
         "fldqooX9qDIYuzc7H": "project",
         "fldruOMLTjWTC62Jz": [
@@ -425,6 +433,7 @@
         "fldnTcpnT6lpnsNAm": "asset-light",
         "fldniRjRLMVzIS2Ud": "network (office studios)",
         "fldotsmqLDmkhWYt3": "contact@vetnups.com",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-website",
         "fldpKjCqmfWTsEZYq": "Managed Matchmaking",
         "fldpXYYybRes1OIdO": "high — subscription base",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
@@ -482,6 +491,7 @@
         "fldnTcpnT6lpnsNAm": "asset-light",
         "fldniRjRLMVzIS2Ud": "asset-light",
         "fldotsmqLDmkhWYt3": "contact@cohort.reviews",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/cohort-website",
         "fldpKjCqmfWTsEZYq": "Review Agora",
         "fldpXYYybRes1OIdO": "subscription",
         "fldqOFlTJ7Pf9hMgL": "full",
@@ -562,6 +572,7 @@
         "fldnTcpnT6lpnsNAm": "asset-medium",
         "fldniRjRLMVzIS2Ud": "intermediation infrastructure",
         "fldotsmqLDmkhWYt3": "contact@curb.exchange",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-site",
         "fldpKjCqmfWTsEZYq": "Managed Marketplace",
         "fldq08Sv5UuSmf0aB": "high — tech-enabled, fragmented market",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
@@ -611,6 +622,7 @@
         "fldlL8kkZwNgw25Vy": "GoDaddy",
         "fldnE63YQPidZ6cVJ": "clauslabs.ai",
         "fldotsmqLDmkhWYt3": "contact@auditum-memoria.com",
+        "fldp6axMCht0hWkDN": "https://github.com/auditum-memoria/website",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
         "fldqooX9qDIYuzc7H": "project",
         "fldruOMLTjWTC62Jz": [
@@ -717,6 +729,7 @@
         "fldccPHbiWw8T8xg6": "narrativeconstructs.com",
         "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldotsmqLDmkhWYt3": "contact@narrativeconstructs.com",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/narrative-constructs-website",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
         "fldqooX9qDIYuzc7H": "project",
         "fldruOMLTjWTC62Jz": [
