@@ -191,6 +191,8 @@ details[open] > summary.branch-title::before {
 }
 .status-live { background: #16311f; color: #6bcf7f; }
 .status-draft { background: #332412; color: #e0a94a; }
+.status-build { background: #2e2712; color: #d4b83a; }
+.status-online { background: #0d3329; color: #4ae0b3; }
 .status-planned { background: #241832; color: #a888d0; }
 .status-ready { background: #0d2b33; color: #4ac8e0; }
 .status-concept { background: #2a1a2e; color: #d47fc9; }
