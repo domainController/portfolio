@@ -79,10 +79,20 @@
   .single-tabs button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
 
   .state-msg { font-size: 14px; color: var(--muted); padding: 40px 0; text-align: center; }
+
+  .meta-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .meta-bar .home-icon, .meta-bar .nav-back { color: var(--muted); text-decoration: none; font-size: 1.05em; line-height: 1; }
+  .meta-bar .home-icon:hover, .meta-bar .nav-back:hover { color: var(--accent); }
+  .meta-bar .sep { color: var(--border); }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="meta-bar">
+    <a class="home-icon" href="index.html" title="Home">&#8962;</a>
+    <span class="sep">·</span>
+    <a class="nav-back" href="#" onclick="history.back();return false;" title="Back">&#8592;</a>
+  </div>
   <div class="top-bar">
     <div class="mode-switcher">
       <button data-mode="table" class="active">Consolidated view</button>
