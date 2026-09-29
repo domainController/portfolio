@@ -37,7 +37,6 @@
   table.consolidated td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
   table.consolidated tr:hover td { background: rgba(255,255,255,0.03); }
   .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--muted); }
-  .pill.project { background: var(--accent-soft); color: var(--accent); }
   .empty-cell { color: #5a6080; font-style: italic; }
   .row-count { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
   .deep-link-banner { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; padding: 8px 12px; background: var(--accent-soft); border-radius: 8px; }
@@ -72,7 +71,17 @@
 
   h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
   .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); }
-  .status-tag.status-green { background: var(--green-soft); color: var(--green); }
+  /* Palette de statut partagée avec css/style.css (pages de nav) — un mot, une couleur,
+     partout sur le site, que la pastille soit un .status-tag (fiche) ou un .pill (mini-pastille
+     accolée à un champ Labs/Infra via pillFor()). */
+  .status-live, .status-landing { background: #16311f; color: #6bcf7f; }
+  .status-draft { background: #332412; color: #e0a94a; }
+  .status-concept { background: #2a1a2e; color: #d47fc9; }
+  .status-build { background: #2e2712; color: #d4b83a; }
+  .status-online { background: #0d3329; color: #4ae0b3; }
+  .status-signal { background: #0d2b33; color: #4ac8e0; }
+  .status-beta, .status-project { background: #16233d; color: #6bb3f0; }
+  .status-not-started { background: #16233d; color: #5a6080; }
   .meta-line { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
   .single-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 4px; overflow-x: auto; }
   .single-tabs button { font-family: var(--sans); font-size: 13.5px; padding: 8px 13px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
@@ -233,12 +242,12 @@ function statusText(v) {
   return v.replace(/^\d\/5\s*—\s*/, "");
 }
 
-// "landing" et "online" doivent toujours ressortir en vert, quelle que soit
-// la couleur assignée à l'option côté Airtable (ex. "online" y est en teal).
+// Un mot de statut -> sa classe CSS ("Not started" -> "status-not-started"), pour que
+// la même palette (voir <style>) s'applique partout où un statut est affiché : la pastille
+// de fiche (.status-tag) comme les mini-pastilles pillFor() (.pill).
 function statusClass(v) {
   if (!v) return "";
-  const low = v.toLowerCase();
-  return (low.includes("landing") || low.includes("online")) ? " status-green" : "";
+  return "status-" + v.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
 // Une valeur de champ qui EST un lien (URL complète http(s)://... ou domaine nu du type
@@ -283,8 +292,7 @@ function pillFor(rec, fid) {
   if (!statusFid) return "";
   const status = resolve(rec, statusFid);
   if (!status) return "";
-  const cls = status.toLowerCase() === "project" ? " project" : "";
-  return `<span class="pill${cls}">${status}</span>`;
+  return `<span class="pill ${statusClass(status)}">${status}</span>`;
 }
 
 function switchMode(mode) {
@@ -445,7 +453,7 @@ function renderSingle() {
   const singleRows = byTab[singleTab] || [];
   document.getElementById("panelSingle").innerHTML = `
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
-    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
+    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
     <div class="tab-block">${singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
   `;
