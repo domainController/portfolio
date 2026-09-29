@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T18:58:45.209Z",
+  "generatedAt": "2026-09-29T19:06:16.908Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -556,7 +556,8 @@
         "fldTrutNI5wLYPJPl": "3/5 — soon",
         "fldVtWIz4yrKcMvTg": [
           "recHKIvcCZKLoOSj1",
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "recod5IyToIGPcZXn"
         ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -735,6 +736,9 @@
       "id": "recod5IyToIGPcZXn",
       "createdTime": "2026-09-27T08:18:07.000Z",
       "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "reci2gQchm9OSVkqI"
+        ],
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Claim",
         "fldA1FIU5MBBJchSf": "project",
