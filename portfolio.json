@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T05:13:06.586Z",
+  "generatedAt": "2026-09-29T05:32:28.947Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -74,8 +74,9 @@
     "fldb8p5D5ErTEA8Y5": "blog",
     "flds1P05nDrjCYApH": "blog status",
     "fldfKtytoANvqbE5t": "site",
-    "fldliVuEl43U42PGB": "site status",
-    "flds9dns82uqF4fZx": "audience"
+    "fldliVuEl43U42PGB": "website status",
+    "flds9dns82uqF4fZx": "audience",
+    "fld0GyBxun8zRhKyY": "audience status"
   },
   "records": [
     {
@@ -111,6 +112,7 @@
       "id": "rec8VoEqaWhTOOKBC",
       "createdTime": "2026-09-27T03:25:47.000Z",
       "fields": {
+        "fld0GyBxun8zRhKyY": "project",
         "fld0Qo68lr0WiQEOY": "search fund, micro-PE, holdco",
         "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Clusters ",
@@ -143,6 +145,7 @@
         "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldiRhn1z31IndfsM": "long",
         "fldlL8kkZwNgw25Vy": "Namecheap",
+        "fldliVuEl43U42PGB": "live",
         "fldn8CuiuElm6EjBs": "target 3.5x – 5x EBITDA",
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-medium",
@@ -156,6 +159,7 @@
           "recj43SpXgwdbAtaW"
         ],
         "flds1P05nDrjCYApH": "project",
+        "flds9dns82uqF4fZx": "https://plausible.io/clusters.homes",
         "fldtJi9grVPtJsauW": "transaction fee — scales with duration, not flat",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/marketplace/clusters/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
@@ -191,9 +195,11 @@
       "fields": {
         "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Portfolio ",
+        "fld7d4gZlGVKxqyLO": "https://patricek.info/meta/deploy.html",
         "fldA1FIU5MBBJchSf": "concept",
         "fldDx6P723cQsXAU3": "SaaS ",
         "fldMevUbOYlZX1pFA": "marketplace ",
+        "fldOLfNxsvfpFS37T": "https://patricek.info/meta/traction.html",
         "fldTrutNI5wLYPJPl": "4/5 — next",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
@@ -202,6 +208,7 @@
         "fldnTcpnT6lpnsNAm": "asset-light",
         "fldpKjCqmfWTsEZYq": "Software ",
         "fldqooX9qDIYuzc7H": "project",
+        "fldu1iQBrGZuKUKuf": "https://patricek.info/meta/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "software ",
         "fldyxQMf0DeLLvZaz": "concept"
