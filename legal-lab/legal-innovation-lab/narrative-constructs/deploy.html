@@ -21,96 +21,197 @@
 
   <div class="panel">
     <h1>Deployment Activity</h1>
-    <p class="lede">Computed from the real git history of <code>domainController/narrative-constructs-website</code> (public repo) — active days, silence, and volume per shipped increment on <code>main</code>, rather than a raw commit count that double-counts PR round-trips.</p>
+    <p class="lede">Live from the GitHub API — <code>domainController/narrative-constructs-website</code> — active days, silence, and volume per shipped increment on the repo's default branch, rather than a raw commit count that double-counts PR round-trips.</p>
   </div>
 
-  <div class="panel">
+  <div class="panel" id="statePanel" style="display:none;">
+    <div class="state-msg" id="stateMsg"></div>
+  </div>
+
+  <div class="panel" id="overviewPanel" style="display:none;">
     <h2>Overview</h2>
     <div class="stats">
-      <div class="stat"><div class="k">launch</div><div class="v">Aug 17</div></div>
-      <div class="stat"><div class="k">uptime</div><div class="v">1mo 1wk <small>(39d)</small></div></div>
-      <div class="stat"><div class="k">active</div><div class="v">12 <small>/ 39d</small></div></div>
-      <div class="stat"><div class="k">silent</div><div class="v">2wk 4d <small>max</small></div></div>
-      <div class="stat"><div class="k">peak day</div><div class="v">Aug 18</div></div>
-      <div class="stat"><div class="k">total (main)</div><div class="v">46</div></div>
+      <div class="stat"><div class="k">launch</div><div class="v" id="s-launch">—</div></div>
+      <div class="stat"><div class="k">uptime</div><div class="v" id="s-uptime">—</div></div>
+      <div class="stat"><div class="k">active</div><div class="v" id="s-active">—</div></div>
+      <div class="stat"><div class="k">silent</div><div class="v" id="s-silent">—</div></div>
+      <div class="stat"><div class="k">peak day</div><div class="v" id="s-peak">—</div></div>
+      <div class="stat"><div class="k">total</div><div class="v" id="s-total">—</div></div>
     </div>
   </div>
 
-  <div class="panel">
-    <h2>Timeline — Aug 17, 2026 → Sep 25, 2026</h2>
+  <div class="panel" id="timelinePanel" style="display:none;">
+    <h2 id="timelineTitle">Timeline</h2>
     <div class="track-wrap">
-      <div class="track">
-        <div class="gap-band" style="left:20.5%;width:46.2%"></div>
-        <div class="tick" style="left:0.0%;background:var(--seq-200)" data-tip="Aug 17, 2026 — 2 commits"></div>
-        <div class="tick" style="left:2.6%;background:var(--seq-500)" data-tip="Aug 18, 2026 — 8 commits"></div>
-        <div class="tick" style="left:5.1%;background:var(--seq-400)" data-tip="Aug 19, 2026 — 7 commits"></div>
-        <div class="tick" style="left:7.7%;background:var(--seq-400)" data-tip="Aug 20, 2026 — 7 commits"></div>
-        <div class="tick" style="left:12.8%;background:var(--seq-100)" data-tip="Aug 22, 2026 — 1 commit"></div>
-        <div class="tick" style="left:17.9%;background:var(--seq-300)" data-tip="Aug 24, 2026 — 4 commits"></div>
-        <div class="tick" style="left:20.5%;background:var(--seq-200)" data-tip="Aug 25, 2026 — 3 commits"></div>
-        <div class="tick" style="left:66.7%;background:var(--seq-100)" data-tip="Sep 12, 2026 — 1 commit"></div>
-        <div class="tick" style="left:79.5%;background:var(--seq-100)" data-tip="Sep 17, 2026 — 1 commit"></div>
-        <div class="tick" style="left:89.7%;background:var(--seq-300)" data-tip="Sep 21, 2026 — 5 commits"></div>
-        <div class="tick" style="left:92.3%;background:var(--seq-200)" data-tip="Sep 22, 2026 — 3 commits"></div>
-        <div class="tick" style="left:100.0%;background:var(--seq-200)" data-tip="Sep 25, 2026 — 2 commits"></div>
+      <div class="track" id="track">
+        <div class="gap-band" id="gapBand" style="display:none;"></div>
       </div>
-      <div class="track-labels"><span>Aug 17</span><span>Sep 25</span></div>
+      <div class="track-labels" id="trackLabels"></div>
     </div>
-    <div class="gap-note">2 weeks, 4 days between Aug 25 and Sep 12 — 46% of the repo's lifetime without a single content commit.</div>
+    <div class="gap-note" id="gapNote"></div>
   </div>
 
-  <div class="panel">
-    <h2>What "commits" can mean — 4 readings of the same repo</h2>
+  <div class="panel" id="readingsPanel" style="display:none;">
+    <h2>What "commits" can mean</h2>
     <div class="barlist">
-      <div class="barrow"><div class="lbl">Raw commits (all branches)</div><div class="track2"><div class="fill" style="width:100%"></div></div><div class="val">58</div></div>
-      <div class="barrow"><div class="lbl">Commits on main</div><div class="track2"><div class="fill" style="width:79%"></div></div><div class="val">46</div></div>
-      <div class="barrow"><div class="lbl">Content commits (excluding merges)</div><div class="track2"><div class="fill" style="width:76%"></div></div><div class="val">44</div></div>
-      <div class="barrow dim"><div class="lbl">Active days</div><div class="track2"><div class="fill" style="width:21%"></div></div><div class="val">12</div></div>
+      <div class="barrow"><div class="lbl">Commits (default branch)</div><div class="track2"><div class="fill" style="width:100%"></div></div><div class="val" id="r-main">—</div></div>
+      <div class="barrow"><div class="lbl">Content commits (excluding merges)</div><div class="track2"><div class="fill" id="r-content-fill"></div></div><div class="val" id="r-content">—</div></div>
+      <div class="barrow dim"><div class="lbl">Active days</div><div class="track2"><div class="fill" id="r-active-fill"></div></div><div class="val" id="r-active">—</div></div>
     </div>
   </div>
 
-  <div class="panel">
-    <h2>44 content commits — lines added / removed</h2>
-    <div class="legend"><span><i style="background:var(--series-blue)"></i>insertions (2574)</span><span><i style="background:var(--series-red)"></i>deletions (1000)</span></div>
-    <div class="commits" id="commitChart"></div>
-  </div>
-
-  <div class="panel">
-    <h2>Data table</h2>
-    <div class="table-scroll">
-      <table class="datatable">
-        <thead><tr><th>Date</th><th>Commit</th><th>Insertions</th><th>Deletions</th></tr></thead>
-        <tbody id="dataTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <p class="foot">Page generated from real git history — <code>domainController/narrative-constructs-website</code> — no simulated data.</p>
+  <p class="foot">Fetched live from the GitHub API — <code>domainController/narrative-constructs-website</code> — no simulated data, no precomputed snapshot.</p>
 </div>
 
 <script>
-const COMMITS = [{"date": "Aug 17, 17:38", "subject": "Initial commit", "ins": 2, "del": 0}, {"date": "Aug 17, 22:38", "subject": "Add landing page, welcome page, and site stylesheet", "ins": 362, "del": 0}, {"date": "Aug 18, 00:27", "subject": "Switch to light theme, restructure index by company (draft)", "ins": 101, "del": 62}, {"date": "Aug 18, 00:53", "subject": "Repaint to light/warm theme matching the canonical shared stylesheet, add per-company stub pages", "ins": 299, "del": 68}, {"date": "Aug 18, 19:29", "subject": "Revert to canonical dark theme, fix index styling, tighten copy", "ins": 78, "del": 74}, {"date": "Aug 18, 20:30", "subject": "Update Orbitum value proposition on homepage", "ins": 1, "del": 1}, {"date": "Aug 18, 22:23", "subject": "Updating the value prop of Môttrum for \"Marketplace for pre-contentious assets\"", "ins": 1, "del": 1}, {"date": "Aug 18, 22:25", "subject": "Deleting Narrative Constructs entry from the index", "ins": 0, "del": 5}, {"date": "Aug 18, 22:30", "subject": "adding consumers to reviews in cohort value prop.", "ins": 1, "del": 1}, {"date": "Aug 18, 22:31", "subject": "consumers without s", "ins": 1, "del": 1}, {"date": "Aug 19, 11:50", "subject": "Replace \"pre-contentious\" with \"pre-litigation\" before \"assets\" across   the value prop. \"Pre-contentious\" was an untranslated calque of FR   \"précontentieux\" with no organic EN legal/finance usage; \"pre-litigation\"   is the established term and already used elsewhere in the corpus   (Auditum Memoria — \"Pre-litigation intelligence clinic\").", "ins": 2, "del": 2}, {"date": "Aug 19, 12:57", "subject": "content: update Narrative Constructs subtitle to \"Theoretical LawTech Lab.\"", "ins": 1, "del": 1}, {"date": "Aug 19, 14:02", "subject": "Replace brand emoji with inline SVG flask icon, add concept status tag, refresh index timestamp", "ins": 5, "del": 3}, {"date": "Aug 19, 18:07", "subject": "Mark Auditum Memoria as live, recolor brand flask icon to white", "ins": 2, "del": 2}, {"date": "Aug 19, 22:40", "subject": "swintching from a to ā for halo and from o to ö for möttrum", "ins": 2, "del": 2}, {"date": "Aug 19, 22:43", "subject": "Revert \"swintching from a to ā for halo and from o to ö for möttrum\"", "ins": 2, "del": 2}, {"date": "Aug 19, 22:46", "subject": "correctiung mistakes and adding umlaut et trema finally on names rather than url", "ins": 2, "del": 2}, {"date": "Aug 20, 00:15", "subject": "Update value props: Cluster and Orbitum", "ins": 2, "del": 2}, {"date": "Aug 20, 11:12", "subject": "Sharpen Auditum Memoria value prop: \"workplace disputes\" instead of \"workplace\"", "ins": 1, "del": 1}, {"date": "Aug 20, 11:36", "subject": "Add \"fragmented\" to Cluster value prop (index.html)", "ins": 1, "del": 1}, {"date": "Aug 20, 12:04", "subject": "Expand Orbitum value prop from category tag to full sentence", "ins": 1, "del": 1}, {"date": "Aug 20, 17:15", "subject": "feat: add Curb value proposition to index.html", "ins": 5, "del": 0}, {"date": "Aug 20, 17:17", "subject": "removing Curb is", "ins": 1, "del": 1}, {"date": "Aug 20, 21:31", "subject": "rearranging the hierachical order of the projets presentation", "ins": 16, "del": 14}, {"date": "Aug 22, 16:02", "subject": "docs: canonical value propositions for HALO and Curb", "ins": 2, "del": 2}, {"date": "Aug 24, 18:58", "subject": "Restructure site index into a 3-pole accordion (ClausTheory / ClausLabs / ClausWorks)", "ins": 126, "del": 42}, {"date": "Aug 24, 19:19", "subject": "Fix pole-title/pole-valueprop font-weight to match the site's established hierarchy", "ins": 8, "del": 4}, {"date": "Aug 24, 19:28", "subject": "Match umbrella subtitle and pole titles exactly to Auditum Memoria's reference typography", "ins": 10, "del": 12}, {"date": "Aug 24, 23:04", "subject": "deleting repetition of branding namre in value prop", "ins": 12, "del": 1}, {"date": "Aug 25, 16:23", "subject": "Remove pole value-prop paragraphs from the accordion; normalize pole-sub size", "ins": 5, "del": 16}, {"date": "Aug 25, 16:25", "subject": "Rename Orbitum to Morse (working name) in the index", "ins": 1, "del": 1}, {"date": "Aug 25, 16:30", "subject": "Update Morse/Cohort/Cluster value props per user confirmation against Craft source docs", "ins": 3, "del": 3}, {"date": "Sep 12, 16:51", "subject": "Restructure to one-page-per-level navigation (index -> claustheory/clauslabs)", "ins": 242, "del": 120}, {"date": "Sep 17, 10:38", "subject": "Replace site navigation with the 6-category research taxonomy", "ins": 411, "del": 237}, {"date": "Sep 21, 09:21", "subject": "Ajoute le tracking Matomo (siteId 10) sur les 16 pages", "ins": 240, "del": 0}, {"date": "Sep 21, 19:46", "subject": "Fix root menu meta-bar: cross-links, single line, bordeaux accent (#2)", "ins": 16, "del": 1}, {"date": "Sep 21, 19:52", "subject": "Revert crumb accent to standard blue for site-wide consistency (#3)", "ins": 4, "del": 7}, {"date": "Sep 21, 20:21", "subject": "Sync taxonomy.css visual tokens with the AUDITUM MEMORIA reference (#4)", "ins": 27, "del": 28}, {"date": "Sep 21, 20:25", "subject": "Migrate all pages from taxonomy.css to the shared AUDITUM MEMORIA stylesheet (#5)", "ins": 179, "del": 163}, {"date": "Sep 22, 00:19", "subject": "Bump base font size, add portfolio link to every page's meta-bar (#6)", "ins": 17, "del": 0}, {"date": "Sep 22, 00:49", "subject": "Replace Matomo with Plausible analytics on all 8 live pages (#7)", "ins": 32, "del": 104}, {"date": "Sep 22, 17:44", "subject": "Fix missing root font-size — everything was falling back to browser default", "ins": 7, "del": 0}, {"date": "Sep 25, 16:33", "subject": "feat(labs): add Deterministic Ventures, remove Economic Anthropology", "ins": 158, "del": 7}, {"date": "Sep 25, 16:50", "subject": "refactor(labs): relocate Immersive Audit Lab under Lucid Asset Framework", "ins": 185, "del": 5}];
-const maxVal = Math.max(...COMMITS.map(c => Math.max(c.ins, c.del)), 1);
+(function () {
+  var origFetch = window.fetch;
+  window.fetch = function (url) {
+    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
+      var cacheKey = 'ghcache_' + url;
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
+      var now = Date.now();
+      if (cached && (now - cached.t) < 15 * 60 * 1000) {
+        return Promise.resolve({ ok: true, json: function () { return Promise.resolve(cached.d); } });
+      }
+      return origFetch.apply(this, arguments).then(function (r) {
+        if (!r.ok) return r;
+        return r.json().then(function (data) {
+          try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
+          return { ok: true, json: function () { return Promise.resolve(data); } };
+        });
+      });
+    }
+    return origFetch.apply(this, arguments);
+  };
+})();
+</script>
+<script>
+(function () {
+  var REPO = 'domainController/narrative-constructs-website';
 
-const chartEl = document.getElementById("commitChart");
-COMMITS.forEach(c => {
-  const row = document.createElement("div");
-  row.className = "crow";
-  row.innerHTML = `
-    <div class="d">${c.date}</div>
-    <div class="dside"><div class="bar del" style="width:${(c.del/maxVal*100).toFixed(0)}%" title="${c.del} deletions"></div></div>
-    <div class="isside"><div class="bar ins" style="width:${(c.ins/maxVal*100).toFixed(0)}%" title="${c.ins} insertions"></div></div>
-    <div class="msg" title="${c.subject.replace(/"/g,'&quot;')}">${c.subject}</div>
-  `;
-  chartEl.appendChild(row);
-});
+  function showState(msg) {
+    document.getElementById('statePanel').style.display = '';
+    document.getElementById('stateMsg').textContent = msg;
+  }
 
-const tableEl = document.getElementById("dataTable");
-COMMITS.forEach(c => {
-  const tr = document.createElement("tr");
-  tr.innerHTML = `<td>${c.date}</td><td>${c.subject}</td><td class="ins">+${c.ins}</td><td class="del">−${c.del}</td>`;
-  tableEl.appendChild(tr);
-});
+  async function fetchAllCommits() {
+    var all = [];
+    var page = 1;
+    while (true) {
+      var res = await fetch('https://api.github.com/repos/' + REPO + '/commits?per_page=100&page=' + page);
+      if (!res.ok) {
+        if (res.status === 403) throw new Error('GitHub API rate limit reached — try again in a few minutes');
+        if (res.status === 404) throw new Error('Repository not found or not public');
+        throw new Error('GitHub API ' + res.status);
+      }
+      var data = await res.json();
+      if (!Array.isArray(data)) throw new Error(data && data.message ? data.message : 'Unexpected response');
+      all = all.concat(data);
+      if (data.length < 100) break;
+      page += 1;
+      if (page > 10) break;
+    }
+    return all;
+  }
+
+  function fmtSpanWords(days) {
+    var w = Math.floor(days / 7), d = days % 7;
+    var parts = [];
+    if (w) parts.push(w + 'wk');
+    if (d || !parts.length) parts.push(d + 'd');
+    return parts.join(' ');
+  }
+  function fmtGapWords(n) {
+    var w = Math.floor(n / 7), d = n % 7;
+    var parts = [];
+    if (w) parts.push(w + ' week' + (w > 1 ? 's' : ''));
+    if (d) parts.push(d + ' day' + (d > 1 ? 's' : ''));
+    return parts.length ? parts.join(', ') : '0 days';
+  }
+  function dayKey(iso) { return iso.slice(0, 10); }
+  function fmtDayLabel(key) {
+    var d = new Date(key + 'T00:00:00Z');
+    return d.toLocaleString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+  }
+
+  async function run() {
+    var commits = await fetchAllCommits();
+    var mainTotal = commits.length;
+    var content = commits.filter(function (c) { return !c.parents || c.parents.length <= 1; });
+
+    var daily = {};
+    content.forEach(function (c) {
+      var key = dayKey(c.commit.committer.date);
+      daily[key] = (daily[key] || 0) + 1;
+    });
+    var days = Object.keys(daily).sort();
+    if (!days.length) { showState('No content commits found yet.'); return; }
+
+    var launch = days[0], last = days[days.length - 1];
+    var launchDate = new Date(launch + 'T00:00:00Z');
+    var lastDate = new Date(last + 'T00:00:00Z');
+    var span = Math.round((lastDate - launchDate) / 86400000) || 1;
+    var maxVal = 0, peakKey = days[0];
+    days.forEach(function (k) { if (daily[k] > maxVal) { maxVal = daily[k]; peakKey = k; } });
+
+    var gapMax = 0, gapA = launch, gapB = launch;
+    for (var i = 1; i < days.length; i++) {
+      var a = new Date(days[i-1] + 'T00:00:00Z'), b = new Date(days[i] + 'T00:00:00Z');
+      var gap = Math.round((b - a) / 86400000);
+      if (gap > gapMax) { gapMax = gap; gapA = days[i-1]; gapB = days[i]; }
+    }
+
+    document.getElementById('overviewPanel').style.display = '';
+    document.getElementById('s-launch').textContent = fmtDayLabel(launch);
+    document.getElementById('s-uptime').innerHTML = fmtSpanWords(span) + ' <small>(' + span + 'd)</small>';
+    document.getElementById('s-active').innerHTML = days.length + ' <small>/ ' + span + 'd</small>';
+    document.getElementById('s-silent').innerHTML = (gapMax ? fmtGapWords(gapMax) : 'none') + ' <small>max</small>';
+    document.getElementById('s-peak').textContent = fmtDayLabel(peakKey);
+    document.getElementById('s-total').textContent = mainTotal;
+
+    document.getElementById('timelinePanel').style.display = '';
+    document.getElementById('timelineTitle').textContent = 'Timeline — ' + fmtDayLabel(launch) + ' → ' + fmtDayLabel(last);
+    document.getElementById('trackLabels').innerHTML = '<span>' + fmtDayLabel(launch) + '</span><span>' + fmtDayLabel(last) + '</span>';
+    var track = document.getElementById('track');
+    if (gapMax) {
+      var gapEl = document.getElementById('gapBand');
+      var gLeft = (new Date(gapA + 'T00:00:00Z') - launchDate) / 86400000 / span * 100;
+      var gWidth = gapMax / span * 100;
+      gapEl.style.left = gLeft.toFixed(1) + '%';
+      gapEl.style.width = gWidth.toFixed(1) + '%';
+      gapEl.style.display = '';
+      document.getElementById('gapNote').textContent = fmtGapWords(gapMax) + ' between ' + gapA + ' and ' + gapB + ' — ' + Math.round(gapMax / span * 100) + '% of the repo\'s lifetime without a single content commit.';
+    } else {
+      document.getElementById('gapNote').textContent = 'No gaps — every day in this window had at least one content commit.';
+    }
+    days.forEach(function (k) {
+      var d = new Date(k + 'T00:00:00Z');
+      var pct = (d - launchDate) / 86400000 / span * 100;
+      var n = daily[k];
+      var frac = n / maxVal;
+      var tier = frac <= 0.2 ? 100 : frac <= 0.4 ? 200 : frac <= 0.6 ? 300 : frac <= 0.8 ? 400 : 500;
+      var tick = document.createElement('div');
+      tick.className = 'tick';
+      tick.style.left = pct.toFixed(1) + '%';
+      tick.style.background = 'var(--seq-' + tier + ')';
+      tick.setAttribute('data-tip', fmtDayLabel(k) + ' — ' + n + (n === 1 ? ' commit' : ' commits'));
+      track.appendChild(tick);
+    });
+
+    document.getElementById('readingsPanel').style.display = '';
+    document.getElementById('r-main').textContent = mainTotal;
+    document.getElementById('r-content').textContent = content.length;
+    document.getElementById('r-active').textContent = days.length;
+    document.getElementById('r-content-fill').style.width = Math.round(content.length / mainTotal * 100) + '%';
+    document.getElementById('r-active-fill').style.width = Math.round(days.length / mainTotal * 100) + '%';
+  }
+
+  run().catch(function (err) {
+    showState('Unable to load live data (' + err.message + '). GitHub\'s anonymous API is rate-limited to 60 requests/hour per browser — try again later if that\'s the cause.');
+  });
+})();
 </script>
 </body>
 </html>
