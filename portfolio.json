@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T18:36:21.874Z",
+  "generatedAt": "2026-09-29T18:58:45.209Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -102,6 +102,21 @@
       }
     },
     {
+      "id": "rec6tvWpEgTwOLWbj",
+      "createdTime": "2026-09-29T18:49:50.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC"
+        ],
+        "fld3JIuIA5FgdJv4F": "Clusters Engineering Lab",
+        "fldbfrnARURZBDqk4": "Labs",
+        "fldccPHbiWw8T8xg6": "labs.clusters.homes",
+        "fldqooX9qDIYuzc7H": "project",
+        "fldxwQDw6Rp2mUDWA": "engineering lab",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "rec7uXvzuDT5dtmM8",
       "createdTime": "2026-09-27T04:48:07.000Z",
       "fields": {
@@ -138,7 +153,8 @@
         "fldVtWIz4yrKcMvTg": [
           "recobx9iB41r7FFpB",
           "recHKIvcCZKLoOSj1",
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "rec6tvWpEgTwOLWbj"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -238,7 +254,8 @@
         "fldlL8kkZwNgw25Vy": "Namecheap",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/offcityhike-blog",
         "fldqooX9qDIYuzc7H": "personal ",
-        "fldxwQDw6Rp2mUDWA": "journal"
+        "fldxwQDw6Rp2mUDWA": "journal",
+        "fldyxQMf0DeLLvZaz": "online"
       }
     },
     {
@@ -809,7 +826,7 @@
         "fldt9I72oXRTgC0rC": "high — asset-light, no inventory",
         "fldtJi9grVPtJsauW": "Commission",
         "fldwXu8alOSD4H6Ek": "project",
-        "fldxwQDw6Rp2mUDWA": "engineering lab",
+        "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "logistics ",
         "fldyxQMf0DeLLvZaz": "concept",
         "fldz4JChQVgkic7BA": "Low",
