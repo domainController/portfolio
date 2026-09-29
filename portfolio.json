@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T11:16:41.738Z",
+  "generatedAt": "2026-09-29T16:21:46.016Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -32,8 +32,6 @@
     "fldWXML0BEnhz5teq": "investment stage",
     "fldZE0grsvxfyzSQ1": "investment model",
     "fldqooX9qDIYuzc7H": "portfolio role",
-    "fldIb77IM8PEwsfDO": " benchmark for",
-    "fldxHyIWkHMzHrqvA": "parent company ",
     "fldDx6P723cQsXAU3": "sub-vertical",
     "fldpKjCqmfWTsEZYq": "site section",
     "fldEp2lIIJ2UG42Wf": "core value prop",
@@ -79,7 +77,8 @@
     "fld0GyBxun8zRhKyY": "audience status",
     "fldp6axMCht0hWkDN": "repo",
     "fldwXu8alOSD4H6Ek": "finance lab status",
-    "fldRvoCEy7YakjAMq": "market lab status"
+    "fldRvoCEy7YakjAMq": "market lab status",
+    "fldgInVmb6sP3oUgl": "nav branch"
   },
   "records": [
     {
@@ -96,7 +95,6 @@
       "createdTime": "2026-09-27T04:49:05.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Blocket",
-        "fldIb77IM8PEwsfDO": "curb",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
       }
@@ -106,7 +104,6 @@
       "createdTime": "2026-09-27T04:48:07.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Ricardo",
-        "fldIb77IM8PEwsfDO": "curb",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "private company "
       }
@@ -200,7 +197,7 @@
       "createdTime": "2026-09-27T09:58:39.000Z",
       "fields": {
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
-        "fld3JIuIA5FgdJv4F": "Portfolio ",
+        "fld3JIuIA5FgdJv4F": "Portfolio SaaS",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/meta/deploy.html",
         "fldA1FIU5MBBJchSf": "concept",
         "fldDx6P723cQsXAU3": "SaaS ",
@@ -211,6 +208,7 @@
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
         "fldZE0grsvxfyzSQ1": "self-founded ",
+        "fldgInVmb6sP3oUgl": "Prototypes",
         "fldiRhn1z31IndfsM": "short",
         "fldnTcpnT6lpnsNAm": "asset-light",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/portfolio",
@@ -228,8 +226,12 @@
       "fields": {
         "fld3JIuIA5FgdJv4F": "Off City Hike",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/personal/off-city-hike/deploy.html",
+        "fldWhQvMTLgGLrW0D": "— permanent",
+        "fldgInVmb6sP3oUgl": "Journal",
         "fldlL8kkZwNgw25Vy": "Namecheap",
-        "fldp6axMCht0hWkDN": "https://github.com/domainController/offcityhike-blog"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/offcityhike-blog",
+        "fldqooX9qDIYuzc7H": "personal ",
+        "fldxwQDw6Rp2mUDWA": "journal"
       }
     },
     {
@@ -237,7 +239,6 @@
       "createdTime": "2026-09-27T04:48:28.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Amazon",
-        "fldIb77IM8PEwsfDO": "cohort",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
       }
@@ -246,8 +247,10 @@
       "id": "recA5NUPP10CjYymY",
       "createdTime": "2026-09-29T04:44:21.000Z",
       "fields": {
-        "fld3JIuIA5FgdJv4F": "Patricek",
-        "fldlL8kkZwNgw25Vy": "Namecheap"
+        "fld3JIuIA5FgdJv4F": "Portfolio",
+        "fldWhQvMTLgGLrW0D": "5/5 — now",
+        "fldlL8kkZwNgw25Vy": "Namecheap",
+        "fldqooX9qDIYuzc7H": "personal "
       }
     },
     {
@@ -255,7 +258,6 @@
       "createdTime": "2026-09-27T08:22:00.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Regus",
-        "fldIb77IM8PEwsfDO": "clusters ",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
       }
@@ -266,8 +268,13 @@
       "fields": {
         "fld3JIuIA5FgdJv4F": "Aletheia Frameworks",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/personal/intellectual-work/aletheia-frameworks/deploy.html",
+        "fldMevUbOYlZX1pFA": "intellectual property",
+        "fldWhQvMTLgGLrW0D": "— permanent",
+        "fldgInVmb6sP3oUgl": "Frameworks",
         "fldlL8kkZwNgw25Vy": "Namecheap",
-        "fldp6axMCht0hWkDN": "https://github.com/domainController/aletheia-frameworks-site"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/aletheia-frameworks-site",
+        "fldqooX9qDIYuzc7H": "personal ",
+        "fldxwQDw6Rp2mUDWA": "doctrine"
       }
     },
     {
@@ -294,13 +301,30 @@
       }
     },
     {
+      "id": "recHKIvcCZKLoOSj1",
+      "createdTime": "2026-09-29T15:23:28.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "ClausWorks",
+        "fldqooX9qDIYuzc7H": "project",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "recLEGMHIIHtNIYId",
       "createdTime": "2026-09-27T04:48:18.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "eBay",
-        "fldIb77IM8PEwsfDO": "curb",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
+      }
+    },
+    {
+      "id": "recMnW67j2Dm7xzdK",
+      "createdTime": "2026-09-29T15:23:28.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "ClausLabs",
+        "fldqooX9qDIYuzc7H": "project",
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
@@ -348,7 +372,6 @@
       "createdTime": "2026-09-27T04:49:26.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Kleinanzeigen ",
-        "fldIb77IM8PEwsfDO": "curb",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "private company "
       }
@@ -378,7 +401,6 @@
       "createdTime": "2026-09-27T04:47:17.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Trustpilot",
-        "fldIb77IM8PEwsfDO": "cohort",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
       }
@@ -388,7 +410,6 @@
       "createdTime": "2026-09-27T04:47:28.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Yelp",
-        "fldIb77IM8PEwsfDO": "cohort",
         "fldqooX9qDIYuzc7H": "benchmark "
       }
     },
@@ -397,7 +418,6 @@
       "createdTime": "2026-09-27T04:47:52.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Quora",
-        "fldIb77IM8PEwsfDO": "cohort",
         "fldZE0grsvxfyzSQ1": "venture capital",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "private company "
@@ -469,7 +489,6 @@
       "createdTime": "2026-09-27T08:22:08.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Shugard",
-        "fldIb77IM8PEwsfDO": "clusters ",
         "fldqooX9qDIYuzc7H": "benchmark "
       }
     },
@@ -527,7 +546,6 @@
       "createdTime": "2026-09-27T08:22:15.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Basic Fit",
-        "fldIb77IM8PEwsfDO": "clusters ",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
       }
@@ -611,7 +629,6 @@
       "createdTime": "2026-09-27T04:48:51.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "Marktplatz ",
-        "fldIb77IM8PEwsfDO": "curb",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "private company "
       }
@@ -650,6 +667,18 @@
       }
     },
     {
+      "id": "recobx9iB41r7FFpB",
+      "createdTime": "2026-09-29T15:23:28.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "Clusters Forum",
+        "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
+        "fldccPHbiWw8T8xg6": "clusters.forum",
+        "fldqooX9qDIYuzc7H": "project",
+        "fldxwQDw6Rp2mUDWA": "forum",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "recod5IyToIGPcZXn",
       "createdTime": "2026-09-27T08:18:07.000Z",
       "fields": {
@@ -677,9 +706,19 @@
       "createdTime": "2026-09-27T04:48:41.000Z",
       "fields": {
         "fld3JIuIA5FgdJv4F": "LeBonCoin",
-        "fldIb77IM8PEwsfDO": "curb",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "private company "
+      }
+    },
+    {
+      "id": "recskci6XrPcXymJx",
+      "createdTime": "2026-09-29T15:23:28.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "Deterministic Venture",
+        "fldgInVmb6sP3oUgl": "Frameworks",
+        "fldqooX9qDIYuzc7H": "personal",
+        "fldxwQDw6Rp2mUDWA": "framework",
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
@@ -724,7 +763,7 @@
         "fldwXu8alOSD4H6Ek": "project",
         "fldxwQDw6Rp2mUDWA": "engineering lab",
         "fldytaVG4hsegzhJz": "logistics ",
-        "fldyxQMf0DeLLvZaz": "project",
+        "fldyxQMf0DeLLvZaz": "concept",
         "fldz4JChQVgkic7BA": "Low",
         "fldzBaPn1BMoyLf5B": "direct (platform) + partner network (pickup points, cafés, lockers)"
       }
@@ -748,6 +787,7 @@
         "fldbfrnARURZBDqk4": "Labs",
         "fldccPHbiWw8T8xg6": "narrativeconstructs.com",
         "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
+        "fldgInVmb6sP3oUgl": "Frameworks",
         "fldotsmqLDmkhWYt3": "contact@narrativeconstructs.com",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/narrative-constructs-website",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
