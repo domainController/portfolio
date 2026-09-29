@@ -126,8 +126,10 @@ const FIELD_META = {
   fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market", order:13},
   fldA1FIU5MBBJchSf: {name:"stage", tab:"Traction", order:2},
   fld1ayzhTagZyUvPt: {name:"market lab", tab:"Labs", order:1},
+  fldRvoCEy7YakjAMq: {tab:"Labs", order:1, hidden:true, pillFor:"fld1ayzhTagZyUvPt"},
   fld7VqAP1Vhhw2zqf: {name:"engineering lab", tab:"Labs", order:2},
   fldUbu3d0yxjwGdws: {name:"finance lab", tab:"Labs", order:3},
+  fldwXu8alOSD4H6Ek: {tab:"Labs", order:3, hidden:true, pillFor:"fldUbu3d0yxjwGdws"},
   fldnE63YQPidZ6cVJ: {name:"legal lab", tab:"Labs", order:4},
   fld9CqdUeEbjZFq7L: {name:"cold start", tab:"Traction", order:4},
   fldccPHbiWw8T8xg6: {name:"website", tab:"Infra", order:1},
@@ -239,6 +241,8 @@ const LINK_LABELS = {
   fldOLfNxsvfpFS37T: "status",
   fld7d4gZlGVKxqyLO: "metrics",
   fldfYvXdHT9U0RgOx: "doc",
+  fld1ayzhTagZyUvPt: "Market Notes",
+  fldUbu3d0yxjwGdws: "Deterministic Ventures",
 };
 function linkify(v, fid) {
   if (!v) return "—";
