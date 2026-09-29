@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T16:21:46.016Z",
+  "generatedAt": "2026-09-29T18:24:33.693Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -78,7 +78,9 @@
     "fldp6axMCht0hWkDN": "repo",
     "fldwXu8alOSD4H6Ek": "finance lab status",
     "fldRvoCEy7YakjAMq": "market lab status",
-    "fldgInVmb6sP3oUgl": "nav branch"
+    "fldgInVmb6sP3oUgl": "nav branch",
+    "fld09Waa8mfZCSoC4": "belongs to cluster",
+    "fldVtWIz4yrKcMvTg": "From field: belongs to cluster"
   },
   "records": [
     {
@@ -133,6 +135,11 @@
         "fldSXrj7eo5fnNLYn": "distributed nodes (escales)",
         "fldTrutNI5wLYPJPl": "1/5 — latent ",
         "fldUcpKv7jt84XsJy": "project",
+        "fldVtWIz4yrKcMvTg": [
+          "recobx9iB41r7FFpB",
+          "recHKIvcCZKLoOSj1",
+          "recskci6XrPcXymJx"
+        ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
@@ -197,7 +204,7 @@
       "createdTime": "2026-09-27T09:58:39.000Z",
       "fields": {
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
-        "fld3JIuIA5FgdJv4F": "Portfolio SaaS",
+        "fld3JIuIA5FgdJv4F": "Frame",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/meta/deploy.html",
         "fldA1FIU5MBBJchSf": "concept",
         "fldDx6P723cQsXAU3": "SaaS ",
@@ -288,6 +295,9 @@
         "fldEp2lIIJ2UG42Wf": "Distributed personal protection with legal interposition.",
         "fldMevUbOYlZX1pFA": "managed marketplace",
         "fldRvoCEy7YakjAMq": "concept",
+        "fldVtWIz4yrKcMvTg": [
+          "recskci6XrPcXymJx"
+        ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
         "fldZE0grsvxfyzSQ1": "self-founded ",
@@ -304,6 +314,12 @@
       "id": "recHKIvcCZKLoOSj1",
       "createdTime": "2026-09-29T15:23:28.000Z",
       "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC",
+          "recfVgB6nO7B7gJrb",
+          "reci2gQchm9OSVkqI",
+          "reckS4dkZO0qcwOvP"
+        ],
         "fld3JIuIA5FgdJv4F": "ClausWorks",
         "fldqooX9qDIYuzc7H": "project",
         "fldyxQMf0DeLLvZaz": "concept"
@@ -342,6 +358,9 @@
         "fldOLfNxsvfpFS37T": "https://patricek.info/litigation-finance/mottrum/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldUbu3d0yxjwGdws": "https://narrativeconstructs.com/vertical-labs/deterministic-ventures/index.html",
+        "fldVtWIz4yrKcMvTg": [
+          "recskci6XrPcXymJx"
+        ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
         "fldZE0grsvxfyzSQ1": "self-founded ",
@@ -451,6 +470,10 @@
         ],
         "fldSXrj7eo5fnNLYn": "gated studios",
         "fldTrutNI5wLYPJPl": "3/5 — soon",
+        "fldVtWIz4yrKcMvTg": [
+          "recHKIvcCZKLoOSj1",
+          "recskci6XrPcXymJx"
+        ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
         "fldXHkm2E0Avupzr4": "subscription",
@@ -512,6 +535,10 @@
         "fldRvoCEy7YakjAMq": "concept",
         "fldSXrj7eo5fnNLYn": "none",
         "fldTrutNI5wLYPJPl": "3/5 — soon",
+        "fldVtWIz4yrKcMvTg": [
+          "recHKIvcCZKLoOSj1",
+          "recskci6XrPcXymJx"
+        ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "4/5 — next",
@@ -586,6 +613,10 @@
         "fldSXrj7eo5fnNLYn": "storefronts, lockers, warehouses, third places (cafés)",
         "fldTrutNI5wLYPJPl": "1/5 — latent ",
         "fldV0qcKnHb2VP3on": "target 40% – 60% yoy — pre-scale",
+        "fldVtWIz4yrKcMvTg": [
+          "recHKIvcCZKLoOSj1",
+          "recskci6XrPcXymJx"
+        ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
@@ -670,6 +701,9 @@
       "id": "recobx9iB41r7FFpB",
       "createdTime": "2026-09-29T15:23:28.000Z",
       "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC"
+        ],
         "fld3JIuIA5FgdJv4F": "Clusters Forum",
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
         "fldccPHbiWw8T8xg6": "clusters.forum",
@@ -714,6 +748,15 @@
       "id": "recskci6XrPcXymJx",
       "createdTime": "2026-09-29T15:23:28.000Z",
       "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recQ1vxpjzKZNkCQl",
+          "recu0aivcrnrdNqiI",
+          "rec8VoEqaWhTOOKBC",
+          "recfVgB6nO7B7gJrb",
+          "reci2gQchm9OSVkqI",
+          "reckS4dkZO0qcwOvP",
+          "recHC1ykh67YIWBU1"
+        ],
         "fld3JIuIA5FgdJv4F": "Deterministic Venture",
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldqooX9qDIYuzc7H": "personal",
@@ -741,6 +784,9 @@
         "fldSXrj7eo5fnNLYn": "none (partner-hosted pickup points)",
         "fldTrutNI5wLYPJPl": "5/5 — now",
         "fldUbu3d0yxjwGdws": "https://narrativeconstructs.com/vertical-labs/deterministic-ventures/index.html",
+        "fldVtWIz4yrKcMvTg": [
+          "recskci6XrPcXymJx"
+        ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
