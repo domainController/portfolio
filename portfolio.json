@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T18:24:33.693Z",
+  "generatedAt": "2026-09-29T18:36:21.874Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -322,6 +322,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "ClausWorks",
         "fldqooX9qDIYuzc7H": "project",
+        "fldxwQDw6Rp2mUDWA": "legal lab",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -359,7 +360,8 @@
         "fldRvoCEy7YakjAMq": "concept",
         "fldUbu3d0yxjwGdws": "https://narrativeconstructs.com/vertical-labs/deterministic-ventures/index.html",
         "fldVtWIz4yrKcMvTg": [
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "recu93NevEiwQ0tDs"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -760,7 +762,7 @@
         "fld3JIuIA5FgdJv4F": "Deterministic Venture",
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldqooX9qDIYuzc7H": "personal",
-        "fldxwQDw6Rp2mUDWA": "framework",
+        "fldxwQDw6Rp2mUDWA": "finance lab",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -818,6 +820,9 @@
       "id": "recu93NevEiwQ0tDs",
       "createdTime": "2026-09-27T08:18:25.000Z",
       "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recQ1vxpjzKZNkCQl"
+        ],
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Narrative Constructs ",
         "fld7VqAP1Vhhw2zqf": "labs.narrativeconstructs.com",
