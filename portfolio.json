@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T04:47:09.920Z",
+  "generatedAt": "2026-09-29T05:13:06.586Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -68,7 +68,14 @@
     "fldqYT5fpvzyqIaRT": "mail provider",
     "fld554f8xSYqtx1Ye": "DNS management",
     "fldd55eEXIFfqYPQj": "analytics provider",
-    "fldToUbONbYjGaAIk": "backup strategy"
+    "fldToUbONbYjGaAIk": "backup strategy",
+    "fld4ofDOAnaY3Q6VZ": "forum",
+    "fldUcpKv7jt84XsJy": "forum status",
+    "fldb8p5D5ErTEA8Y5": "blog",
+    "flds1P05nDrjCYApH": "blog status",
+    "fldfKtytoANvqbE5t": "site",
+    "fldliVuEl43U42PGB": "site status",
+    "flds9dns82uqF4fZx": "audience"
   },
   "records": [
     {
@@ -107,6 +114,7 @@
         "fld0Qo68lr0WiQEOY": "search fund, micro-PE, holdco",
         "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Clusters ",
+        "fld4ofDOAnaY3Q6VZ": "https://clusters.forum",
         "fld7VqAP1Vhhw2zqf": "labs.clusters.homes",
         "fld7XckHXlRHrSdqt": "tiered by duration",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/clusters/deploy.html",
@@ -121,12 +129,14 @@
         "fldOLfNxsvfpFS37T": "https://patricek.info/marketplace/clusters/traction.html",
         "fldSXrj7eo5fnNLYn": "distributed nodes (escales)",
         "fldTrutNI5wLYPJPl": "1/5 — latent ",
+        "fldUcpKv7jt84XsJy": "project",
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
         "fldXHkm2E0Avupzr4": "freemium",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldZQwr9cDboInjay": "€2M – €5M — self-funded search territory",
+        "fldb8p5D5ErTEA8Y5": "https://clusters.homes/blog",
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
         "fldccPHbiWw8T8xg6": "clusters.homes",
         "fldeSHt4Q7m4HgWVW": "metropolitan commuter belts",
@@ -145,6 +155,7 @@
         "fldruOMLTjWTC62Jz": [
           "recj43SpXgwdbAtaW"
         ],
+        "flds1P05nDrjCYApH": "project",
         "fldtJi9grVPtJsauW": "transaction fee — scales with duration, not flat",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/marketplace/clusters/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
@@ -180,6 +191,7 @@
       "fields": {
         "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Portfolio ",
+        "fldA1FIU5MBBJchSf": "concept",
         "fldDx6P723cQsXAU3": "SaaS ",
         "fldMevUbOYlZX1pFA": "marketplace ",
         "fldTrutNI5wLYPJPl": "4/5 — next",
@@ -188,6 +200,7 @@
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldiRhn1z31IndfsM": "short",
         "fldnTcpnT6lpnsNAm": "asset-light",
+        "fldpKjCqmfWTsEZYq": "Software ",
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "software ",
@@ -244,6 +257,7 @@
       "fields": {
         "fld1ayzhTagZyUvPt": "https://patricek.info/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Hālo",
+        "fldA1FIU5MBBJchSf": "concept",
         "fldDx6P723cQsXAU3": "personal protection ",
         "fldEp2lIIJ2UG42Wf": "Distributed personal protection with legal interposition.",
         "fldMevUbOYlZX1pFA": "managed marketplace",
@@ -642,7 +656,7 @@
         "fld7VqAP1Vhhw2zqf": "labs.frontier.logistics",
         "fld7XckHXlRHrSdqt": "per-package",
         "fld9CqdUeEbjZFq7L": "3/5 — moderate",
-        "fldA1FIU5MBBJchSf": "concept",
+        "fldA1FIU5MBBJchSf": "project",
         "fldDx6P723cQsXAU3": "crowdshipping",
         "fldEp2lIIJ2UG42Wf": "parcels carried by travellers on trips already paid for",
         "fldHsh3cvS7yiAyiV": "tech-native",
