@@ -162,6 +162,12 @@ const FIELD_META = {
   fldqOFlTJ7Pf9hMgL: {name:"founder exit", tab:"Acquisition", order:7},
   fldu1iQBrGZuKUKuf: {name:"landing", tab:"Traction", order:3},
   fldOLfNxsvfpFS37T: {name:"traction", tab:"Traction", order:7},
+  // "X status" (hidden:true, pillFor: fieldId) n'apparaît jamais comme sa propre ligne :
+  // sa valeur est résolue et affichée comme pastille accolée au champ qu'elle annote.
+  fld4ofDOAnaY3Q6VZ: {name:"forum", tab:"Traction", order:8},
+  fldUcpKv7jt84XsJy: {tab:"Traction", order:8, hidden:true, pillFor:"fld4ofDOAnaY3Q6VZ"},
+  fldb8p5D5ErTEA8Y5: {name:"blog", tab:"Traction", order:9},
+  flds1P05nDrjCYApH: {tab:"Traction", order:9, hidden:true, pillFor:"fldb8p5D5ErTEA8Y5"},
   fld7d4gZlGVKxqyLO: {name:"deployment", tab:"Infra", order:2},
   fldlL8kkZwNgw25Vy: {name:"domain registrar", tab:"Infra", order:3},
   fldqYT5fpvzyqIaRT: {name:"mail provider", tab:"Infra", order:4},
@@ -244,6 +250,24 @@ function linkify(v, fid) {
   return v;
 }
 
+// Un champ FIELD_META marqué {hidden:true, pillFor:"<baseFieldId>"} ne s'affiche jamais
+// comme sa propre ligne — sa valeur devient une pastille accolée à la ligne du champ
+// qu'il annote (ex. "forum status" -> pastille sur la ligne "forum"). PILL_SOURCES fait
+// l'inverse : baseFieldId -> statusFieldId, construit une fois depuis FIELD_META.
+const PILL_SOURCES = {};
+Object.keys(FIELD_META).forEach(fid => {
+  const meta = FIELD_META[fid];
+  if (meta.pillFor) PILL_SOURCES[meta.pillFor] = fid;
+});
+function pillFor(rec, fid) {
+  const statusFid = PILL_SOURCES[fid];
+  if (!statusFid) return "";
+  const status = resolve(rec, statusFid);
+  if (!status) return "";
+  const cls = status.toLowerCase() === "project" ? " project" : "";
+  return `<span class="pill${cls}">${status}</span>`;
+}
+
 function switchMode(mode) {
   currentMode = mode;
   document.querySelectorAll(".mode-switcher button").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
@@ -323,13 +347,13 @@ function renderTabsFor(rec, fieldIds) {
   TAB_ORDER.forEach(t => byTab[t] = []);
   ids.forEach(fid => {
     const meta = FIELD_META[fid];
-    if (!meta || !TAB_ORDER.includes(meta.tab)) return;
+    if (!meta || !TAB_ORDER.includes(meta.tab) || meta.hidden) return;
     const v = resolve(rec, fid);
     if (fieldIds || v) byTab[meta.tab].push([v, meta.order || 999, fid]);
   });
   TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[1]-b[1]));
   return TAB_ORDER.filter(t => byTab[t].length).map(t =>
-    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div class="${v?"":"empty-cell"}">${linkify(v,fid)}</div></div>`).join("")}</div>`
+    `<div class="tab-block"><h3>${t}</h3>${byTab[t].map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div class="${v?"":"empty-cell"}">${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("")}</div>`
   ).join("");
 }
 
@@ -341,7 +365,7 @@ function buildUnionFieldIds(left, right) {
   return Object.keys(FIELD_META)
     .filter(fid => {
       const meta = FIELD_META[fid];
-      if (!meta || !TAB_ORDER.includes(meta.tab)) return false;
+      if (!meta || !TAB_ORDER.includes(meta.tab) || meta.hidden) return false;
       return resolve(left, fid) || resolve(right, fid);
     })
     .sort((a, b) => {
@@ -386,7 +410,7 @@ function renderSingle() {
   TAB_ORDER.forEach(t => byTab[t] = []);
   Object.keys(cells).forEach(fid => {
     const meta = FIELD_META[fid];
-    if (!meta || !TAB_ORDER.includes(meta.tab)) return;
+    if (!meta || !TAB_ORDER.includes(meta.tab) || meta.hidden) return;
     const v = resolve(rec, fid);
     if (v) byTab[meta.tab].push([v, meta.order || 999, fid]);
   });
@@ -404,7 +428,7 @@ function renderSingle() {
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag${statusClass(resolve(rec,STATUS_F))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
-    <div class="tab-block">${singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
+    <div class="tab-block">${singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
   `;
   const singlePick = document.getElementById("singlePick");
   singlePick.innerHTML = options;
