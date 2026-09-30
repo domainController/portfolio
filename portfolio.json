@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T00:24:20.781Z",
+  "generatedAt": "2026-09-30T00:27:02.424Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -178,7 +178,8 @@
         "fldVtWIz4yrKcMvTg": [
           "recobx9iB41r7FFpB",
           "rec6tvWpEgTwOLWbj",
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "recHKIvcCZKLoOSj1"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -364,6 +365,12 @@
       "id": "recHKIvcCZKLoOSj1",
       "createdTime": "2026-09-29T15:23:28.000Z",
       "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC",
+          "recfVgB6nO7B7gJrb",
+          "reci2gQchm9OSVkqI",
+          "reckS4dkZO0qcwOvP"
+        ],
         "fld3JIuIA5FgdJv4F": "ClausWorks",
         "fldDx6P723cQsXAU3": "Regulatory Entrepreneurship",
         "fldccPHbiWw8T8xg6": "clausworks.ai",
@@ -593,7 +600,8 @@
         "fldTrutNI5wLYPJPl": "3/5 — soon",
         "fldVtWIz4yrKcMvTg": [
           "recSqJzviPu61gR1g",
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "recHKIvcCZKLoOSj1"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -677,7 +685,8 @@
         "fldVtWIz4yrKcMvTg": [
           "recod5IyToIGPcZXn",
           "recgDAjQJXho2bGfb",
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "recHKIvcCZKLoOSj1"
         ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -771,7 +780,8 @@
         "fldTrutNI5wLYPJPl": "1/5 — latent ",
         "fldV0qcKnHb2VP3on": "target 40% – 60% yoy — pre-scale",
         "fldVtWIz4yrKcMvTg": [
-          "recskci6XrPcXymJx"
+          "recskci6XrPcXymJx",
+          "recHKIvcCZKLoOSj1"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
