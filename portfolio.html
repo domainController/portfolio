@@ -535,7 +535,11 @@ function renderSingle() {
   const availableTabs = TAB_ORDER;
   if (!singleTab || !availableTabs.includes(singleTab)) singleTab = availableTabs[0];
 
-  const options = RECORDS.slice().sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
+  // Handoff 43 : le sélecteur ne propose que les vraies ventures — les composants
+  // (iOS, Web App, labs...) polluaient la liste. L'accès direct via ?venture=X reste
+  // inchangé, ce filtre ne touche que ce dropdown.
+  const options = RECORDS.filter(r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase() === "business model venture")
+    .sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
 
   const singleRows = byTab[singleTab] || [];
