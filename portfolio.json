@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T06:10:04.603Z",
+  "generatedAt": "2026-09-30T06:13:42.802Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -710,7 +710,8 @@
           "recbJKKDkFWhIAZna",
           "recOX85gaAcDDH8AC",
           "recrbPeJEiASDqERx",
-          "rec1QPGpR6ajywroS"
+          "rec1QPGpR6ajywroS",
+          "recmZZDwjG72im6fn"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -959,6 +960,18 @@
         "fld3JIuIA5FgdJv4F": "Marktplatz ",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "private company "
+      }
+    },
+    {
+      "id": "recmZZDwjG72im6fn",
+      "createdTime": "2026-09-30T06:13:27.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fld3JIuIA5FgdJv4F": "Market Notes",
+        "fldxwQDw6Rp2mUDWA": "market lab",
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
