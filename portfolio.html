@@ -74,7 +74,8 @@
 
   h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
   .cluster-list { margin-top: 14px; border-top: 1px solid var(--border); }
-  .cluster-row { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .cluster-row { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .cluster-row[data-detail-toggle] { cursor: pointer; }
   .cluster-row:hover { background: rgba(255,255,255,0.03); }
   .cluster-row-main { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
   .cluster-row-name { font-size: 14.5px; font-weight: 600; }
@@ -602,18 +603,25 @@ function clusterSections(rec, children) {
 // Détail dépliable d'une ligne de composant (Handoff 38) : les mêmes champs/intitulés
 // que Consolidated view (CONSOLIDATED_COLS), moins Name/Status déjà dans l'en-tête de
 // ligne. "—" pour un champ vide, comme partout ailleurs — rien de masqué.
-function clusterRowDetailHTML(r) {
+function clusterRowDetailHTML(r, openByDefault) {
   const fields = CONSOLIDATED_COLS.filter(([f]) => f !== NAME_F && f !== STATUS_F);
   return `
-    <div class="cluster-row-detail">
+    <div class="cluster-row-detail${openByDefault ? " open" : ""}">
       ${fields.map(([f,l]) => `<div class="fm-row"><div class="fm-key">${l}</div><div>${resolve(r,f) || '<span class="empty-cell">—</span>'}</div></div>`).join("")}
     </div>
   `;
 }
 
-function clusterRowHTML(r, rec) {
+// opts.allFields (Cluster view uniquement) : les 17 champs sont affichés directement,
+// pas cachés derrière un clic — Patrice ne veut pas 3 champs par ligne dans cette vue,
+// il veut pouvoir comparer les champs comme dans Consolidated view. La vue single-venture
+// (?venture=X) reste un simple résumé cliquable, inchangée ("il n'y a rien à toucher").
+function clusterRowHTML(r, rec, opts = {}) {
+  const toggleAttr = opts.allFields ? "" : ` data-detail-toggle="${r.id}"`;
+  const expandHint = opts.allFields ? "" : '<span class="cluster-row-expand-hint">▾</span>';
+  const detail = clusterRowDetailHTML(r, opts.allFields);
   return `
-        <div class="cluster-row" data-detail-toggle="${r.id}">
+        <div class="cluster-row"${toggleAttr}>
           <div class="cluster-row-main">
             <span class="cluster-row-name" data-nav-id="${r.id}">${resolve(r,NAME_F)}</span>
             ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
@@ -621,9 +629,9 @@ function clusterRowHTML(r, rec) {
           </div>
           <div class="cluster-row-type">${resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"}</div>
           <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
-          <span class="cluster-row-expand-hint">▾</span>
+          ${expandHint}
         </div>
-        ${clusterRowDetailHTML(r)}
+        ${detail}
       `;
 }
 
@@ -643,7 +651,7 @@ function clusterBlockHTML(rec, children, opts = {}) {
     <div class="cluster-list${opts.collapsible ? ' collapsed' : ''}">
       ${sections.map(s => `
         <div class="cluster-section-label">${s.label}</div>
-        ${s.rows.map(r => clusterRowHTML(r, rec)).join("")}
+        ${s.rows.map(r => clusterRowHTML(r, rec, opts)).join("")}
       `).join("")}
     </div>
   `;
@@ -711,7 +719,7 @@ function renderAllClusters() {
   const panel = document.getElementById("panelAllClusters");
   panel.innerHTML = roots.map(rec => {
     const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(rec.id));
-    return `<div class="cluster-block">${clusterBlockHTML(rec, children, {collapsible: true})}</div>`;
+    return `<div class="cluster-block">${clusterBlockHTML(rec, children, {collapsible: true, allFields: true})}</div>`;
   }).join("");
   attachClusterRowInteractions(panel);
   attachClusterToggles(panel);
