@@ -661,7 +661,12 @@ function renderCluster() {
 function renderAllClusters() {
   const rootIds = new Set();
   RECORDS.forEach(r => linkedIds(r, CLUSTER_F).forEach(id => rootIds.add(id)));
-  const roots = RECORDS.filter(r => rootIds.has(r.id))
+  // Un "Core" est une venture/produit réel, pas un regroupement conceptuel — les
+  // frameworks/doctrines pointés via CLUSTER_F (Legal Framework Engineering,
+  // Reflexive Law Framework...) n'ont pas de "corps" propre et ne doivent pas
+  // apparaître comme leur propre bloc-racine, même si d'autres records les référencent.
+  const nonCoreKinds = ["framework", "doctrine"];
+  const roots = RECORDS.filter(r => rootIds.has(r.id) && !nonCoreKinds.includes((resolve(r,ENTITY_TYPE_F) || "").toLowerCase()))
     .sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)));
   const panel = document.getElementById("panelAllClusters");
   panel.innerHTML = roots.map(rec => {
