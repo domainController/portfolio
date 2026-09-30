@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T05:12:31.573Z",
+  "generatedAt": "2026-09-30T05:19:43.124Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -196,7 +196,8 @@
           "recskci6XrPcXymJx",
           "recHKIvcCZKLoOSj1",
           "recetg0dqE74urvmR",
-          "rechBhBXLEjg398FO"
+          "rechBhBXLEjg398FO",
+          "recEeSHwGj3wsV2SC"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -325,6 +326,18 @@
       }
     },
     {
+      "id": "recEeSHwGj3wsV2SC",
+      "createdTime": "2026-09-30T05:19:11.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC"
+        ],
+        "fld3JIuIA5FgdJv4F": "Android",
+        "fldxwQDw6Rp2mUDWA": "android app",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "recG4AD53EbjkG9ir",
       "createdTime": "2026-09-27T08:22:00.000Z",
       "fields": {
@@ -444,6 +457,7 @@
         ],
         "fldliVuEl43U42PGB": "project",
         "fldqooX9qDIYuzc7H": "project",
+        "fldxwQDw6Rp2mUDWA": "legal lab",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -586,9 +600,9 @@
         "fld09Waa8mfZCSoC4": [
           "reckS4dkZO0qcwOvP"
         ],
-        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fld3JIuIA5FgdJv4F": "iOS",
         "fldAn156bgwczNgRl": "primary",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "ios app",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -622,9 +636,9 @@
         "fld09Waa8mfZCSoC4": [
           "rec8VoEqaWhTOOKBC"
         ],
-        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fld3JIuIA5FgdJv4F": "iOS",
         "fldAn156bgwczNgRl": "primary",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "ios app",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -778,7 +792,8 @@
           "recskci6XrPcXymJx",
           "recHKIvcCZKLoOSj1",
           "recyjS2hRngZBXJFB",
-          "reczSKRKtAhVwTFZt"
+          "reczSKRKtAhVwTFZt",
+          "rectF5ysmpTMQ292M"
         ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -875,7 +890,8 @@
           "recskci6XrPcXymJx",
           "recHKIvcCZKLoOSj1",
           "recb2IWyEWYcXJUxM",
-          "rectLCrxKU28P1inT"
+          "rectLCrxKU28P1inT",
+          "recp69PoRA6Fch5gJ"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -1008,6 +1024,18 @@
       }
     },
     {
+      "id": "recp69PoRA6Fch5gJ",
+      "createdTime": "2026-09-30T05:19:11.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "reckS4dkZO0qcwOvP"
+        ],
+        "fld3JIuIA5FgdJv4F": "Android",
+        "fldxwQDw6Rp2mUDWA": "android app",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "recrbPeJEiASDqERx",
       "createdTime": "2026-09-30T00:57:50.000Z",
       "fields": {
@@ -1055,6 +1083,18 @@
         ],
         "fldqooX9qDIYuzc7H": "personal",
         "fldxwQDw6Rp2mUDWA": "finance lab",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
+      "id": "rectF5ysmpTMQ292M",
+      "createdTime": "2026-09-30T05:19:11.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "reci2gQchm9OSVkqI"
+        ],
+        "fld3JIuIA5FgdJv4F": "Android",
+        "fldxwQDw6Rp2mUDWA": "android app",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -1229,9 +1269,9 @@
         "fld09Waa8mfZCSoC4": [
           "reci2gQchm9OSVkqI"
         ],
-        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fld3JIuIA5FgdJv4F": "iOS",
         "fldAn156bgwczNgRl": "secondary",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "ios app",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     }
