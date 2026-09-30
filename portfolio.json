@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T10:43:30.544Z",
+  "generatedAt": "2026-09-30T12:42:08.679Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -87,7 +87,15 @@
     "fldAGb4fa0FvsZZlV": "platform / stack",
     "fldcekf3NlT4y2poZ": "scope note",
     "fldZnrxv8j8PjHfN2": "platform",
-    "fldXHLSWe7448B5tc": "marketplace sides"
+    "fldXHLSWe7448B5tc": "marketplace sides",
+    "fldrhSMTdSbzc3y89": "stack phase",
+    "fldMu6VZKV6teEfKM": "backend framework",
+    "fldrLLVL6YCVdCykH": "api key strategy",
+    "fldkbysnfe8gbznjN": "why",
+    "fldFsJA7lVVeevqDG": "sdd tool",
+    "fldYhZ5Rzj7aA7Z3T": "sdd status",
+    "fld1zFN7mblSoDtyc": "docs tool",
+    "fldFzOazWA11Nmq66": "docs status"
   },
   "records": [
     {
@@ -274,23 +282,36 @@
       "createdTime": "2026-09-27T09:58:39.000Z",
       "fields": {
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
+        "fld1zFN7mblSoDtyc": "GitBook",
         "fld3JIuIA5FgdJv4F": "Frame",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/meta/deploy.html",
         "fldA1FIU5MBBJchSf": "concept",
+        "fldAGb4fa0FvsZZlV": "React (bascule vers Next.js)",
         "fldDx6P723cQsXAU3": "SaaS ",
+        "fldFsJA7lVVeevqDG": "GitHub Spec Kit",
+        "fldFzOazWA11Nmq66": "à démarrer",
         "fldMevUbOYlZX1pFA": "SaaS",
         "fldOLfNxsvfpFS37T": "https://patricek.info/meta/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldTrutNI5wLYPJPl": "4/5 — next",
+        "fldVtWIz4yrKcMvTg": [
+          "recqq7U6DAy1pc0HV",
+          "recGNxRBYRpQZm9Tj"
+        ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
+        "fldYhZ5Rzj7aA7Z3T": "à démarrer",
         "fldZE0grsvxfyzSQ1": "self-founded ",
+        "fldZnrxv8j8PjHfN2": "web",
         "fldgInVmb6sP3oUgl": "Prototypes",
         "fldiRhn1z31IndfsM": "short",
+        "fldkbysnfe8gbznjN": "volume d'entraînement Claude Code",
         "fldnTcpnT6lpnsNAm": "asset-light",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/portfolio",
         "fldpKjCqmfWTsEZYq": "Software ",
         "fldqooX9qDIYuzc7H": "project",
+        "fldrLLVL6YCVdCykH": "lecture seule",
+        "fldrhSMTdSbzc3y89": "Phase 1",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/meta/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "software ",
@@ -354,6 +375,20 @@
         "fld3JIuIA5FgdJv4F": "Regus",
         "fldqooX9qDIYuzc7H": "benchmark ",
         "fldxwQDw6Rp2mUDWA": "public company"
+      }
+    },
+    {
+      "id": "recGNxRBYRpQZm9Tj",
+      "createdTime": "2026-09-30T11:30:40.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec93dXQuRE6JKlsl"
+        ],
+        "fld3JIuIA5FgdJv4F": "Android",
+        "fldZnrxv8j8PjHfN2": "android",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/frame-android",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -1057,6 +1092,20 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.curb.exchange",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-android",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
+      }
+    },
+    {
+      "id": "recqq7U6DAy1pc0HV",
+      "createdTime": "2026-09-30T11:30:40.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec93dXQuRE6JKlsl"
+        ],
+        "fld3JIuIA5FgdJv4F": "iOS",
+        "fldZnrxv8j8PjHfN2": "ios",
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/frame-ios",
         "fldxwQDw6Rp2mUDWA": "mobile app",
         "fldyxQMf0DeLLvZaz": "project"
       }
