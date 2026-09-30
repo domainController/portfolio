@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T00:54:46.042Z",
+  "generatedAt": "2026-09-30T01:15:47.448Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -82,7 +82,10 @@
     "fld09Waa8mfZCSoC4": "belongs to cluster",
     "fldVtWIz4yrKcMvTg": "From field: belongs to cluster",
     "fldFIREVHXJ8Z7IFH": "uses framework/lab",
-    "fldk0tT9SXXsyzUPW": "From field: uses framework/lab"
+    "fldk0tT9SXXsyzUPW": "From field: uses framework/lab",
+    "fldAn156bgwczNgRl": "priority",
+    "fldAGb4fa0FvsZZlV": "platform / stack",
+    "fldcekf3NlT4y2poZ": "scope note"
   },
   "records": [
     {
@@ -431,6 +434,19 @@
       }
     },
     {
+      "id": "recOX85gaAcDDH8AC",
+      "createdTime": "2026-09-30T00:57:50.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fld3JIuIA5FgdJv4F": "Web App",
+        "fldAn156bgwczNgRl": "secondary",
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "recQ1vxpjzKZNkCQl",
       "createdTime": "2026-09-27T08:18:11.000Z",
       "fields": {
@@ -618,7 +634,9 @@
           "recSqJzviPu61gR1g",
           "recskci6XrPcXymJx",
           "recHKIvcCZKLoOSj1",
-          "recbJKKDkFWhIAZna"
+          "recbJKKDkFWhIAZna",
+          "recOX85gaAcDDH8AC",
+          "recrbPeJEiASDqERx"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -928,6 +946,19 @@
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "litigation finance ",
         "fldyxQMf0DeLLvZaz": "project"
+      }
+    },
+    {
+      "id": "recrbPeJEiASDqERx",
+      "createdTime": "2026-09-30T00:57:50.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fldAn156bgwczNgRl": "primary",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
