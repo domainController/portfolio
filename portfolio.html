@@ -255,7 +255,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
 // (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
 const CONSOLIDATED_COLS = [
-  [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [ENTITY_TYPE_F, "Entity type"],
+  [NAME_F, "Name"], [STATUS_F, "Status"], [ENTITY_TYPE_F, "Entity type"],
   [ASSET_TYPE_F, "Asset type"], [MODEL_TYPE_F, "Model type"], [VERTICAL_F, "Vertical"],
   [SUBVERTICAL_F, "Sub-vertical"], [PRICING_MODEL_F, "Pricing model"], [MONETIZATION_F, "Monetization type"],
   [ROLE_F, "Portfolio role"], [STAGE_F, "Stage"], [GROUP_F, "Portfolio group"], [NAVBRANCH_F, "Nav branch"],
@@ -387,13 +387,16 @@ function switchMode(mode) {
 document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListener("click", () => switchMode(b.dataset.mode)));
 
 function renderTable() {
-  const sections = [...new Set(RECORDS.map(r => resolve(r, SECTION_F)).filter(Boolean))].sort();
+  // Handoff 45 : le champ "site section" a été supprimé côté Airtable (Handoff 44),
+  // ce menu déroulant repose maintenant sur entity type — valeurs réellement présentes
+  // dans les données, pas la liste figée des choix du schéma Airtable.
+  const entityTypes = [...new Set(RECORDS.map(r => resolve(r, ENTITY_TYPE_F)).filter(Boolean))].sort();
   let rows = RECORDS.filter(r => {
     if (filterGroupList) {
       if (!filterGroupList.includes(resolve(r, GROUP_F))) return false;
     } else if (filterSectionList) {
       if (!filterSectionList.includes(resolve(r, SECTION_F))) return false;
-    } else if (filterSection !== "*" && resolve(r, SECTION_F) !== filterSection) return false;
+    } else if (filterSection !== "*" && resolve(r, ENTITY_TYPE_F) !== filterSection) return false;
     if (searchText) {
       const hay = (resolve(r, NAME_F) + " " + (resolve(r, VERTICAL_F) || "")).toLowerCase();
       if (!hay.includes(searchText.toLowerCase())) return false;
@@ -412,8 +415,8 @@ function renderTable() {
     <div class="filters">
       <input type="search" placeholder="Search…" id="searchBox" value="${searchText}">
       <select id="sectionFilter">
-        <option value="*">All sections</option>
-        ${sections.map(s => `<option value="${s}" ${!filterSectionList && s===filterSection?"selected":""}>${s}</option>`).join("")}
+        <option value="*">All types</option>
+        ${entityTypes.map(s => `<option value="${s}" ${!filterSectionList && !filterGroupList && s===filterSection?"selected":""}>${s}</option>`).join("")}
       </select>
     </div>
     <div class="row-count">${rows.length} ${rows.length>1?"entities":"entity"} shown out of ${RECORDS.length}</div>
