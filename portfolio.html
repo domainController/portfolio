@@ -223,7 +223,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       SUBVERTICAL_F = "fldDx6P723cQsXAU3", ASSET_TYPE_F = "fldMevUbOYlZX1pFA", MODEL_TYPE_F = "fldXHkm2E0Avupzr4",
       PRICING_MODEL_F = "fld7XckHXlRHrSdqt", MONETIZATION_F = "fldtJi9grVPtJsauW", STAGE_F = "fldA1FIU5MBBJchSf",
       NAVBRANCH_F = "fldgInVmb6sP3oUgl", VALUE_ORIGIN_F = "fldHsh3cvS7yiAyiV", OPERATING_MODEL_F = "fldniRjRLMVzIS2Ud",
-      DISTRIBUTION_MODEL_F = "fldzBaPn1BMoyLf5B",
+      DISTRIBUTION_MODEL_F = "fldzBaPn1BMoyLf5B", PLATFORM_F = "fldZnrxv8j8PjHfN2",
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl";
 
@@ -562,7 +562,7 @@ function renderCluster() {
   // section dont il remplit le critère ; "Other" récupère tout ce qui ne correspond
   // à aucun entity type prévu, pour ne rien faire disparaître silencieusement.
   const kind = r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase();
-  const isAppSurface = r => ["web app","mobile app","ios app","android app"].includes(kind(r));
+  const isAppSurface = r => ["app","web app","mobile app","ios app","android app"].includes(kind(r));
   const isLab = r => kind(r).includes("lab");
   const isContent = r => kind(r) === "blog";
   const appSurfaces = children.filter(isAppSurface);
@@ -584,7 +584,7 @@ function renderCluster() {
             ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
             ${resolve(r,APP_PRIORITY_F) ? `<span class="cluster-row-badge">${resolve(r,APP_PRIORITY_F)}</span>` : ''}
           </div>
-          <div class="cluster-row-type">${resolve(r,ENTITY_TYPE_F) || "—"}</div>
+          <div class="cluster-row-type">${resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"}</div>
           <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
         </div>
       `;
