@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T01:15:47.448Z",
+  "generatedAt": "2026-09-30T01:32:35.388Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -182,7 +182,9 @@
           "recobx9iB41r7FFpB",
           "rec6tvWpEgTwOLWbj",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recetg0dqE74urvmR",
+          "rechBhBXLEjg398FO"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -566,6 +568,19 @@
       }
     },
     {
+      "id": "recb2IWyEWYcXJUxM",
+      "createdTime": "2026-09-30T01:32:17.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "reckS4dkZO0qcwOvP"
+        ],
+        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fldAn156bgwczNgRl": "primary",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "recbJKKDkFWhIAZna",
       "createdTime": "2026-09-30T00:54:33.000Z",
       "fields": {
@@ -586,6 +601,19 @@
       "fields": {
         "fld3JIuIA5FgdJv4F": "Yelp",
         "fldqooX9qDIYuzc7H": "benchmark "
+      }
+    },
+    {
+      "id": "recetg0dqE74urvmR",
+      "createdTime": "2026-09-30T01:32:17.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC"
+        ],
+        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fldAn156bgwczNgRl": "primary",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
@@ -694,6 +722,19 @@
       }
     },
     {
+      "id": "rechBhBXLEjg398FO",
+      "createdTime": "2026-09-30T01:32:17.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC"
+        ],
+        "fld3JIuIA5FgdJv4F": "Web App",
+        "fldAn156bgwczNgRl": "secondary",
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "reci2gQchm9OSVkqI",
       "createdTime": "2026-09-27T03:25:47.000Z",
       "fields": {
@@ -721,7 +762,9 @@
           "recod5IyToIGPcZXn",
           "recgDAjQJXho2bGfb",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recyjS2hRngZBXJFB",
+          "reczSKRKtAhVwTFZt"
         ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -816,7 +859,9 @@
         "fldV0qcKnHb2VP3on": "target 40% – 60% yoy — pre-scale",
         "fldVtWIz4yrKcMvTg": [
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recb2IWyEWYcXJUxM",
+          "rectLCrxKU28P1inT"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -1000,6 +1045,19 @@
       }
     },
     {
+      "id": "rectLCrxKU28P1inT",
+      "createdTime": "2026-09-30T01:32:17.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "reckS4dkZO0qcwOvP"
+        ],
+        "fld3JIuIA5FgdJv4F": "Web App",
+        "fldAn156bgwczNgRl": "secondary",
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
       "id": "rectcVBMDyy21QVzX",
       "createdTime": "2026-09-29T23:22:11.000Z",
       "fields": {
@@ -1134,6 +1192,32 @@
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "litigation finance ",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
+      "id": "recyjS2hRngZBXJFB",
+      "createdTime": "2026-09-30T01:32:17.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "reci2gQchm9OSVkqI"
+        ],
+        "fld3JIuIA5FgdJv4F": "Web App",
+        "fldAn156bgwczNgRl": "primary",
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "concept"
+      }
+    },
+    {
+      "id": "reczSKRKtAhVwTFZt",
+      "createdTime": "2026-09-30T01:32:17.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "reci2gQchm9OSVkqI"
+        ],
+        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fldAn156bgwczNgRl": "secondary",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     }
