@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T05:32:33.793Z",
+  "generatedAt": "2026-09-30T06:10:04.603Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -86,7 +86,8 @@
     "fldAn156bgwczNgRl": "priority",
     "fldAGb4fa0FvsZZlV": "platform / stack",
     "fldcekf3NlT4y2poZ": "scope note",
-    "fldZnrxv8j8PjHfN2": "platform"
+    "fldZnrxv8j8PjHfN2": "platform",
+    "fldXHLSWe7448B5tc": "marketplace sides"
   },
   "records": [
     {
@@ -115,11 +116,12 @@
         "fld09Waa8mfZCSoC4": [
           "recfVgB6nO7B7gJrb"
         ],
-        "fld3JIuIA5FgdJv4F": "Android",
+        "fld3JIuIA5FgdJv4F": "vetnups-android",
         "fldZnrxv8j8PjHfN2": "android",
         "fldccPHbiWw8T8xg6": "android.vetnups.com",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-android",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -187,7 +189,7 @@
         ],
         "fldHsh3cvS7yiAyiV": "tech-enabled",
         "fldKwmWB30lqhjVib": "hybrid",
-        "fldMevUbOYlZX1pFA": "two-sided marketplace ",
+        "fldMevUbOYlZX1pFA": "managed marketplace",
         "fldOLfNxsvfpFS37T": "https://patricek.info/marketplace/clusters/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldSXrj7eo5fnNLYn": "distributed nodes (escales)",
@@ -205,6 +207,7 @@
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
+        "fldXHLSWe7448B5tc": "two-sided",
         "fldXHkm2E0Avupzr4": "freemium",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldZQwr9cDboInjay": "€2M – €5M — self-funded search territory",
@@ -274,7 +277,7 @@
         "fld7d4gZlGVKxqyLO": "https://patricek.info/meta/deploy.html",
         "fldA1FIU5MBBJchSf": "concept",
         "fldDx6P723cQsXAU3": "SaaS ",
-        "fldMevUbOYlZX1pFA": "marketplace ",
+        "fldMevUbOYlZX1pFA": "SaaS",
         "fldOLfNxsvfpFS37T": "https://patricek.info/meta/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldTrutNI5wLYPJPl": "4/5 — next",
@@ -335,11 +338,12 @@
         "fld09Waa8mfZCSoC4": [
           "rec8VoEqaWhTOOKBC"
         ],
-        "fld3JIuIA5FgdJv4F": "Android",
+        "fld3JIuIA5FgdJv4F": "clusters-android",
         "fldZnrxv8j8PjHfN2": "android",
         "fldccPHbiWw8T8xg6": "android.clusters.homes",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-android",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -477,8 +481,8 @@
         "fldAn156bgwczNgRl": "secondary",
         "fldZnrxv8j8PjHfN2": "web",
         "fldccPHbiWw8T8xg6": "apps.vetnups.com",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -498,7 +502,7 @@
           "rec0p64yKJdpgQMQ5",
           "recskci6XrPcXymJx"
         ],
-        "fldMevUbOYlZX1pFA": "three-sided marketplace",
+        "fldMevUbOYlZX1pFA": "managed marketplace",
         "fldOLfNxsvfpFS37T": "https://patricek.info/litigation-finance/mottrum/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldUbu3d0yxjwGdws": "https://narrativeconstructs.com/vertical-labs/deterministic-ventures/index.html",
@@ -508,6 +512,7 @@
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
+        "fldXHLSWe7448B5tc": "three-sided",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldbfrnARURZBDqk4": "Litigation Finance",
         "fldccPHbiWw8T8xg6": "mottrum.com",
@@ -607,12 +612,13 @@
         "fld09Waa8mfZCSoC4": [
           "reckS4dkZO0qcwOvP"
         ],
-        "fld3JIuIA5FgdJv4F": "iOS",
+        "fld3JIuIA5FgdJv4F": "curb-ios",
         "fldAn156bgwczNgRl": "primary",
         "fldZnrxv8j8PjHfN2": "ios",
         "fldccPHbiWw8T8xg6": "ios.curb.exchange",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-ios",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -645,12 +651,13 @@
         "fld09Waa8mfZCSoC4": [
           "rec8VoEqaWhTOOKBC"
         ],
-        "fld3JIuIA5FgdJv4F": "iOS",
+        "fld3JIuIA5FgdJv4F": "clusters-ios",
         "fldAn156bgwczNgRl": "primary",
         "fldZnrxv8j8PjHfN2": "ios",
         "fldccPHbiWw8T8xg6": "ios.clusters.homes",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-ios",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -771,8 +778,8 @@
         "fldAn156bgwczNgRl": "secondary",
         "fldZnrxv8j8PjHfN2": "web",
         "fldccPHbiWw8T8xg6": "apps.clusters.homes",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -887,7 +894,7 @@
         ],
         "fldHsh3cvS7yiAyiV": "tech-enabled",
         "fldKwmWB30lqhjVib": "hybrid",
-        "fldMevUbOYlZX1pFA": "three-sided marketplace",
+        "fldMevUbOYlZX1pFA": "managed marketplace",
         "fldOLfNxsvfpFS37T": "https://patricek.info/marketplace/curb/traction.html",
         "fldQuStBTUZUjsvCT": "24 – 36 months from inception",
         "fldRvoCEy7YakjAMq": "concept",
@@ -909,6 +916,7 @@
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
+        "fldXHLSWe7448B5tc": "three-sided",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldZQwr9cDboInjay": "€2M – €5M — self-funded search territory",
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
@@ -1043,11 +1051,12 @@
         "fld09Waa8mfZCSoC4": [
           "reckS4dkZO0qcwOvP"
         ],
-        "fld3JIuIA5FgdJv4F": "Android",
+        "fld3JIuIA5FgdJv4F": "curb-android",
         "fldZnrxv8j8PjHfN2": "android",
         "fldccPHbiWw8T8xg6": "android.curb.exchange",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-android",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -1057,12 +1066,13 @@
         "fld09Waa8mfZCSoC4": [
           "recfVgB6nO7B7gJrb"
         ],
-        "fld3JIuIA5FgdJv4F": "iOS",
+        "fld3JIuIA5FgdJv4F": "vetnups-ios",
         "fldAn156bgwczNgRl": "primary",
         "fldZnrxv8j8PjHfN2": "ios",
         "fldccPHbiWw8T8xg6": "ios.vetnups.com",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-ios",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -1110,11 +1120,12 @@
         "fld09Waa8mfZCSoC4": [
           "reci2gQchm9OSVkqI"
         ],
-        "fld3JIuIA5FgdJv4F": "Android",
+        "fld3JIuIA5FgdJv4F": "cohort-android",
         "fldZnrxv8j8PjHfN2": "android",
         "fldccPHbiWw8T8xg6": "android.cohort.reviews",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/cohort-android",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -1128,8 +1139,8 @@
         "fldAn156bgwczNgRl": "secondary",
         "fldZnrxv8j8PjHfN2": "web",
         "fldccPHbiWw8T8xg6": "apps.curb.exchange",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -1164,7 +1175,7 @@
         ],
         "fldHsh3cvS7yiAyiV": "tech-native",
         "fldKwmWB30lqhjVib": "pure player",
-        "fldMevUbOYlZX1pFA": "three-sided marketplace",
+        "fldMevUbOYlZX1pFA": "managed marketplace",
         "fldRvoCEy7YakjAMq": "concept",
         "fldSXrj7eo5fnNLYn": "none (partner-hosted pickup points)",
         "fldTrutNI5wLYPJPl": "5/5 — now",
@@ -1175,6 +1186,7 @@
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
+        "fldXHLSWe7448B5tc": "three-sided",
         "fldXHkm2E0Avupzr4": "crowdsourcing",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
@@ -1256,10 +1268,11 @@
           "recMnW67j2Dm7xzdK",
           "recu93NevEiwQ0tDs"
         ],
-        "fldMevUbOYlZX1pFA": "three-sided marketplace",
+        "fldMevUbOYlZX1pFA": "managed marketplace",
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
+        "fldXHLSWe7448B5tc": "three-sided",
         "fldZE0grsvxfyzSQ1": "self-founded ",
         "fldbfrnARURZBDqk4": "Litigation Finance",
         "fldnE63YQPidZ6cVJ": "clauslabs.ai",
@@ -1281,8 +1294,8 @@
         "fldAn156bgwczNgRl": "primary",
         "fldZnrxv8j8PjHfN2": "web",
         "fldccPHbiWw8T8xg6": "apps.cohort.reviews",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -1292,12 +1305,13 @@
         "fld09Waa8mfZCSoC4": [
           "reci2gQchm9OSVkqI"
         ],
-        "fld3JIuIA5FgdJv4F": "iOS",
+        "fld3JIuIA5FgdJv4F": "cohort-ios",
         "fldAn156bgwczNgRl": "secondary",
         "fldZnrxv8j8PjHfN2": "ios",
         "fldccPHbiWw8T8xg6": "ios.cohort.reviews",
-        "fldxwQDw6Rp2mUDWA": "app",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldp6axMCht0hWkDN": "https://github.com/domainController/cohort-ios",
+        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldyxQMf0DeLLvZaz": "project"
       }
     }
   ]
