@@ -35,6 +35,8 @@
   table.consolidated th:hover { color: var(--text); }
   table.consolidated th.sorted::after { content: " ▾"; }
   table.consolidated td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.consolidated tbody tr.row-clickable { cursor: pointer; }
+  table.consolidated tbody tr.row-clickable:hover td { background: rgba(255,255,255,0.03); }
   table.consolidated tr:hover td { background: rgba(255,255,255,0.03); }
   .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--muted); }
   .empty-cell { color: #5a6080; font-style: italic; }
@@ -380,7 +382,7 @@ function renderTable() {
     <table class="consolidated">
       <thead><tr>${cols.map(([f,l]) => `<th data-f="${f}" class="${f===sortField?"sorted":""}">${l}</th>`).join("")}</tr></thead>
       <tbody>
-        ${rows.map(r => `<tr>${cols.map(([f]) => {
+        ${rows.map(r => `<tr class="row-clickable" data-id="${r.id}">${cols.map(([f]) => {
           const v = resolve(r, f);
           if (f === STATUS_F) return `<td>${v ? statusText(v) : '<span class="empty-cell">—</span>'}</td>`;
           return `<td>${v ? v : '<span class="empty-cell">—</span>'}</td>`;
@@ -399,6 +401,15 @@ function renderTable() {
   });
   const clearLink = document.getElementById("clearFilterLink");
   if (clearLink) clearLink.addEventListener("click", e => { e.preventDefault(); clearDeepLink(); });
+  document.querySelectorAll("table.consolidated tbody tr").forEach(tr => {
+    tr.addEventListener("click", () => {
+      singleSelected = tr.dataset.id;
+      singleTab = null;
+      currentMode = "single";
+      setActiveModeButtons();
+      renderAll();
+    });
+  });
 }
 
 // fieldIds optionnel : si fourni, on rend EXACTEMENT cette liste de champs, dans cet ordre,
