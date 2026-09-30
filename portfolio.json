@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T00:00:09.316Z",
+  "generatedAt": "2026-09-30T00:24:20.781Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -101,7 +101,7 @@
         ],
         "fldxwQDw6Rp2mUDWA": "framework",
         "fldytaVG4hsegzhJz": "legal engineering",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldyxQMf0DeLLvZaz": "draft"
       }
     },
     {
@@ -177,7 +177,8 @@
         "fldUcpKv7jt84XsJy": "project",
         "fldVtWIz4yrKcMvTg": [
           "recobx9iB41r7FFpB",
-          "rec6tvWpEgTwOLWbj"
+          "rec6tvWpEgTwOLWbj",
+          "recskci6XrPcXymJx"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -344,6 +345,9 @@
         ],
         "fldMevUbOYlZX1pFA": "managed marketplace",
         "fldRvoCEy7YakjAMq": "concept",
+        "fldVtWIz4yrKcMvTg": [
+          "recskci6XrPcXymJx"
+        ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
         "fldZE0grsvxfyzSQ1": "self-founded ",
@@ -440,7 +444,8 @@
         "fldRvoCEy7YakjAMq": "concept",
         "fldUbu3d0yxjwGdws": "https://narrativeconstructs.com/vertical-labs/deterministic-ventures/index.html",
         "fldVtWIz4yrKcMvTg": [
-          "recu93NevEiwQ0tDs"
+          "recu93NevEiwQ0tDs",
+          "recskci6XrPcXymJx"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -494,7 +499,7 @@
         "fld09Waa8mfZCSoC4": [
           "recfVgB6nO7B7gJrb"
         ],
-        "fld3JIuIA5FgdJv4F": "Vetnups Proposal",
+        "fld3JIuIA5FgdJv4F": "Proposal",
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "blog",
         "fldyxQMf0DeLLvZaz": "concept"
@@ -524,7 +529,7 @@
         ],
         "fldxwQDw6Rp2mUDWA": "framework",
         "fldytaVG4hsegzhJz": "legal engineering",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldyxQMf0DeLLvZaz": "draft"
       }
     },
     {
@@ -562,7 +567,7 @@
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Vetnups",
         "fld7VqAP1Vhhw2zqf": "labs.vetnups.com",
-        "fld7XckHXlRHrSdqt": "subscription tiers — Access €50 / Commitment €100 / Premium €200 / Infinity €400",
+        "fld7XckHXlRHrSdqt": "subscription tiers",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/matchmaking/vetnups/deploy.html",
         "fld9CqdUeEbjZFq7L": "5/5 — brutal",
         "fldDs3PVNeH923OHB": "40% – 50% — LBO-compatible",
@@ -587,7 +592,8 @@
         "fldSXrj7eo5fnNLYn": "gated studios",
         "fldTrutNI5wLYPJPl": "3/5 — soon",
         "fldVtWIz4yrKcMvTg": [
-          "recSqJzviPu61gR1g"
+          "recSqJzviPu61gR1g",
+          "recskci6XrPcXymJx"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -641,7 +647,7 @@
         "fldccPHbiWw8T8xg6": "labs.cohort.reviews",
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "engineering lab",
-        "fldyxQMf0DeLLvZaz": "concept"
+        "fldyxQMf0DeLLvZaz": "project"
       }
     },
     {
@@ -670,7 +676,8 @@
         "fldTrutNI5wLYPJPl": "3/5 — soon",
         "fldVtWIz4yrKcMvTg": [
           "recod5IyToIGPcZXn",
-          "recgDAjQJXho2bGfb"
+          "recgDAjQJXho2bGfb",
+          "recskci6XrPcXymJx"
         ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -699,6 +706,19 @@
         "fldytaVG4hsegzhJz": "review ",
         "fldyxQMf0DeLLvZaz": "landing",
         "fldzBaPn1BMoyLf5B": "direct"
+      }
+    },
+    {
+      "id": "reck1dSoVEHNE8DZO",
+      "createdTime": "2026-09-30T00:06:32.000Z",
+      "fields": {
+        "fld3JIuIA5FgdJv4F": "Legal Framework Engineering",
+        "fldVtWIz4yrKcMvTg": [
+          "recu93NevEiwQ0tDs"
+        ],
+        "fldgInVmb6sP3oUgl": "Frameworks",
+        "fldxwQDw6Rp2mUDWA": "framework",
+        "fldyxQMf0DeLLvZaz": "online"
       }
     },
     {
@@ -750,6 +770,9 @@
         "fldSXrj7eo5fnNLYn": "storefronts, lockers, warehouses, third places (cafés)",
         "fldTrutNI5wLYPJPl": "1/5 — latent ",
         "fldV0qcKnHb2VP3on": "target 40% – 60% yoy — pre-scale",
+        "fldVtWIz4yrKcMvTg": [
+          "recskci6XrPcXymJx"
+        ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
@@ -893,6 +916,15 @@
       "id": "recskci6XrPcXymJx",
       "createdTime": "2026-09-29T15:23:28.000Z",
       "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recQ1vxpjzKZNkCQl",
+          "recu0aivcrnrdNqiI",
+          "rec8VoEqaWhTOOKBC",
+          "recfVgB6nO7B7gJrb",
+          "reci2gQchm9OSVkqI",
+          "reckS4dkZO0qcwOvP",
+          "recHC1ykh67YIWBU1"
+        ],
         "fld3JIuIA5FgdJv4F": "Deterministic Venture",
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldk0tT9SXXsyzUPW": [
@@ -946,6 +978,9 @@
         "fldSXrj7eo5fnNLYn": "none (partner-hosted pickup points)",
         "fldTrutNI5wLYPJPl": "5/5 — now",
         "fldUbu3d0yxjwGdws": "https://narrativeconstructs.com/vertical-labs/deterministic-ventures/index.html",
+        "fldVtWIz4yrKcMvTg": [
+          "recskci6XrPcXymJx"
+        ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "2/5 — later",
@@ -978,7 +1013,8 @@
       "createdTime": "2026-09-27T08:18:25.000Z",
       "fields": {
         "fld09Waa8mfZCSoC4": [
-          "recQ1vxpjzKZNkCQl"
+          "recQ1vxpjzKZNkCQl",
+          "reck1dSoVEHNE8DZO"
         ],
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Narrative Constructs ",
