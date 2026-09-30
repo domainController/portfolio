@@ -82,6 +82,11 @@
   .cluster-section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--key); margin: 18px 0 6px; padding-top: 14px; border-top: 1px solid var(--border); }
   .cluster-section-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
   .cluster-row-badge { font-family: var(--mono); font-size: 10.5px; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+  .cluster-row-name:hover { color: var(--accent); text-decoration: underline; }
+  .cluster-row-expand-hint { display: inline-block; color: var(--muted); transition: transform 0.15s; }
+  .cluster-row.expanded .cluster-row-expand-hint { transform: rotate(180deg); }
+  .cluster-row-detail { display: none; padding: 2px 4px 14px; }
+  .cluster-row-detail.open { display: block; }
   .cluster-block { margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
   .cluster-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
   .cluster-block-header[data-toggle] { cursor: pointer; }
@@ -234,6 +239,16 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl";
 
+// Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
+// (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
+const CONSOLIDATED_COLS = [
+  [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [ENTITY_TYPE_F, "Entity type"],
+  [ASSET_TYPE_F, "Asset type"], [MODEL_TYPE_F, "Model type"], [VERTICAL_F, "Vertical"],
+  [SUBVERTICAL_F, "Sub-vertical"], [PRICING_MODEL_F, "Pricing model"], [MONETIZATION_F, "Monetization type"],
+  [ROLE_F, "Portfolio role"], [STAGE_F, "Stage"], [GROUP_F, "Portfolio group"], [NAVBRANCH_F, "Nav branch"],
+  [VALUE_ORIGIN_F, "Value origin"], [OPERATING_MODEL_F, "Operating model"], [DISTRIBUTION_MODEL_F, "Distribution model"],
+];
+
 let RECORDS = [];
 let FIELD_NAMES = {};
 let currentMode = "table";
@@ -377,13 +392,7 @@ function renderTable() {
     return av.localeCompare(bv) * sortDir;
   });
 
-  const cols = [
-    [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [ENTITY_TYPE_F, "Entity type"],
-    [ASSET_TYPE_F, "Asset type"], [MODEL_TYPE_F, "Model type"], [VERTICAL_F, "Vertical"],
-    [SUBVERTICAL_F, "Sub-vertical"], [PRICING_MODEL_F, "Pricing model"], [MONETIZATION_F, "Monetization type"],
-    [ROLE_F, "Portfolio role"], [STAGE_F, "Stage"], [GROUP_F, "Portfolio group"], [NAVBRANCH_F, "Nav branch"],
-    [VALUE_ORIGIN_F, "Value origin"], [OPERATING_MODEL_F, "Operating model"], [DISTRIBUTION_MODEL_F, "Distribution model"],
-  ];
+  const cols = CONSOLIDATED_COLS;
 
   document.getElementById("panelTable").innerHTML = `
     ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">view full portfolio</a></div>` : ""}
@@ -586,17 +595,31 @@ function clusterSections(rec, children) {
   ].filter(s => s.rows.length);
 }
 
+// Détail dépliable d'une ligne de composant (Handoff 38) : les mêmes champs/intitulés
+// que Consolidated view (CONSOLIDATED_COLS), moins Name/Status déjà dans l'en-tête de
+// ligne. "—" pour un champ vide, comme partout ailleurs — rien de masqué.
+function clusterRowDetailHTML(r) {
+  const fields = CONSOLIDATED_COLS.filter(([f]) => f !== NAME_F && f !== STATUS_F);
+  return `
+    <div class="cluster-row-detail">
+      ${fields.map(([f,l]) => `<div class="fm-row"><div class="fm-key">${l}</div><div>${resolve(r,f) || '<span class="empty-cell">—</span>'}</div></div>`).join("")}
+    </div>
+  `;
+}
+
 function clusterRowHTML(r, rec) {
   return `
-        <div class="cluster-row" data-id="${r.id}">
+        <div class="cluster-row" data-detail-toggle="${r.id}">
           <div class="cluster-row-main">
-            <span class="cluster-row-name">${resolve(r,NAME_F)}</span>
+            <span class="cluster-row-name" data-nav-id="${r.id}">${resolve(r,NAME_F)}</span>
             ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
             ${resolve(r,APP_PRIORITY_F) ? `<span class="cluster-row-badge">${resolve(r,APP_PRIORITY_F)}</span>` : ''}
           </div>
           <div class="cluster-row-type">${resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"}</div>
           <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
+          <span class="cluster-row-expand-hint">▾</span>
         </div>
+        ${clusterRowDetailHTML(r)}
       `;
 }
 
@@ -621,14 +644,26 @@ function clusterBlockHTML(rec, children, opts = {}) {
   `;
 }
 
-function attachClusterRowClicks(container) {
-  container.querySelectorAll(".cluster-row").forEach(el => {
-    el.addEventListener("click", () => {
-      singleSelected = el.dataset.id;
+// Le nom navigue vers la Fiche individuelle (comportement existant, préservé) ; cliquer
+// ailleurs sur la ligne déplie/replie son détail (Handoff 38), même mécanisme que
+// attachClusterToggles() pour les en-têtes de venture.
+function attachClusterRowInteractions(container) {
+  container.querySelectorAll(".cluster-row-name[data-nav-id]").forEach(el => {
+    el.addEventListener("click", e => {
+      e.stopPropagation();
+      singleSelected = el.dataset.navId;
       singleTab = null;
       currentMode = "single";
       setActiveModeButtons();
       renderAll();
+    });
+  });
+  container.querySelectorAll(".cluster-row[data-detail-toggle]").forEach(row => {
+    row.addEventListener("click", () => {
+      const detail = row.nextElementSibling;
+      if (!detail || !detail.classList.contains("cluster-row-detail")) return;
+      detail.classList.toggle("open");
+      row.classList.toggle("expanded");
     });
   });
 }
@@ -650,7 +685,7 @@ function renderCluster() {
   const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(clusterSelected));
   const panel = document.getElementById("panelCluster");
   panel.innerHTML = clusterBlockHTML(rec, children);
-  attachClusterRowClicks(panel);
+  attachClusterRowInteractions(panel);
 }
 
 // Onglet "Cluster view" (Handoff 36, remplace "Compare") : toutes les ventures-racines
@@ -673,7 +708,7 @@ function renderAllClusters() {
     const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(rec.id));
     return `<div class="cluster-block">${clusterBlockHTML(rec, children, {collapsible: true})}</div>`;
   }).join("");
-  attachClusterRowClicks(panel);
+  attachClusterRowInteractions(panel);
   attachClusterToggles(panel);
 }
 
