@@ -219,6 +219,7 @@ const FIELD_META = {
 const TAB_ORDER = ["Market","Product","Traction","Infra","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
+      SUBVERTICAL_F = "fldDx6P723cQsXAU3",
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl";
 
@@ -366,7 +367,7 @@ function renderTable() {
 
   const cols = [
     [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [VERTICAL_F, "Vertical"],
-    [PRIORITY_F, "Exec. priority"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
+    [SUBVERTICAL_F, "Sub-vertical"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
   ];
 
   document.getElementById("panelTable").innerHTML = `
