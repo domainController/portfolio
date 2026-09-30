@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T04:53:31.449Z",
+  "generatedAt": "2026-09-30T05:12:31.573Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -105,6 +105,18 @@
         "fldxwQDw6Rp2mUDWA": "framework",
         "fldytaVG4hsegzhJz": "legal engineering",
         "fldyxQMf0DeLLvZaz": "draft"
+      }
+    },
+    {
+      "id": "rec1QPGpR6ajywroS",
+      "createdTime": "2026-09-30T05:04:06.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fld3JIuIA5FgdJv4F": "Android",
+        "fldxwQDw6Rp2mUDWA": "android app",
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
@@ -637,6 +649,7 @@
         "fld7XckHXlRHrSdqt": "subscription tiers",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/matchmaking/vetnups/deploy.html",
         "fld9CqdUeEbjZFq7L": "5/5 — brutal",
+        "fldA1FIU5MBBJchSf": "landing",
         "fldDs3PVNeH923OHB": "40% – 50% — LBO-compatible",
         "fldDx6P723cQsXAU3": "matchmaking ",
         "fldEp2lIIJ2UG42Wf": "commitment-oriented dating app with vetted profile attributes,",
@@ -664,7 +677,8 @@
           "recHKIvcCZKLoOSj1",
           "recbJKKDkFWhIAZna",
           "recOX85gaAcDDH8AC",
-          "recrbPeJEiASDqERx"
+          "recrbPeJEiASDqERx",
+          "rec1QPGpR6ajywroS"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -1000,9 +1014,9 @@
         "fld09Waa8mfZCSoC4": [
           "recfVgB6nO7B7gJrb"
         ],
-        "fld3JIuIA5FgdJv4F": "Mobile App",
+        "fld3JIuIA5FgdJv4F": "iOS",
         "fldAn156bgwczNgRl": "primary",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "ios app",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
