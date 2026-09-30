@@ -82,6 +82,8 @@
   .cluster-section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--key); margin: 18px 0 6px; padding-top: 14px; border-top: 1px solid var(--border); }
   .cluster-section-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
   .cluster-row-badge { font-family: var(--mono); font-size: 10.5px; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+  .cluster-block { margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .cluster-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
   .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); }
   /* Palette de statut partagée avec css/style.css (pages de nav) — un mot, une couleur,
      partout sur le site, que la pastille soit un .status-tag (fiche) ou un .pill (mini-pastille
@@ -118,7 +120,7 @@
       <a class="nav-back" href="#" onclick="history.back();return false;" title="Back">&#8592;</a>
       <div class="mode-switcher">
         <button data-mode="table" class="active">Consolidated view</button>
-        <button data-mode="compare">Compare</button>
+        <button data-mode="allclusters">Cluster view</button>
         <button data-mode="single">Single record</button>
       </div>
     </div>
@@ -131,6 +133,7 @@
   <div class="panel" id="panelCompare" style="display:none;"></div>
   <div class="panel" id="panelSingle" style="display:none;"></div>
   <div class="panel" id="panelCluster" style="display:none;"></div>
+  <div class="panel" id="panelAllClusters" style="display:none;"></div>
 </div>
 
 <script>
@@ -345,6 +348,7 @@ function switchMode(mode) {
   document.getElementById("panelCompare").style.display = mode === "compare" ? "" : "none";
   document.getElementById("panelSingle").style.display = mode === "single" ? "" : "none";
   document.getElementById("panelCluster").style.display = mode === "cluster" ? "" : "none";
+  document.getElementById("panelAllClusters").style.display = mode === "allclusters" ? "" : "none";
   document.getElementById("singlePickerTop").style.display = mode === "single" ? "" : "none";
   renderAll();
 }
@@ -537,6 +541,7 @@ function renderAll() {
   if (currentMode === "compare") renderCompare();
   if (currentMode === "single") renderSingle();
   if (currentMode === "cluster") renderCluster();
+  if (currentMode === "allclusters") renderAllClusters();
 }
 
 function setActiveModeButtons() {
@@ -545,6 +550,7 @@ function setActiveModeButtons() {
   document.getElementById("panelCompare").style.display = currentMode === "compare" ? "" : "none";
   document.getElementById("panelSingle").style.display = currentMode === "single" ? "" : "none";
   document.getElementById("panelCluster").style.display = currentMode === "cluster" ? "" : "none";
+  document.getElementById("panelAllClusters").style.display = currentMode === "allclusters" ? "" : "none";
   document.getElementById("singlePickerTop").style.display = currentMode === "single" ? "" : "none";
 }
 
@@ -553,14 +559,12 @@ function setActiveModeButtons() {
 // session : une venture EST un cluster, pas un objet séparé). Chaque ligne cliquable ->
 // bascule directement en vue Fiche individuelle sur CE record précis, sans repasser par
 // applyDeepLink() (pas de vue cluster récursive, un seul niveau de profondeur).
-function renderCluster() {
-  const rec = RECORDS.find(r => r.id === clusterSelected);
-  if (!rec) return;
-  const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(clusterSelected));
-
-  // Regroupement par nature (Handoff 34) : chaque composant tombe dans la première
-  // section dont il remplit le critère ; "Other" récupère tout ce qui ne correspond
-  // à aucun entity type prévu, pour ne rien faire disparaître silencieusement.
+// Regroupement par nature (Handoff 34) : chaque composant tombe dans la première
+// section dont il remplit le critère ; "Other" récupère tout ce qui ne correspond
+// à aucun entity type prévu, pour ne rien faire disparaître silencieusement.
+// Partagé entre renderCluster() (une venture) et renderAllClusters() (Handoff 36,
+// toutes les ventures-racines empilées) pour ne pas dupliquer la logique.
+function clusterSections(rec, children) {
   const kind = r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase();
   const isAppSurface = r => ["app","web app","mobile app","ios app","android app"].includes(kind(r));
   const isLab = r => kind(r).includes("lab");
@@ -569,15 +573,17 @@ function renderCluster() {
   const labs = children.filter(isLab);
   const content = children.filter(isContent);
   const other = children.filter(r => !isAppSurface(r) && !isLab(r) && !isContent(r));
-  const sections = [
+  return [
     { label: "Core", rows: [rec] },
     { label: "Apps", rows: appSurfaces },
     { label: "Labs", rows: labs },
     { label: "Content", rows: content },
     { label: "Other", rows: other },
   ].filter(s => s.rows.length);
+}
 
-  const renderRow = r => `
+function clusterRowHTML(r, rec) {
+  return `
         <div class="cluster-row" data-id="${r.id}">
           <div class="cluster-row-main">
             <span class="cluster-row-name">${resolve(r,NAME_F)}</span>
@@ -588,19 +594,25 @@ function renderCluster() {
           <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
         </div>
       `;
+}
 
-  document.getElementById("panelCluster").innerHTML = `
+function clusterBlockHTML(rec, children) {
+  const sections = clusterSections(rec, children);
+  return `
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}</div>
     <div class="cluster-list">
       ${sections.map(s => `
         <div class="cluster-section-label">${s.label}</div>
-        ${s.rows.map(renderRow).join("")}
+        ${s.rows.map(r => clusterRowHTML(r, rec)).join("")}
       `).join("")}
     </div>
   `;
-  document.querySelectorAll(".cluster-row").forEach(el => {
+}
+
+function attachClusterRowClicks(container) {
+  container.querySelectorAll(".cluster-row").forEach(el => {
     el.addEventListener("click", () => {
       singleSelected = el.dataset.id;
       singleTab = null;
@@ -609,6 +621,32 @@ function renderCluster() {
       renderAll();
     });
   });
+}
+
+function renderCluster() {
+  const rec = RECORDS.find(r => r.id === clusterSelected);
+  if (!rec) return;
+  const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(clusterSelected));
+  const panel = document.getElementById("panelCluster");
+  panel.innerHTML = clusterBlockHTML(rec, children);
+  attachClusterRowClicks(panel);
+}
+
+// Onglet "Cluster view" (Handoff 36, remplace "Compare") : toutes les ventures-racines
+// d'un cluster — référencées par au moins un autre record via CLUSTER_F — empilées
+// verticalement, chacune avec le même regroupement que renderCluster(). Pas de
+// sélecteur : tout le portfolio d'un coup.
+function renderAllClusters() {
+  const rootIds = new Set();
+  RECORDS.forEach(r => linkedIds(r, CLUSTER_F).forEach(id => rootIds.add(id)));
+  const roots = RECORDS.filter(r => rootIds.has(r.id))
+    .sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)));
+  const panel = document.getElementById("panelAllClusters");
+  panel.innerHTML = roots.map(rec => {
+    const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(rec.id));
+    return `<div class="cluster-block">${clusterBlockHTML(rec, children)}</div>`;
+  }).join("");
+  attachClusterRowClicks(panel);
 }
 
 // Permet aux pages de catégorie du site de renvoyer ici une vue déjà filtrée.
