@@ -92,6 +92,8 @@
   .status-beta, .status-project { background: #16233d; color: #6bb3f0; }
   .status-not-started { background: #16233d; color: #5a6080; }
   .meta-line { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .meta-line a { color: var(--accent); text-decoration: none; }
+  .meta-line a:hover { text-decoration: underline; }
   .single-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 4px; overflow-x: auto; }
   .single-tabs button { font-family: var(--sans); font-size: 13.5px; padding: 8px 13px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
   .single-tabs button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
@@ -244,6 +246,19 @@ function linkedIds(rec, fieldId) {
   const v = cellsOf(rec)[fieldId];
   if (!v) return [];
   return Array.isArray(v) ? v.map(x => (x && typeof x === "object") ? x.id : x) : [];
+}
+
+// Plusieurs composants portent le même nom générique ("Web App", "Mobile App") sur des
+// ventures différentes — sans indication de parent, la Fiche individuelle est ambiguë
+// (Patrice, après l'ajout des 4 paires web/mobile). Lien(s) cliquable(s) vers le(s)
+// cluster(s) parent(s) via CLUSTER_F, pour remonter directement à la venture.
+function clusterParentsLink(rec) {
+  const ids = linkedIds(rec, CLUSTER_F);
+  if (!ids.length) return null;
+  return ids.map(id => {
+    const p = RECORDS.find(r => r.id === id);
+    return p ? `<a href="#" class="cluster-parent-link" data-id="${id}">${resolve(p,NAME_F)}</a>` : null;
+  }).filter(Boolean).join(", ");
 }
 
 // Le nom affiché d'un champ vient, par défaut, du nom réel du champ dans Airtable
@@ -473,12 +488,22 @@ function renderSingle() {
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
 
   const singleRows = byTab[singleTab] || [];
+  const metaLine = resolve(rec,SECTION_F) || (clusterParentsLink(rec) ? `Component of ${clusterParentsLink(rec)}` : "—");
   document.getElementById("panelSingle").innerHTML = `
-    <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
+    <div class="meta-line">${metaLine}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
     <div class="tab-block">${singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
   `;
+  document.querySelectorAll(".cluster-parent-link").forEach(el => {
+    el.addEventListener("click", e => {
+      e.preventDefault();
+      clusterSelected = el.dataset.id;
+      currentMode = "cluster";
+      setActiveModeButtons();
+      renderAll();
+    });
+  });
   const singlePick = document.getElementById("singlePick");
   singlePick.innerHTML = options;
   singlePick.value = singleSelected;
