@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T00:27:02.424Z",
+  "generatedAt": "2026-09-30T00:52:11.917Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -239,7 +239,7 @@
         "fldbfrnARURZBDqk4": "Labs",
         "fldpKjCqmfWTsEZYq": "Legal Labs",
         "fldqooX9qDIYuzc7H": "project",
-        "fldxwQDw6Rp2mUDWA": "engineering lab",
+        "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "legal engineering",
         "fldyxQMf0DeLLvZaz": "project"
       }
@@ -322,6 +322,7 @@
       "fields": {
         "fld3JIuIA5FgdJv4F": "Aletheia Frameworks",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/personal/intellectual-work/aletheia-frameworks/deploy.html",
+        "fldEp2lIIJ2UG42Wf": "Conceptual framework for an existential anthropology.",
         "fldMevUbOYlZX1pFA": "intellectual property",
         "fldWhQvMTLgGLrW0D": "— permanent",
         "fldgInVmb6sP3oUgl": "Frameworks",
@@ -391,7 +392,7 @@
       "id": "recKU7Nzb1W9CulBj",
       "createdTime": "2026-09-29T22:45:43.000Z",
       "fields": {
-        "fld3JIuIA5FgdJv4F": "Live Ledger",
+        "fld3JIuIA5FgdJv4F": "LiveLedger",
         "fldA1FIU5MBBJchSf": "concept",
         "fldFIREVHXJ8Z7IFH": [
           "recYROE6fOuzUA6Gg"
