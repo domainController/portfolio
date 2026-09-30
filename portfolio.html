@@ -571,7 +571,7 @@ function renderCluster() {
   const other = children.filter(r => !isAppSurface(r) && !isLab(r) && !isContent(r));
   const sections = [
     { label: "Core", rows: [rec] },
-    { label: "Application surfaces", rows: appSurfaces },
+    { label: "Apps", rows: appSurfaces },
     { label: "Labs", rows: labs },
     { label: "Content", rows: content },
     { label: "Other", rows: other },
