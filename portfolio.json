@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T06:14:18.883Z",
+  "generatedAt": "2026-09-30T06:16:43.795Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -117,7 +117,7 @@
           "recfVgB6nO7B7gJrb"
         ],
         "fld3JIuIA5FgdJv4F": "domainController/vetnups-android",
-        "fldZnrxv8j8PjHfN2": "android",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.vetnups.com",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-android",
         "fldxwQDw6Rp2mUDWA": "mobile app",
@@ -339,7 +339,7 @@
           "rec8VoEqaWhTOOKBC"
         ],
         "fld3JIuIA5FgdJv4F": "domainController/clusters-android",
-        "fldZnrxv8j8PjHfN2": "android",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.clusters.homes",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-android",
         "fldxwQDw6Rp2mUDWA": "mobile app",
@@ -479,7 +479,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "apps.vetnups.com",
         "fldAn156bgwczNgRl": "secondary",
-        "fldZnrxv8j8PjHfN2": "web",
+        "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.vetnups.com",
         "fldxwQDw6Rp2mUDWA": "web app",
         "fldyxQMf0DeLLvZaz": "project"
@@ -614,7 +614,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "domainController/curb-ios",
         "fldAn156bgwczNgRl": "primary",
-        "fldZnrxv8j8PjHfN2": "ios",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.curb.exchange",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-ios",
         "fldxwQDw6Rp2mUDWA": "mobile app",
@@ -653,7 +653,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "domainController/clusters-ios",
         "fldAn156bgwczNgRl": "primary",
-        "fldZnrxv8j8PjHfN2": "ios",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.clusters.homes",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-ios",
         "fldxwQDw6Rp2mUDWA": "mobile app",
@@ -777,7 +777,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "apps.clusters.homes",
         "fldAn156bgwczNgRl": "secondary",
-        "fldZnrxv8j8PjHfN2": "web",
+        "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.clusters.homes",
         "fldxwQDw6Rp2mUDWA": "web app",
         "fldyxQMf0DeLLvZaz": "project"
@@ -1065,7 +1065,7 @@
           "reckS4dkZO0qcwOvP"
         ],
         "fld3JIuIA5FgdJv4F": "domainController/curb-android",
-        "fldZnrxv8j8PjHfN2": "android",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.curb.exchange",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-android",
         "fldxwQDw6Rp2mUDWA": "mobile app",
@@ -1081,7 +1081,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "domainController/vetnups-ios",
         "fldAn156bgwczNgRl": "primary",
-        "fldZnrxv8j8PjHfN2": "ios",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.vetnups.com",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-ios",
         "fldxwQDw6Rp2mUDWA": "mobile app",
@@ -1134,7 +1134,7 @@
           "reci2gQchm9OSVkqI"
         ],
         "fld3JIuIA5FgdJv4F": "domainController/cohort-android",
-        "fldZnrxv8j8PjHfN2": "android",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.cohort.reviews",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/cohort-android",
         "fldxwQDw6Rp2mUDWA": "mobile app",
@@ -1150,7 +1150,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "apps.curb.exchange",
         "fldAn156bgwczNgRl": "secondary",
-        "fldZnrxv8j8PjHfN2": "web",
+        "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.curb.exchange",
         "fldxwQDw6Rp2mUDWA": "web app",
         "fldyxQMf0DeLLvZaz": "project"
@@ -1305,7 +1305,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "apps.cohort.reviews",
         "fldAn156bgwczNgRl": "primary",
-        "fldZnrxv8j8PjHfN2": "web",
+        "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.cohort.reviews",
         "fldxwQDw6Rp2mUDWA": "web app",
         "fldyxQMf0DeLLvZaz": "project"
@@ -1320,7 +1320,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "domainController/cohort-ios",
         "fldAn156bgwczNgRl": "secondary",
-        "fldZnrxv8j8PjHfN2": "ios",
+        "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.cohort.reviews",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/cohort-ios",
         "fldxwQDw6Rp2mUDWA": "mobile app",
