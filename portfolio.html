@@ -76,6 +76,9 @@
   .cluster-row-main { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
   .cluster-row-name { font-size: 14.5px; font-weight: 600; }
   .cluster-row-type { font-size: 12.5px; color: var(--muted); flex: 1; }
+  .cluster-section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--key); margin: 18px 0 6px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .cluster-section-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+  .cluster-row-badge { font-family: var(--mono); font-size: 10.5px; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
   .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); }
   /* Palette de statut partagée avec css/style.css (pages de nav) — un mot, une couleur,
      partout sur le site, que la pastille soit un .status-tag (fiche) ou un .pill (mini-pastille
@@ -213,7 +216,7 @@ const TAB_ORDER = ["Market","Product","Traction","Infra","Operations","Finance",
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
-      ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4";
+      ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl";
 
 let RECORDS = [];
 let FIELD_NAMES = {};
@@ -508,21 +511,46 @@ function renderCluster() {
   const rec = RECORDS.find(r => r.id === clusterSelected);
   if (!rec) return;
   const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(clusterSelected));
-  const rows = [rec, ...children];
+
+  // Regroupement par nature (Handoff 34) : chaque composant tombe dans la première
+  // section dont il remplit le critère ; "Other" récupère tout ce qui ne correspond
+  // à aucun entity type prévu, pour ne rien faire disparaître silencieusement.
+  const kind = r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase();
+  const isAppSurface = r => kind(r) === "web app" || kind(r) === "mobile app";
+  const isLab = r => kind(r).includes("lab");
+  const isContent = r => kind(r) === "blog";
+  const appSurfaces = children.filter(isAppSurface);
+  const labs = children.filter(isLab);
+  const content = children.filter(isContent);
+  const other = children.filter(r => !isAppSurface(r) && !isLab(r) && !isContent(r));
+  const sections = [
+    { label: "Core", rows: [rec] },
+    { label: "Application surfaces", rows: appSurfaces },
+    { label: "Labs", rows: labs },
+    { label: "Content", rows: content },
+    { label: "Other", rows: other },
+  ].filter(s => s.rows.length);
+
+  const renderRow = r => `
+        <div class="cluster-row" data-id="${r.id}">
+          <div class="cluster-row-main">
+            <span class="cluster-row-name">${resolve(r,NAME_F)}</span>
+            ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
+            ${resolve(r,APP_PRIORITY_F) ? `<span class="cluster-row-badge">${resolve(r,APP_PRIORITY_F)}</span>` : ''}
+          </div>
+          <div class="cluster-row-type">${resolve(r,ENTITY_TYPE_F) || "—"}</div>
+          <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
+        </div>
+      `;
+
   document.getElementById("panelCluster").innerHTML = `
     <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}</div>
     <div class="cluster-list">
-      ${rows.map(r => `
-        <div class="cluster-row" data-id="${r.id}">
-          <div class="cluster-row-main">
-            <span class="cluster-row-name">${resolve(r,NAME_F)}</span>
-            ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
-          </div>
-          <div class="cluster-row-type">${resolve(r,ENTITY_TYPE_F) || "—"}</div>
-          <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
-        </div>
+      ${sections.map(s => `
+        <div class="cluster-section-label">${s.label}</div>
+        ${s.rows.map(renderRow).join("")}
       `).join("")}
     </div>
   `;
