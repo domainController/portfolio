@@ -562,7 +562,7 @@ function renderCluster() {
   // section dont il remplit le critère ; "Other" récupère tout ce qui ne correspond
   // à aucun entity type prévu, pour ne rien faire disparaître silencieusement.
   const kind = r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase();
-  const isAppSurface = r => kind(r) === "web app" || kind(r) === "mobile app";
+  const isAppSurface = r => ["web app","mobile app","ios app","android app"].includes(kind(r));
   const isLab = r => kind(r).includes("lab");
   const isContent = r => kind(r) === "blog";
   const appSurfaces = children.filter(isAppSurface);
