@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T20:59:24.330Z",
+  "generatedAt": "2026-10-01T00:23:40.605Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -105,15 +105,16 @@
           "rectcVBMDyy21QVzX"
         ],
         "fld3JIuIA5FgdJv4F": "Board Whisperer",
-        "fldMevUbOYlZX1pFA": "reflexive law framework",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldk0tT9SXXsyzUPW": [
           "recndyhttH6lrud6s",
           "recQ1vxpjzKZNkCQl",
           "recu93NevEiwQ0tDs"
         ],
-        "fldxwQDw6Rp2mUDWA": "framework",
-        "fldytaVG4hsegzhJz": "legal engineering",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "draft"
       }
     },
@@ -128,7 +129,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.vetnups.com",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-android",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -158,10 +159,14 @@
           "rec8VoEqaWhTOOKBC"
         ],
         "fld3JIuIA5FgdJv4F": "labs.clusters.homes",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldbfrnARURZBDqk4": "Labs",
         "fldccPHbiWw8T8xg6": "labs.clusters.homes",
         "fldqooX9qDIYuzc7H": "project",
-        "fldxwQDw6Rp2mUDWA": "engineering lab",
+        "fldxwQDw6Rp2mUDWA": "lab",
+        "fldytaVG4hsegzhJz": "engineering ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -197,7 +202,9 @@
         ],
         "fldHsh3cvS7yiAyiV": "tech-enabled",
         "fldKwmWB30lqhjVib": "hybrid",
-        "fldMevUbOYlZX1pFA": "managed marketplace",
+        "fldMevUbOYlZX1pFA": [
+          "marketplace"
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/marketplace/clusters/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldSXrj7eo5fnNLYn": "distributed nodes (escales)",
@@ -262,7 +269,9 @@
           "recMnW67j2Dm7xzdK",
           "recu93NevEiwQ0tDs"
         ],
-        "fldMevUbOYlZX1pFA": "reflexive law framework",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -285,9 +294,12 @@
         "fldA1FIU5MBBJchSf": "concept",
         "fldAGb4fa0FvsZZlV": "React (bascule vers Next.js)",
         "fldDx6P723cQsXAU3": "SaaS ",
+        "fldEp2lIIJ2UG42Wf": "business modeling tools for tech ventures",
         "fldFsJA7lVVeevqDG": "GitHub Spec Kit",
         "fldFzOazWA11Nmq66": "à démarrer",
-        "fldMevUbOYlZX1pFA": "SaaS",
+        "fldMevUbOYlZX1pFA": [
+          "software "
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/meta/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldTrutNI5wLYPJPl": "4/5 — next",
@@ -356,7 +368,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.clusters.homes",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-android",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -376,7 +388,9 @@
         "fld3JIuIA5FgdJv4F": "Aletheia Frameworks",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/personal/intellectual-work/aletheia-frameworks/deploy.html",
         "fldEp2lIIJ2UG42Wf": "Conceptual framework for an existential anthropology.",
-        "fldMevUbOYlZX1pFA": "intellectual property",
+        "fldMevUbOYlZX1pFA": [
+          "intellectual property"
+        ],
         "fldWhQvMTLgGLrW0D": "— permanent",
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldlL8kkZwNgw25Vy": "Namecheap",
@@ -398,7 +412,9 @@
         "fldFIREVHXJ8Z7IFH": [
           "recskci6XrPcXymJx"
         ],
-        "fldMevUbOYlZX1pFA": "managed marketplace",
+        "fldMevUbOYlZX1pFA": [
+          "marketplace"
+        ],
         "fldRvoCEy7YakjAMq": "concept",
         "fldVtWIz4yrKcMvTg": [
           "recskci6XrPcXymJx"
@@ -426,13 +442,16 @@
         ],
         "fld3JIuIA5FgdJv4F": "ClausWorks",
         "fldDx6P723cQsXAU3": "regulatory entrepreneurship",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldccPHbiWw8T8xg6": "clausworks.ai",
         "fldk0tT9SXXsyzUPW": [
           "rec8VoEqaWhTOOKBC"
         ],
         "fldliVuEl43U42PGB": "project",
         "fldqooX9qDIYuzc7H": "component ",
-        "fldxwQDw6Rp2mUDWA": "legal lab",
+        "fldxwQDw6Rp2mUDWA": "lab",
         "fldytaVG4hsegzhJz": "legal services",
         "fldyxQMf0DeLLvZaz": "concept"
       }
@@ -467,6 +486,9 @@
       "fields": {
         "fld3JIuIA5FgdJv4F": "ClausLabs",
         "fldDx6P723cQsXAU3": "pre-litigation intelligence ",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldccPHbiWw8T8xg6": "clauslabs.ai",
         "fldk0tT9SXXsyzUPW": [
           "recndyhttH6lrud6s",
@@ -477,7 +499,7 @@
         ],
         "fldliVuEl43U42PGB": "project",
         "fldqooX9qDIYuzc7H": "component ",
-        "fldxwQDw6Rp2mUDWA": "legal lab",
+        "fldxwQDw6Rp2mUDWA": "lab",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -492,7 +514,7 @@
         "fldAn156bgwczNgRl": "secondary",
         "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.vetnups.com",
-        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -506,12 +528,14 @@
         "fld7XckHXlRHrSdqt": "Three engagement tiers (success fee option on the top tier); ~€5–15k per Pilot Memo",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/litigation-finance/mottrum/deploy.html",
         "fldDx6P723cQsXAU3": "crowdfunding",
-        "fldEp2lIIJ2UG42Wf": "Managed marketplace for pre-litigation intelligence.",
+        "fldEp2lIIJ2UG42Wf": "managed marketplace for pre-litigation intelligence.",
         "fldFIREVHXJ8Z7IFH": [
           "recMnW67j2Dm7xzdK",
           "rec0p64yKJdpgQMQ5"
         ],
-        "fldMevUbOYlZX1pFA": "managed marketplace",
+        "fldMevUbOYlZX1pFA": [
+          "marketplace"
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/litigation-finance/mottrum/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldUbu3d0yxjwGdws": "https://narrativeconstructs.com/vertical-labs/deterministic-ventures/index.html",
@@ -572,6 +596,7 @@
           "recfVgB6nO7B7gJrb"
         ],
         "fld3JIuIA5FgdJv4F": "Proposal",
+        "fldDx6P723cQsXAU3": "online dating ",
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "blog",
         "fldyxQMf0DeLLvZaz": "concept"
@@ -594,12 +619,14 @@
           "rectcVBMDyy21QVzX"
         ],
         "fld3JIuIA5FgdJv4F": "Lucid Asset",
-        "fldMevUbOYlZX1pFA": "reflexive law framework",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldk0tT9SXXsyzUPW": [
           "recKU7Nzb1W9CulBj"
         ],
-        "fldxwQDw6Rp2mUDWA": "framework",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldytaVG4hsegzhJz": "legal engineering",
         "fldyxQMf0DeLLvZaz": "draft"
       }
@@ -625,7 +652,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.curb.exchange",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-ios",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -637,10 +664,14 @@
           "recfVgB6nO7B7gJrb"
         ],
         "fld3JIuIA5FgdJv4F": "labs.vetnups.com",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldbfrnARURZBDqk4": "Labs",
         "fldccPHbiWw8T8xg6": "labs.vetnups.com",
         "fldqooX9qDIYuzc7H": "project",
-        "fldxwQDw6Rp2mUDWA": "engineering lab",
+        "fldxwQDw6Rp2mUDWA": "lab",
+        "fldytaVG4hsegzhJz": "engineering ",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -664,7 +695,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.clusters.homes",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-ios",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -695,7 +726,9 @@
         "fldEp2lIIJ2UG42Wf": "commitment-oriented dating app with vetted profile attributes,",
         "fldHsh3cvS7yiAyiV": "tech-native",
         "fldKwmWB30lqhjVib": "hybrid",
-        "fldMevUbOYlZX1pFA": "matching platform",
+        "fldMevUbOYlZX1pFA": [
+          "matching platform"
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/matchmaking/vetnups/traction.html",
         "fldQuStBTUZUjsvCT": "24 – 36 months from inception",
         "fldRvoCEy7YakjAMq": "concept",
@@ -765,9 +798,13 @@
           "reci2gQchm9OSVkqI"
         ],
         "fld3JIuIA5FgdJv4F": "labs.cohort.reviews",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldccPHbiWw8T8xg6": "labs.cohort.reviews",
         "fldqooX9qDIYuzc7H": "project",
-        "fldxwQDw6Rp2mUDWA": "engineering lab",
+        "fldxwQDw6Rp2mUDWA": "lab",
+        "fldytaVG4hsegzhJz": "engineering ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -782,7 +819,7 @@
         "fldAn156bgwczNgRl": "secondary",
         "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.clusters.homes",
-        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -801,7 +838,9 @@
         "fldEp2lIIJ2UG42Wf": "in-depth, long-term consumer reviews",
         "fldHsh3cvS7yiAyiV": "tech-native",
         "fldKwmWB30lqhjVib": "pure player",
-        "fldMevUbOYlZX1pFA": "platform",
+        "fldMevUbOYlZX1pFA": [
+          "review agora "
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/forum/cohort/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldSXrj7eo5fnNLYn": "none",
@@ -879,7 +918,9 @@
         ],
         "fldHsh3cvS7yiAyiV": "tech-enabled",
         "fldKwmWB30lqhjVib": "hybrid",
-        "fldMevUbOYlZX1pFA": "managed marketplace",
+        "fldMevUbOYlZX1pFA": [
+          "marketplace"
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/marketplace/curb/traction.html",
         "fldQuStBTUZUjsvCT": "24 – 36 months from inception",
         "fldRvoCEy7YakjAMq": "concept",
@@ -953,7 +994,11 @@
           "recfVgB6nO7B7gJrb"
         ],
         "fld3JIuIA5FgdJv4F": "Market Notes",
-        "fldxwQDw6Rp2mUDWA": "market lab",
+        "fldMevUbOYlZX1pFA": [
+          "framework ",
+          "doctrine "
+        ],
+        "fldxwQDw6Rp2mUDWA": "lab",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -972,7 +1017,9 @@
           "recu93NevEiwQ0tDs",
           "rec0p64yKJdpgQMQ5"
         ],
-        "fldMevUbOYlZX1pFA": "services",
+        "fldMevUbOYlZX1pFA": [
+          "services"
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/legal-lab/legal-service-providers/auditum-memoria/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -1005,7 +1052,7 @@
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
         "fldccPHbiWw8T8xg6": "clusters.forum",
         "fldqooX9qDIYuzc7H": "project",
-        "fldxwQDw6Rp2mUDWA": "forum",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -1025,7 +1072,9 @@
           "recMnW67j2Dm7xzdK",
           "recu93NevEiwQ0tDs"
         ],
-        "fldMevUbOYlZX1pFA": "reflexive law framework",
+        "fldMevUbOYlZX1pFA": [
+          "framework "
+        ],
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -1049,7 +1098,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.curb.exchange",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/curb-android",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -1065,7 +1114,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.vetnups.com",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-ios",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -1092,6 +1141,10 @@
           "recHC1ykh67YIWBU1"
         ],
         "fld3JIuIA5FgdJv4F": "Deterministic Venture",
+        "fldMevUbOYlZX1pFA": [
+          "framework ",
+          "doctrine "
+        ],
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldk0tT9SXXsyzUPW": [
           "recu0aivcrnrdNqiI",
@@ -1099,7 +1152,7 @@
           "rec8VoEqaWhTOOKBC"
         ],
         "fldqooX9qDIYuzc7H": "personal",
-        "fldxwQDw6Rp2mUDWA": "finance lab",
+        "fldxwQDw6Rp2mUDWA": "lab",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -1114,7 +1167,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "android.cohort.reviews",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/cohort-android",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -1129,7 +1182,7 @@
         "fldAn156bgwczNgRl": "secondary",
         "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.curb.exchange",
-        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -1165,7 +1218,9 @@
         ],
         "fldHsh3cvS7yiAyiV": "tech-native",
         "fldKwmWB30lqhjVib": "pure player",
-        "fldMevUbOYlZX1pFA": "managed marketplace",
+        "fldMevUbOYlZX1pFA": [
+          "marketplace"
+        ],
         "fldRvoCEy7YakjAMq": "concept",
         "fldSXrj7eo5fnNLYn": "none (partner-hosted pickup points)",
         "fldTrutNI5wLYPJPl": "5/5 — now",
@@ -1219,6 +1274,10 @@
         "fldFIREVHXJ8Z7IFH": [
           "rec0p64yKJdpgQMQ5"
         ],
+        "fldMevUbOYlZX1pFA": [
+          "framework ",
+          "doctrine "
+        ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/legal-lab/legal-innovation-lab/narrative-constructs/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -1240,7 +1299,7 @@
         "fldruOMLTjWTC62Jz": [
           "recS58AC0InZFRYea"
         ],
-        "fldxwQDw6Rp2mUDWA": "cognitive lab",
+        "fldxwQDw6Rp2mUDWA": "lab",
         "fldytaVG4hsegzhJz": "legal engineering",
         "fldyxQMf0DeLLvZaz": "online"
       }
@@ -1259,7 +1318,9 @@
           "recMnW67j2Dm7xzdK",
           "recu93NevEiwQ0tDs"
         ],
-        "fldMevUbOYlZX1pFA": "managed marketplace",
+        "fldMevUbOYlZX1pFA": [
+          "marketplace"
+        ],
         "fldRvoCEy7YakjAMq": "concept",
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
@@ -1284,7 +1345,7 @@
         "fldAn156bgwczNgRl": "primary",
         "fldZnrxv8j8PjHfN2": "web app",
         "fldccPHbiWw8T8xg6": "apps.cohort.reviews",
-        "fldxwQDw6Rp2mUDWA": "web app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     },
@@ -1300,7 +1361,7 @@
         "fldZnrxv8j8PjHfN2": "mobile app",
         "fldccPHbiWw8T8xg6": "ios.cohort.reviews",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/cohort-ios",
-        "fldxwQDw6Rp2mUDWA": "mobile app",
+        "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "project"
       }
     }
