@@ -599,22 +599,31 @@ function setActiveModeButtons() {
 // toutes les ventures-racines empilées) pour ne pas dupliquer la logique.
 function clusterSections(rec, children) {
   const kind = r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase();
-  const isAppSurface = r => ["app","web app","mobile app","ios app","android app"].includes(kind(r));
+  const isAppSurface = r => ["app","web app","mobile app","ios app","android app","component"].includes(kind(r)) && resolve(r,PLATFORM_F);
   const isLab = r => kind(r).includes("lab");
-  const isContent = r => kind(r) === "blog";
+  const isContent = r => ["blog","forum","content","review","reviews"].includes(kind(r)) || kind(r).includes("content");
+  const isDivision = r => kind(r) === "division";
+  const isFramework = r => kind(r) === "framework";
+  const isDoctrine = r => kind(r) === "doctrine";
+
   const appSurfaces = children.filter(isAppSurface);
   const labs = children.filter(isLab);
   const content = children.filter(isContent);
-  const other = children.filter(r => !isAppSurface(r) && !isLab(r) && !isContent(r));
-  // "Uses" (Handoff 39) : relation de graphe (uses framework/lab), pas d'arbre — une
-  // dépendance/référence, pas un composant produit de la venture. Sens direct
-  // uniquement (ce que rec référence), jamais la relation inverse.
+  const divisions = children.filter(isDivision);
+  const frameworks = children.filter(isFramework);
+  const doctrines = children.filter(isDoctrine);
+  const other = children.filter(r => !isAppSurface(r) && !isLab(r) && !isContent(r) && !isDivision(r) && !isFramework(r) && !isDoctrine(r));
+
   const uses = linkedIds(rec, USES_F).map(id => RECORDS.find(r => r.id === id)).filter(Boolean);
+
   return [
     { label: "Core", rows: [rec] },
+    { label: "Divisions", rows: divisions },
     { label: "Apps", rows: appSurfaces },
-    { label: "Labs", rows: labs },
     { label: "Content", rows: content },
+    { label: "Labs", rows: labs },
+    { label: "Frameworks", rows: frameworks },
+    { label: "Doctrine", rows: doctrines },
     { label: "Other", rows: other },
     { label: "Uses", rows: uses, kind: "uses" },
   ].filter(s => s.rows.length);
@@ -733,7 +742,7 @@ function renderAllClusters() {
   // frameworks/doctrines pointés via CLUSTER_F (Legal Framework Engineering,
   // Reflexive Law Framework...) n'ont pas de "corps" propre et ne doivent pas
   // apparaître comme leur propre bloc-racine, même si d'autres records les référencent.
-  const nonCoreKinds = ["framework", "doctrine"];
+  const nonCoreKinds = ["framework", "doctrine", "lab"];
   const roots = RECORDS.filter(r => rootIds.has(r.id) && !nonCoreKinds.includes((resolve(r,ENTITY_TYPE_F) || "").toLowerCase()))
     .sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)));
   const panel = document.getElementById("panelAllClusters");
