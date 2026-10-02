@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T07:41:40.281Z",
+  "generatedAt": "2026-10-02T14:08:14.610Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -25,7 +25,8 @@
     "fldpXYYybRes1OIdO": "recurring revenue",
     "fldeSHt4Q7m4HgWVW": "market scope",
     "fld9pz7EAgWtPceCw": "target incumbents",
-    "fldRzG7uU52I3GRT7": "target markets",
+    "fldRzG7uU52I3GRT7": "target segments",
+    "fldhrdqWplNbjKnsS": "target geographies",
     "fld7IaOplNIDrK7SN": "network scope",
     "fldz4JChQVgkic7BA": "customer concentration",
     "fldA1FIU5MBBJchSf": "stage",
@@ -76,7 +77,7 @@
     "fldliVuEl43U42PGB": "website status",
     "flds9dns82uqF4fZx": "audience",
     "fld0GyBxun8zRhKyY": "audience status",
-    "fldp6axMCht0hWkDN": "repo",
+    "fldp6axMCht0hWkDN": "code source",
     "fldwXu8alOSD4H6Ek": "finance lab status",
     "fldRvoCEy7YakjAMq": "market lab status",
     "fldVtWIz4yrKcMvTg": "From field: belongs to cluster",
@@ -203,10 +204,15 @@
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Clusters ",
         "fld4ofDOAnaY3Q6VZ": "https://clusters.forum",
+        "fld7IaOplNIDrK7SN": "dense local network ",
         "fld7VqAP1Vhhw2zqf": "labs.clusters.homes",
         "fld7XckHXlRHrSdqt": "tiered by duration",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/clusters/deploy.html",
         "fld9CqdUeEbjZFq7L": "5/5 — brutal",
+        "fld9pz7EAgWtPceCw": [
+          "green storage",
+          "sats "
+        ],
         "fldA1FIU5MBBJchSf": "landing",
         "fldDs3PVNeH923OHB": "40% – 50% — LBO-compatible",
         "fldDx6P723cQsXAU3": "extended stay ",
@@ -222,9 +228,16 @@
         ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/marketplace/clusters/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
+        "fldRzG7uU52I3GRT7": [
+          "precarious workers",
+          "economic migrants",
+          "students",
+          "digital nomads"
+        ],
         "fldSXrj7eo5fnNLYn": "distributed nodes (escales)",
         "fldTrutNI5wLYPJPl": "1/5 — latent ",
         "fldUcpKv7jt84XsJy": "project",
+        "fldV0qcKnHb2VP3on": "organic",
         "fldVtWIz4yrKcMvTg": [
           "recobx9iB41r7FFpB",
           "rec6tvWpEgTwOLWbj",
@@ -233,7 +246,8 @@
           "recEeSHwGj3wsV2SC",
           "recmZZDwjG72im6fn",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recH2wKGZQCchvVkc"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -245,8 +259,13 @@
         "fldb8p5D5ErTEA8Y5": "https://clusters.homes/blog",
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
         "fldccPHbiWw8T8xg6": "clusters.homes",
+        "fldd55eEXIFfqYPQj": "Plausible",
         "fldeSHt4Q7m4HgWVW": "metropolitan commuter belts",
         "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
+        "fldhrdqWplNbjKnsS": [
+          "Zürich ",
+          "London "
+        ],
         "fldiRhn1z31IndfsM": "long",
         "fldlL8kkZwNgw25Vy": "namecheap",
         "fldliVuEl43U42PGB": "live",
@@ -256,19 +275,23 @@
         "fldniRjRLMVzIS2Ud": "network",
         "fldotsmqLDmkhWYt3": "contact@clusters.homes",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/clusters-website",
+        "fldpXYYybRes1OIdO": "credit-based system",
         "fldqOFlTJ7Pf9hMgL": "full — no continued operator role",
+        "fldqYT5fpvzyqIaRT": "migadu",
         "fldqooX9qDIYuzc7H": "project",
-        "fldraV615NFkhiRZs": "fragmented format.",
+        "fldrSSBC602SbpO8U": "managed transaction ",
+        "fldraV615NFkhiRZs": "fragmented format",
         "fldruOMLTjWTC62Jz": [
           "recj43SpXgwdbAtaW"
         ],
         "flds1P05nDrjCYApH": "project",
         "flds9dns82uqF4fZx": "https://plausible.io/clusters.homes",
-        "fldtJi9grVPtJsauW": "transaction fee — scales with duration, not flat",
+        "fldtJi9grVPtJsauW": "transaction fee",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/marketplace/clusters/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "housing",
         "fldyxQMf0DeLLvZaz": "landing",
+        "fldz4JChQVgkic7BA": "low",
         "fldzBaPn1BMoyLf5B": "affiliation (operators)"
       }
     },
@@ -325,7 +348,8 @@
         "fldVtWIz4yrKcMvTg": [
           "recmZZDwjG72im6fn",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recH2wKGZQCchvVkc"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "1/5 — incubating",
@@ -427,6 +451,28 @@
         "fldqooX9qDIYuzc7H": "personal ",
         "fldxwQDw6Rp2mUDWA": "doctrine",
         "fldyxQMf0DeLLvZaz": "online"
+      }
+    },
+    {
+      "id": "recH2wKGZQCchvVkc",
+      "createdTime": "2026-10-02T08:31:07.000Z",
+      "fields": {
+        "fld09Waa8mfZCSoC4": [
+          "rec8VoEqaWhTOOKBC",
+          "recfVgB6nO7B7gJrb",
+          "reci2gQchm9OSVkqI",
+          "reckS4dkZO0qcwOvP",
+          "rec93dXQuRE6JKlsl",
+          "recu0aivcrnrdNqiI"
+        ],
+        "fld3JIuIA5FgdJv4F": "Trust Signals",
+        "fldMevUbOYlZX1pFA": [
+          "intellectual property"
+        ],
+        "fldqooX9qDIYuzc7H": "component ",
+        "fldxwQDw6Rp2mUDWA": "lab",
+        "fldytaVG4hsegzhJz": "design",
+        "fldyxQMf0DeLLvZaz": "concept"
       }
     },
     {
@@ -620,7 +666,6 @@
         "fldruOMLTjWTC62Jz": [
           "reckM0ZXVlCQuKj8G"
         ],
-        "fldtJi9grVPtJsauW": "Direct — access passes, licences and asset sales",
         "fldwXu8alOSD4H6Ek": "project",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "legal services",
@@ -820,7 +865,8 @@
           "recmZZDwjG72im6fn",
           "recYROE6fOuzUA6Gg",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recH2wKGZQCchvVkc"
         ],
         "fldWXML0BEnhz5teq": "bootstrap ",
         "fldWhQvMTLgGLrW0D": "5/5 — now",
@@ -845,7 +891,6 @@
         "fldruOMLTjWTC62Jz": [
           "recV45iFAKsQ1Sm9e"
         ],
-        "fldtJi9grVPtJsauW": "subscription + 20% commission on user monetization + à la carte legal & photo",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/matchmaking/vetnups/landing/index.html",
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "dating ",
@@ -929,7 +974,8 @@
           "rectF5ysmpTMQ292M",
           "recmZZDwjG72im6fn",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recH2wKGZQCchvVkc"
         ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -1015,7 +1061,8 @@
           "recp69PoRA6Fch5gJ",
           "recmZZDwjG72im6fn",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recH2wKGZQCchvVkc"
         ],
         "fldWD7ch1mN9uPAhg": "4/5 — structural",
         "fldWXML0BEnhz5teq": "bootstrap ",
@@ -1046,7 +1093,6 @@
           "recylOuAanE25rN2r"
         ],
         "fldt9I72oXRTgC0rC": "high — asset-light, no inventory",
-        "fldtJi9grVPtJsauW": "transaction fee — scales with exchange value, not flat",
         "fldu1iQBrGZuKUKuf": "https://patricek.info/marketplace/curb/landing/index.html",
         "fldx8dd2MbQXDx63J": "target > 25% — high capital efficiency",
         "fldxwQDw6Rp2mUDWA": "business model venture",
@@ -1321,7 +1367,8 @@
         "fldVtWIz4yrKcMvTg": [
           "recmZZDwjG72im6fn",
           "recskci6XrPcXymJx",
-          "recHKIvcCZKLoOSj1"
+          "recHKIvcCZKLoOSj1",
+          "recH2wKGZQCchvVkc"
         ],
         "fldWD7ch1mN9uPAhg": "3/5 — significant",
         "fldWXML0BEnhz5teq": "bootstrap ",
