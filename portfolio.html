@@ -30,11 +30,14 @@
 
   .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
   .filters select, .filters input[type=search] { font-family: var(--sans); font-size: 13px; padding: 6px 10px; border-radius: 7px; border: 1px solid var(--border); background: var(--bg); color: var(--text); }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table.consolidated { width: 100%; border-collapse: collapse; font-size: 13px; }
   table.consolidated th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; }
   table.consolidated th:hover { color: var(--text); }
   table.consolidated th.sorted::after { content: " ▾"; }
   table.consolidated td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.consolidated tbody tr.row-clickable { cursor: pointer; }
+  table.consolidated tbody tr.row-clickable:hover td { background: rgba(255,255,255,0.03); }
   table.consolidated tr:hover td { background: rgba(255,255,255,0.03); }
   .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--muted); }
   .empty-cell { color: #5a6080; font-style: italic; }
@@ -70,6 +73,32 @@
   .fm-key { font-family: var(--mono); font-size: 11.5px; color: var(--key); padding-top: 1px; }
 
   h1.vname { font-size: 26px; margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
+  .cluster-list { margin-top: 14px; border-top: 1px solid var(--border); }
+  .cluster-row { display: flex; align-items: center; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .cluster-row[data-detail-toggle] { cursor: pointer; }
+  .cluster-row:hover { background: rgba(255,255,255,0.03); }
+  .cluster-row-main { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+  .cluster-row-name { font-size: 14.5px; font-weight: 600; }
+  .cluster-row-type { font-size: 12.5px; color: var(--muted); flex: 1; }
+  .cluster-section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--key); margin: 18px 0 6px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .cluster-section-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+  .cluster-section-label.uses { color: #d4a949; border-top-color: rgba(212,169,73,0.3); }
+  .cluster-row-badge { font-family: var(--mono); font-size: 10.5px; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+  .cluster-row-name:hover { color: var(--accent); text-decoration: underline; }
+  .cluster-row-expand-hint { display: inline-block; color: var(--muted); transition: transform 0.15s; }
+  .cluster-row.expanded .cluster-row-expand-hint { transform: rotate(180deg); }
+  .cluster-row-detail { display: none; padding: 2px 4px 14px; }
+  .cluster-row-detail.open { display: block; }
+  .cluster-block { margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .cluster-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .cluster-block-header[data-toggle] { cursor: pointer; }
+  .cluster-block-header.compact .vname { font-size: 15px; margin: 0; gap: 8px; }
+  .cluster-block-header.compact .vname .status-tag { font-size: 10.5px; padding: 1px 6px; }
+  .cluster-block-header.compact .meta-line { font-size: 11px; margin-bottom: 2px; }
+  .cluster-block-header.compact .row-count { font-size: 11.5px; }
+  .cluster-list.collapsed { display: none; }
+  .cluster-expand-hint { display: inline-block; margin-left: 6px; color: var(--muted); transition: transform 0.15s; }
+  .cluster-block-header.expanded .cluster-expand-hint { transform: rotate(180deg); }
   .status-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); }
   /* Palette de statut partagée avec css/style.css (pages de nav) — un mot, une couleur,
      partout sur le site, que la pastille soit un .status-tag (fiche) ou un .pill (mini-pastille
@@ -83,30 +112,32 @@
   .status-beta, .status-project { background: #16233d; color: #6bb3f0; }
   .status-not-started { background: #16233d; color: #5a6080; }
   .meta-line { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .meta-line a { color: var(--accent); text-decoration: none; }
+  .meta-line a:hover { text-decoration: underline; }
   .single-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 4px; overflow-x: auto; }
   .single-tabs button { font-family: var(--sans); font-size: 13.5px; padding: 8px 13px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
   .single-tabs button.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
 
   .state-msg { font-size: 14px; color: var(--muted); padding: 40px 0; text-align: center; }
 
-  .meta-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-  .meta-bar .home-icon, .meta-bar .nav-back { color: var(--muted); text-decoration: none; font-size: 1.05em; line-height: 1; }
-  .meta-bar .home-icon:hover, .meta-bar .nav-back:hover { color: var(--accent); }
-  .meta-bar .sep { color: var(--border); }
+  .top-bar-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .home-icon, .nav-back { color: var(--muted); text-decoration: none; font-size: 1.05em; line-height: 1; }
+  .home-icon:hover, .nav-back:hover { color: var(--accent); }
+  .top-bar-left .sep { color: var(--border); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="meta-bar">
-    <a class="home-icon" href="index.html" title="Home">&#8962;</a>
-    <span class="sep">·</span>
-    <a class="nav-back" href="#" onclick="history.back();return false;" title="Back">&#8592;</a>
-  </div>
   <div class="top-bar">
-    <div class="mode-switcher">
-      <button data-mode="table" class="active">Consolidated view</button>
-      <button data-mode="compare">Compare</button>
-      <button data-mode="single">Single record</button>
+    <div class="top-bar-left">
+      <a class="home-icon" href="index.html" title="Home">&#8962;</a>
+      <span class="sep">·</span>
+      <a class="nav-back" href="#" onclick="history.back();return false;" title="Back">&#8592;</a>
+      <div class="mode-switcher">
+        <button data-mode="table" class="active">Consolidated view</button>
+        <button data-mode="allclusters">Cluster view</button>
+        <button data-mode="single">Single record</button>
+      </div>
     </div>
     <div class="single-picker-top" id="singlePickerTop" style="display:none;">
       <select id="singlePick"></select>
@@ -116,6 +147,8 @@
   <div class="panel" id="panelTable"><div class="state-msg">Loading…</div></div>
   <div class="panel" id="panelCompare" style="display:none;"></div>
   <div class="panel" id="panelSingle" style="display:none;"></div>
+  <div class="panel" id="panelCluster" style="display:none;"></div>
+  <div class="panel" id="panelAllClusters" style="display:none;"></div>
 </div>
 
 <script>
@@ -127,22 +160,22 @@ const FIELD_META = {
   fld3JIuIA5FgdJv4F: {name:"Name", tab:"core"},
   fldyxQMf0DeLLvZaz: {name:"status", tab:"meta"},
   fldWhQvMTLgGLrW0D: {name:"momentum", tab:"Traction", order:1},
-  fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Market", order:3},
-  fldMevUbOYlZX1pFA: {name:"asset type", tab:"Market", order:4},
+  fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Market", order:8},
+  fldMevUbOYlZX1pFA: {name:"asset type", tab:"Market", order:7},
   fldnTcpnT6lpnsNAm: {name:"execution weight", tab:"Operations", order:1},
   fldiRhn1z31IndfsM: {name:"time to first revenue", tab:"Operations", order:2},
   fldTrutNI5wLYPJPl: {name:"execution priority", tab:"Operations", order:3},
-  fldXHkm2E0Avupzr4: {name:"model type", tab:"Market", order:9},
-  fldrSSBC602SbpO8U: {name:"business model", tab:"Market", order:10},
-  fldytaVG4hsegzhJz: {name:"vertical", tab:"Market", order:5},
+  fldXHkm2E0Avupzr4: {name:"model type", tab:"Market", order:6},
+  fldrSSBC602SbpO8U: {name:"business model", tab:"Market", order:5},
+  fldytaVG4hsegzhJz: {name:"vertical", tab:"Market", order:4},
   fld7XckHXlRHrSdqt: {name:"pricing model", tab:"Finance", order:1},
   fldtJi9grVPtJsauW: {name:"monetization type", tab:"Finance", order:2},
   fldpXYYybRes1OIdO: {name:"recurring revenue", tab:"Finance", order:3},
-  fldeSHt4Q7m4HgWVW: {name:"market scope", tab:"Market", order:11},
-  fld9pz7EAgWtPceCw: {name:"target incumbents", tab:"Market", order:13},
-  fldRzG7uU52I3GRT7: {name:"target segments", tab:"Market", order:7},
-  fld7IaOplNIDrK7SN: {name:"network scope", tab:"Market", order:12},
-  fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market", order:14},
+  fldeSHt4Q7m4HgWVW: {name:"market scope", tab:"Market", order:10},
+  fld9pz7EAgWtPceCw: {name:"target incumbents", tab:"Market", order:12},
+  fldRzG7uU52I3GRT7: {name:"target markets", tab:"Market", order:9},
+  fld7IaOplNIDrK7SN: {name:"network scope", tab:"Market", order:11},
+  fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market", order:13},
   fldA1FIU5MBBJchSf: {name:"stage", tab:"Traction", order:2},
   fld1ayzhTagZyUvPt: {name:"market lab", tab:"Labs", order:1},
   fldRvoCEy7YakjAMq: {tab:"Labs", order:1, hidden:true, pillFor:"fld1ayzhTagZyUvPt"},
@@ -153,12 +186,18 @@ const FIELD_META = {
   fld9CqdUeEbjZFq7L: {name:"cold start", tab:"Traction", order:4},
   fldccPHbiWw8T8xg6: {name:"website", tab:"Infra", order:1},
   fldliVuEl43U42PGB: {tab:"Infra", order:1, hidden:true, pillFor:"fldccPHbiWw8T8xg6"},
+  fldZnrxv8j8PjHfN2: {name:"platform", tab:"Infra", order:1.1},
+  fldAGb4fa0FvsZZlV: {name:"platform / stack", tab:"Infra", order:1.2},
+  fldrhSMTdSbzc3y89: {name:"stack phase", tab:"Infra", order:1.3},
+  fldMu6VZKV6teEfKM: {name:"backend framework", tab:"Infra", order:1.4},
+  fldrLLVL6YCVdCykH: {name:"api key strategy", tab:"Infra", order:1.5},
+  fldkbysnfe8gbznjN: {name:"why", tab:"Infra", order:1.6},
   fldWXML0BEnhz5teq: {name:"investment stage", tab:"Acquisition", order:1},
   fldZE0grsvxfyzSQ1: {name:"investment model", tab:"Acquisition", order:2},
   fldqooX9qDIYuzc7H: {name:"portfolio role", tab:"meta"},
   fldIb77IM8PEwsfDO: {name:"benchmark for", tab:"meta"},
   fldxHyIWkHMzHrqvA: {name:"parent company", tab:"meta"},
-  fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market", order:6},
+  fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market", order:3},
   fldpKjCqmfWTsEZYq: {name:"site section", tab:"meta"},
   fldbfrnARURZBDqk4: {name:"portfolio group", tab:"meta"},
   fldEp2lIIJ2UG42Wf: {name:"core value prop", tab:"Market", order:1},
@@ -205,7 +244,23 @@ const FIELD_META = {
 const TAB_ORDER = ["Market","Product","Traction","Infra","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
-      MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4";
+      SUBVERTICAL_F = "fldDx6P723cQsXAU3", ASSET_TYPE_F = "fldMevUbOYlZX1pFA", MODEL_TYPE_F = "fldXHkm2E0Avupzr4",
+      PRICING_MODEL_F = "fld7XckHXlRHrSdqt", MONETIZATION_F = "fldtJi9grVPtJsauW", STAGE_F = "fldA1FIU5MBBJchSf",
+      NAVBRANCH_F = "fldgInVmb6sP3oUgl", VALUE_ORIGIN_F = "fldHsh3cvS7yiAyiV", OPERATING_MODEL_F = "fldniRjRLMVzIS2Ud",
+      DISTRIBUTION_MODEL_F = "fldzBaPn1BMoyLf5B", PLATFORM_F = "fldZnrxv8j8PjHfN2",
+      MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
+      ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl",
+      USES_F = "fldFIREVHXJ8Z7IFH";
+
+// Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
+// (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
+const CONSOLIDATED_COLS = [
+  [NAME_F, "Name"], [STATUS_F, "Status"], [ENTITY_TYPE_F, "Entity type"],
+  [ASSET_TYPE_F, "Asset type"], [MODEL_TYPE_F, "Model type"], [VERTICAL_F, "Vertical"],
+  [SUBVERTICAL_F, "Sub-vertical"], [PRICING_MODEL_F, "Pricing model"], [MONETIZATION_F, "Monetization type"],
+  [ROLE_F, "Portfolio role"], [STAGE_F, "Stage"], [GROUP_F, "Portfolio group"], [NAVBRANCH_F, "Nav branch"],
+  [VALUE_ORIGIN_F, "Value origin"], [OPERATING_MODEL_F, "Operating model"], [DISTRIBUTION_MODEL_F, "Distribution model"],
+];
 
 let RECORDS = [];
 let FIELD_NAMES = {};
@@ -214,6 +269,7 @@ let sortField = NAME_F, sortDir = 1;
 let filterSection = "*", searchText = "";
 let compareLeft = null, compareRight = null;
 let singleSelected = null, singleTab = null;
+let clusterSelected = null;
 let filterSectionList = null, filterGroupList = null, filterLabel = null;
 
 function resolve(rec, fieldId) {
@@ -224,6 +280,28 @@ function resolve(rec, fieldId) {
   return v;
 }
 function cellsOf(rec) { return rec.fields || rec.cellValuesByFieldId; }
+
+// Pour un champ multipleRecordLinks (ex. CLUSTER_F) : la liste brute des record IDs liés,
+// contrairement à resolve() qui les joindrait en une chaîne de noms — ici on veut comparer
+// des IDs, pas les afficher.
+function linkedIds(rec, fieldId) {
+  const v = cellsOf(rec)[fieldId];
+  if (!v) return [];
+  return Array.isArray(v) ? v.map(x => (x && typeof x === "object") ? x.id : x) : [];
+}
+
+// Plusieurs composants portent le même nom générique ("Web App", "Mobile App") sur des
+// ventures différentes — sans indication de parent, la Fiche individuelle est ambiguë
+// (Patrice, après l'ajout des 4 paires web/mobile). Lien(s) cliquable(s) vers le(s)
+// cluster(s) parent(s) via CLUSTER_F, pour remonter directement à la venture.
+function clusterParentsLink(rec) {
+  const ids = linkedIds(rec, CLUSTER_F);
+  if (!ids.length) return null;
+  return ids.map(id => {
+    const p = RECORDS.find(r => r.id === id);
+    return p ? `<a href="#" class="cluster-parent-link" data-id="${id}">${resolve(p,NAME_F)}</a>` : null;
+  }).filter(Boolean).join(", ");
+}
 
 // Le nom affiché d'un champ vient, par défaut, du nom réel du champ dans Airtable
 // (fourni par portfolio.json au sync, via l'API Meta) — pas d'un libellé recopié
@@ -301,19 +379,24 @@ function switchMode(mode) {
   document.getElementById("panelTable").style.display = mode === "table" ? "" : "none";
   document.getElementById("panelCompare").style.display = mode === "compare" ? "" : "none";
   document.getElementById("panelSingle").style.display = mode === "single" ? "" : "none";
+  document.getElementById("panelCluster").style.display = mode === "cluster" ? "" : "none";
+  document.getElementById("panelAllClusters").style.display = mode === "allclusters" ? "" : "none";
   document.getElementById("singlePickerTop").style.display = mode === "single" ? "" : "none";
   renderAll();
 }
 document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListener("click", () => switchMode(b.dataset.mode)));
 
 function renderTable() {
-  const sections = [...new Set(RECORDS.map(r => resolve(r, SECTION_F)).filter(Boolean))].sort();
+  // Handoff 45 : le champ "site section" a été supprimé côté Airtable (Handoff 44),
+  // ce menu déroulant repose maintenant sur entity type — valeurs réellement présentes
+  // dans les données, pas la liste figée des choix du schéma Airtable.
+  const entityTypes = [...new Set(RECORDS.map(r => resolve(r, ENTITY_TYPE_F)).filter(Boolean))].sort();
   let rows = RECORDS.filter(r => {
     if (filterGroupList) {
       if (!filterGroupList.includes(resolve(r, GROUP_F))) return false;
     } else if (filterSectionList) {
       if (!filterSectionList.includes(resolve(r, SECTION_F))) return false;
-    } else if (filterSection !== "*" && resolve(r, SECTION_F) !== filterSection) return false;
+    } else if (filterSection !== "*" && resolve(r, ENTITY_TYPE_F) !== filterSection) return false;
     if (searchText) {
       const hay = (resolve(r, NAME_F) + " " + (resolve(r, VERTICAL_F) || "")).toLowerCase();
       if (!hay.includes(searchText.toLowerCase())) return false;
@@ -325,31 +408,30 @@ function renderTable() {
     return av.localeCompare(bv) * sortDir;
   });
 
-  const cols = [
-    [NAME_F, "Name"], [STATUS_F, "Status"], [SECTION_F, "Site section"], [VERTICAL_F, "Vertical"],
-    [PRIORITY_F, "Exec. priority"], [MOMENTUM_F, "Momentum"], [WEIGHT_F, "Exec. weight"],
-  ];
+  const cols = CONSOLIDATED_COLS;
 
   document.getElementById("panelTable").innerHTML = `
     ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">view full portfolio</a></div>` : ""}
     <div class="filters">
       <input type="search" placeholder="Search…" id="searchBox" value="${searchText}">
       <select id="sectionFilter">
-        <option value="*">All sections</option>
-        ${sections.map(s => `<option value="${s}" ${!filterSectionList && s===filterSection?"selected":""}>${s}</option>`).join("")}
+        <option value="*">All types</option>
+        ${entityTypes.map(s => `<option value="${s}" ${!filterSectionList && !filterGroupList && s===filterSection?"selected":""}>${s}</option>`).join("")}
       </select>
     </div>
     <div class="row-count">${rows.length} ${rows.length>1?"entities":"entity"} shown out of ${RECORDS.length}</div>
+    <div class="table-scroll">
     <table class="consolidated">
       <thead><tr>${cols.map(([f,l]) => `<th data-f="${f}" class="${f===sortField?"sorted":""}">${l}</th>`).join("")}</tr></thead>
       <tbody>
-        ${rows.map(r => `<tr>${cols.map(([f]) => {
+        ${rows.map(r => `<tr class="row-clickable" data-id="${r.id}">${cols.map(([f]) => {
           const v = resolve(r, f);
           if (f === STATUS_F) return `<td>${v ? statusText(v) : '<span class="empty-cell">—</span>'}</td>`;
           return `<td>${v ? v : '<span class="empty-cell">—</span>'}</td>`;
         }).join("")}</tr>`).join("")}
       </tbody>
     </table>
+    </div>
   `;
   document.getElementById("searchBox").addEventListener("input", e => { searchText = e.target.value; renderTable(); });
   document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterGroupList = null; filterLabel = null; filterSection = e.target.value; renderTable(); });
@@ -362,6 +444,15 @@ function renderTable() {
   });
   const clearLink = document.getElementById("clearFilterLink");
   if (clearLink) clearLink.addEventListener("click", e => { e.preventDefault(); clearDeepLink(); });
+  document.querySelectorAll("table.consolidated tbody tr").forEach(tr => {
+    tr.addEventListener("click", () => {
+      singleSelected = tr.dataset.id;
+      singleTab = null;
+      currentMode = "single";
+      setActiveModeButtons();
+      renderAll();
+    });
+  });
 }
 
 // fieldIds optionnel : si fourni, on rend EXACTEMENT cette liste de champs, dans cet ordre,
@@ -411,4 +502,319 @@ function renderCompare() {
   const left = RECORDS.find(r => r.id === compareLeft), right = RECORDS.find(r => r.id === compareRight);
   const unionIds = buildUnionFieldIds(left, right);
   document.getElementById("panelCompare").innerHTML = `
-    ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilter
+    ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">view full portfolio</a></div>` : ""}
+    <div class="compare-pickers">
+      <select id="cmpLeft">${options}</select>
+      <select id="cmpRight">${options}</select>
+    </div>
+    <div class="compare-grid">
+      <div class="venture-col"><h2>${resolve(left,NAME_F)}</h2><div class="sub">${resolve(left,SECTION_F)||"—"} · ${statusText(resolve(left,STATUS_F))||"—"}</div>${renderTabsFor(left, unionIds)}</div>
+      <div class="venture-col"><h2>${resolve(right,NAME_F)}</h2><div class="sub">${resolve(right,SECTION_F)||"—"} · ${statusText(resolve(right,STATUS_F))||"—"}</div>${renderTabsFor(right, unionIds)}</div>
+    </div>
+  `;
+  document.getElementById("cmpLeft").value = compareLeft;
+  document.getElementById("cmpRight").value = compareRight;
+  document.getElementById("cmpLeft").addEventListener("change", e => { compareLeft = e.target.value; renderCompare(); });
+  document.getElementById("cmpRight").addEventListener("change", e => { compareRight = e.target.value; renderCompare(); });
+  const clearLink = document.getElementById("clearFilterLink");
+  if (clearLink) clearLink.addEventListener("click", e => { e.preventDefault(); clearDeepLink(); });
+}
+
+function renderSingle() {
+  if (!singleSelected) singleSelected = (RECORDS.find(r => resolve(r, NAME_F).trim() === "Vetnups") || RECORDS[0]).id;
+  const rec = RECORDS.find(r => r.id === singleSelected);
+  const cells = cellsOf(rec);
+  const byTab = {};
+  TAB_ORDER.forEach(t => byTab[t] = []);
+  Object.keys(cells).forEach(fid => {
+    const meta = FIELD_META[fid];
+    if (!meta || !TAB_ORDER.includes(meta.tab) || meta.hidden) return;
+    const v = resolve(rec, fid);
+    if (v) byTab[meta.tab].push([v, meta.order || 999, fid]);
+  });
+  TAB_ORDER.forEach(t => byTab[t].sort((a,b) => a[1]-b[1]));
+  // Tous les onglets de TAB_ORDER restent visibles, même sans champ renseigné pour cette venture
+  // (ex. Product, encore vide, sert de rappel actif tant qu'aucun champ produit n'a été créé).
+  const availableTabs = TAB_ORDER;
+  if (!singleTab || !availableTabs.includes(singleTab)) singleTab = availableTabs[0];
+
+  // Handoff 43 : le sélecteur ne propose que les vraies ventures — les composants
+  // (iOS, Web App, labs...) polluaient la liste. L'accès direct via ?venture=X reste
+  // inchangé, ce filtre ne touche que ce dropdown.
+  const options = RECORDS.filter(r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase() === "business model venture")
+    .sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)))
+    .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
+
+  const singleRows = byTab[singleTab] || [];
+  const metaLine = resolve(rec,SECTION_F) || (clusterParentsLink(rec) ? `Component of ${clusterParentsLink(rec)}` : "—");
+  document.getElementById("panelSingle").innerHTML = `
+    <div class="meta-line">${metaLine}</div>
+    <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
+    <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
+    <div class="tab-block">${singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
+  `;
+  document.querySelectorAll(".cluster-parent-link").forEach(el => {
+    el.addEventListener("click", e => {
+      e.preventDefault();
+      clusterSelected = el.dataset.id;
+      currentMode = "cluster";
+      setActiveModeButtons();
+      renderAll();
+    });
+  });
+  const singlePick = document.getElementById("singlePick");
+  singlePick.innerHTML = options;
+  singlePick.value = singleSelected;
+  singlePick.onchange = e => { singleSelected = e.target.value; singleTab = null; renderSingle(); };
+  document.querySelectorAll(".single-tabs button").forEach(b => b.addEventListener("click", () => { singleTab = b.dataset.t; renderSingle(); }));
+}
+
+function renderAll() {
+  if (currentMode === "table") renderTable();
+  if (currentMode === "compare") renderCompare();
+  if (currentMode === "single") renderSingle();
+  if (currentMode === "cluster") renderCluster();
+  if (currentMode === "allclusters") renderAllClusters();
+}
+
+function setActiveModeButtons() {
+  document.querySelectorAll(".mode-switcher button").forEach(b => b.classList.toggle("active", b.dataset.mode === currentMode));
+  document.getElementById("panelTable").style.display = currentMode === "table" ? "" : "none";
+  document.getElementById("panelCompare").style.display = currentMode === "compare" ? "" : "none";
+  document.getElementById("panelSingle").style.display = currentMode === "single" ? "" : "none";
+  document.getElementById("panelCluster").style.display = currentMode === "cluster" ? "" : "none";
+  document.getElementById("panelAllClusters").style.display = currentMode === "allclusters" ? "" : "none";
+  document.getElementById("singlePickerTop").style.display = currentMode === "single" ? "" : "none";
+}
+
+// Vue de la venture : la venture elle-même + tous les enregistrements dont CLUSTER_F
+// pointe vers elle ("composants constitutifs" — forum, blog, lab... doctrine posée en
+// session : une venture EST un cluster, pas un objet séparé). Chaque ligne cliquable ->
+// bascule directement en vue Fiche individuelle sur CE record précis, sans repasser par
+// applyDeepLink() (pas de vue cluster récursive, un seul niveau de profondeur).
+// Regroupement par nature (Handoff 34) : chaque composant tombe dans la première
+// section dont il remplit le critère ; "Other" récupère tout ce qui ne correspond
+// à aucun entity type prévu, pour ne rien faire disparaître silencieusement.
+// Partagé entre renderCluster() (une venture) et renderAllClusters() (Handoff 36,
+// toutes les ventures-racines empilées) pour ne pas dupliquer la logique.
+function clusterSections(rec, children) {
+  const kind = r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase();
+  const isAppSurface = r => ["app","web app","mobile app","ios app","android app"].includes(kind(r));
+  const isLab = r => kind(r).includes("lab");
+  const isContent = r => kind(r) === "blog";
+  const appSurfaces = children.filter(isAppSurface);
+  const labs = children.filter(isLab);
+  const content = children.filter(isContent);
+  const other = children.filter(r => !isAppSurface(r) && !isLab(r) && !isContent(r));
+  // "Uses" (Handoff 39) : relation de graphe (uses framework/lab), pas d'arbre — une
+  // dépendance/référence, pas un composant produit de la venture. Sens direct
+  // uniquement (ce que rec référence), jamais la relation inverse.
+  const uses = linkedIds(rec, USES_F).map(id => RECORDS.find(r => r.id === id)).filter(Boolean);
+  return [
+    { label: "Core", rows: [rec] },
+    { label: "Apps", rows: appSurfaces },
+    { label: "Labs", rows: labs },
+    { label: "Content", rows: content },
+    { label: "Other", rows: other },
+    { label: "Uses", rows: uses, kind: "uses" },
+  ].filter(s => s.rows.length);
+}
+
+// Détail dépliable d'une ligne de composant (Handoff 38) : les mêmes champs/intitulés
+// que Consolidated view (CONSOLIDATED_COLS), moins Name/Status déjà dans l'en-tête de
+// ligne. "—" pour un champ vide, comme partout ailleurs — rien de masqué.
+function clusterRowDetailHTML(r, openByDefault) {
+  const fields = CONSOLIDATED_COLS.filter(([f]) => f !== NAME_F && f !== STATUS_F);
+  return `
+    <div class="cluster-row-detail${openByDefault ? " open" : ""}">
+      ${fields.map(([f,l]) => `<div class="fm-row"><div class="fm-key">${l}</div><div>${resolve(r,f) || '<span class="empty-cell">—</span>'}</div></div>`).join("")}
+    </div>
+  `;
+}
+
+// opts.allFields (Cluster view uniquement) : les 17 champs sont affichés directement,
+// pas cachés derrière un clic — Patrice ne veut pas 3 champs par ligne dans cette vue,
+// il veut pouvoir comparer les champs comme dans Consolidated view. La vue single-venture
+// (?venture=X) reste un simple résumé cliquable, inchangée ("il n'y a rien à toucher").
+function clusterRowHTML(r, rec, opts = {}) {
+  const toggleAttr = opts.allFields ? "" : ` data-detail-toggle="${r.id}"`;
+  const expandHint = opts.allFields ? "" : '<span class="cluster-row-expand-hint">▾</span>';
+  const detail = clusterRowDetailHTML(r, opts.allFields);
+  return `
+        <div class="cluster-row"${toggleAttr}>
+          <div class="cluster-row-main">
+            <span class="cluster-row-name" data-nav-id="${r.id}">${resolve(r,NAME_F)}</span>
+            ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
+            ${resolve(r,APP_PRIORITY_F) ? `<span class="cluster-row-badge">${resolve(r,APP_PRIORITY_F)}</span>` : ''}
+          </div>
+          <div class="cluster-row-type">${resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"}</div>
+          <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
+          ${expandHint}
+        </div>
+        ${detail}
+      `;
+}
+
+// opts.collapsible (Cluster view uniquement) : le détail démarre replié, un clic sur
+// l'en-tête (nom + pastille + compte) l'ouvre/le referme — Patrice voulait un
+// "expandable", pas tout déroulé d'un coup comme un cat Unix.
+function clusterBlockHTML(rec, children, opts = {}) {
+  const sections = clusterSections(rec, children);
+  const toggleAttr = opts.collapsible ? ` data-toggle="${rec.id}"` : "";
+  const headerClass = opts.collapsible ? "cluster-block-header compact" : "cluster-block-header";
+  return `
+    <div class="${headerClass}"${toggleAttr}>
+      <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
+      <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
+      <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}${opts.collapsible ? '<span class="cluster-expand-hint">▾</span>' : ''}</div>
+    </div>
+    <div class="cluster-list${opts.collapsible ? ' collapsed' : ''}">
+      ${sections.map(s => `
+        <div class="cluster-section-label${s.kind === "uses" ? " uses" : ""}">${s.label}</div>
+        ${s.rows.map(r => clusterRowHTML(r, rec, opts)).join("")}
+      `).join("")}
+    </div>
+  `;
+}
+
+// Le nom navigue vers la Fiche individuelle (comportement existant, préservé) ; cliquer
+// ailleurs sur la ligne déplie/replie son détail (Handoff 38), même mécanisme que
+// attachClusterToggles() pour les en-têtes de venture.
+function attachClusterRowInteractions(container) {
+  container.querySelectorAll(".cluster-row-name[data-nav-id]").forEach(el => {
+    el.addEventListener("click", e => {
+      e.stopPropagation();
+      singleSelected = el.dataset.navId;
+      singleTab = null;
+      currentMode = "single";
+      setActiveModeButtons();
+      renderAll();
+    });
+  });
+  container.querySelectorAll(".cluster-row[data-detail-toggle]").forEach(row => {
+    row.addEventListener("click", () => {
+      const detail = row.nextElementSibling;
+      if (!detail || !detail.classList.contains("cluster-row-detail")) return;
+      detail.classList.toggle("open");
+      row.classList.toggle("expanded");
+    });
+  });
+}
+
+function attachClusterToggles(container) {
+  container.querySelectorAll(".cluster-block-header[data-toggle]").forEach(header => {
+    header.addEventListener("click", () => {
+      const list = header.nextElementSibling;
+      if (!list || !list.classList.contains("cluster-list")) return;
+      list.classList.toggle("collapsed");
+      header.classList.toggle("expanded");
+    });
+  });
+}
+
+function renderCluster() {
+  const rec = RECORDS.find(r => r.id === clusterSelected);
+  if (!rec) return;
+  const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(clusterSelected));
+  const panel = document.getElementById("panelCluster");
+  panel.innerHTML = clusterBlockHTML(rec, children);
+  attachClusterRowInteractions(panel);
+}
+
+// Onglet "Cluster view" (Handoff 36, remplace "Compare") : toutes les ventures-racines
+// d'un cluster — référencées par au moins un autre record via CLUSTER_F — listées de
+// haut en bas, chacune repliée par défaut (juste nom + pastille + compte), un clic sur
+// l'en-tête développe son détail (même regroupement que renderCluster()). Pas de
+// sélecteur : tout le portfolio d'un coup, mais condensé jusqu'au clic.
+function renderAllClusters() {
+  const rootIds = new Set();
+  RECORDS.forEach(r => linkedIds(r, CLUSTER_F).forEach(id => rootIds.add(id)));
+  // Un "Core" est une venture/produit réel, pas un regroupement conceptuel — les
+  // frameworks/doctrines pointés via CLUSTER_F (Legal Framework Engineering,
+  // Reflexive Law Framework...) n'ont pas de "corps" propre et ne doivent pas
+  // apparaître comme leur propre bloc-racine, même si d'autres records les référencent.
+  const nonCoreKinds = ["framework", "doctrine"];
+  const roots = RECORDS.filter(r => rootIds.has(r.id) && !nonCoreKinds.includes((resolve(r,ENTITY_TYPE_F) || "").toLowerCase()))
+    .sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)));
+  const panel = document.getElementById("panelAllClusters");
+  panel.innerHTML = roots.map(rec => {
+    const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(rec.id));
+    return `<div class="cluster-block">${clusterBlockHTML(rec, children, {collapsible: true, allFields: true})}</div>`;
+  }).join("");
+  attachClusterRowInteractions(panel);
+  attachClusterToggles(panel);
+}
+
+// Permet aux pages de catégorie du site de renvoyer ici une vue déjà filtrée.
+// ?venture=Curb                           — ouvre la vue de la venture (elle + ses composants
+//   liés via CLUSTER_F, cf. renderCluster()) ; utilisé par les pages hub pour un lien
+//   "nom d'entreprise" -> son cluster. Un clic sur une ligne dans cette vue bascule ensuite
+//   en Fiche individuelle sur ce record précis (voir renderCluster()).
+// ?group=Tech-Native%20Networks           — filtre sur le champ "portfolio group"
+//   (un seul groupe par lien, c'est ce niveau qui correspond 1:1 aux pages du site)
+// ?section=Managed%20Marketplaces         — filtre sur "site section" (ancien mécanisme, gardé pour compat)
+// Si le filtre isole exactement 2 entités, on ouvre directement la vue Comparer.
+function applyDeepLink() {
+  const params = new URLSearchParams(location.search);
+  const ventureParam = params.get("venture");
+  if (ventureParam) {
+    const rec = RECORDS.find(r => resolve(r, NAME_F).trim() === ventureParam.trim());
+    if (rec) {
+      clusterSelected = rec.id;
+      currentMode = "cluster";
+      setActiveModeButtons();
+      return;
+    }
+  }
+  const groupParam = params.get("group");
+  const sectionParam = params.get("section");
+  let wanted, matches;
+  if (groupParam) {
+    wanted = groupParam.split(",").map(s => s.trim()).filter(Boolean);
+    matches = RECORDS.filter(r => wanted.includes(resolve(r, GROUP_F)));
+    if (!matches.length) return;
+    filterGroupList = wanted;
+  } else if (sectionParam) {
+    wanted = sectionParam.split(",").map(s => s.trim()).filter(Boolean);
+    matches = RECORDS.filter(r => wanted.includes(resolve(r, SECTION_F)));
+    if (!matches.length) return;
+    filterSectionList = wanted;
+  } else {
+    return;
+  }
+  filterLabel = params.get("label") || wanted.join(" + ");
+  if (matches.length === 2) {
+    compareLeft = matches[0].id;
+    compareRight = matches[1].id;
+    currentMode = "compare";
+  } else {
+    currentMode = "table";
+  }
+  setActiveModeButtons();
+}
+
+function clearDeepLink() {
+  filterSectionList = null;
+  filterGroupList = null;
+  filterLabel = null;
+  filterSection = "*";
+  renderAll();
+}
+
+async function boot() {
+  try {
+    const res = await fetch("./portfolio.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    FIELD_NAMES = data.fieldNames || {};
+    RECORDS = data.records.filter(r => (resolve(r, ROLE_F) || "").trim() !== "benchmark");
+    applyDeepLink();
+    renderAll();
+  } catch (err) {
+    document.getElementById("panelTable").innerHTML = `<div class="state-msg">Unable to load portfolio.json (${err.message}). Check that the file exists next to this page and that the Airtable export has run.</div>`;
+  }
+}
+boot();
+</script>
+</body>
+</html>
