@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prototypes — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../css/style.css?v=27">
-<!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
@@ -26,45 +25,25 @@
     </div>
 
     <h1>Prototypes</h1>
-<div class="branch-desc">Instruments and tools in development.</div>
+    <div class="branch-desc">Instruments and tools in development.</div>
 
-<div class="children">
-  <div class="child"><a href="/portfolio.html?venture=Frame">Frame</a> <span class="status-tag status-build">build</span><div class="child-desc">A structured index of ventures, doctrines, and logs.</div></div>
-  <div class="child"><a href="/portfolio.html?venture=LiveLedger">LiveLedger</a> <span class="status-tag status-concept">concept</span><div class="child-desc">A radical-transparency ledger for professional accounting.</div></div>
-  <div class="child"><a href="/portfolio.html?venture=VaultSemantics">Second Cortex</a> <span class="status-tag status-concept">concept</span><div class="child-desc">Semantic and structural analysis for Obsidian vaults, exposed via MCP.</div></div>
-</div>
+    <div class="children">
+
+      <div class="child">
+        <a href="/prototypes/prototypes.html">Prototypes</a>
+        <span class="status-tag status-build">build</span>
+        <div class="child-desc">Projects with commercial intent, designed to become standalone businesses.</div>
+      </div>
+
+      <div class="child">
+        <a href="/prototypes/instruments.html">Instruments</a>
+        <span class="status-tag status-concept">concept</span>
+        <div class="child-desc">Personal tools built for a specific need. They stay close, they stay yours.</div>
+      </div>
+
+    </div>
 
   </div>
-<script>
-(function () {
-  var origFetch = window.fetch;
-  window.fetch = function (url) {
-    if (typeof url === 'string' && url.indexOf('api.github.com/repos/') !== -1) {
-      var cacheKey = 'ghcache_' + url;
-      var cached = null;
-      try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) {}
-      var now = Date.now();
-      if (cached && (now - cached.t) < 15 * 60 * 1000) {
-        return Promise.resolve({ json: function () { return Promise.resolve(cached.d); } });
-      }
-      return origFetch.apply(this, arguments).then(function (r) {
-        return r.json().then(function (data) {
-          if (data && !data.message) {
-            try { localStorage.setItem(cacheKey, JSON.stringify({ t: now, d: data })); } catch (e) {}
-          } else if (cached) {
-            data = cached.d;
-          }
-          return { json: function () { return Promise.resolve(data); } };
-        });
-      }).catch(function () {
-        if (cached) return { json: function () { return Promise.resolve(cached.d); } };
-        return { json: function () { return Promise.resolve([]); } };
-      });
-    }
-    return origFetch.apply(this, arguments);
-  };
-})();
-</script>
 <script>
 (function () {
   var el = document.getElementById('last-updated');
