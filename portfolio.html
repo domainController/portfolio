@@ -39,6 +39,14 @@
   table.consolidated tbody tr.row-clickable { cursor: pointer; }
   table.consolidated tbody tr.row-clickable:hover td { background: rgba(255,255,255,0.03); }
   table.consolidated tr:hover td { background: rgba(255,255,255,0.03); }
+  /* Classe dédiée (pas table.consolidated) : renderTable() attache ses handlers de tri/clic
+     de ligne via document.querySelectorAll("table.consolidated ..."), une recherche globale
+     au document -- réutiliser la même classe aurait accroché ce comportement (tri cassé,
+     clic de ligne qui écrase singleSelected) sur la galerie Value Props dès qu'on serait
+     ensuite passé par Consolidated view. */
+  table.vp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.vp-table th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  table.vp-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
   .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--muted); }
   .empty-cell { color: #5a6080; font-style: italic; }
   .row-count { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
@@ -94,6 +102,8 @@
   .cluster-row-name:hover { color: var(--accent); text-decoration: underline; }
   .cluster-row-expand-hint { display: inline-block; color: var(--muted); transition: transform 0.15s; }
   .cluster-row.expanded .cluster-row-expand-hint { transform: rotate(180deg); }
+  .corps-toggle { font-size: 12.5px; color: var(--muted); cursor: pointer; margin-bottom: 10px; display: flex; align-items: center; gap: 4px; }
+  .corps-toggle.expanded .cluster-row-expand-hint { transform: rotate(180deg); }
   .cluster-row-detail { display: none; padding: 2px 4px 14px; }
   .cluster-row-detail.open { display: block; }
   .cluster-block { margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
@@ -211,8 +221,10 @@ const FIELD_META = {
   fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market", order:3},
   fldpKjCqmfWTsEZYq: {name:"site section", tab:"meta"},
   fldbfrnARURZBDqk4: {name:"portfolio group", tab:"meta"},
-  fldEp2lIIJ2UG42Wf: {name:"core value prop", tab:"Market", order:1},
-  fldraV615NFkhiRZs: {name:"differentiator", tab:"Market", order:2},
+  // Retaggé "Market" -> "Branding" (handoff 05.10.2026, scission taxonomie/marque) :
+  // repli générique pour une venture sans record Brand, géré dans brandingRowsHTML().
+  fldEp2lIIJ2UG42Wf: {name:"core value prop", tab:"Branding", order:1},
+  fldraV615NFkhiRZs: {name:"differentiator", tab:"Branding", order:2},
   fldWD7ch1mN9uPAhg: {name:"impact", tab:"Traction", order:6},
   fldKwmWB30lqhjVib: {name:"channel", tab:"Operations", order:4},
   fldHsh3cvS7yiAyiV: {name:"value origin", tab:"Operations", order:5},
@@ -252,7 +264,14 @@ const FIELD_META = {
   fldotsmqLDmkhWYt3: {name:"email", tab:"Operations", order:9},
   fldfYvXdHT9U0RgOx: {name:"contact", tab:"Operations", order:10},
 };
-const TAB_ORDER = ["Market","Product","Traction","Infra","Operations","Finance","Acquisition","Labs"];
+// Handoff Cowork 05.10.2026 : l'ancien onglet "Market" mélangeait taxonomie de marché et
+// cadre de marque. Scindé en "Market" (taxonomie : segments, corridors, target
+// geographies, vertical/sub-vertical, model/asset/entity type, customer concentration) et
+// "Branding" (value prop, pod, rtb, anti_positioning) -- "Branding" prend la place de
+// "Product", qui était vide (vérifié : aucun champ FIELD_META n'y pointait). "Value Props"
+// (galerie brute, toutes les formulations liées, pas de transformation) est un nouvel
+// onglet entre les deux.
+const TAB_ORDER = ["Market","Branding","Value Props","Traction","Infra","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
       SUBVERTICAL_F = "fldDx6P723cQsXAU3", ASSET_TYPE_F = "fldMevUbOYlZX1pFA", MODEL_TYPE_F = "fldXHkm2E0Avupzr4",
@@ -270,11 +289,15 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
 const BRAND_TABLE_ID = "tblquGFmUloAgPaOz", VALUEPROPS_TABLE_ID = "tbl4kVPDpsrfAWK2b";
 const BRAND_VENTURE_F = "fldl3JAxzP4VLxwgQ", VP_VENTURE_F = "fldua2qkHNyD63LEJ";
 const SEGMENT_PRIMARY_F = "fldS4jIlo62YOUhcd", SEGMENT_SECONDARY_F = "fldMDbnyfdVbqCxQU",
+      SEGMENT_TERTIARY_F = "fldZ8QKHKSOVsu5R7",
       POD_F = "fldIwySBORJB5x5DW", RTB_PRIMARY_F = "fldtU923W9xCQtLpb",
+      RTB_VERIFICATION_F = "fldgbkjck95oDy0qG", RTB_INTERACTION_F = "fldsoeNCNqWFzrfC9",
+      RTB_MONETIZATION_F = "fldEPbYPqVdGelHIN", RTB_LEGAL_F = "fldmviy8ZxzunBFfs",
       ANTI_POSITIONING_F = "fldo2dmVqTzQ56VjU", CORRIDOR_PRIMARY_F = "fldIPlW4qLfNI0pyQ",
       CORRIDOR_INVERSE_F = "fldeLl4tCJ0iWl9jk", CORRIDOR_ORIGINE_CONTRAINTE_F = "fldXiwKIhRJWdx3ho";
 const VP_SURFACE_F = "fldjkm0I7PnRgykYQ", VP_IDENTIFIANT_F = "fldk5GWIiH6Wm2n3l",
       VP_FORMULATION_F = "fldHzkkLtjNaaGphK", VP_STATUT_F = "fldwlQoMqhzvU43GQ",
+      VP_NOTE_F = "fldyKPHQq9ZqZCFCt",
       VP_STAGE_F = "fldZe3Llqh66xjdrw", VP_DATE_STAB_F = "fldbSOyh47TdVGzJB";
 
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
@@ -647,21 +670,46 @@ function landingValueProp(rec) {
   return candidates[0];
 }
 
-// Construit les lignes de l'onglet Market dans l'ordre du handoff : value prop (Value
-// Props surface=landing, repli sur core value prop de Ventures) et pod (Brand, repli sur
-// differentiator de Ventures) en tête, puis les champs Brand ajoutés (segments, corridors,
-// anti_positioning — chacun seulement si renseigné), puis le reste des champs Market
+// Handoff Cowork 05.10.2026 : l'onglet Market (ex-fusionné) mélangeait taxonomie de marché
+// et cadre de marque — scindé en deux. "Market" (taxonomie, ci-dessous) : segments,
+// corridors, target geographies (Brand/Ventures), puis le reste des champs Market
 // génériques déjà gérés par FIELD_META (sub-vertical, vertical, model type, asset type,
-// entity type, customer concentration...) MOINS core value prop/differentiator (remplacés
-// ci-dessus) et target segments (libellé "target markets" trompeur — le champ pointait en
-// réalité sur des pays, pas des segments ; redondant une fois les corridors Brand
-// affichés, cf. handoff "correction de libellé"). Retour Patrice 05.10.2026 (après
-// l'addendum qui l'avait retiré) : rtb_primary revient, mais comme SA PROPRE ligne plutôt
-// que fusionné dans differentiator — "le plus de champs possible, mais propres, 2 lignes
-// max, pas de bruit." Chaque champ Brand affiché ici doit donc rester court et scannable ;
-// un contenu plus long (target_geography, le détail narratif complet) reste réservé à une
-// future vue de détail, jamais compressé de force ni tronqué silencieusement ici.
-function marketTabRowsHTML(rec, genericMarketRows) {
+// entity type, customer concentration...) MOINS target segments (libellé "target markets"
+// trompeur, cf. handoff "correction de libellé" — target geographies le remplace).
+function marketTaxonomyRowsHTML(rec, genericMarketRows) {
+  const rows = [];
+  const brand = brandFor(rec);
+  if (brand) {
+    [
+      [SEGMENT_PRIMARY_F, "segment primary"], [SEGMENT_SECONDARY_F, "segment secondary"],
+      [SEGMENT_TERTIARY_F, "segment tertiary"],
+      [CORRIDOR_PRIMARY_F, "corridor primary"], [CORRIDOR_INVERSE_F, "corridor inverse"],
+      // corridor_origine_contrainte renommé corridor_constrained_origin côté Airtable
+      // (addendum 2) — même fldXiwKIhRJWdx3ho, l'ID de champ ne change pas à un renommage.
+      [CORRIDOR_ORIGINE_CONTRAINTE_F, "corridor constrained origin"],
+    ].forEach(([fid, label]) => {
+      const v = resolve(brand, fid);
+      if (v) rows.push([label, v]);
+    });
+  }
+  const geographies = resolve(rec, TARGET_GEOGRAPHIES_F);
+  if (geographies) rows.push(["target geographies", geographies]);
+  const skip = new Set([TARGET_SEGMENTS_F]);
+  genericMarketRows.filter(([, , fid]) => !skip.has(fid))
+    .forEach(([v, , fid]) => rows.push([fieldLabel(fid), `${linkify(v, fid)}${pillFor(rec, fid)}`]));
+  return rows;
+}
+
+// "Branding" (ex-partie cadre de marque de l'ancien Market) : value prop (Value Props
+// surface=landing, repli sur core value prop de Ventures), pod/rtb_primary (Brand, repli
+// sur differentiator de Ventures) — libellés en toutes lettres (POD/RTB illisibles sans
+// contexte permanent, addendum 2), les 4 RTB secondaires (verification/interaction/
+// monetization/legal, souvent vides selon la venture — normal, pas une erreur de rendu),
+// puis anti_positioning. Chaque champ Brand affiché doit rester court et scannable (2
+// lignes max, "le plus de champs possible mais propres" — Patrice) ; un contenu plus long
+// (target_geography, le détail narratif complet) reste réservé à une future vue de détail,
+// jamais compressé de force ni tronqué silencieusement ici.
+function brandingRowsHTML(rec, genericBrandingRows) {
   const rows = [];
   const vp = landingValueProp(rec);
   if (vp) {
@@ -673,8 +721,6 @@ function marketTabRowsHTML(rec, genericMarketRows) {
     if (cvp) rows.push(["core value prop", cvp]);
   }
   const brand = brandFor(rec);
-  // Addendum 2 : "POD"/"RTB" illisibles sans contexte permanent -> libellés en toutes
-  // lettres uniquement à l'affichage (les champs Airtable pod/rtb_primary ne changent pas).
   const pod = brand && resolve(brand, POD_F);
   if (pod) {
     rows.push(["point of difference", pod]);
@@ -683,36 +729,47 @@ function marketTabRowsHTML(rec, genericMarketRows) {
     if (diff) rows.push(["differentiator", diff]);
   }
   if (brand) {
-    const rtb = resolve(brand, RTB_PRIMARY_F);
-    if (rtb) rows.push(["reason to believe", rtb]);
     [
-      [SEGMENT_PRIMARY_F, "segment primary"], [SEGMENT_SECONDARY_F, "segment secondary"],
-    ].forEach(([fid, label]) => {
-      const v = resolve(brand, fid);
-      if (v) rows.push([label, v]);
-    });
-  }
-  // target geographies (Ventures, synthèse large niveau présentation investisseur) avant
-  // les corridors (Brand, le mécanisme détaillé) : un lecteur pressé s'arrête ici, les
-  // corridors ne sont là que pour qui veut le détail (addendum 2).
-  const geographies = resolve(rec, TARGET_GEOGRAPHIES_F);
-  if (geographies) rows.push(["target geographies", geographies]);
-  if (brand) {
-    [
-      [CORRIDOR_PRIMARY_F, "corridor primary"], [CORRIDOR_INVERSE_F, "corridor inverse"],
-      // corridor_origine_contrainte renommé corridor_constrained_origin côté Airtable
-      // (addendum 2) — même fldXiwKIhRJWdx3ho, l'ID de champ ne change pas à un renommage.
-      [CORRIDOR_ORIGINE_CONTRAINTE_F, "corridor constrained origin"],
+      [RTB_PRIMARY_F, "reason to believe"],
+      [RTB_VERIFICATION_F, "rtb verification"], [RTB_INTERACTION_F, "rtb interaction"],
+      [RTB_MONETIZATION_F, "rtb monetization"], [RTB_LEGAL_F, "rtb legal"],
       [ANTI_POSITIONING_F, "anti positioning"],
     ].forEach(([fid, label]) => {
       const v = resolve(brand, fid);
       if (v) rows.push([label, v]);
     });
   }
-  const skip = new Set([CORE_VALUE_PROP_F, DIFFERENTIATOR_F, TARGET_SEGMENTS_F]);
-  genericMarketRows.filter(([, , fid]) => !skip.has(fid))
+  const skip = new Set([CORE_VALUE_PROP_F, DIFFERENTIATOR_F]);
+  genericBrandingRows.filter(([, , fid]) => !skip.has(fid))
     .forEach(([v, , fid]) => rows.push([fieldLabel(fid), `${linkify(v, fid)}${pillFor(rec, fid)}`]));
   return rows;
+}
+
+// Onglet "Value Props" : galerie brute, sans transformation — toutes les lignes liées à la
+// venture courante, une par formulation (landing/tagline/bio/investor/welcome...), pas
+// seulement la plus aboutie. Patrice veut explicitement voir tous les brouillons.
+function valuePropsGalleryHTML(rec) {
+  const items = VALUE_PROPS.filter(v => linkedIds(v, VP_VENTURE_F).includes(rec.id))
+    .sort((a, b) => (resolve(a, VP_SURFACE_F) || "").localeCompare(resolve(b, VP_SURFACE_F) || "")
+      || (resolve(a, VP_IDENTIFIANT_F) || "").localeCompare(resolve(b, VP_IDENTIFIANT_F) || ""));
+  if (!items.length) return `<div class="state-msg">No Value Props yet for this venture.</div>`;
+  const cols = [
+    [VP_SURFACE_F, "Surface"], [VP_IDENTIFIANT_F, "ID"], [VP_FORMULATION_F, "Formulation"],
+    [VP_STATUT_F, "Status"], [VP_NOTE_F, "Note"], [VP_STAGE_F, "Stage"], [VP_DATE_STAB_F, "Stabilized"],
+  ];
+  return `
+    <div class="table-scroll">
+    <table class="vp-table">
+      <thead><tr>${cols.map(([, l]) => `<th>${l}</th>`).join("")}</tr></thead>
+      <tbody>
+        ${items.map(r => `<tr>${cols.map(([f]) => {
+          const v = resolve(r, f);
+          return `<td>${v !== null && v !== "" ? v : '<span class="empty-cell">—</span>'}</td>`;
+        }).join("")}</tr>`).join("")}
+      </tbody>
+    </table>
+    </div>
+  `;
 }
 
 function renderSingle() {
@@ -741,22 +798,30 @@ function renderSingle() {
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
 
   const singleRows = byTab[singleTab] || [];
-  // L'onglet Market tire sa value prop/différenciateur des modules satellites Brand/Value
-  // Props (cross-table, pas un simple champ Ventures) : construit à part, voir
-  // marketTabRowsHTML(). Tous les autres onglets gardent le chemin générique FIELD_META.
-  const marketRows = singleTab === "Market" ? marketTabRowsHTML(rec, singleRows) : null;
+  // Market (taxonomie) et Branding (cadre de marque) tirent leur contenu des modules
+  // satellites Brand/Value Props (cross-table, pas un simple champ Ventures) : construits
+  // à part, voir marketTaxonomyRowsHTML()/brandingRowsHTML(). Value Props est une galerie
+  // brute (table HTML, pas des paires label/valeur). Tous les autres onglets gardent le
+  // chemin générique FIELD_META.
+  const customRows = singleTab === "Market" ? marketTaxonomyRowsHTML(rec, singleRows)
+    : singleTab === "Branding" ? brandingRowsHTML(rec, singleRows)
+    : null;
+  const valuePropsHTML = singleTab === "Value Props" ? valuePropsGalleryHTML(rec) : null;
   // Addendum Cowork 05.10.2026 : l'eyebrow au-dessus du titre affichait un tiret vide pour
   // une venture comme Vetnups (SECTION_F est mort, clusterParentsLink ne concerne que les
-  // components). sub-vertical comble ce vide sans dupliquer core value prop, qui a déjà sa
-  // propre ligne plus bas dans l'onglet Market.
+  // components). sub-vertical comble ce vide sans dupliquer core value prop/value prop
+  // (landing), qui ont leur propre ligne dans l'onglet Branding.
   const metaLine = resolve(rec,SECTION_F) || capitalize(resolve(rec,SUBVERTICAL_F)) || (clusterParentsLink(rec) ? `Component of ${clusterParentsLink(rec)}` : "—");
+  const tabBodyHTML = valuePropsHTML
+    ? valuePropsHTML
+    : customRows
+      ? (customRows.length ? customRows.map(([label,html]) => `<div class="fm-row"><div class="fm-key">${label}</div><div>${html}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`)
+      : (singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`);
   document.getElementById("panelSingle").innerHTML = `
     <div class="meta-line">${metaLine}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
-    <div class="tab-block">${marketRows
-      ? (marketRows.length ? marketRows.map(([label,html]) => `<div class="fm-row"><div class="fm-key">${label}</div><div>${html}</div></div>`).join("") : `<div class="state-msg">No fields for the Market tab yet.</div>`)
-      : (singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`)}</div>
+    <div class="tab-block">${tabBodyHTML}</div>
   `;
   document.querySelectorAll(".cluster-parent-link").forEach(el => {
     el.addEventListener("click", e => {
@@ -913,6 +978,14 @@ function clusterRowHTML(r, rec, opts = {}) {
 // opts.collapsible (Cluster view uniquement) : le détail démarre replié, un clic sur
 // l'en-tête (nom + pastille + compte) l'ouvre/le referme — Patrice voulait un
 // "expandable", pas tout déroulé d'un coup comme un cat Unix.
+// Handoff Cowork 05.10.2026 : "corps" restauré sur Venture View (!opts.collapsible),
+// supprimé par erreur lors du retrait de la section "Core" (56a1d6a) -- Core n'était pas
+// qu'un label, c'était la venture elle-même rendue comme ligne cliquable, avec son détail
+// complet (CONSOLIDATED_COLS) dépliable via clusterRowDetailHTML. Restauré ici SANS
+// redupliquer nom/statut (déjà dans le h1) : un simple toggle "Details" sous le meta-line,
+// qui déplie directement clusterRowDetailHTML(rec, false) -- même mécanique que le
+// drill-down déjà existant sur les lignes de composants (ex. ouvrir une Division).
+// Jamais en Cluster view (opts.collapsible) : le header y bascule déjà tout le bloc.
 function clusterBlockHTML(rec, children, opts = {}) {
   const sections = clusterSections(rec, children);
   // Le compte affiché doit correspondre à ce qui est réellement rendu plus bas, pas à
@@ -940,7 +1013,9 @@ function clusterBlockHTML(rec, children, opts = {}) {
         const line = resolve(rec, CORE_VALUE_PROP_F) || resolve(rec, SUBVERTICAL_F);
         return line ? `<div class="meta-line">${capitalize(line)}</div>` : '';
       })()}
+      ${!opts.collapsible ? `<div class="corps-toggle" data-corps-toggle="${rec.id}">Details<span class="cluster-row-expand-hint">▾</span></div>` : ''}
     </div>
+    ${!opts.collapsible ? clusterRowDetailHTML(rec, false) : ''}
     <div class="cluster-list${opts.collapsible ? ' collapsed' : ''}">
       ${sections.map(s => `
         <div class="cluster-section-label">${s.label}</div>
@@ -971,6 +1046,17 @@ function attachClusterRowInteractions(container) {
       if (!detail || !detail.classList.contains("cluster-row-detail")) return;
       detail.classList.toggle("open");
       row.classList.toggle("expanded");
+    });
+  });
+  // "corps" (Venture view) : le toggle vit dans le header, le détail juste après --
+  // header.nextElementSibling, pas row.nextElementSibling comme ci-dessus.
+  container.querySelectorAll("[data-corps-toggle]").forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const header = toggle.closest(".cluster-block-header");
+      const detail = header && header.nextElementSibling;
+      if (!detail || !detail.classList.contains("cluster-row-detail")) return;
+      detail.classList.toggle("open");
+      toggle.classList.toggle("expanded");
     });
   });
 }
