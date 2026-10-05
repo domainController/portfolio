@@ -256,7 +256,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       DISTRIBUTION_MODEL_F = "fldzBaPn1BMoyLf5B", PLATFORM_F = "fldZnrxv8j8PjHfN2",
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl",
-      USES_F = "fldFIREVHXJ8Z7IFH", SCOPE_MODE_F = "fldkT90KOGEaGIiwv";
+      USES_F = "fldFIREVHXJ8Z7IFH", SCOPE_MODE_F = "fldkT90KOGEaGIiwv", DIVISION_OF_F = "fldffBNK8PY9L9zh7";
 
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
 // (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
@@ -637,16 +637,20 @@ function clusterSections(rec, children) {
   const isAppSurface = r => ["app","web app","mobile app","ios app","android app","component"].includes(entityKind(r)) && resolve(r,PLATFORM_F);
   const isLab = r => entityKind(r).includes("lab");
   const isContent = r => ["blog","forum","content","review","reviews"].includes(entityKind(r)) || entityKind(r).includes("content");
-  const isDivision = r => entityKind(r) === "division";
   const isFramework = r => entityKind(r) === "framework";
   const isDoctrine = r => entityKind(r) === "doctrine";
 
   const appSurfaces = children.filter(isAppSurface);
   const labs = children.filter(isLab);
   const content = children.filter(isContent);
-  const divisions = children.filter(isDivision);
   const frameworks = children.filter(isFramework);
   const doctrines = children.filter(isDoctrine);
+  // "division of" (fldffBNK8PY9L9zh7) est une relation à part, distincte de belongs
+  // to cluster (children) et de uses framework/lab — jamais branchée nulle part avant
+  // ce correctif, donc Divisions était en pratique toujours vide (Cohort, Frontier...
+  // existaient bien dans la base, juste invisibles ici). Ce sont les records dont
+  // DIVISION_OF_F pointe vers rec, pas un sous-ensemble filtré de children.
+  const divisions = RECORDS.filter(r => linkedIds(r, DIVISION_OF_F).includes(rec.id));
 
   return [
     { label: "Divisions", rows: divisions },
