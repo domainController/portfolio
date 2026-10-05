@@ -255,12 +255,18 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
 
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
 // (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
+// Ordre voulu par Patrice : Vertical/Sub-vertical et Asset type remontés tout en
+// haut (juste après Name), Nav branch suit (jugé important) ; Status et Entity type
+// redescendus en bas de la liste — Entity type est de toute façon masquée par
+// renderTable() dès qu'un seul entity type est filtré (cf. plus bas), pour éviter
+// le retour à la ligne sur "business model venture" qui gonflait la hauteur de ligne.
 const CONSOLIDATED_COLS = [
-  [NAME_F, "Name"], [STATUS_F, "Status"], [ENTITY_TYPE_F, "Entity type"],
-  [ASSET_TYPE_F, "Asset type"], [MODEL_TYPE_F, "Model type"], [VERTICAL_F, "Vertical"],
-  [SUBVERTICAL_F, "Sub-vertical"], [PRICING_MODEL_F, "Pricing model"], [MONETIZATION_F, "Monetization type"],
-  [ROLE_F, "Portfolio role"], [STAGE_F, "Stage"], [GROUP_F, "Portfolio group"], [NAVBRANCH_F, "Nav branch"],
-  [VALUE_ORIGIN_F, "Value origin"], [OPERATING_MODEL_F, "Operating model"], [DISTRIBUTION_MODEL_F, "Distribution model"],
+  [NAME_F, "Name"], [VERTICAL_F, "Vertical"], [SUBVERTICAL_F, "Sub-vertical"],
+  [ASSET_TYPE_F, "Asset type"], [NAVBRANCH_F, "Nav branch"], [MODEL_TYPE_F, "Model type"],
+  [PRICING_MODEL_F, "Pricing model"], [MONETIZATION_F, "Monetization type"], [ROLE_F, "Portfolio role"],
+  [GROUP_F, "Portfolio group"], [VALUE_ORIGIN_F, "Value origin"], [OPERATING_MODEL_F, "Operating model"],
+  [DISTRIBUTION_MODEL_F, "Distribution model"], [STAGE_F, "Stage"], [STATUS_F, "Status"],
+  [ENTITY_TYPE_F, "Entity type"],
 ];
 
 let RECORDS = [];
@@ -409,7 +415,10 @@ function renderTable() {
     return av.localeCompare(bv) * sortDir;
   });
 
-  const cols = CONSOLIDATED_COLS;
+  // Entity type masquée quand un seul type est filtré (dropdown ou lien "frame") :
+  // la bannière de filtre dit déjà quel type est sélectionné, la colonne ne fait que
+  // répéter la même valeur sur chaque ligne et gonfle inutilement la hauteur des lignes.
+  const cols = filterSection !== "*" ? CONSOLIDATED_COLS.filter(([f]) => f !== ENTITY_TYPE_F) : CONSOLIDATED_COLS;
 
   document.getElementById("panelTable").innerHTML = `
     ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">view full portfolio</a></div>` : ""}
@@ -428,6 +437,10 @@ function renderTable() {
         ${rows.map(r => `<tr class="row-clickable" data-id="${r.id}">${cols.map(([f]) => {
           const v = resolve(r, f);
           if (f === STATUS_F) return `<td>${v ? statusText(v) : '<span class="empty-cell">—</span>'}</td>`;
+          // "business model venture" repliée en "BMV" : seul intitulé assez long pour
+          // forcer un retour à la ligne (donc une ligne de tableau sur 3 hauteurs) dans
+          // cette colonne, visible uniquement quand elle n'est pas déjà masquée ci-dessus.
+          if (f === ENTITY_TYPE_F && (v || "").trim() === "business model venture") return `<td>BMV</td>`;
           return `<td>${v ? v : '<span class="empty-cell">—</span>'}</td>`;
         }).join("")}</tr>`).join("")}
       </tbody>
