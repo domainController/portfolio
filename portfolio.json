@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T14:49:42.986Z",
+  "generatedAt": "2026-10-05T15:03:36.486Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -103,7 +103,45 @@
     "fldffBNK8PY9L9zh7": "division of",
     "fldmDIOdd3zPSen01": "From field: division of",
     "fldHjpRgy6oxhvIJ9": "uses framework/lab",
-    "fldlyG5jjHrrZl68f": "From field: uses framework/lab 2"
+    "fldlyG5jjHrrZl68f": "From field: uses framework/lab 2",
+    "fldDCL6wqA8qirFS0": "Name",
+    "fldl3JAxzP4VLxwgQ": "venture",
+    "fldS4jIlo62YOUhcd": "segment_primary",
+    "fldMDbnyfdVbqCxQU": "segment_secondary",
+    "fldZ8QKHKSOVsu5R7": "segment_tertiary",
+    "fldxGg2y3MWt4gW0L": "target_geography",
+    "fldLR0QrcezGQWatW": "competitive_frame",
+    "fldbQ9kSL5xUI3mRX": "segment_attente",
+    "fldNFcb2SWwpI2rNs": "signal_vise",
+    "fld4rZOSVPL6GBga3": "ton",
+    "fldIwySBORJB5x5DW": "pod",
+    "fldtU923W9xCQtLpb": "rtb_primary",
+    "fldgbkjck95oDy0qG": "rtb_verification",
+    "fldsoeNCNqWFzrfC9": "rtb_interaction",
+    "fldEPbYPqVdGelHIN": "rtb_monetization",
+    "fldmviy8ZxzunBFfs": "rtb_legal",
+    "fld2Xl3jGMhB7nIEc": "proof_assets",
+    "fld0Hd2HU1T5LdZk0": "pop",
+    "fldOpjlZczN1oyb15": "objections",
+    "fldpo99581ZSvSB0B": "objection_handling",
+    "fldo2dmVqTzQ56VjU": "anti_positioning",
+    "fldTXzQIY2rVMWxOk": "seuil_reference",
+    "fldo3MHExaMDUTL4I": "marches_sous_seuil",
+    "fld9TdKYF75u3KMgc": "frictions",
+    "fld00rRyHBCsNV4q3": "contre_exemples",
+    "fldIPlW4qLfNI0pyQ": "corridor_primary",
+    "fldeLl4tCJ0iWl9jk": "corridor_inverse",
+    "fldXiwKIhRJWdx3ho": "corridor_origine_contrainte",
+    "fldAFlU7bFuX0uWwM": "Name",
+    "fldua2qkHNyD63LEJ": "venture",
+    "fldjkm0I7PnRgykYQ": "surface",
+    "fldk5GWIiH6Wm2n3l": "identifiant",
+    "fldHzkkLtjNaaGphK": "formulation",
+    "fldiZb53rNXgzEJx7": "longueur_cible",
+    "fldwlQoMqhzvU43GQ": "statut",
+    "fldyKPHQq9ZqZCFCt": "note",
+    "fldZe3Llqh66xjdrw": "stage",
+    "fldbSOyh47TdVGzJB": "date_stabilisation"
   },
   "records": [
     {
@@ -1591,6 +1629,121 @@
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "component ",
         "fldyxQMf0DeLLvZaz": "framed"
+      }
+    }
+  ],
+  "brand": [
+    {
+      "id": "recr5jeF2BxLpOPfP",
+      "createdTime": "2026-10-05T13:32:00.000Z",
+      "fields": {
+        "fld00rRyHBCsNV4q3": "Tinder, Bumble, apps de hookup.",
+        "fld0Hd2HU1T5LdZk0": "Functional search, critical mass, usability, moderation, privacy, payment.",
+        "fld2Xl3jGMhB7nIEc": "Verification offices, in-house photographers, legal team, photo studios, antenna network.",
+        "fld4rZOSVPL6GBga3": "Direct, structured, premium, no-nonsense.",
+        "fld9TdKYF75u3KMgc": "Swiping, chat sans fin, faux profils, manque de vérification.",
+        "fldDCL6wqA8qirFS0": "Vetnups — Brand",
+        "fldEPbYPqVdGelHIN": "Monetizable profile attributes, photo shoots, legal assistance.",
+        "fldIPlW4qLfNI0pyQ": "Europe de l'Ouest / USA (hommes) → Asie du Sud-Est, Europe de l'Est, Amérique latine, Afrique de l'Ouest (femmes) — circuit dit « passport bro » / digital nomade.",
+        "fldIwySBORJB5x5DW": "A verified, structured matchmaking environment where every profile is real, every interaction is intentional.",
+        "fldLR0QrcezGQWatW": "Dating apps for serious relationships + traditional matchmaking agencies.",
+        "fldMDbnyfdVbqCxQU": "Women from specific origin corridors rather than broad regions: Southeast Asia (Philippines, Thailand, Vietnam, Laos, Cambodia, Indonesia), Eastern Europe (Russia, Ukraine, Czech Republic, Poland to a lesser extent), Latin America (Mexico), West/Sub-Saharan Africa (Senegal, Nigeria, Cameroon, Kenya).",
+        "fldNFcb2SWwpI2rNs": "Confidence, authenticity, seriousness.",
+        "fldOpjlZczN1oyb15": "Arnaque, passeport, perte de temps, coût, fichage.",
+        "fldS4jIlo62YOUhcd": "Men from Western countries, disillusioned by mainstream dating apps.",
+        "fldTXzQIY2rVMWxOk": "Budbee, Kleinanzeige, Airbnb.",
+        "fldXiwKIhRJWdx3ho": "Cuba, Haïti, Russie — marchés d'origine à sortie géopolitiquement contrainte, distincts des corridors à mobilité fluide. Exclu : Jamaïque (flux net plutôt entrant — destination, pas origine contrainte).",
+        "fldZ8QKHKSOVsu5R7": "South Asian and North African Muslim communities.",
+        "fldbQ9kSL5xUI3mRX": "Trust, verification, structure, no time-wasting.",
+        "fldeLl4tCJ0iWl9jk": "Europe de l'Ouest (femmes) → Zanzibar, République dominicaine, Gambie — tourisme sentimental féminin, flux inverse au corridor primaire. Hors périmètre produit actuel (segment_primary/segment_secondary restent à sens unique) : signalé ici comme territoire de veille marché, pas comme segment actif tant que non confirmé.",
+        "fldgbkjck95oDy0qG": "30+ verification layers.",
+        "fldl3JAxzP4VLxwgQ": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fldmviy8ZxzunBFfs": "Smart Contracts for Love, immigration/divorce support.",
+        "fldo2dmVqTzQ56VjU": "Not a hookup app. Not a swiping app. Not a Tinder clone.",
+        "fldo3MHExaMDUTL4I": "Le Bon Coin, Blocket, Ricardo, concurrents de Frontier.",
+        "fldpo99581ZSvSB0B": "Vérification en personne, contrats juridiques, interactions structurées, tarification progressive, contrôles de confidentialité.",
+        "fldsoeNCNqWFzrfC9": "Granular reactions, no chat, Hard & Soft Filters.",
+        "fldtU923W9xCQtLpb": "In-person verification.",
+        "fldxGg2y3MWt4gW0L": "Structured by origin-destination corridor, not by uniform global coverage (voir champs corridor_primary / corridor_inverse / corridor_origine_contrainte pour la version scannable) :\n— Western Europe + USA (segment primaire, hommes) ↔ Asie du Sud-Est (Philippines, Thaïlande, Vietnam, Laos, Cambodge, Indonésie) — corridor dominant, circuit dit « passport bro » / digital nomade.\n— Western Europe + USA ↔ Europe de l'Est (Russie, Ukraine, République tchèque, Pologne dans une moindre mesure).\n— Western Europe + USA ↔ Amérique latine (Mexique) et Afrique de l'Ouest (Sénégal, Nigeria, Cameroun, Kenya).\n— Cas particulier : Cuba, Haïti et Russie comme marchés d'origine à sortie contrainte (restrictions géopolitiques/visa), distincts des corridors à mobilité plus fluide.\n— Corridor inverse identifié et non encore confirmé en périmètre : femmes d'Europe de l'Ouest vers Zanzibar, République dominicaine, Gambie."
+      }
+    }
+  ],
+  "valueProps": [
+    {
+      "id": "recQJZ6QZc63F9bVp",
+      "createdTime": "2026-10-05T13:32:04.000Z",
+      "fields": {
+        "fldAFlU7bFuX0uWwM": "Vetnups — Landing R1",
+        "fldHzkkLtjNaaGphK": "The verified matchmaking platform for serious relationships.",
+        "fldiZb53rNXgzEJx7": 8,
+        "fldjkm0I7PnRgykYQ": "landing",
+        "fldk5GWIiH6Wm2n3l": "R1",
+        "fldua2qkHNyD63LEJ": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fldwlQoMqhzvU43GQ": "brouillon"
+      }
+    },
+    {
+      "id": "recTakSmP5FEqFUQI",
+      "createdTime": "2026-10-05T13:32:04.000Z",
+      "fields": {
+        "fldAFlU7bFuX0uWwM": "Vetnups — Tagline R1",
+        "fldHzkkLtjNaaGphK": "Verified. Intentional. Serious.",
+        "fldiZb53rNXgzEJx7": 4,
+        "fldjkm0I7PnRgykYQ": "tagline",
+        "fldk5GWIiH6Wm2n3l": "R1",
+        "fldua2qkHNyD63LEJ": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fldwlQoMqhzvU43GQ": "brouillon"
+      }
+    },
+    {
+      "id": "rece65fl2STgYkeQj",
+      "createdTime": "2026-10-05T13:32:04.000Z",
+      "fields": {
+        "fldAFlU7bFuX0uWwM": "Vetnups — Bio R1",
+        "fldHzkkLtjNaaGphK": "Verified matchmaking for serious relationships.",
+        "fldiZb53rNXgzEJx7": 6,
+        "fldjkm0I7PnRgykYQ": "bio",
+        "fldk5GWIiH6Wm2n3l": "R1",
+        "fldua2qkHNyD63LEJ": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fldwlQoMqhzvU43GQ": "brouillon"
+      }
+    },
+    {
+      "id": "recwS0YqCcFV8Knqg",
+      "createdTime": "2026-10-05T13:32:04.000Z",
+      "fields": {
+        "fldAFlU7bFuX0uWwM": "Vetnups — Investisseur R1",
+        "fldHzkkLtjNaaGphK": "A hybrid dating + matchmaking agency targeting 90% of underserved men in Western markets.",
+        "fldiZb53rNXgzEJx7": 15,
+        "fldjkm0I7PnRgykYQ": "investisseur",
+        "fldk5GWIiH6Wm2n3l": "R1",
+        "fldua2qkHNyD63LEJ": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fldwlQoMqhzvU43GQ": "brouillon"
+      }
+    },
+    {
+      "id": "recxACjQDf6kTEk0d",
+      "createdTime": "2026-10-05T13:32:04.000Z",
+      "fields": {
+        "fldAFlU7bFuX0uWwM": "Vetnups — Welcome R1",
+        "fldHzkkLtjNaaGphK": "Proposal is a verified, structured matchmaking environment where every profile is real.",
+        "fldiZb53rNXgzEJx7": 13,
+        "fldjkm0I7PnRgykYQ": "welcome",
+        "fldk5GWIiH6Wm2n3l": "R1",
+        "fldua2qkHNyD63LEJ": [
+          "recfVgB6nO7B7gJrb"
+        ],
+        "fldwlQoMqhzvU43GQ": "brouillon"
       }
     }
   ]
