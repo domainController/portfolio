@@ -82,7 +82,6 @@
   .cluster-row-type { font-size: 12.5px; color: var(--muted); flex: 1; }
   .cluster-section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--key); margin: 18px 0 6px; padding-top: 14px; border-top: 1px solid var(--border); }
   .cluster-section-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-  .cluster-section-label.uses { color: #d4a949; border-top-color: rgba(212,169,73,0.3); }
   .cluster-row-badge { font-family: var(--mono); font-size: 10.5px; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
   .pill.scope-mode { background: rgba(212,169,73,0.15); color: #d4a949; }
   .cluster-row-name:hover { color: var(--accent); text-decoration: underline; }
@@ -606,22 +605,26 @@ function setActiveModeButtons() {
 // session : une venture EST un cluster, pas un objet séparé). Chaque ligne cliquable ->
 // bascule directement en vue Fiche individuelle sur CE record précis, sans repasser par
 // applyDeepLink() (pas de vue cluster récursive, un seul niveau de profondeur).
+// .trim() : le choix Airtable "component" existe avec un espace final en base
+// (artefact du champ entity type), sans variante propre — sans ce trim, les
+// comparaisons strictes plus bas ne matchaient jamais. Partagée avec clusterRowHTML()
+// (Handoff 48) pour détecter les lignes "lab" sans dupliquer la logique.
+function entityKind(r) {
+  return (resolve(r,ENTITY_TYPE_F) || "").trim().toLowerCase();
+}
+
 // Regroupement par nature (Handoff 34) : chaque composant tombe dans la première
-// section dont il remplit le critère ; "Other" récupère tout ce qui ne correspond
-// à aucun entity type prévu, pour ne rien faire disparaître silencieusement.
+// section dont il remplit le critère. "Other" et "Uses" ont été retirées (Handoff 48) :
+// les enregistrements qui n'apparaissaient que là disparaissent simplement de la vue.
 // Partagé entre renderCluster() (une venture) et renderAllClusters() (Handoff 36,
 // toutes les ventures-racines empilées) pour ne pas dupliquer la logique.
 function clusterSections(rec, children) {
-  // .trim() : le choix Airtable "component" existe avec un espace final en base
-  // (artefact du champ entity type), sans variante propre — sans ce trim, la
-  // comparaison stricte plus bas ne matchait jamais et tout tombait dans "Other".
-  const kind = r => (resolve(r,ENTITY_TYPE_F) || "").trim().toLowerCase();
-  const isAppSurface = r => ["app","web app","mobile app","ios app","android app","component"].includes(kind(r)) && resolve(r,PLATFORM_F);
-  const isLab = r => kind(r).includes("lab");
-  const isContent = r => ["blog","forum","content","review","reviews"].includes(kind(r)) || kind(r).includes("content");
-  const isDivision = r => kind(r) === "division";
-  const isFramework = r => kind(r) === "framework";
-  const isDoctrine = r => kind(r) === "doctrine";
+  const isAppSurface = r => ["app","web app","mobile app","ios app","android app","component"].includes(entityKind(r)) && resolve(r,PLATFORM_F);
+  const isLab = r => entityKind(r).includes("lab");
+  const isContent = r => ["blog","forum","content","review","reviews"].includes(entityKind(r)) || entityKind(r).includes("content");
+  const isDivision = r => entityKind(r) === "division";
+  const isFramework = r => entityKind(r) === "framework";
+  const isDoctrine = r => entityKind(r) === "doctrine";
 
   const appSurfaces = children.filter(isAppSurface);
   const labs = children.filter(isLab);
@@ -629,9 +632,6 @@ function clusterSections(rec, children) {
   const divisions = children.filter(isDivision);
   const frameworks = children.filter(isFramework);
   const doctrines = children.filter(isDoctrine);
-  const other = children.filter(r => !isAppSurface(r) && !isLab(r) && !isContent(r) && !isDivision(r) && !isFramework(r) && !isDoctrine(r));
-
-  const uses = linkedIds(rec, USES_F).map(id => RECORDS.find(r => r.id === id)).filter(Boolean);
 
   return [
     { label: "Core", rows: [rec] },
@@ -641,8 +641,6 @@ function clusterSections(rec, children) {
     { label: "Labs", rows: labs },
     { label: "Frameworks", rows: frameworks },
     { label: "Doctrine", rows: doctrines },
-    { label: "Other", rows: other },
-    { label: "Uses", rows: uses, kind: "uses" },
   ].filter(s => s.rows.length);
 }
 
@@ -664,6 +662,9 @@ function clusterRowDetailHTML(r, openByDefault) {
 // (?venture=X) reste un simple résumé cliquable, inchangée ("il n'y a rien à toucher").
 // Même garde pour les pastilles entity type / scope_mode (Handoff 46) : visibles
 // uniquement dans l'onglet Cluster view, jamais sur la vue ?venture=X.
+// Pour une ligne "lab" (Handoff 48) : la pastille entity type vaut "lab" pour
+// toutes les lignes de la section LABS — même info que le header de section,
+// zéro bit ajouté. Remplacée par vertical, masquée si vide (pas de placeholder).
 function clusterRowHTML(r, rec, opts = {}) {
   const toggleAttr = opts.allFields ? "" : ` data-detail-toggle="${r.id}"`;
   const expandHint = opts.allFields ? "" : '<span class="cluster-row-expand-hint">▾</span>';
@@ -673,7 +674,9 @@ function clusterRowHTML(r, rec, opts = {}) {
           <div class="cluster-row-main">
             <span class="cluster-row-name" data-nav-id="${r.id}">${resolve(r,NAME_F)}</span>
             ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
-            ${opts.allFields && resolve(r,ENTITY_TYPE_F) ? `<span class="pill">${resolve(r,ENTITY_TYPE_F)}</span>` : ''}
+            ${opts.allFields && entityKind(r).includes("lab")
+              ? (resolve(r,VERTICAL_F) ? `<span class="pill">${resolve(r,VERTICAL_F)}</span>` : '')
+              : (opts.allFields && resolve(r,ENTITY_TYPE_F) ? `<span class="pill">${resolve(r,ENTITY_TYPE_F)}</span>` : '')}
             ${opts.allFields && resolve(r,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(r,SCOPE_MODE_F)}</span>` : ''}
             ${resolve(r,APP_PRIORITY_F) ? `<span class="cluster-row-badge">${resolve(r,APP_PRIORITY_F)}</span>` : ''}
           </div>
@@ -694,13 +697,13 @@ function clusterBlockHTML(rec, children, opts = {}) {
   const headerClass = opts.collapsible ? "cluster-block-header compact" : "cluster-block-header";
   return `
     <div class="${headerClass}"${toggleAttr}>
-      <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
+      ${resolve(rec,SUBVERTICAL_F) ? `<div class="meta-line">${resolve(rec,SUBVERTICAL_F)}</div>` : ''}
       <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span>${opts.allFields && resolve(rec,ENTITY_TYPE_F) ? `<span class="pill">${resolve(rec,ENTITY_TYPE_F)}</span>` : ''}${opts.allFields && resolve(rec,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(rec,SCOPE_MODE_F)}</span>` : ''}</h1>
       <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}${opts.collapsible ? '<span class="cluster-expand-hint">▾</span>' : ''}</div>
     </div>
     <div class="cluster-list${opts.collapsible ? ' collapsed' : ''}">
       ${sections.map(s => `
-        <div class="cluster-section-label${s.kind === "uses" ? " uses" : ""}">${s.label}</div>
+        <div class="cluster-section-label">${s.label}</div>
         ${s.rows.map(r => clusterRowHTML(r, rec, opts)).join("")}
       `).join("")}
     </div>

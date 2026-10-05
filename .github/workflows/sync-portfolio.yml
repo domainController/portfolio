@@ -2,7 +2,7 @@ name: Sync portfolio.json from Airtable
 
 on:
   schedule:
-    - cron: "*/15 * * * *"   # toutes les 15 minutes ; ajuste ou passe en repository_dispatch si tu préfères déclencher depuis Airtable
+    - cron: "*/5 * * * *"   # toutes les 5 minutes (minimum GitHub Actions) ; ajuste ou passe en repository_dispatch si tu préfères déclencher depuis Airtable
   workflow_dispatch: {}       # bouton "Run workflow" manuel dans l'onglet Actions
 
 permissions:
