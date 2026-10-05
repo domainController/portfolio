@@ -284,7 +284,12 @@ let RECORDS = [];
 let FIELD_NAMES = {};
 let currentMode = "table";
 let sortField = NAME_F, sortDir = 1;
-let filterSection = "*", searchText = "";
+// Patrice, retour direct sur Consolidated view : l'atterrissage par défaut affichait les
+// 43/58 lignes toutes natures mélangées (3 colonnes universelles seulement) au lieu de
+// mener directement sur les ventures, qui sont ce qu'on regarde en premier. "business
+// model venture" par défaut plutôt que "*" ; le lien "clear filter" (clearDeepLink) garde
+// "*" (portfolio complet), un "clear" qui retombe sur un autre filtre serait trompeur.
+let filterSection = "business model venture", searchText = "";
 let compareLeft = null, compareRight = null;
 let singleSelected = null, singleTab = null;
 let clusterSelected = null;
@@ -341,7 +346,10 @@ const ENTITY_TYPE_EXTRA_COLS = {
   "framework": [["usedby","Used by",usedByCol]],
   "doctrine": [["usedby","Used by",usedByCol]],
   "component": [["parent","Belongs to",componentParentCol]],
-  "content": [],
+  // Le handoff proposait "aucune colonne supplémentaire" pour content ; retour direct de
+  // Patrice sur la vue live ("il faudrait qu'on voie écrit blog/forum") — asset type porte
+  // déjà cette distinction (proposal -> "content", clusters forum -> "forum").
+  "content": [[ASSET_TYPE_F,"Asset type"]],
   "app": [[PLATFORM_F,"Platform"]],
 };
 
@@ -956,7 +964,13 @@ function applyDeepLink() {
   const entityTypeParam = params.get("entitytype");
   if (entityTypeParam) {
     filterSection = entityTypeParam;
-    filterLabel = params.get("label") || entityTypeParam;
+    // Pas de repli sur entityTypeParam : depuis que syncUrl() réécrit entitytype= à
+    // chaque navigation interne (pas seulement les liens externes du site), un repli
+    // systématique afficherait la bannière "Filtered view from the site" en permanence.
+    // La bannière ne doit apparaître que pour un vrai lien externe, qui passe toujours
+    // label= explicitement.
+    const label = params.get("label");
+    if (label) filterLabel = label;
     currentMode = "table";
     setActiveModeButtons();
     return;
@@ -1020,7 +1034,13 @@ function syncUrl() {
   } else if (currentMode === "table" && filterSectionList) {
     params.set("section", filterSectionList.join(","));
     if (filterLabel) params.set("label", filterLabel);
-  } else if (currentMode === "table" && filterSection !== "*") {
+  } else if (currentMode === "table") {
+    // Toujours écrit, "*" (All types) compris : depuis que le filtre par défaut est
+    // "business model venture" (retour Patrice), une URL nue ne veut plus dire "All
+    // types" mais "pas encore de choix explicite" -> sans ce paramètre, choisir "All
+    // types" puis rafraîchir retomberait sur le nouveau défaut au lieu de rester sur
+    // "All types". Pas de label ici (pas un lien externe, juste l'état courant) : voir
+    // applyDeepLink(), qui ne lève la bannière que si label= est explicitement présent.
     params.set("entitytype", filterSection);
     if (filterLabel) params.set("label", filterLabel);
   }
