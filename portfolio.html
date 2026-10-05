@@ -677,14 +677,14 @@ function marketTabRowsHTML(rec, genericMarketRows) {
   // lettres uniquement à l'affichage (les champs Airtable pod/rtb_primary ne changent pas).
   const pod = brand && resolve(brand, POD_F);
   if (pod) {
-    rows.push(["Point of Difference", pod]);
+    rows.push(["point of difference", pod]);
   } else {
     const diff = resolve(rec, DIFFERENTIATOR_F);
     if (diff) rows.push(["differentiator", diff]);
   }
   if (brand) {
     const rtb = resolve(brand, RTB_PRIMARY_F);
-    if (rtb) rows.push(["Reason to Believe", rtb]);
+    if (rtb) rows.push(["reason to believe", rtb]);
     [
       [SEGMENT_PRIMARY_F, "segment primary"], [SEGMENT_SECONDARY_F, "segment secondary"],
     ].forEach(([fid, label]) => {
