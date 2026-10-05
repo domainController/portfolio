@@ -403,6 +403,7 @@ function switchMode(mode) {
   document.getElementById("singlePickerTop").style.display = mode === "single" ? "" : "none";
   document.getElementById("clusterPickerTop").style.display = mode === "cluster" ? "" : "none";
   renderAll();
+  syncUrl();
 }
 document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListener("click", () => switchMode(b.dataset.mode)));
 
@@ -461,7 +462,7 @@ function renderTable() {
     </div>
   `;
   document.getElementById("searchBox").addEventListener("input", e => { searchText = e.target.value; renderTable(); });
-  document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterGroupList = null; filterLabel = null; filterSection = e.target.value; renderTable(); });
+  document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterGroupList = null; filterLabel = null; filterSection = e.target.value; renderTable(); syncUrl(); });
   document.querySelectorAll("table.consolidated th").forEach(th => {
     th.addEventListener("click", () => {
       const f = th.dataset.f;
@@ -478,6 +479,7 @@ function renderTable() {
       currentMode = "single";
       setActiveModeButtons();
       renderAll();
+      syncUrl();
     });
   });
 }
@@ -587,12 +589,13 @@ function renderSingle() {
       currentMode = "cluster";
       setActiveModeButtons();
       renderAll();
+      syncUrl();
     });
   });
   const singlePick = document.getElementById("singlePick");
   singlePick.innerHTML = options;
   singlePick.value = singleSelected;
-  singlePick.onchange = e => { singleSelected = e.target.value; singleTab = null; renderSingle(); };
+  singlePick.onchange = e => { singleSelected = e.target.value; singleTab = null; renderSingle(); syncUrl(); };
   document.querySelectorAll(".single-tabs button").forEach(b => b.addEventListener("click", () => { singleTab = b.dataset.t; renderSingle(); }));
 }
 
@@ -763,6 +766,7 @@ function attachClusterRowInteractions(container) {
       currentMode = "single";
       setActiveModeButtons();
       renderAll();
+      syncUrl();
     });
   });
   container.querySelectorAll(".cluster-row[data-detail-toggle]").forEach(row => {
@@ -802,7 +806,7 @@ function renderCluster() {
   const clusterPick = document.getElementById("clusterPick");
   clusterPick.innerHTML = bmvOptions.map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
   clusterPick.value = clusterSelected;
-  clusterPick.onchange = e => { clusterSelected = e.target.value; renderCluster(); };
+  clusterPick.onchange = e => { clusterSelected = e.target.value; renderCluster(); syncUrl(); };
   if (!rec) {
     document.getElementById("panelCluster").innerHTML = `<div class="state-msg">No business model venture found.</div>`;
     return;
@@ -845,6 +849,8 @@ function renderAllClusters() {
 // ?group=Tech-Native%20Networks           — filtre sur le champ "portfolio group"
 //   (un seul groupe par lien, c'est ce niveau qui correspond 1:1 aux pages du site)
 // ?section=Managed%20Marketplaces         — filtre sur "site section" (ancien mécanisme, gardé pour compat)
+// ?record=Vetnups                         — ouvre la Fiche individuelle sur ce record précis
+//   (écrit par syncUrl(), pas de lien de ce type côté site pour l'instant)
 // Si le filtre isole exactement 2 entités, on ouvre directement la vue Comparer.
 function applyDeepLink() {
   const params = new URLSearchParams(location.search);
@@ -854,6 +860,19 @@ function applyDeepLink() {
     if (rec) {
       clusterSelected = rec.id;
       currentMode = "cluster";
+      setActiveModeButtons();
+      return;
+    }
+  }
+  // record=X : pendant de ventureParam pour l'onglet Single record (syncUrl()) — ce
+  // lien profond n'existait pas avant, Single record n'ayant jamais eu de représentation
+  // dans l'URL jusqu'ici.
+  const recordParam = params.get("record");
+  if (recordParam) {
+    const rec = RECORDS.find(r => resolve(r, NAME_F).trim() === recordParam.trim());
+    if (rec) {
+      singleSelected = rec.id;
+      currentMode = "single";
       setActiveModeButtons();
       return;
     }
@@ -903,6 +922,38 @@ function clearDeepLink() {
   filterLabel = null;
   filterSection = "*";
   renderAll();
+  syncUrl();
+}
+
+// La navigation interne (onglets, sélecteurs, clics sur une ligne) ne touchait jamais
+// l'URL : elle ne vivait qu'en mémoire JS. Un refresh rechargeait donc l'URL d'entrée
+// figée dans la barre d'adresse (ex. ?venture=Curb) et la rejouait via applyDeepLink(),
+// effaçant toute la navigation faite depuis sans prévenir (Patrice, bug constaté sur
+// Single record -> refresh -> retour systématique au lien de départ). On réécrit l'URL
+// (replaceState, pas pushState : pas un historique de clic par clic) à chaque changement
+// d'onglet/sélection, en réutilisant le vocabulaire de paramètres déjà compris par
+// applyDeepLink() (venture=, entitytype=, group=, section=) + un nouveau "record=" pour
+// Single record, qui n'avait pas encore de lien profond propre.
+function syncUrl() {
+  const params = new URLSearchParams();
+  if (currentMode === "single" && singleSelected) {
+    const rec = RECORDS.find(r => r.id === singleSelected);
+    if (rec) params.set("record", resolve(rec, NAME_F));
+  } else if (currentMode === "cluster" && clusterSelected) {
+    const rec = RECORDS.find(r => r.id === clusterSelected);
+    if (rec) params.set("venture", resolve(rec, NAME_F));
+  } else if (currentMode === "table" && filterGroupList) {
+    params.set("group", filterGroupList.join(","));
+    if (filterLabel) params.set("label", filterLabel);
+  } else if (currentMode === "table" && filterSectionList) {
+    params.set("section", filterSectionList.join(","));
+    if (filterLabel) params.set("label", filterLabel);
+  } else if (currentMode === "table" && filterSection !== "*") {
+    params.set("entitytype", filterSection);
+    if (filterLabel) params.set("label", filterLabel);
+  }
+  const qs = params.toString();
+  history.replaceState(null, "", location.pathname + (qs ? `?${qs}` : ""));
 }
 
 async function boot() {
@@ -914,6 +965,7 @@ async function boot() {
     RECORDS = data.records.filter(r => (resolve(r, ROLE_F) || "").trim() !== "benchmark");
     applyDeepLink();
     renderAll();
+    syncUrl();
   } catch (err) {
     document.getElementById("panelTable").innerHTML = `<div class="state-msg">Unable to load portfolio.json (${err.message}). Check that the file exists next to this page and that the Airtable export has run.</div>`;
   }
