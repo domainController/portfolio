@@ -326,6 +326,9 @@ let compareLeft = null, compareRight = null;
 let singleSelected = null, singleTab = null;
 let clusterSelected = null;
 let filterSectionList = null, filterGroupList = null, filterLabel = null;
+// "*" | "tech" | "legal" — filtre indépendant du filtre de nature (filterSection),
+// Consolidated view uniquement. Voir isLegalRow() plus bas pour ce qu'il recouvre.
+let filterDomain = "*";
 
 function resolve(rec, fieldId) {
   const v = rec.fields ? rec.fields[fieldId] : rec.cellValuesByFieldId[fieldId];
@@ -493,6 +496,21 @@ function switchMode(mode) {
 }
 document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListener("click", () => switchMode(b.dataset.mode)));
 
+// Retour Patrice 05.10.2026 : un investisseur tech (VC, search fund, micro-PE) qui
+// débarque sur Consolidated view veut pouvoir exclure "tout ce qui est légal" ou
+// n'afficher que ça. Pas de champ "tech" dédié dans la base ("portfolio group" s'en
+// approchait dans le souvenir de Patrice -- "tech enable..." -- mais il est incomplet :
+// Morse et Claim, vertical=legal, sont groupés "Labs" plutôt que "Litigation Finance" ;
+// Frame et LiveLedger n'ont aucun groupe du tout). vertical, lui, est renseigné pour
+// toutes les ventures et distingue déjà proprement "legal"/"legal engineering"/"legal
+// services"/"litigation finance" de tout le reste (housing/retail/dating/finance/
+// software/logistics/insurance/media...) -- substring plutôt qu'égalité stricte pour
+// couvrir ces variantes sans les énumérer une par une. Un record sans vertical du tout
+// (frameworks, doctrine...) tombe côté "tech" par défaut (absence de signal légal).
+function isLegalRow(r) {
+  return (resolve(r, VERTICAL_F) || "").toLowerCase().includes("legal");
+}
+
 function renderTable() {
   // Handoff 45 : le champ "site section" a été supprimé côté Airtable (Handoff 44),
   // ce menu déroulant repose maintenant sur entity type — valeurs réellement présentes
@@ -504,6 +522,8 @@ function renderTable() {
     } else if (filterSectionList) {
       if (!filterSectionList.includes(resolve(r, SECTION_F))) return false;
     } else if (filterSection !== "*" && resolve(r, ENTITY_TYPE_F) !== filterSection) return false;
+    if (filterDomain === "legal" && !isLegalRow(r)) return false;
+    if (filterDomain === "tech" && isLegalRow(r)) return false;
     if (searchText) {
       const hay = (resolve(r, NAME_F) + " " + (resolve(r, VERTICAL_F) || "")).toLowerCase();
       if (!hay.includes(searchText.toLowerCase())) return false;
@@ -537,6 +557,11 @@ function renderTable() {
         <option value="*">All types</option>
         ${entityTypes.map(s => `<option value="${s}" ${!filterSectionList && !filterGroupList && s===filterSection?"selected":""}>${s}</option>`).join("")}
       </select>
+      <select id="domainFilter">
+        <option value="*" ${filterDomain==="*"?"selected":""}>All domains</option>
+        <option value="tech" ${filterDomain==="tech"?"selected":""}>Tech only</option>
+        <option value="legal" ${filterDomain==="legal"?"selected":""}>Legal only</option>
+      </select>
     </div>
     <div class="row-count">${rows.length} ${rows.length>1?"entities":"entity"} shown out of ${RECORDS.length}</div>
     <div class="table-scroll">
@@ -558,6 +583,7 @@ function renderTable() {
   `;
   document.getElementById("searchBox").addEventListener("input", e => { searchText = e.target.value; renderTable(); });
   document.getElementById("sectionFilter").addEventListener("change", e => { filterSectionList = null; filterGroupList = null; filterLabel = null; filterSection = e.target.value; renderTable(); syncUrl(); });
+  document.getElementById("domainFilter").addEventListener("change", e => { filterDomain = e.target.value; renderTable(); syncUrl(); });
   document.querySelectorAll("table.consolidated th").forEach(th => {
     th.addEventListener("click", () => {
       const f = th.dataset.f;
@@ -1123,6 +1149,10 @@ function renderAllClusters() {
 // Si le filtre isole exactement 2 entités, on ouvre directement la vue Comparer.
 function applyDeepLink() {
   const params = new URLSearchParams(location.search);
+  // domain= (tech/legal) : indépendant du reste, lu une seule fois avant toutes les
+  // branches ci-dessous puisqu'il peut accompagner n'importe laquelle d'entre elles.
+  const domainParam = params.get("domain");
+  if (domainParam === "tech" || domainParam === "legal") filterDomain = domainParam;
   const ventureParam = params.get("venture");
   if (ventureParam) {
     const rec = RECORDS.find(r => resolve(r, NAME_F).trim() === ventureParam.trim());
@@ -1196,6 +1226,7 @@ function clearDeepLink() {
   filterGroupList = null;
   filterLabel = null;
   filterSection = "*";
+  filterDomain = "*";
   renderAll();
   syncUrl();
 }
@@ -1233,6 +1264,9 @@ function syncUrl() {
     params.set("entitytype", filterSection);
     if (filterLabel) params.set("label", filterLabel);
   }
+  // domain= (tech/legal) : indépendant du filtre de nature ci-dessus, s'applique aux
+  // trois branches table -- écrit une seule fois ici plutôt que dans chacune.
+  if (currentMode === "table" && filterDomain !== "*") params.set("domain", filterDomain);
   const qs = params.toString();
   history.replaceState(null, "", location.pathname + (qs ? `?${qs}` : ""));
 }
