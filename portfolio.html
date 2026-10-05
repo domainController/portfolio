@@ -302,6 +302,43 @@ function linkedIds(rec, fieldId) {
   return Array.isArray(v) ? v.map(x => (x && typeof x === "object") ? x.id : x) : [];
 }
 
+// Handoff Cowork 05.10.2026 : Consolidated view appliquait le même jeu de colonnes à des
+// entités ontologiquement différentes (une venture a une verticale, un framework ou une
+// app n'en ont pas) — ici le jeu de colonnes par entity_type est explicitement spécifié
+// par Cowork plutôt que dérivé des données, parce qu'il inclut des colonnes relationnelles
+// calculées (used by, belongs to/division of) qu'aucune dérivation automatique ne peut
+// deviner. "All types" ne garde que les 3 colonnes universelles (Name/Nav branch/Status) :
+// mélanger les natures sur Vertical/Asset type/etc. est précisément ce qui produisait le
+// bruit d'origine. "clinic" encore peu peuplé : traité comme business model venture par
+// défaut (zone grise explicite du handoff, à retrancher si un cas concret se présente).
+const UNIVERSAL_COLS = [[NAME_F, "Name"], [NAVBRANCH_F, "Nav branch"], [STATUS_F, "Status"]];
+
+// "used by" : inverse relationnel de USES_F ("uses framework/lab") — qui POINTE VERS ce
+// framework/cette doctrine. Jamais stocké comme champ propre côté Airtable (fldk0tT9SXXsyzUPW,
+// l'inverse auto-généré d'origine, a été perdu puis remplacé par USES_F recréé cette
+// session) : on le recalcule donc à l'affichage, pas depuis un champ.
+function usedByCol(r) {
+  const users = RECORDS.filter(x => linkedIds(x, USES_F).includes(r.id)).map(x => resolve(x, NAME_F));
+  return users.length ? users.join(", ") : null;
+}
+// Un component appartient soit à une venture (belongs to cluster), soit à une autre
+// venture en tant que division (division of) — jamais les deux : une seule colonne,
+// celle qui est renseignée.
+function componentParentCol(r) {
+  return resolve(r, CLUSTER_F) || resolve(r, DIVISION_OF_F) || null;
+}
+
+const ENTITY_TYPE_EXTRA_COLS = {
+  "business model venture": [[VERTICAL_F,"Vertical"],[SUBVERTICAL_F,"Sub-vertical"],[ASSET_TYPE_F,"Asset type"],[MODEL_TYPE_F,"Model type"]],
+  "lab": [[VERTICAL_F,"Vertical"],[SUBVERTICAL_F,"Sub-vertical"]],
+  "division": [[VERTICAL_F,"Vertical"],[SUBVERTICAL_F,"Sub-vertical"],[ASSET_TYPE_F,"Asset type"],[DIVISION_OF_F,"Division of"]],
+  "framework": [["usedby","Used by",usedByCol]],
+  "doctrine": [["usedby","Used by",usedByCol]],
+  "component": [["parent","Belongs to",componentParentCol]],
+  "content": [],
+  "app": [[PLATFORM_F,"Platform"]],
+};
+
 // Plusieurs composants portent le même nom générique ("Web App", "Mobile App") sur des
 // ventures différentes — sans indication de parent, la Fiche individuelle est ambiguë
 // (Patrice, après l'ajout des 4 paires web/mobile). Lien(s) cliquable(s) vers le(s)
@@ -429,21 +466,18 @@ function renderTable() {
     return av.localeCompare(bv) * sortDir;
   });
 
-  // Les entités du portfolio sont ontologiquement différentes (une venture a une
-  // verticale, un codebase/app ou un framework n'en a pas) — Consolidated view
-  // appliquait pourtant le même jeu de colonnes à tout le monde, d'où des colonnes
-  // entières de tirets dès qu'on filtrait sur un type qui ne porte pas ces champs
-  // (Patrice, capture Consolidated view filtrée sur "apps"/"frameworks"). Pas de
-  // liste de colonnes par type codée en dur (ça dérive avec le temps, cf. "site
-  // section" et le bug Divisions) : on dérive plutôt des données elles-mêmes — une
-  // colonne ne s'affiche que si au moins une ligne du sous-ensemble filtré la
-  // renseigne. "All types" garde toutes les colonnes (aucune nature unique
-  // sélectionnée, rien à élaguer). Entity type reste en plus toujours masquée
-  // dès qu'un seul type est filtré (la bannière le dit déjà).
-  const isFiltered = filterSection !== "*" || filterGroupList || filterSectionList;
-  let cols = isFiltered ? CONSOLIDATED_COLS.filter(([f]) => f !== ENTITY_TYPE_F) : CONSOLIDATED_COLS;
-  if (isFiltered) {
-    cols = cols.filter(([f]) => rows.some(r => resolve(r, f)));
+  // Colonnes par nature (entity_type) : voir ENTITY_TYPE_EXTRA_COLS plus haut. Un lien
+  // du site (group=/section=, peut recouvrir plusieurs natures à la fois) n'est pas
+  // couvert par ce mapping explicite -> on garde l'élagage par données (une colonne ne
+  // s'affiche que si au moins une ligne du sous-ensemble la renseigne) comme filet.
+  let cols;
+  if (filterGroupList || filterSectionList) {
+    cols = CONSOLIDATED_COLS.filter(([f]) => f !== ENTITY_TYPE_F && rows.some(r => resolve(r, f)));
+  } else if (filterSection === "*") {
+    cols = UNIVERSAL_COLS;
+  } else {
+    const kind = filterSection.trim().toLowerCase();
+    cols = UNIVERSAL_COLS.concat(ENTITY_TYPE_EXTRA_COLS[kind] || ENTITY_TYPE_EXTRA_COLS["business model venture"]);
   }
 
   document.getElementById("panelTable").innerHTML = `
@@ -460,8 +494,8 @@ function renderTable() {
     <table class="consolidated">
       <thead><tr>${cols.map(([f,l]) => `<th data-f="${f}" class="${f===sortField?"sorted":""}">${l}</th>`).join("")}</tr></thead>
       <tbody>
-        ${rows.map(r => `<tr class="row-clickable" data-id="${r.id}">${cols.map(([f]) => {
-          const v = resolve(r, f);
+        ${rows.map(r => `<tr class="row-clickable" data-id="${r.id}">${cols.map(([f,,computeFn]) => {
+          const v = computeFn ? computeFn(r) : resolve(r, f);
           if (f === STATUS_F) return `<td>${v ? statusText(v) : '<span class="empty-cell">—</span>'}</td>`;
           // "business model venture" repliée en "BMV" : seul intitulé assez long pour
           // forcer un retour à la ligne (donc une ligne de tableau sur 3 hauteurs) dans
