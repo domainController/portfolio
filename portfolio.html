@@ -599,7 +599,10 @@ function setActiveModeButtons() {
 // Partagé entre renderCluster() (une venture) et renderAllClusters() (Handoff 36,
 // toutes les ventures-racines empilées) pour ne pas dupliquer la logique.
 function clusterSections(rec, children) {
-  const kind = r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase();
+  // .trim() : le choix Airtable "component" existe avec un espace final en base
+  // (artefact du champ entity type), sans variante propre — sans ce trim, la
+  // comparaison stricte plus bas ne matchait jamais et tout tombait dans "Other".
+  const kind = r => (resolve(r,ENTITY_TYPE_F) || "").trim().toLowerCase();
   const isAppSurface = r => ["app","web app","mobile app","ios app","android app","component"].includes(kind(r)) && resolve(r,PLATFORM_F);
   const isLab = r => kind(r).includes("lab");
   const isContent = r => ["blog","forum","content","review","reviews"].includes(kind(r)) || kind(r).includes("content");
