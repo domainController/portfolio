@@ -262,7 +262,20 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl",
       USES_F = "fldHjpRgy6oxhvIJ9", SCOPE_MODE_F = "fldkT90KOGEaGIiwv", DIVISION_OF_F = "fldffBNK8PY9L9zh7",
-      CORE_VALUE_PROP_F = "fldEp2lIIJ2UG42Wf";
+      CORE_VALUE_PROP_F = "fldEp2lIIJ2UG42Wf", DIFFERENTIATOR_F = "fldraV615NFkhiRZs",
+      TARGET_SEGMENTS_F = "fldRzG7uU52I3GRT7";
+
+// Handoff Cowork 05.10.2026 : onglet Market de Single Record, câblage vers les modules
+// satellites Brand et Value Props (tables séparées, jamais chargées dans RECORDS).
+const BRAND_TABLE_ID = "tblquGFmUloAgPaOz", VALUEPROPS_TABLE_ID = "tbl4kVPDpsrfAWK2b";
+const BRAND_VENTURE_F = "fldl3JAxzP4VLxwgQ", VP_VENTURE_F = "fldua2qkHNyD63LEJ";
+const SEGMENT_PRIMARY_F = "fldS4jIlo62YOUhcd", SEGMENT_SECONDARY_F = "fldMDbnyfdVbqCxQU",
+      POD_F = "fldIwySBORJB5x5DW", RTB_PRIMARY_F = "fldtU923W9xCQtLpb",
+      ANTI_POSITIONING_F = "fldo2dmVqTzQ56VjU", CORRIDOR_PRIMARY_F = "fldIPlW4qLfNI0pyQ",
+      CORRIDOR_INVERSE_F = "fldeLl4tCJ0iWl9jk", CORRIDOR_ORIGINE_CONTRAINTE_F = "fldXiwKIhRJWdx3ho";
+const VP_SURFACE_F = "fldjkm0I7PnRgykYQ", VP_IDENTIFIANT_F = "fldk5GWIiH6Wm2n3l",
+      VP_FORMULATION_F = "fldHzkkLtjNaaGphK", VP_STATUT_F = "fldwlQoMqhzvU43GQ",
+      VP_STAGE_F = "fldZe3Llqh66xjdrw", VP_DATE_STAB_F = "fldbSOyh47TdVGzJB";
 
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
 // (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
@@ -281,6 +294,7 @@ const CONSOLIDATED_COLS = [
 ];
 
 let RECORDS = [];
+let BRAND = [], VALUE_PROPS = [];
 let FIELD_NAMES = {};
 let currentMode = "table";
 let sortField = NAME_F, sortDir = 1;
@@ -322,7 +336,10 @@ function linkedIds(rec, fieldId) {
 // mélanger les natures sur Vertical/Asset type/etc. est précisément ce qui produisait le
 // bruit d'origine. "clinic" encore peu peuplé : traité comme business model venture par
 // défaut (zone grise explicite du handoff, à retrancher si un cas concret se présente).
-const UNIVERSAL_COLS = [[NAME_F, "Name"], [NAVBRANCH_F, "Nav branch"], [STATUS_F, "Status"]];
+// Nav branch retirée (Patrice, retour direct) : "ça n'apporte pas d'informations
+// pertinentes... ça n'a pas d'intérêt investisseur, ou même pour moi" — c'est un
+// mécanisme de sélection/filtrage interne, pas une donnée à exposer en colonne.
+const UNIVERSAL_COLS = [[NAME_F, "Name"], [STATUS_F, "Status"]];
 
 // "used by" : inverse relationnel de USES_F ("uses framework/lab") — qui POINTE VERS ce
 // framework/cette doctrine. Jamais stocké comme champ propre côté Airtable (fldk0tT9SXXsyzUPW,
@@ -609,6 +626,73 @@ function renderCompare() {
   if (clearLink) clearLink.addEventListener("click", e => { e.preventDefault(); clearDeepLink(); });
 }
 
+// Handoff Cowork 05.10.2026 : un seul record Brand par venture (cadre stratégique).
+function brandFor(rec) {
+  return BRAND.find(b => linkedIds(b, BRAND_VENTURE_F).includes(rec.id)) || null;
+}
+// Plusieurs lignes Value Props possibles par venture (une par surface) : on prend celle
+// dont surface=landing, et s'il y en a plusieurs (versions R1/R2...), celle au stage le
+// plus élevé, ou la plus récente par date_stabilisation en cas d'égalité (handoff).
+function landingValueProp(rec) {
+  const candidates = VALUE_PROPS.filter(v =>
+    linkedIds(v, VP_VENTURE_F).includes(rec.id) &&
+    (resolve(v, VP_SURFACE_F) || "").trim().toLowerCase() === "landing"
+  );
+  if (!candidates.length) return null;
+  candidates.sort((a, b) => {
+    const stageDiff = (Number(resolve(b, VP_STAGE_F)) || 0) - (Number(resolve(a, VP_STAGE_F)) || 0);
+    if (stageDiff) return stageDiff;
+    return (resolve(b, VP_DATE_STAB_F) || "").localeCompare(resolve(a, VP_DATE_STAB_F) || "");
+  });
+  return candidates[0];
+}
+
+// Construit les lignes de l'onglet Market dans l'ordre du handoff : value prop (Value
+// Props surface=landing, repli sur core value prop de Ventures) et pod/rtb_primary
+// (Brand, repli sur differentiator de Ventures) en tête, puis les champs Brand ajoutés
+// (segments, corridors, anti_positioning — chacun seulement si renseigné), puis le reste
+// des champs Market génériques déjà gérés par FIELD_META (sub-vertical, vertical, model
+// type, asset type, entity type, customer concentration...) MOINS core value prop/
+// differentiator (remplacés ci-dessus) et target segments (libellé "target markets"
+// trompeur — le champ pointait en réalité sur des pays, pas des segments ; redondant une
+// fois les corridors Brand affichés, cf. handoff "correction de libellé").
+function marketTabRowsHTML(rec, genericMarketRows) {
+  const rows = [];
+  const vp = landingValueProp(rec);
+  if (vp) {
+    const formulation = resolve(vp, VP_FORMULATION_F);
+    const badge = [resolve(vp, VP_IDENTIFIANT_F), resolve(vp, VP_STATUT_F)].filter(Boolean).join(" · ");
+    rows.push(["value prop (landing)", `${formulation}${badge ? ` <span class="pill">${badge}</span>` : ""}`]);
+  } else {
+    const cvp = resolve(rec, CORE_VALUE_PROP_F);
+    if (cvp) rows.push(["core value prop", cvp]);
+  }
+  const brand = brandFor(rec);
+  const pod = brand && resolve(brand, POD_F);
+  const rtb = brand && resolve(brand, RTB_PRIMARY_F);
+  if (pod || rtb) {
+    rows.push(["differentiator", [pod, rtb ? `<em>${rtb}</em>` : null].filter(Boolean).join("<br>")]);
+  } else {
+    const diff = resolve(rec, DIFFERENTIATOR_F);
+    if (diff) rows.push(["differentiator", diff]);
+  }
+  if (brand) {
+    [
+      [SEGMENT_PRIMARY_F, "segment primary"], [SEGMENT_SECONDARY_F, "segment secondary"],
+      [CORRIDOR_PRIMARY_F, "corridor primary"], [CORRIDOR_INVERSE_F, "corridor inverse"],
+      [CORRIDOR_ORIGINE_CONTRAINTE_F, "corridor origine contrainte"],
+      [ANTI_POSITIONING_F, "anti positioning"],
+    ].forEach(([fid, label]) => {
+      const v = resolve(brand, fid);
+      if (v) rows.push([label, v]);
+    });
+  }
+  const skip = new Set([CORE_VALUE_PROP_F, DIFFERENTIATOR_F, TARGET_SEGMENTS_F]);
+  genericMarketRows.filter(([, , fid]) => !skip.has(fid))
+    .forEach(([v, , fid]) => rows.push([fieldLabel(fid), `${linkify(v, fid)}${pillFor(rec, fid)}`]));
+  return rows;
+}
+
 function renderSingle() {
   if (!singleSelected) singleSelected = (RECORDS.find(r => resolve(r, NAME_F).trim() === "Vetnups") || RECORDS[0]).id;
   const rec = RECORDS.find(r => r.id === singleSelected);
@@ -635,12 +719,18 @@ function renderSingle() {
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
 
   const singleRows = byTab[singleTab] || [];
+  // L'onglet Market tire sa value prop/différenciateur des modules satellites Brand/Value
+  // Props (cross-table, pas un simple champ Ventures) : construit à part, voir
+  // marketTabRowsHTML(). Tous les autres onglets gardent le chemin générique FIELD_META.
+  const marketRows = singleTab === "Market" ? marketTabRowsHTML(rec, singleRows) : null;
   const metaLine = resolve(rec,SECTION_F) || (clusterParentsLink(rec) ? `Component of ${clusterParentsLink(rec)}` : "—");
   document.getElementById("panelSingle").innerHTML = `
     <div class="meta-line">${metaLine}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
     <div class="single-tabs">${availableTabs.map(t => `<button data-t="${t}" class="${t===singleTab?"active":""}">${t}</button>`).join("")}</div>
-    <div class="tab-block">${singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`}</div>
+    <div class="tab-block">${marketRows
+      ? (marketRows.length ? marketRows.map(([label,html]) => `<div class="fm-row"><div class="fm-key">${label}</div><div>${html}</div></div>`).join("") : `<div class="state-msg">No fields for the Market tab yet.</div>`)
+      : (singleRows.length ? singleRows.map(([v,,fid]) => `<div class="fm-row"><div class="fm-key">${fieldLabel(fid)}</div><div>${linkify(v,fid)}${pillFor(rec,fid)}</div></div>`).join("") : `<div class="state-msg">No fields for the ${singleTab} tab yet.</div>`)}</div>
   `;
   document.querySelectorAll(".cluster-parent-link").forEach(el => {
     el.addEventListener("click", e => {
@@ -1055,6 +1145,8 @@ async function boot() {
     const data = await res.json();
     FIELD_NAMES = data.fieldNames || {};
     RECORDS = data.records.filter(r => (resolve(r, ROLE_F) || "").trim() !== "benchmark");
+    BRAND = data.brand || [];
+    VALUE_PROPS = data.valueProps || [];
     applyDeepLink();
     renderAll();
     syncUrl();

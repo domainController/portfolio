@@ -14,6 +14,12 @@
 
 const BASE_ID = "app0YdcF6Ql3khMZl";
 const TABLE_ID = "tblzqRja5Xz4Mz1dg";
+// Handoff Cowork 05.10.2026 : l'onglet Market de Single Record doit tirer sa value prop
+// et son différenciateur des modules satellites Brand/Value Props plutôt que des champs
+// texte libre de Ventures — il faut donc exporter ces deux tables aussi, pas seulement
+// Ventures comme jusqu'ici.
+const BRAND_TABLE_ID = "tblquGFmUloAgPaOz";
+const VALUEPROPS_TABLE_ID = "tbl4kVPDpsrfAWK2b";
 const OUTPUT_PATH = new URL("../portfolio.json", import.meta.url);
 
 const token = process.env.AIRTABLE_TOKEN;
@@ -28,6 +34,8 @@ if (!token) {
 // au sync suivant, plutôt que de rester silencieusement figé sur l'ancien nom.
 // Dégrade en douceur (fieldNames vide) si le token n'a pas le scope schema.bases:read,
 // plutôt que de faire échouer tout l'export pour ça.
+// fieldNames fusionne les 3 tables dans un seul objet plat : les IDs de champ Airtable
+// sont uniques globalement dans la base, pas seulement par table, donc pas de collision.
 async function fetchFieldNames() {
   const url = `https://api.airtable.com/v0/meta/bases/${BASE_ID}/tables`;
   const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
@@ -36,21 +44,23 @@ async function fetchFieldNames() {
     return {};
   }
   const data = await res.json();
-  const table = data.tables.find((t) => t.id === TABLE_ID);
-  if (!table) {
-    console.warn(`Avertissement : table ${TABLE_ID} absente de la réponse Meta — fieldNames omis.`);
-    return {};
-  }
   const names = {};
-  for (const f of table.fields) names[f.id] = f.name;
+  for (const tableId of [TABLE_ID, BRAND_TABLE_ID, VALUEPROPS_TABLE_ID]) {
+    const table = data.tables.find((t) => t.id === tableId);
+    if (!table) {
+      console.warn(`Avertissement : table ${tableId} absente de la réponse Meta — ses fieldNames sont omis.`);
+      continue;
+    }
+    for (const f of table.fields) names[f.id] = f.name;
+  }
   return names;
 }
 
-async function fetchAllRecords() {
+async function fetchAllRecords(tableId) {
   let records = [];
   let offset;
   do {
-    const url = new URL(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`);
+    const url = new URL(`https://api.airtable.com/v0/${BASE_ID}/${tableId}`);
     url.searchParams.set("returnFieldsByFieldId", "true");
     url.searchParams.set("pageSize", "100");
     if (offset) url.searchParams.set("offset", offset);
@@ -66,7 +76,12 @@ async function fetchAllRecords() {
   return records;
 }
 
-const [records, fieldNames] = await Promise.all([fetchAllRecords(), fetchFieldNames()]);
+const [records, brand, valueProps, fieldNames] = await Promise.all([
+  fetchAllRecords(TABLE_ID),
+  fetchAllRecords(BRAND_TABLE_ID),
+  fetchAllRecords(VALUEPROPS_TABLE_ID),
+  fetchFieldNames(),
+]);
 
 const payload = {
   generatedAt: new Date().toISOString(),
@@ -74,9 +89,11 @@ const payload = {
   tableId: TABLE_ID,
   fieldNames,
   records,
+  brand,
+  valueProps,
 };
 
 const fs = await import("node:fs/promises");
 await fs.writeFile(OUTPUT_PATH, JSON.stringify(payload, null, 2) + "\n", "utf-8");
 
-console.log(`OK — ${records.length} ventures exportées vers ${OUTPUT_PATH.pathname}`);
+console.log(`OK — ${records.length} ventures, ${brand.length} brand, ${valueProps.length} value props exportées vers ${OUTPUT_PATH.pathname}`);
