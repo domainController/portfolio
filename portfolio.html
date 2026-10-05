@@ -256,7 +256,8 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       DISTRIBUTION_MODEL_F = "fldzBaPn1BMoyLf5B", PLATFORM_F = "fldZnrxv8j8PjHfN2",
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl",
-      USES_F = "fldHjpRgy6oxhvIJ9", SCOPE_MODE_F = "fldkT90KOGEaGIiwv", DIVISION_OF_F = "fldffBNK8PY9L9zh7";
+      USES_F = "fldHjpRgy6oxhvIJ9", SCOPE_MODE_F = "fldkT90KOGEaGIiwv", DIVISION_OF_F = "fldffBNK8PY9L9zh7",
+      CORE_VALUE_PROP_F = "fldEp2lIIJ2UG42Wf";
 
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
 // (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
@@ -789,7 +790,16 @@ function clusterBlockHTML(rec, children, opts = {}) {
         <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span>${opts.allFields && resolve(rec,ENTITY_TYPE_F) ? `<span class="pill">${resolve(rec,ENTITY_TYPE_F)}</span>` : ''}${opts.allFields && resolve(rec,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(rec,SCOPE_MODE_F)}</span>` : ''}</h1>
         <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}${opts.collapsible ? '<span class="cluster-expand-hint">▾</span>' : ''}</div>
       </div>
-      ${resolve(rec,SUBVERTICAL_F) ? `<div class="meta-line">${capitalize(resolve(rec,SUBVERTICAL_F))}</div>` : ''}
+      ${(() => {
+        // Patrice, capture Venture view sur Claim : le sub-vertical brut ("Small class
+        // action") en meta-line sous le h1 sonnait creux, pas assez fort pour un
+        // investisseur. core value prop (onglet Market de Single record, déjà écrit
+        // comme une vraie phrase, pas une étiquette) est la ligne pertinente quand elle
+        // existe ; repli sur le sub-vertical pour les natures qui n'en ont pas (labs,
+        // components...) plutôt que de faire disparaître la ligne.
+        const line = resolve(rec, CORE_VALUE_PROP_F) || resolve(rec, SUBVERTICAL_F);
+        return line ? `<div class="meta-line">${capitalize(line)}</div>` : '';
+      })()}
     </div>
     <div class="cluster-list${opts.collapsible ? ' collapsed' : ''}">
       ${sections.map(s => `
