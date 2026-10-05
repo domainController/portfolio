@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Exporte la table Airtable "Tech Venture" vers un fichier JSON statique,
+ * Exporte la table Airtable "Ventures" (ex-"Tech Venture") vers un fichier JSON statique,
  * qui est ce que la page publique (portfolio.html) lit — jamais l'API
  * Airtable directement, donc jamais de token exposé côté navigateur.
  *

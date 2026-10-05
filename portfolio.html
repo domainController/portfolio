@@ -84,6 +84,7 @@
   .cluster-section-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
   .cluster-section-label.uses { color: #d4a949; border-top-color: rgba(212,169,73,0.3); }
   .cluster-row-badge { font-family: var(--mono); font-size: 10.5px; padding: 2px 7px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+  .pill.scope-mode { background: rgba(212,169,73,0.15); color: #d4a949; }
   .cluster-row-name:hover { color: var(--accent); text-decoration: underline; }
   .cluster-row-expand-hint { display: inline-block; color: var(--muted); transition: transform 0.15s; }
   .cluster-row.expanded .cluster-row-expand-hint { transform: rotate(180deg); }
@@ -250,7 +251,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       DISTRIBUTION_MODEL_F = "fldzBaPn1BMoyLf5B", PLATFORM_F = "fldZnrxv8j8PjHfN2",
       MOMENTUM_F = "fldWhQvMTLgGLrW0D", WEIGHT_F = "fldnTcpnT6lpnsNAm", GROUP_F = "fldbfrnARURZBDqk4",
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl",
-      USES_F = "fldFIREVHXJ8Z7IFH";
+      USES_F = "fldFIREVHXJ8Z7IFH", SCOPE_MODE_F = "fldkT90KOGEaGIiwv";
 
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
 // (Handoff 38) pour que les deux vues exposent exactement les mêmes champs/intitulés.
@@ -645,6 +646,8 @@ function clusterRowDetailHTML(r, openByDefault) {
 // pas cachés derrière un clic — Patrice ne veut pas 3 champs par ligne dans cette vue,
 // il veut pouvoir comparer les champs comme dans Consolidated view. La vue single-venture
 // (?venture=X) reste un simple résumé cliquable, inchangée ("il n'y a rien à toucher").
+// Même garde pour les pastilles entity type / scope_mode (Handoff 46) : visibles
+// uniquement dans l'onglet Cluster view, jamais sur la vue ?venture=X.
 function clusterRowHTML(r, rec, opts = {}) {
   const toggleAttr = opts.allFields ? "" : ` data-detail-toggle="${r.id}"`;
   const expandHint = opts.allFields ? "" : '<span class="cluster-row-expand-hint">▾</span>';
@@ -654,9 +657,11 @@ function clusterRowHTML(r, rec, opts = {}) {
           <div class="cluster-row-main">
             <span class="cluster-row-name" data-nav-id="${r.id}">${resolve(r,NAME_F)}</span>
             ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
+            ${opts.allFields && resolve(r,ENTITY_TYPE_F) ? `<span class="pill">${resolve(r,ENTITY_TYPE_F)}</span>` : ''}
+            ${opts.allFields && resolve(r,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(r,SCOPE_MODE_F)}</span>` : ''}
             ${resolve(r,APP_PRIORITY_F) ? `<span class="cluster-row-badge">${resolve(r,APP_PRIORITY_F)}</span>` : ''}
           </div>
-          <div class="cluster-row-type">${resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"}</div>
+          <div class="cluster-row-type">${opts.allFields ? (resolve(r,PLATFORM_F) || "—") : (resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—")}</div>
           <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
           ${expandHint}
         </div>
@@ -674,7 +679,7 @@ function clusterBlockHTML(rec, children, opts = {}) {
   return `
     <div class="${headerClass}"${toggleAttr}>
       <div class="meta-line">${resolve(rec,SECTION_F) || "—"}</div>
-      <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
+      <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span>${opts.allFields && resolve(rec,ENTITY_TYPE_F) ? `<span class="pill">${resolve(rec,ENTITY_TYPE_F)}</span>` : ''}${opts.allFields && resolve(rec,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(rec,SCOPE_MODE_F)}</span>` : ''}</h1>
       <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}${opts.collapsible ? '<span class="cluster-expand-hint">▾</span>' : ''}</div>
     </div>
     <div class="cluster-list${opts.collapsible ? ' collapsed' : ''}">
