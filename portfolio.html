@@ -628,6 +628,17 @@ function entityKind(r) {
   return (resolve(r,ENTITY_TYPE_F) || "").trim().toLowerCase();
 }
 
+// Sections dont le header répète déjà la catégorie de chaque ligne (Labs/Content/
+// Frameworks/Doctrine) : pour ces lignes, cluster-row-type affiche vertical (ou
+// sub-vertical si vertical est vide) au lieu de l'entity type, qui n'apporte rien
+// de plus que le header. Apps et Divisions ne sont pas concernées : leur badge
+// (platform, ou l'entity type d'une venture en Division) distingue déjà chaque ligne.
+function showsSpecificAttr(r) {
+  const k = entityKind(r);
+  return k.includes("lab") || k === "framework" || k === "doctrine" ||
+    ["blog","forum","content","review","reviews"].includes(k) || k.includes("content");
+}
+
 // Regroupement par nature (Handoff 34) : chaque composant tombe dans la première
 // section dont il remplit le critère. "Other" et "Uses" ont été retirées (Handoff 48) :
 // les enregistrements qui n'apparaissaient que là disparaissent simplement de la vue.
@@ -680,11 +691,12 @@ function clusterRowDetailHTML(r, openByDefault) {
 // (?venture=X) reste un simple résumé cliquable, inchangée ("il n'y a rien à toucher").
 // Même garde pour les pastilles entity type / scope_mode (Handoff 46) : visibles
 // uniquement dans l'onglet Cluster view, jamais sur la vue ?venture=X.
-// Pour une ligne "lab" : vertical remplace "lab" (qui ne faisait que répéter le
-// header de section LABS) directement dans cluster-row-type, PAS dans une pastille
-// — doctrine posée en session : une pastille signale un état ou une action, jamais
-// une appartenance/catégorie. D'où aussi l'absence de pastille entity type pour les
-// labs (ni ici ni en Cluster view) : cette info vit uniquement dans cluster-row-type.
+// showsSpecificAttr(r) (Labs/Content/Frameworks/Doctrine) : vertical (ou
+// sub-vertical) remplace l'entity type répété (même info que le header de
+// section) directement dans cluster-row-type, PAS dans une pastille — doctrine
+// posée en session : une pastille signale un état ou une action, jamais une
+// appartenance/catégorie. D'où aussi l'absence de pastille entity type pour
+// ces lignes (ni ici ni en Cluster view) : l'info vit dans cluster-row-type.
 function clusterRowHTML(r, rec, opts = {}) {
   const toggleAttr = opts.allFields ? "" : ` data-detail-toggle="${r.id}"`;
   const expandHint = opts.allFields ? "" : '<span class="cluster-row-expand-hint">▾</span>';
@@ -693,12 +705,12 @@ function clusterRowHTML(r, rec, opts = {}) {
         <div class="cluster-row"${toggleAttr}>
           <div class="cluster-row-main">
             <span class="cluster-row-name" data-nav-id="${r.id}">${resolve(r,NAME_F)}</span>
-            ${!entityKind(r).includes("lab") && opts.allFields && resolve(r,ENTITY_TYPE_F) ? `<span class="pill">${resolve(r,ENTITY_TYPE_F)}</span>` : ''}
+            ${!showsSpecificAttr(r) && opts.allFields && resolve(r,ENTITY_TYPE_F) ? `<span class="pill">${resolve(r,ENTITY_TYPE_F)}</span>` : ''}
             ${opts.allFields && resolve(r,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(r,SCOPE_MODE_F)}</span>` : ''}
             ${resolve(r,APP_PRIORITY_F) ? `<span class="cluster-row-badge">${resolve(r,APP_PRIORITY_F)}</span>` : ''}
           </div>
-          <div class="cluster-row-type">${entityKind(r).includes("lab")
-            ? (resolve(r,VERTICAL_F) || "—")
+          <div class="cluster-row-type">${showsSpecificAttr(r)
+            ? (resolve(r,VERTICAL_F) || resolve(r,SUBVERTICAL_F) || "—")
             : (opts.allFields ? (resolve(r,PLATFORM_F) || "—") : (resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"))}</div>
           <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
           ${expandHint}
