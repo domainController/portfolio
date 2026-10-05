@@ -783,6 +783,18 @@ function applyDeepLink() {
       return;
     }
   }
+  // ?entitytype=X : filtre Consolidated view sur un seul entity type (lien "Frame"
+  // de la nav, pointe sur les seules "business model venture" au lieu des 41 entrées).
+  // Réutilise filterSection (même variable que le <select> de Consolidated view) pour
+  // ne pas dupliquer la logique de filtrage de renderTable().
+  const entityTypeParam = params.get("entitytype");
+  if (entityTypeParam) {
+    filterSection = entityTypeParam;
+    filterLabel = params.get("label") || entityTypeParam;
+    currentMode = "table";
+    setActiveModeButtons();
+    return;
+  }
   const groupParam = params.get("group");
   const sectionParam = params.get("section");
   let wanted, matches;
