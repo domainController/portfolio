@@ -270,7 +270,10 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
 const BRAND_TABLE_ID = "tblquGFmUloAgPaOz", VALUEPROPS_TABLE_ID = "tbl4kVPDpsrfAWK2b";
 const BRAND_VENTURE_F = "fldl3JAxzP4VLxwgQ", VP_VENTURE_F = "fldua2qkHNyD63LEJ";
 const SEGMENT_PRIMARY_F = "fldS4jIlo62YOUhcd", SEGMENT_SECONDARY_F = "fldMDbnyfdVbqCxQU",
-      POD_F = "fldIwySBORJB5x5DW", RTB_PRIMARY_F = "fldtU923W9xCQtLpb",
+      POD_F = "fldIwySBORJB5x5DW",
+      // RTB_PRIMARY_F : plus utilisé dans l'onglet Market (addendum 05.10.2026, trop
+      // dense pour un hub) — gardé pour une future vue de détail par venture.
+      RTB_PRIMARY_F = "fldtU923W9xCQtLpb",
       ANTI_POSITIONING_F = "fldo2dmVqTzQ56VjU", CORRIDOR_PRIMARY_F = "fldIPlW4qLfNI0pyQ",
       CORRIDOR_INVERSE_F = "fldeLl4tCJ0iWl9jk", CORRIDOR_ORIGINE_CONTRAINTE_F = "fldXiwKIhRJWdx3ho";
 const VP_SURFACE_F = "fldjkm0I7PnRgykYQ", VP_IDENTIFIANT_F = "fldk5GWIiH6Wm2n3l",
@@ -648,14 +651,16 @@ function landingValueProp(rec) {
 }
 
 // Construit les lignes de l'onglet Market dans l'ordre du handoff : value prop (Value
-// Props surface=landing, repli sur core value prop de Ventures) et pod/rtb_primary
-// (Brand, repli sur differentiator de Ventures) en tête, puis les champs Brand ajoutés
-// (segments, corridors, anti_positioning — chacun seulement si renseigné), puis le reste
-// des champs Market génériques déjà gérés par FIELD_META (sub-vertical, vertical, model
-// type, asset type, entity type, customer concentration...) MOINS core value prop/
-// differentiator (remplacés ci-dessus) et target segments (libellé "target markets"
-// trompeur — le champ pointait en réalité sur des pays, pas des segments ; redondant une
-// fois les corridors Brand affichés, cf. handoff "correction de libellé").
+// Props surface=landing, repli sur core value prop de Ventures) et pod (Brand, repli sur
+// differentiator de Ventures) en tête, puis les champs Brand ajoutés (segments, corridors,
+// anti_positioning — chacun seulement si renseigné), puis le reste des champs Market
+// génériques déjà gérés par FIELD_META (sub-vertical, vertical, model type, asset type,
+// entity type, customer concentration...) MOINS core value prop/differentiator (remplacés
+// ci-dessus) et target segments (libellé "target markets" trompeur — le champ pointait en
+// réalité sur des pays, pas des segments ; redondant une fois les corridors Brand
+// affichés, cf. handoff "correction de libellé"). Addendum 05.10.2026 : rtb_primary
+// retiré de la ligne differentiator (Patrice, trop dense pour un hub) — pod seul reste
+// affiché ici, rtb_primary reste en base pour une future vue de détail.
 function marketTabRowsHTML(rec, genericMarketRows) {
   const rows = [];
   const vp = landingValueProp(rec);
@@ -669,9 +674,8 @@ function marketTabRowsHTML(rec, genericMarketRows) {
   }
   const brand = brandFor(rec);
   const pod = brand && resolve(brand, POD_F);
-  const rtb = brand && resolve(brand, RTB_PRIMARY_F);
-  if (pod || rtb) {
-    rows.push(["differentiator", [pod, rtb ? `<em>${rtb}</em>` : null].filter(Boolean).join("<br>")]);
+  if (pod) {
+    rows.push(["differentiator", pod]);
   } else {
     const diff = resolve(rec, DIFFERENTIATOR_F);
     if (diff) rows.push(["differentiator", diff]);
@@ -723,7 +727,11 @@ function renderSingle() {
   // Props (cross-table, pas un simple champ Ventures) : construit à part, voir
   // marketTabRowsHTML(). Tous les autres onglets gardent le chemin générique FIELD_META.
   const marketRows = singleTab === "Market" ? marketTabRowsHTML(rec, singleRows) : null;
-  const metaLine = resolve(rec,SECTION_F) || (clusterParentsLink(rec) ? `Component of ${clusterParentsLink(rec)}` : "—");
+  // Addendum Cowork 05.10.2026 : l'eyebrow au-dessus du titre affichait un tiret vide pour
+  // une venture comme Vetnups (SECTION_F est mort, clusterParentsLink ne concerne que les
+  // components). sub-vertical comble ce vide sans dupliquer core value prop, qui a déjà sa
+  // propre ligne plus bas dans l'onglet Market.
+  const metaLine = resolve(rec,SECTION_F) || capitalize(resolve(rec,SUBVERTICAL_F)) || (clusterParentsLink(rec) ? `Component of ${clusterParentsLink(rec)}` : "—");
   document.getElementById("panelSingle").innerHTML = `
     <div class="meta-line">${metaLine}</div>
     <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span></h1>
