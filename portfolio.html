@@ -697,6 +697,12 @@ function clusterRowDetailHTML(r, openByDefault) {
 // posée en session : une pastille signale un état ou une action, jamais une
 // appartenance/catégorie. D'où aussi l'absence de pastille entity type pour
 // ces lignes (ni ici ni en Cluster view) : l'info vit dans cluster-row-type.
+// Handoff 50 : même redondance pour les lignes de la section Divisions (liées
+// via DIVISION_OF_F, pas showsSpecificAttr — leur entity type reste "business
+// model venture" quoi qu'il arrive), mais scope explicite = Venture view
+// uniquement (!opts.allFields) ; sub-vertical remplace l'entity type répété,
+// rien si vide (pas de "—", contrairement au reste de cette colonne). Même
+// redondance non corrigée en Cluster view, hors scope de ce handoff.
 function clusterRowHTML(r, rec, opts = {}) {
   const toggleAttr = opts.allFields ? "" : ` data-detail-toggle="${r.id}"`;
   const expandHint = opts.allFields ? "" : '<span class="cluster-row-expand-hint">▾</span>';
@@ -711,7 +717,9 @@ function clusterRowHTML(r, rec, opts = {}) {
           </div>
           <div class="cluster-row-type">${showsSpecificAttr(r)
             ? (resolve(r,VERTICAL_F) || resolve(r,SUBVERTICAL_F) || "—")
-            : (opts.allFields ? (resolve(r,PLATFORM_F) || "—") : (resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"))}</div>
+            : (!opts.allFields && linkedIds(r,DIVISION_OF_F).includes(rec.id))
+              ? (resolve(r,SUBVERTICAL_F) || "")
+              : (opts.allFields ? (resolve(r,PLATFORM_F) || "—") : (resolve(r,PLATFORM_F) || resolve(r,ENTITY_TYPE_F) || "—"))}</div>
           <span class="status-tag ${statusClass(statusText(resolve(r,STATUS_F)))}">${statusText(resolve(r,STATUS_F)) || "—"}</span>
           ${expandHint}
         </div>
