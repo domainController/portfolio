@@ -429,10 +429,22 @@ function renderTable() {
     return av.localeCompare(bv) * sortDir;
   });
 
-  // Entity type masquée quand un seul type est filtré (dropdown ou lien "frame") :
-  // la bannière de filtre dit déjà quel type est sélectionné, la colonne ne fait que
-  // répéter la même valeur sur chaque ligne et gonfle inutilement la hauteur des lignes.
-  const cols = filterSection !== "*" ? CONSOLIDATED_COLS.filter(([f]) => f !== ENTITY_TYPE_F) : CONSOLIDATED_COLS;
+  // Les entités du portfolio sont ontologiquement différentes (une venture a une
+  // verticale, un codebase/app ou un framework n'en a pas) — Consolidated view
+  // appliquait pourtant le même jeu de colonnes à tout le monde, d'où des colonnes
+  // entières de tirets dès qu'on filtrait sur un type qui ne porte pas ces champs
+  // (Patrice, capture Consolidated view filtrée sur "apps"/"frameworks"). Pas de
+  // liste de colonnes par type codée en dur (ça dérive avec le temps, cf. "site
+  // section" et le bug Divisions) : on dérive plutôt des données elles-mêmes — une
+  // colonne ne s'affiche que si au moins une ligne du sous-ensemble filtré la
+  // renseigne. "All types" garde toutes les colonnes (aucune nature unique
+  // sélectionnée, rien à élaguer). Entity type reste en plus toujours masquée
+  // dès qu'un seul type est filtré (la bannière le dit déjà).
+  const isFiltered = filterSection !== "*" || filterGroupList || filterSectionList;
+  let cols = isFiltered ? CONSOLIDATED_COLS.filter(([f]) => f !== ENTITY_TYPE_F) : CONSOLIDATED_COLS;
+  if (isFiltered) {
+    cols = cols.filter(([f]) => rows.some(r => resolve(r, f)));
+  }
 
   document.getElementById("panelTable").innerHTML = `
     ${filterLabel ? `<div class="deep-link-banner">Filtered view from the site: <strong>${filterLabel}</strong> · <a href="#" id="clearFilterLink">view full portfolio</a></div>` : ""}
