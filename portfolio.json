@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T15:48:44.737Z",
+  "generatedAt": "2026-10-05T16:19:35.437Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -131,7 +131,7 @@
     "fld00rRyHBCsNV4q3": "contre_exemples",
     "fldIPlW4qLfNI0pyQ": "corridor_primary",
     "fldeLl4tCJ0iWl9jk": "corridor_inverse",
-    "fldXiwKIhRJWdx3ho": "corridor_origine_contrainte",
+    "fldXiwKIhRJWdx3ho": "corridor_constrained_origin",
     "fldAFlU7bFuX0uWwM": "Name",
     "fldua2qkHNyD63LEJ": "venture",
     "fldjkm0I7PnRgykYQ": "surface",
@@ -951,6 +951,12 @@
         "fldffBNK8PY9L9zh7": [
           "reci2gQchm9OSVkqI"
         ],
+        "fldhrdqWplNbjKnsS": [
+          "Southeast Asia",
+          "Eastern Europe",
+          "Latin America",
+          "West Africa"
+        ],
         "fldiRhn1z31IndfsM": "medium",
         "fldlL8kkZwNgw25Vy": "godaddy",
         "fldn8CuiuElm6EjBs": "target 3.5x – 5x EBITDA",
@@ -970,7 +976,7 @@
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "dating ",
         "fldyxQMf0DeLLvZaz": "landing",
-        "fldz4JChQVgkic7BA": "Low",
+        "fldz4JChQVgkic7BA": "low",
         "fldzBaPn1BMoyLf5B": "franchise, affiliation"
       }
     },
@@ -1647,13 +1653,13 @@
         "fldIPlW4qLfNI0pyQ": "W. Europe/USA (men) → Southeast Asia, Eastern Europe, Latin America, West Africa (women) — “passport bro” circuit.",
         "fldIwySBORJB5x5DW": "Verified, structured matchmaking — every profile real, every interaction intentional.",
         "fldLR0QrcezGQWatW": "Dating apps for serious relationships + traditional matchmaking agencies.",
-        "fldMDbnyfdVbqCxQU": "Women from specific corridors: Southeast Asia, Eastern Europe, Latin America, West Africa.",
+        "fldMDbnyfdVbqCxQU": "Men and women worldwide seeking marriage and family — a traditional view of commitment, often pursued through curated introductions.",
         "fldNFcb2SWwpI2rNs": "Confidence, authenticity, seriousness.",
         "fldOpjlZczN1oyb15": "Arnaque, passeport, perte de temps, coût, fichage.",
         "fldS4jIlo62YOUhcd": "Men from Western countries (30s+), disillusioned by mainstream dating apps. Women worldwide seeking a better life and a more traditional view of commitment.",
         "fldTXzQIY2rVMWxOk": "Budbee, Kleinanzeige, Airbnb.",
-        "fldXiwKIhRJWdx3ho": "Cuba, Haiti, Russia — origin markets with geopolitically constrained exit, unlike fluid-mobility corridors.",
-        "fldZ8QKHKSOVsu5R7": "South Asian and North African Muslim communities.",
+        "fldXiwKIhRJWdx3ho": "Cuba, Haiti, Russia, Dominican Republic — origin markets with geopolitically constrained exit. Excludes Jamaica (net inbound, not constrained).",
+        "fldZ8QKHKSOVsu5R7": "Blended families / remarriage after separation.",
         "fldbQ9kSL5xUI3mRX": "Trust, verification, structure, no time-wasting.",
         "fldeLl4tCJ0iWl9jk": "Western Europe (women) → Zanzibar, Dominican Republic, Gambia — inverse flow, not yet active.",
         "fldgbkjck95oDy0qG": "30+ verification layers.",
@@ -1661,7 +1667,7 @@
           "recfVgB6nO7B7gJrb"
         ],
         "fldmviy8ZxzunBFfs": "Smart Contracts for Love, immigration/divorce support.",
-        "fldo2dmVqTzQ56VjU": "Not a hookup app. Not a dating app. Not a Tinder clone.",
+        "fldo2dmVqTzQ56VjU": "Not a hookup app. Not a dating app.",
         "fldo3MHExaMDUTL4I": "Le Bon Coin, Blocket, Ricardo, concurrents de Frontier.",
         "fldpo99581ZSvSB0B": "Vérification en personne, contrats juridiques, interactions structurées, tarification progressive, contrôles de confidentialité.",
         "fldsoeNCNqWFzrfC9": "Granular reactions, no chat, Hard & Soft Filters.",
