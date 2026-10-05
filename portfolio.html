@@ -136,8 +136,12 @@
       <div class="mode-switcher">
         <button data-mode="table" class="active">Consolidated view</button>
         <button data-mode="allclusters">Cluster view</button>
+        <button data-mode="cluster">Venture view</button>
         <button data-mode="single">Single record</button>
       </div>
+    </div>
+    <div class="single-picker-top" id="clusterPickerTop" style="display:none;">
+      <select id="clusterPick"></select>
     </div>
     <div class="single-picker-top" id="singlePickerTop" style="display:none;">
       <select id="singlePick"></select>
@@ -334,6 +338,13 @@ function statusClass(v) {
   return "status-" + v.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
+// Les choix Airtable de sub-vertical/vertical sont saisis en minuscule ("matchmaking ") ;
+// l'ancien champ site section qu'ils remplacent affichait une majuscule à cet endroit.
+function capitalize(v) {
+  const s = (v || "").trim();
+  return s ? s[0].toUpperCase() + s.slice(1) : s;
+}
+
 // Une valeur de champ qui EST un lien (URL complète http(s)://... ou domaine nu du type
 // "labs.vetnups.com", "clauslabs.ai") se rend comme un vrai <a href> cliquable plutôt que
 // comme du texte plat — "le hub renvoie, il ne discute pas". Domaine nu -> on préfixe https://.
@@ -388,6 +399,7 @@ function switchMode(mode) {
   document.getElementById("panelCluster").style.display = mode === "cluster" ? "" : "none";
   document.getElementById("panelAllClusters").style.display = mode === "allclusters" ? "" : "none";
   document.getElementById("singlePickerTop").style.display = mode === "single" ? "" : "none";
+  document.getElementById("clusterPickerTop").style.display = mode === "cluster" ? "" : "none";
   renderAll();
 }
 document.querySelectorAll(".mode-switcher button").forEach(b => b.addEventListener("click", () => switchMode(b.dataset.mode)));
@@ -598,6 +610,7 @@ function setActiveModeButtons() {
   document.getElementById("panelCluster").style.display = currentMode === "cluster" ? "" : "none";
   document.getElementById("panelAllClusters").style.display = currentMode === "allclusters" ? "" : "none";
   document.getElementById("singlePickerTop").style.display = currentMode === "single" ? "" : "none";
+  document.getElementById("clusterPickerTop").style.display = currentMode === "cluster" ? "" : "none";
 }
 
 // Vue de la venture : la venture elle-même + tous les enregistrements dont CLUSTER_F
@@ -665,6 +678,9 @@ function clusterRowDetailHTML(r, openByDefault) {
 // Pour une ligne "lab" (Handoff 48) : la pastille entity type vaut "lab" pour
 // toutes les lignes de la section LABS — même info que le header de section,
 // zéro bit ajouté. Remplacée par vertical, masquée si vide (pas de placeholder).
+// Visible dans toutes les vues (pas seulement opts.allFields) : contrairement aux
+// pastilles entity type / scope_mode ci-dessous, Patrice a explicitement demandé
+// ce badge aussi sur l'onglet Venture view (opts={}).
 function clusterRowHTML(r, rec, opts = {}) {
   const toggleAttr = opts.allFields ? "" : ` data-detail-toggle="${r.id}"`;
   const expandHint = opts.allFields ? "" : '<span class="cluster-row-expand-hint">▾</span>';
@@ -674,7 +690,7 @@ function clusterRowHTML(r, rec, opts = {}) {
           <div class="cluster-row-main">
             <span class="cluster-row-name" data-nav-id="${r.id}">${resolve(r,NAME_F)}</span>
             ${r.id === rec.id ? '<span class="pill">core</span>' : ''}
-            ${opts.allFields && entityKind(r).includes("lab")
+            ${entityKind(r).includes("lab")
               ? (resolve(r,VERTICAL_F) ? `<span class="pill">${resolve(r,VERTICAL_F)}</span>` : '')
               : (opts.allFields && resolve(r,ENTITY_TYPE_F) ? `<span class="pill">${resolve(r,ENTITY_TYPE_F)}</span>` : '')}
             ${opts.allFields && resolve(r,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(r,SCOPE_MODE_F)}</span>` : ''}
@@ -697,8 +713,8 @@ function clusterBlockHTML(rec, children, opts = {}) {
   const headerClass = opts.collapsible ? "cluster-block-header compact" : "cluster-block-header";
   return `
     <div class="${headerClass}"${toggleAttr}>
-      ${resolve(rec,SUBVERTICAL_F) ? `<div class="meta-line">${resolve(rec,SUBVERTICAL_F)}</div>` : ''}
       <h1 class="vname">${resolve(rec,NAME_F)} <span class="status-tag ${statusClass(statusText(resolve(rec,STATUS_F)))}">${statusText(resolve(rec,STATUS_F)) || "—"}</span>${opts.allFields && resolve(rec,ENTITY_TYPE_F) ? `<span class="pill">${resolve(rec,ENTITY_TYPE_F)}</span>` : ''}${opts.allFields && resolve(rec,SCOPE_MODE_F) ? `<span class="pill scope-mode">${resolve(rec,SCOPE_MODE_F)}</span>` : ''}</h1>
+      ${resolve(rec,SUBVERTICAL_F) ? `<div class="meta-line">${capitalize(resolve(rec,SUBVERTICAL_F))}</div>` : ''}
       <div class="row-count">${children.length} composant${children.length===1?"":"s"} lié${children.length===1?"":"s"}${opts.collapsible ? '<span class="cluster-expand-hint">▾</span>' : ''}</div>
     </div>
     <div class="cluster-list${opts.collapsible ? ' collapsed' : ''}">
@@ -745,9 +761,27 @@ function attachClusterToggles(container) {
   });
 }
 
+// Onglet "Venture view" : seule façon d'atteindre cette vue (une venture + ses
+// composants liés) était un lien profond ?venture=X depuis les pages du site —
+// aucun moyen de l'ouvrir depuis portfolio.html lui-même. Le sélecteur ci-dessous
+// reprend le même filtre "business model venture" que celui de Single record
+// (Handoff 43), et retombe sur la première venture par ordre alphabétique si
+// aucune n'est encore sélectionnée (premier clic sur l'onglet, sans ?venture=X).
 function renderCluster() {
+  const bmvOptions = RECORDS.filter(r => (resolve(r,ENTITY_TYPE_F) || "").toLowerCase() === "business model venture")
+    .sort((a,b) => resolve(a,NAME_F).localeCompare(resolve(b,NAME_F)));
+  if (!clusterSelected || !RECORDS.some(r => r.id === clusterSelected)) {
+    clusterSelected = bmvOptions.length ? bmvOptions[0].id : null;
+  }
   const rec = RECORDS.find(r => r.id === clusterSelected);
-  if (!rec) return;
+  const clusterPick = document.getElementById("clusterPick");
+  clusterPick.innerHTML = bmvOptions.map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
+  clusterPick.value = clusterSelected;
+  clusterPick.onchange = e => { clusterSelected = e.target.value; renderCluster(); };
+  if (!rec) {
+    document.getElementById("panelCluster").innerHTML = `<div class="state-msg">No business model venture found.</div>`;
+    return;
+  }
   const children = RECORDS.filter(r => linkedIds(r, CLUSTER_F).includes(clusterSelected));
   const panel = document.getElementById("panelCluster");
   panel.innerHTML = clusterBlockHTML(rec, children);
