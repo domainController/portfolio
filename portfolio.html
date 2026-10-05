@@ -263,7 +263,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
       ENTITY_TYPE_F = "fldxwQDw6Rp2mUDWA", CLUSTER_F = "fld09Waa8mfZCSoC4", APP_PRIORITY_F = "fldAn156bgwczNgRl",
       USES_F = "fldHjpRgy6oxhvIJ9", SCOPE_MODE_F = "fldkT90KOGEaGIiwv", DIVISION_OF_F = "fldffBNK8PY9L9zh7",
       CORE_VALUE_PROP_F = "fldEp2lIIJ2UG42Wf", DIFFERENTIATOR_F = "fldraV615NFkhiRZs",
-      TARGET_SEGMENTS_F = "fldRzG7uU52I3GRT7";
+      TARGET_SEGMENTS_F = "fldRzG7uU52I3GRT7", TARGET_GEOGRAPHIES_F = "fldhrdqWplNbjKnsS";
 
 // Handoff Cowork 05.10.2026 : onglet Market de Single Record, câblage vers les modules
 // satellites Brand et Value Props (tables séparées, jamais chargées dans RECORDS).
@@ -673,19 +673,36 @@ function marketTabRowsHTML(rec, genericMarketRows) {
     if (cvp) rows.push(["core value prop", cvp]);
   }
   const brand = brandFor(rec);
+  // Addendum 2 : "POD"/"RTB" illisibles sans contexte permanent -> libellés en toutes
+  // lettres uniquement à l'affichage (les champs Airtable pod/rtb_primary ne changent pas).
   const pod = brand && resolve(brand, POD_F);
   if (pod) {
-    rows.push(["differentiator", pod]);
+    rows.push(["Point of Difference", pod]);
   } else {
     const diff = resolve(rec, DIFFERENTIATOR_F);
     if (diff) rows.push(["differentiator", diff]);
   }
   if (brand) {
+    const rtb = resolve(brand, RTB_PRIMARY_F);
+    if (rtb) rows.push(["Reason to Believe", rtb]);
     [
-      [RTB_PRIMARY_F, "rtb primary"],
       [SEGMENT_PRIMARY_F, "segment primary"], [SEGMENT_SECONDARY_F, "segment secondary"],
+    ].forEach(([fid, label]) => {
+      const v = resolve(brand, fid);
+      if (v) rows.push([label, v]);
+    });
+  }
+  // target geographies (Ventures, synthèse large niveau présentation investisseur) avant
+  // les corridors (Brand, le mécanisme détaillé) : un lecteur pressé s'arrête ici, les
+  // corridors ne sont là que pour qui veut le détail (addendum 2).
+  const geographies = resolve(rec, TARGET_GEOGRAPHIES_F);
+  if (geographies) rows.push(["target geographies", geographies]);
+  if (brand) {
+    [
       [CORRIDOR_PRIMARY_F, "corridor primary"], [CORRIDOR_INVERSE_F, "corridor inverse"],
-      [CORRIDOR_ORIGINE_CONTRAINTE_F, "corridor origine contrainte"],
+      // corridor_origine_contrainte renommé corridor_constrained_origin côté Airtable
+      // (addendum 2) — même fldXiwKIhRJWdx3ho, l'ID de champ ne change pas à un renommage.
+      [CORRIDOR_ORIGINE_CONTRAINTE_F, "corridor constrained origin"],
       [ANTI_POSITIONING_F, "anti positioning"],
     ].forEach(([fid, label]) => {
       const v = resolve(brand, fid);
