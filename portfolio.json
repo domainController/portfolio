@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T06:38:43.968Z",
+  "generatedAt": "2026-10-05T10:28:51.975Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -152,7 +152,7 @@
       "fields": {
         "fld3JIuIA5FgdJv4F": "spike discipline",
         "fldMevUbOYlZX1pFA": [
-          "intellectual property"
+          "ip"
         ],
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "lab",
@@ -206,7 +206,7 @@
         "fld4ofDOAnaY3Q6VZ": "https://clusters.forum",
         "fld7IaOplNIDrK7SN": "dense local network ",
         "fld7VqAP1Vhhw2zqf": "labs.clusters.homes",
-        "fld7XckHXlRHrSdqt": "tiered by duration",
+        "fld7XckHXlRHrSdqt": "tiered duration",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/clusters/deploy.html",
         "fld9CqdUeEbjZFq7L": "5/5 — brutal",
         "fld9pz7EAgWtPceCw": [
@@ -291,7 +291,7 @@
         "fldytaVG4hsegzhJz": "housing",
         "fldyxQMf0DeLLvZaz": "landing",
         "fldz4JChQVgkic7BA": "low",
-        "fldzBaPn1BMoyLf5B": "affiliation (operators)"
+        "fldzBaPn1BMoyLf5B": "affiliation"
       }
     },
     {
@@ -437,7 +437,7 @@
         "fld7d4gZlGVKxqyLO": "https://patricek.info/personal/intellectual-work/aletheia-frameworks/deploy.html",
         "fldEp2lIIJ2UG42Wf": "conceptual framework for an existential anthropology",
         "fldMevUbOYlZX1pFA": [
-          "intellectual property"
+          "ip"
         ],
         "fldWhQvMTLgGLrW0D": "— permanent",
         "fldccPHbiWw8T8xg6": "aletheiaframe.works",
@@ -463,7 +463,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "trust signals",
         "fldMevUbOYlZX1pFA": [
-          "intellectual property"
+          "ip"
         ],
         "fldqooX9qDIYuzc7H": "component ",
         "fldxwQDw6Rp2mUDWA": "lab",
@@ -533,13 +533,15 @@
       "fields": {
         "fld3JIuIA5FgdJv4F": "LiveLedger",
         "fldA1FIU5MBBJchSf": "concept",
+        "fldDx6P723cQsXAU3": "accounting",
         "fldMevUbOYlZX1pFA": [
           "software ",
-          "intellectual property"
+          "ip"
         ],
         "fldgInVmb6sP3oUgl": "Prototypes",
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "business model venture",
+        "fldytaVG4hsegzhJz": "finance",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -603,7 +605,7 @@
         "fld1ayzhTagZyUvPt": "https://offcityhike.blog/market-notes.html",
         "fld3JIuIA5FgdJv4F": "Möttrum",
         "fld7VqAP1Vhhw2zqf": "labs.mottrum.com",
-        "fld7XckHXlRHrSdqt": "engagement tiers, success-based",
+        "fld7XckHXlRHrSdqt": "tiered success-based",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/litigation-finance/mottrum/deploy.html",
         "fldDx6P723cQsXAU3": "litigation finance",
         "fldEp2lIIJ2UG42Wf": "managed marketplace for pre-litigation intelligence.",
@@ -849,7 +851,7 @@
         "fldn8CuiuElm6EjBs": "target 3.5x – 5x EBITDA",
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-light",
-        "fldniRjRLMVzIS2Ud": "network (office studios)",
+        "fldniRjRLMVzIS2Ud": "network",
         "fldotsmqLDmkhWYt3": "contact@vetnups.com",
         "fldp6axMCht0hWkDN": "https://github.com/domainController/vetnups-website",
         "fldpXYYybRes1OIdO": "high — subscription base",
@@ -864,7 +866,7 @@
         "fldytaVG4hsegzhJz": "dating ",
         "fldyxQMf0DeLLvZaz": "landing",
         "fldz4JChQVgkic7BA": "Low",
-        "fldzBaPn1BMoyLf5B": "franchise (primary) + affiliation (secondary)"
+        "fldzBaPn1BMoyLf5B": "franchise, affiliation"
       }
     },
     {
@@ -1002,7 +1004,7 @@
         "fld3JIuIA5FgdJv4F": "Curb",
         "fld7IaOplNIDrK7SN": "Zürich commuter belt",
         "fld7VqAP1Vhhw2zqf": "labs.curb.exchange",
-        "fld7XckHXlRHrSdqt": "flat fee, tiered",
+        "fld7XckHXlRHrSdqt": "flat fee",
         "fld7d4gZlGVKxqyLO": "https://patricek.info/marketplace/curb/deploy.html",
         "fld9CqdUeEbjZFq7L": "4/5 — hard",
         "fld9pz7EAgWtPceCw": [
@@ -1078,7 +1080,7 @@
         "fldxwQDw6Rp2mUDWA": "business model venture",
         "fldytaVG4hsegzhJz": "retail",
         "fldyxQMf0DeLLvZaz": "landing",
-        "fldzBaPn1BMoyLf5B": "direct (platform) + affiliation (deposit-network merchants)"
+        "fldzBaPn1BMoyLf5B": "direct, affiliation"
       }
     },
     {
@@ -1103,7 +1105,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "market notes",
         "fldMevUbOYlZX1pFA": [
-          "intellectual property"
+          "ip"
         ],
         "fldqooX9qDIYuzc7H": "project",
         "fldxwQDw6Rp2mUDWA": "lab",
@@ -1163,7 +1165,7 @@
         "fldbfrnARURZBDqk4": "Tech-Enabled Marketplaces",
         "fldccPHbiWw8T8xg6": "clusters.forum",
         "fldqooX9qDIYuzc7H": "project",
-        "fldxwQDw6Rp2mUDWA": "component ",
+        "fldxwQDw6Rp2mUDWA": "content",
         "fldyxQMf0DeLLvZaz": "concept"
       }
     },
@@ -1262,7 +1264,7 @@
         ],
         "fld3JIuIA5FgdJv4F": "deterministic venture",
         "fldMevUbOYlZX1pFA": [
-          "intellectual property"
+          "ip"
         ],
         "fldgInVmb6sP3oUgl": "Frameworks",
         "fldqooX9qDIYuzc7H": "personal",
@@ -1356,7 +1358,7 @@
         ],
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-light",
-        "fldniRjRLMVzIS2Ud": "coordination layer — no fleet, no inventory",
+        "fldniRjRLMVzIS2Ud": "coordination layer",
         "fldq08Sv5UuSmf0aB": "high — no fleet, no inventory",
         "fldqooX9qDIYuzc7H": "project",
         "fldrSSBC602SbpO8U": "commission ",
@@ -1368,7 +1370,7 @@
         "fldytaVG4hsegzhJz": "logistics ",
         "fldyxQMf0DeLLvZaz": "concept",
         "fldz4JChQVgkic7BA": "Low",
-        "fldzBaPn1BMoyLf5B": "direct (platform) + partner network (pickup points, cafés, lockers)"
+        "fldzBaPn1BMoyLf5B": "direct, partners"
       }
     },
     {
@@ -1387,7 +1389,7 @@
         "fldDx6P723cQsXAU3": "concept licensing ",
         "fldEp2lIIJ2UG42Wf": "reflexive law engineering",
         "fldMevUbOYlZX1pFA": [
-          "intellectual property"
+          "ip"
         ],
         "fldOLfNxsvfpFS37T": "https://patricek.info/legal-lab/legal-innovation-lab/narrative-constructs/traction.html",
         "fldRvoCEy7YakjAMq": "concept",
