@@ -270,10 +270,7 @@ const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fl
 const BRAND_TABLE_ID = "tblquGFmUloAgPaOz", VALUEPROPS_TABLE_ID = "tbl4kVPDpsrfAWK2b";
 const BRAND_VENTURE_F = "fldl3JAxzP4VLxwgQ", VP_VENTURE_F = "fldua2qkHNyD63LEJ";
 const SEGMENT_PRIMARY_F = "fldS4jIlo62YOUhcd", SEGMENT_SECONDARY_F = "fldMDbnyfdVbqCxQU",
-      POD_F = "fldIwySBORJB5x5DW",
-      // RTB_PRIMARY_F : plus utilisé dans l'onglet Market (addendum 05.10.2026, trop
-      // dense pour un hub) — gardé pour une future vue de détail par venture.
-      RTB_PRIMARY_F = "fldtU923W9xCQtLpb",
+      POD_F = "fldIwySBORJB5x5DW", RTB_PRIMARY_F = "fldtU923W9xCQtLpb",
       ANTI_POSITIONING_F = "fldo2dmVqTzQ56VjU", CORRIDOR_PRIMARY_F = "fldIPlW4qLfNI0pyQ",
       CORRIDOR_INVERSE_F = "fldeLl4tCJ0iWl9jk", CORRIDOR_ORIGINE_CONTRAINTE_F = "fldXiwKIhRJWdx3ho";
 const VP_SURFACE_F = "fldjkm0I7PnRgykYQ", VP_IDENTIFIANT_F = "fldk5GWIiH6Wm2n3l",
@@ -658,9 +655,12 @@ function landingValueProp(rec) {
 // entity type, customer concentration...) MOINS core value prop/differentiator (remplacés
 // ci-dessus) et target segments (libellé "target markets" trompeur — le champ pointait en
 // réalité sur des pays, pas des segments ; redondant une fois les corridors Brand
-// affichés, cf. handoff "correction de libellé"). Addendum 05.10.2026 : rtb_primary
-// retiré de la ligne differentiator (Patrice, trop dense pour un hub) — pod seul reste
-// affiché ici, rtb_primary reste en base pour une future vue de détail.
+// affichés, cf. handoff "correction de libellé"). Retour Patrice 05.10.2026 (après
+// l'addendum qui l'avait retiré) : rtb_primary revient, mais comme SA PROPRE ligne plutôt
+// que fusionné dans differentiator — "le plus de champs possible, mais propres, 2 lignes
+// max, pas de bruit." Chaque champ Brand affiché ici doit donc rester court et scannable ;
+// un contenu plus long (target_geography, le détail narratif complet) reste réservé à une
+// future vue de détail, jamais compressé de force ni tronqué silencieusement ici.
 function marketTabRowsHTML(rec, genericMarketRows) {
   const rows = [];
   const vp = landingValueProp(rec);
@@ -682,6 +682,7 @@ function marketTabRowsHTML(rec, genericMarketRows) {
   }
   if (brand) {
     [
+      [RTB_PRIMARY_F, "rtb primary"],
       [SEGMENT_PRIMARY_F, "segment primary"], [SEGMENT_SECONDARY_F, "segment secondary"],
       [CORRIDOR_PRIMARY_F, "corridor primary"], [CORRIDOR_INVERSE_F, "corridor inverse"],
       [CORRIDOR_ORIGINE_CONTRAINTE_F, "corridor origine contrainte"],
