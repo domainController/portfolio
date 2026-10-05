@@ -39,14 +39,6 @@
   table.consolidated tbody tr.row-clickable { cursor: pointer; }
   table.consolidated tbody tr.row-clickable:hover td { background: rgba(255,255,255,0.03); }
   table.consolidated tr:hover td { background: rgba(255,255,255,0.03); }
-  /* Classe dédiée (pas table.consolidated) : renderTable() attache ses handlers de tri/clic
-     de ligne via document.querySelectorAll("table.consolidated ..."), une recherche globale
-     au document -- réutiliser la même classe aurait accroché ce comportement (tri cassé,
-     clic de ligne qui écrase singleSelected) sur la galerie Value Props dès qu'on serait
-     ensuite passé par Consolidated view. */
-  table.vp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  table.vp-table th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-  table.vp-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
   .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--border); color: var(--muted); }
   .empty-cell { color: #5a6080; font-style: italic; }
   .row-count { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
@@ -181,22 +173,24 @@ const FIELD_META = {
   fld3JIuIA5FgdJv4F: {name:"Name", tab:"core"},
   fldyxQMf0DeLLvZaz: {name:"status", tab:"meta"},
   fldWhQvMTLgGLrW0D: {name:"momentum", tab:"Traction", order:1},
-  fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Market", order:8},
-  fldMevUbOYlZX1pFA: {name:"asset type", tab:"Market", order:7},
+  fldxwQDw6Rp2mUDWA: {name:"entity type", tab:"Product", order:8},
+  fldMevUbOYlZX1pFA: {name:"asset type", tab:"Product", order:7},
   fldnTcpnT6lpnsNAm: {name:"execution weight", tab:"Operations", order:1},
   fldiRhn1z31IndfsM: {name:"time to first revenue", tab:"Operations", order:2},
   fldTrutNI5wLYPJPl: {name:"execution priority", tab:"Operations", order:3},
-  fldXHkm2E0Avupzr4: {name:"model type", tab:"Market", order:6},
-  fldrSSBC602SbpO8U: {name:"business model", tab:"Market", order:5},
-  fldytaVG4hsegzhJz: {name:"vertical", tab:"Market", order:4},
+  fldXHkm2E0Avupzr4: {name:"model type", tab:"Product", order:6},
+  fldrSSBC602SbpO8U: {name:"business model", tab:"Product", order:5},
+  fldytaVG4hsegzhJz: {name:"vertical", tab:"Product", order:4},
   fld7XckHXlRHrSdqt: {name:"pricing model", tab:"Finance", order:1},
   fldtJi9grVPtJsauW: {name:"monetization type", tab:"Finance", order:2},
   fldpXYYybRes1OIdO: {name:"recurring revenue", tab:"Finance", order:3},
-  fldeSHt4Q7m4HgWVW: {name:"market scope", tab:"Market", order:10},
-  fld9pz7EAgWtPceCw: {name:"target incumbents", tab:"Market", order:12},
-  fldRzG7uU52I3GRT7: {name:"target markets", tab:"Market", order:9},
-  fld7IaOplNIDrK7SN: {name:"network scope", tab:"Market", order:11},
-  fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Market", order:13},
+  fldeSHt4Q7m4HgWVW: {name:"market scope", tab:"Product", order:10},
+  fld9pz7EAgWtPceCw: {name:"target incumbents", tab:"Product", order:12},
+  // hidden : pointe en réalité sur target segments (pays), pas des segments — libellé
+  // "target markets" trompeur, redondant avec target geographies/les corridors Brand.
+  fldRzG7uU52I3GRT7: {name:"target markets", tab:"Product", order:9, hidden:true},
+  fld7IaOplNIDrK7SN: {name:"network scope", tab:"Product", order:11},
+  fldz4JChQVgkic7BA: {name:"customer concentration", tab:"Product", order:13},
   fldA1FIU5MBBJchSf: {name:"stage", tab:"Traction", order:2},
   fld1ayzhTagZyUvPt: {name:"market lab", tab:"Labs", order:1},
   fldRvoCEy7YakjAMq: {tab:"Labs", order:1, hidden:true, pillFor:"fld1ayzhTagZyUvPt"},
@@ -218,7 +212,7 @@ const FIELD_META = {
   fldqooX9qDIYuzc7H: {name:"portfolio role", tab:"meta"},
   fldIb77IM8PEwsfDO: {name:"benchmark for", tab:"meta"},
   fldxHyIWkHMzHrqvA: {name:"parent company", tab:"meta"},
-  fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Market", order:3},
+  fldDx6P723cQsXAU3: {name:"sub-vertical", tab:"Product", order:3},
   fldpKjCqmfWTsEZYq: {name:"site section", tab:"meta"},
   fldbfrnARURZBDqk4: {name:"portfolio group", tab:"meta"},
   // Retaggé "Market" -> "Branding" (handoff 05.10.2026, scission taxonomie/marque) :
@@ -264,14 +258,14 @@ const FIELD_META = {
   fldotsmqLDmkhWYt3: {name:"email", tab:"Operations", order:9},
   fldfYvXdHT9U0RgOx: {name:"contact", tab:"Operations", order:10},
 };
-// Handoff Cowork 05.10.2026 : l'ancien onglet "Market" mélangeait taxonomie de marché et
-// cadre de marque. Scindé en "Market" (taxonomie : segments, corridors, target
-// geographies, vertical/sub-vertical, model/asset/entity type, customer concentration) et
-// "Branding" (value prop, pod, rtb, anti_positioning) -- "Branding" prend la place de
-// "Product", qui était vide (vérifié : aucun champ FIELD_META n'y pointait). "Value Props"
-// (galerie brute, toutes les formulations liées, pas de transformation) est un nouvel
-// onglet entre les deux.
-const TAB_ORDER = ["Market","Branding","Value Props","Traction","Infra","Operations","Finance","Acquisition","Labs"];
+// Retour Patrice 05.10.2026, après avoir vu le premier découpage Market/Branding en
+// direct : l'ancien "Market" mélangeait encore deux choses -- la taxonomie pure de la
+// venture (sub-vertical, vertical, model/asset/entity type, customer concentration,
+// FIELD_META générique) et le cadre de marché issu de Brand (segments, corridors, target
+// geographies). "Product" réapparaît en premier onglet pour la taxonomie pure (FIELD_META
+// seulement, rien de custom) ; "Market" (2e) ne garde que les champs Brand + target
+// geographies. "Branding" (cadre de marque) et "Value Props" (galerie brute) inchangés.
+const TAB_ORDER = ["Product","Market","Branding","Value Props","Traction","Infra","Operations","Finance","Acquisition","Labs"];
 const NAME_F = "fld3JIuIA5FgdJv4F", STATUS_F = "fldyxQMf0DeLLvZaz", ROLE_F = "fldqooX9qDIYuzc7H",
       SECTION_F = "fldpKjCqmfWTsEZYq", VERTICAL_F = "fldytaVG4hsegzhJz", PRIORITY_F = "fldTrutNI5wLYPJPl",
       SUBVERTICAL_F = "fldDx6P723cQsXAU3", ASSET_TYPE_F = "fldMevUbOYlZX1pFA", MODEL_TYPE_F = "fldXHkm2E0Avupzr4",
@@ -297,7 +291,8 @@ const SEGMENT_PRIMARY_F = "fldS4jIlo62YOUhcd", SEGMENT_SECONDARY_F = "fldMDbnyfd
       CORRIDOR_INVERSE_F = "fldeLl4tCJ0iWl9jk", CORRIDOR_ORIGINE_CONTRAINTE_F = "fldXiwKIhRJWdx3ho";
 const VP_SURFACE_F = "fldjkm0I7PnRgykYQ", VP_IDENTIFIANT_F = "fldk5GWIiH6Wm2n3l",
       VP_FORMULATION_F = "fldHzkkLtjNaaGphK", VP_STATUT_F = "fldwlQoMqhzvU43GQ",
-      VP_NOTE_F = "fldyKPHQq9ZqZCFCt",
+      // VP_STAGE_F/VP_DATE_STAB_F : plus affichés (retrait table Value Props, retour
+      // Patrice 05.10.2026), gardés pour le tri de landingValueProp() ci-dessous.
       VP_STAGE_F = "fldZe3Llqh66xjdrw", VP_DATE_STAB_F = "fldbSOyh47TdVGzJB";
 
 // Colonnes de Consolidated view, partagées avec le détail dépliable de Cluster view
@@ -670,13 +665,12 @@ function landingValueProp(rec) {
   return candidates[0];
 }
 
-// Handoff Cowork 05.10.2026 : l'onglet Market (ex-fusionné) mélangeait taxonomie de marché
-// et cadre de marque — scindé en deux. "Market" (taxonomie, ci-dessous) : segments,
-// corridors, target geographies (Brand/Ventures), puis le reste des champs Market
-// génériques déjà gérés par FIELD_META (sub-vertical, vertical, model type, asset type,
-// entity type, customer concentration...) MOINS target segments (libellé "target markets"
-// trompeur, cf. handoff "correction de libellé" — target geographies le remplace).
-function marketTaxonomyRowsHTML(rec, genericMarketRows) {
+// Retour Patrice 05.10.2026 : "Market" ne garde que le marché vu depuis Brand (segments,
+// corridors, target geographies) -- la taxonomie pure de la venture (sub-vertical,
+// vertical, model/asset/entity type, customer concentration) est repartie sur "Product",
+// géré entièrement par le chemin générique FIELD_META (pas de fonction dédiée nécessaire,
+// voir renderSingle()).
+function marketTaxonomyRowsHTML(rec) {
   const rows = [];
   const brand = brandFor(rec);
   if (brand) {
@@ -694,9 +688,6 @@ function marketTaxonomyRowsHTML(rec, genericMarketRows) {
   }
   const geographies = resolve(rec, TARGET_GEOGRAPHIES_F);
   if (geographies) rows.push(["target geographies", geographies]);
-  const skip = new Set([TARGET_SEGMENTS_F]);
-  genericMarketRows.filter(([, , fid]) => !skip.has(fid))
-    .forEach(([v, , fid]) => rows.push([fieldLabel(fid), `${linkify(v, fid)}${pillFor(rec, fid)}`]));
   return rows;
 }
 
@@ -748,28 +739,24 @@ function brandingRowsHTML(rec, genericBrandingRows) {
 // Onglet "Value Props" : galerie brute, sans transformation — toutes les lignes liées à la
 // venture courante, une par formulation (landing/tagline/bio/investor/welcome...), pas
 // seulement la plus aboutie. Patrice veut explicitement voir tous les brouillons.
+// Retour Patrice 05.10.2026 : le premier essai (table, une colonne par champ) "mérite
+// pas du tableau... c'est pas en harmonie avec le reste" -- remplacé par le même motif
+// fm-row que partout ailleurs sur Single Record. Surface = clé, formulation = valeur,
+// identifiant/statut en pastille (même motif que "value prop (landing)" sur Branding).
+// note/stage/date_stabilisation retirés ("ça c'est de la merde") : des métadonnées de
+// gestion interne, pas une donnée hub. Plusieurs lignes peuvent partager la même surface
+// (plusieurs brouillons) -- toutes affichées, Patrice veut voir chaque version.
 function valuePropsGalleryHTML(rec) {
   const items = VALUE_PROPS.filter(v => linkedIds(v, VP_VENTURE_F).includes(rec.id))
     .sort((a, b) => (resolve(a, VP_SURFACE_F) || "").localeCompare(resolve(b, VP_SURFACE_F) || "")
       || (resolve(a, VP_IDENTIFIANT_F) || "").localeCompare(resolve(b, VP_IDENTIFIANT_F) || ""));
   if (!items.length) return `<div class="state-msg">No Value Props yet for this venture.</div>`;
-  const cols = [
-    [VP_SURFACE_F, "Surface"], [VP_IDENTIFIANT_F, "ID"], [VP_FORMULATION_F, "Formulation"],
-    [VP_STATUT_F, "Status"], [VP_NOTE_F, "Note"], [VP_STAGE_F, "Stage"], [VP_DATE_STAB_F, "Stabilized"],
-  ];
-  return `
-    <div class="table-scroll">
-    <table class="vp-table">
-      <thead><tr>${cols.map(([, l]) => `<th>${l}</th>`).join("")}</tr></thead>
-      <tbody>
-        ${items.map(r => `<tr>${cols.map(([f]) => {
-          const v = resolve(r, f);
-          return `<td>${v !== null && v !== "" ? v : '<span class="empty-cell">—</span>'}</td>`;
-        }).join("")}</tr>`).join("")}
-      </tbody>
-    </table>
-    </div>
-  `;
+  return items.map(v => {
+    const surface = resolve(v, VP_SURFACE_F) || "—";
+    const formulation = resolve(v, VP_FORMULATION_F) || "";
+    const badge = [resolve(v, VP_IDENTIFIANT_F), resolve(v, VP_STATUT_F)].filter(Boolean).join(" · ");
+    return `<div class="fm-row"><div class="fm-key">${surface}</div><div>${formulation}${badge ? ` <span class="pill">${badge}</span>` : ""}</div></div>`;
+  }).join("");
 }
 
 function renderSingle() {
@@ -798,12 +785,12 @@ function renderSingle() {
     .map(r => `<option value="${r.id}">${resolve(r,NAME_F)}</option>`).join("");
 
   const singleRows = byTab[singleTab] || [];
-  // Market (taxonomie) et Branding (cadre de marque) tirent leur contenu des modules
-  // satellites Brand/Value Props (cross-table, pas un simple champ Ventures) : construits
-  // à part, voir marketTaxonomyRowsHTML()/brandingRowsHTML(). Value Props est une galerie
-  // brute (table HTML, pas des paires label/valeur). Tous les autres onglets gardent le
-  // chemin générique FIELD_META.
-  const customRows = singleTab === "Market" ? marketTaxonomyRowsHTML(rec, singleRows)
+  // Market (segments/corridors/target geographies) et Branding (cadre de marque) tirent
+  // leur contenu des modules satellites Brand/Value Props (cross-table, pas un simple
+  // champ Ventures) : construits à part, voir marketTaxonomyRowsHTML()/brandingRowsHTML().
+  // Value Props est une galerie de fm-row (pas des paires label/valeur FIELD_META). Product
+  // et tous les autres onglets gardent le chemin générique FIELD_META tel quel.
+  const customRows = singleTab === "Market" ? marketTaxonomyRowsHTML(rec)
     : singleTab === "Branding" ? brandingRowsHTML(rec, singleRows)
     : null;
   const valuePropsHTML = singleTab === "Value Props" ? valuePropsGalleryHTML(rec) : null;
