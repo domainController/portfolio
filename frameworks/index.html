@@ -26,13 +26,12 @@
     <h1>Frameworks</h1>
     <div class="branch-desc">For protecting integrity by anticipation or confrontation, so as to maneuver through society.</div>
     <div class="children">
-  <div class="child"><a href="portfolio.html?record=aletheia+frameworks">Social Ontology</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Mentals models for an existential anthropology of the alienating regime.</div></div>
-  <div class="child"><a href="reflexive-law-framework/index.html">Legal Frameworks</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Collaboratively built instruments of reflexive law.</div></div>
-  <div class="child"><a href="legal-framework-engineering/index.html">Legal Standards</a> <span class="status-tag status-online">online</span><div class="child-desc">Canonical standards produced from applied legal frameworks.</div></div>
-  
-  <div class="child"><a href="asset-engineering/index.html">Distress asset Engineering</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Structures for building, holding, and compounding assets.</div></div>
-</div>
-</div>
+      <div class="child"><a href="../portfolio.html?record=aletheia+frameworks">Social Ontology</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Mentals models for an existential anthropology of the alienating regime.</div></div>
+      <div class="child"><a href="reflexive-law-framework/index.html">Legal Frameworks</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Collaboratively built instruments of reflexive law.</div></div>
+      <div class="child"><a href="legal-framework-engineering/index.html">Legal Standards</a> <span class="status-tag status-online">online</span><div class="child-desc">Canonical standards produced from applied legal frameworks.</div></div>
+      <div class="child"><a href="asset-engineering/index.html">Distress Asset Engineering</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Structures for building, holding, and compounding assets.</div></div>
+    </div>
+  </div>
 <script>
 (function () {
   var origFetch = window.fetch;
@@ -68,7 +67,7 @@
   var el = document.getElementById('last-updated');
   if (!el) return;
   var path = 'frameworks/index.html';
-  fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
+  fetch('https://api.github.com/repos/domainController/aletheia-frameworks-site/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (!data || !data[0]) return;
