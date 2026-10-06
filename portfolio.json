@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T15:50:23.778Z",
+  "generatedAt": "2026-10-06T20:36:14.238Z",
   "baseId": "app0YdcF6Ql3khMZl",
   "tableId": "tblzqRja5Xz4Mz1dg",
   "fieldNames": {
@@ -1067,7 +1067,8 @@
         "fldccPHbiWw8T8xg6": "cohort.reviews",
         "fldfYvXdHT9U0RgOx": "https://docs.craft.do/editor/d/0fa45505-7452-0645-c3d4-3482cad8a253/e2e674d0-294e-8d0e-329b-565096c5c492",
         "fldffBNK8PY9L9zh7": [
-          "recod5IyToIGPcZXn"
+          "recod5IyToIGPcZXn",
+          "reckS4dkZO0qcwOvP"
         ],
         "fldiRhn1z31IndfsM": "medium",
         "fldmDIOdd3zPSen01": [
@@ -1176,6 +1177,10 @@
         "fldh8Jj5eW15LKvsY": "target 15% – 25% — proven model, scalable",
         "fldiRhn1z31IndfsM": "long",
         "fldlL8kkZwNgw25Vy": "gandi",
+        "fldmDIOdd3zPSen01": [
+          "reci2gQchm9OSVkqI",
+          "recu0aivcrnrdNqiI"
+        ],
         "fldn8CuiuElm6EjBs": "target 3.5x – 5x EBITDA",
         "fldnE63YQPidZ6cVJ": "clausworks.ai",
         "fldnTcpnT6lpnsNAm": "asset-medium",
@@ -1481,7 +1486,8 @@
         "fldbfrnARURZBDqk4": "tech-enabled marketplaces",
         "flde8vVXhhTBp5okJ": "high — software-driven coordination",
         "fldffBNK8PY9L9zh7": [
-          "reci2gQchm9OSVkqI"
+          "reci2gQchm9OSVkqI",
+          "reckS4dkZO0qcwOvP"
         ],
         "fldfhHBuUPXbxnqhH": "high — software-driven, asset-light",
         "fldiRhn1z31IndfsM": "immediate ",
