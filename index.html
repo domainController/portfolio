@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tech Ventures — Patrice Kenmoé</title>
-<link rel="stylesheet" href="../css/style.css?v=27">
+<title>Portfolio — Patrice Kenmoé</title>
+<link rel="stylesheet" href="css/style.css?v=27">
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
 <script>
@@ -15,23 +15,25 @@
 <body>
   <div class="container">
 
-    <div class="meta-bar">
-      <div class="meta-left">
-        <a class="home-icon" href="../index.html" title="Home">&#8962;</a>
-        <span class="sep">·</span>
-        <a class="nav-back" href="../index.html">Portfolio</a>
-        <span class="sep">·</span>
-        <span id="last-updated">Updated —</span>
-      </div>
-    </div>
+  <div class="meta-bar">
+  <div class="meta-left">
+    <span class="home-icon-active" title="Home">&#8962;</span>
+    <a class="site-link" href="https://github.com/domainController">Patrice Kenmoé</a>
+    <span id="last-updated">Updated —</span>
+    <a class="site-link" href="https://offcityhike.blog">reflexions</a>
+    <a class="site-link" href="portfolio.html?entitytype=business%20model%20venture&amp;label=Ventures">ventures</a>
+    <a class="site-link" href="https://aletheiaframe.works">corpus</a>
+  </div>
+</div>
 
-    <h1>Business Model Ventures</h1>
-    <div class="branch-desc">Regrounding tech business models, framed for exit & ready-to-scale.</div>
+    <h1><span class="light">Metacognitive</span> Manifest</h1>
+    <div class="subtitle">A structured map of thought, for human visitors and AI agents.</div>
 
     <div class="children">
-      <div class="child"><a href="../network/index.html">Tech-Native Networks</a> <span class="status-tag status-build">build</span><div class="child-desc">Platforms whose core asset is produced by the platform itself.</div></div>
-      <div class="child"><a href="../marketplace/index.html">Tech-Enabled Marketplaces</a> <span class="status-tag status-build">build</span><div class="child-desc">Marketplaces that manage the transaction, not just the listing.</div></div>
-      <div class="child"><a href="../software/index.html">Agentic Software</a> <span class="status-tag status-build">build</span><div class="child-desc">GaaS, software built agent-first and sold per outcome.</div></div>
+      <div class="child"><a href="frameworks/index.html">Frameworks</a> <span class="status-tag status-draft">draft</span><div class="child-desc">Doctrine and theory that ground and generate the rest.</div></div>
+      <div class="child"><a href="ventures/index.html">Ventures</a> <span class="status-tag status-build">build</span><div class="child-desc">AI-native, across tech, legal, and finance.</div></div>
+      <div class="child"><a href="prototypes/index.html">Prototypes</a> <span class="status-tag status-build">build</span><div class="child-desc">Internal instruments not yet ventures in their own right.</div></div>
+      <div class="child"><a href="journal/index.html">Journal</a> <span class="status-tag status-online">online</span><div class="child-desc">Writing, at the pace it happens.</div></div>
     </div>
 
   </div>
@@ -69,7 +71,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'techventures/index.html';
+  var path = 'index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
