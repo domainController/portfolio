@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tech Ventures — Patrice Kenmoé</title>
+<title>Proof Infrastructure — Patrice Kenmoé</title>
 <link rel="stylesheet" href="../css/style.css?v=27">
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-Sqmfk6-AegWiDOEGVfj_S.js"></script>
@@ -19,20 +19,17 @@
       <div class="meta-left">
         <a class="home-icon" href="../index.html" title="Home">&#8962;</a>
         <span class="sep">·</span>
-        <a class="nav-back" href="../index.html">Portfolio</a>
+        <a class="nav-back" href="../index.html">Tech Ventures</a>
         <span class="sep">·</span>
         <span id="last-updated">Updated —</span>
       </div>
     </div>
 
-    <h1>Business Model Ventures</h1>
-    <div class="branch-desc">Regrounding tech business models, framed for exit &amp; ready-to-scale.</div>
+    <h1>Proof Infrastructure</h1>
+    <div class="branch-desc">Sovereignty over intellectual output.</div>
 
     <div class="children">
-      <div class="child"><a href="../network/index.html">Tech-Native Networks</a> <span class="status-tag status-build">build</span><div class="child-desc">Platforms whose core asset is produced by the platform itself.</div></div>
-      <div class="child"><a href="../marketplace/index.html">Tech-Enabled Marketplaces</a> <span class="status-tag status-build">build</span><div class="child-desc">Marketplaces that manage the transaction, not just the listing.</div></div>
-      <div class="child"><a href="../software/index.html">Agentic Software</a> <span class="status-tag status-build">build</span><div class="child-desc">Software where the agent is the product, not a feature.</div></div>
-      <div class="child"><a href="../trust/index.html">Trust Infrastructure</a> <span class="status-tag status-concept">concept</span><div class="child-desc">Proof as infrastructure.</div></div>
+      <div class="child"><a href="./proofstack/index.html">ProofStack</a> <span class="status-tag status-concept">concept</span><div class="child-desc">Cognitive notarization.</div></div>
     </div>
 
   </div>
@@ -70,7 +67,7 @@
 (function () {
   var el = document.getElementById('last-updated');
   if (!el) return;
-  var path = 'techventures/index.html';
+  var path = 'techventures/trust/index.html';
   fetch('https://api.github.com/repos/domainController/portfolio/commits?path=' + encodeURIComponent(path) + '&per_page=1')
     .then(function (r) { return r.json(); })
     .then(function (data) {
